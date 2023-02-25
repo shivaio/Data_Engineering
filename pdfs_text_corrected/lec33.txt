@@ -1,0 +1,110 @@
+lecture  five 
+welcome  to  lecture  five  of  the  course  on  deep  learning  and  so  today  we  look  at  some 
+variants of gradient descent so we will just quickly do a recap of gradient descent and 
+then  look  at  some  variants  of  it  or  some  ways  of  improving  it  which  is  momentum 
+based  gradient  descent  nesterov  of  accelerated  gradient  descent  stochastic  gradient 
+descent adagrad rmsprop and adam 
+so just to set the context so we started with this gradient descent algorithm for a single 
+sigmoid  neuron  and  then  we  saw  how  to  extend  to  network  of  neurons  with  back 
+propagation so  we realized that all we need is  the  gradients  or the partial  derivatives 
+with  respect  to  all  the  weights  and  biases  once  we  compute  that  we  can  just  use  the 
+gradient descent update rule 
+now today what we are going to see is are there better update rules which lead to faster 
+conversion or better performance in various ways so that is why we are going to look at 
+all  these different  variants  or  methods of improving on gradient descent so that is the 
+context 
+i will just quickly rush through so for most of the lecture i have borrowed ideas from 
+the videos by ryan harris on visualize back propagation and some content is  based on 
+this course by andrej karpathy and others when i talk about some tips for learning rate 
+and so on so you can just look at those also so we will just quickly rush through the 
+first two modules which we have already done 
+which  was  we  were  interested  in  learning  the  weights  and  biases  for  this  very  toy 
+network  with  just  one  input  and  one  output  and  we  started  by  doing  something  known  as 
+guesswork where we were just trying to adjust these weights and biases by hand 
+and we realized that its clearly not  good and but  we still try to  do a very  smart  guess 
+work  where  we  were  driven  by  this  loss  function  which  was  telling  us  whether  this 
+guess  the  current  guess  is  better  than  the  previous  guess  or  not  and  we  just  kept 
+following our guess work and try to reach to some solution and for this toy network it 
+was very easy to do that 
+and what we were actually doing is there is this error surface which exists which can 
+be plotted for all possible values of w comma b and what we were trying to do with this 
+guesswork is trying to  find  path  over the  error surface so that we  enter  into the better 
+regions so red is bad blue is good the darker the shade of blue the better and this of 
+course becomes intractable when you have many parameters and so on 
+so  we  wanted  to  have  a  better  way  of  navigating  the  error  surface  so  this  is  exactly 
+what we were doing with the guesswork algorithm 
+so  then  this  better  way  actually  we  realized  that  we  could  arrive  at  it  from  a  very 
+principled solution from starting from taylor series 
+and we went to this derivative where we finally came up with this rule that move in the 
+direction opposite to the gradient 
+so that is the rule that we have been sticking to since then and we also along the way 
+realize some of these things which we defined carefully which was what is what exactly 
+this  quantity  means  which  is  the  partial  derivative  with  respect  to  w  evaluated  at  a 
+particular weight comma bias configuration and because this is an iterative process you 
+are at a certain value of weight and bias and you need to change it from there 
+and we then created an algorithm out of this and when we ran this we actually derived 
+the full derivative and so on 
+and then when we finally ran this algorithm so this is where now i will slow down 
+so when we ran this algorithm so let us see what was happening here right so i will 
+just start the algorithm from the beginning 
+so we are now going to  run this code and  you tell  me something that  you observe ok 
+so  i  am  just  clicking  so  there  is  no  change  in  the  pace  at  which  i  am  clicking  this 
+right so every click of this is one time step and i am just continuously clicking this i 
+will start now do you observe something [fl] ok do you observe something 
+it  was  initially  slow  then  suddenly  picked  up  and  then  it  again  became  slow  why  did 
+this happen the slope is small why ok how many of you completely understand why 
+this slow and fast moment was there please raise your hands good so that is what we 
+will focus on now right so we will try to see this 
+so we will i hope this has been fixed ok so let us take a simple function which is f of 
+x equal to x square plus one right this is how it will look like now in these portions of the 
+curve the curve is actually very steep right and in these portions the curve is a bit gentle 
+and of course it becomes very gentle over here right all of you can see the pen marks 
+properly 
+so  now  let  us  see  what  this  means  this  steep  and  fast  and  small  so  let  us  look  at  a 
+region which is steep ok now what i am going to do is i am going to change my x by one 
+i  move  my  x  from  one  to  two  how  much  did  my  y  change  all  you  need  to  do  is  just 
+substitute in this formula right for two it evaluates to five for one it evaluates to two so when you 
+move from one to two your function changed from two to five ok so there is a large change in 
+the function for one unit change in your value of x everyone sees that 
+now let me do the same at a gentle portion of the curve i will do it here now when i 
+changed  the  x  by  one  unit  again  one  unit  right  it  is the  same  change  which  i  did  earlier  i 
+changed from zero to one how much did my y change 
+student one 
+1ok now actually what is this quantity delta y one by delta x one 
+student slope 
+it is the slope it is the derivative at that point so what are you inferring from this what 
+happens to the derivative when you are at steep slopes 
+student it is high 
+derivative  is  high  because  the  change  in  y  is  much  faster  than  the  change  in  x  what 
+happens to the derivative when you are at the gentle slopes 
+student smaller 
+smaller because the change in y is small or relatively smaller as compared to the change 
+in x or it could also be missing but just these two are relatively different is what i am 
+trying to impress upon right and so that means the derivatives at the steep slopes are 
+larger in magnitude whereas for the gentle slopes they are smaller in magnitude 
+now can  you relate it to the observation that  you had on the previous slide when  we 
+were at the plateau it was a very dash slope gentle slope what would the derivatives be 
+student small 
+small  now what  are our updates  you have w is  equal  to  w minus the derivative right 
+now the derivative is small what will happen to the updates 
+student small 
+they will be small what would happen if the derivative is large 
+student the updates would be large 
+the updates would be large therefore in the gentle areas you are moving slowly and in 
+the steep areas you are moving fast you get this picture very clearly now this is going 
+to  be  the  basis  of  a  lot  of  things  that  we  do  today  so  it  is  very  essential  to  that  you 
+understand this perfectly all of you get this properly good 
+now  now  you  might  say  that  this  was  only  that  special  point  again  and  i  always  get 
+those questions so let us see what happens if you start from a different point 
+so  now  again  the  same  gradient  descent  algorithm  i  am  going  to  run  but  instead  of 
+starting  at  this  point  which  was  my  random  initialization  i  just  happened  to  choose  a 
+very different random initialization which is here everyone sees that 
+now let us see what happens what do you expect initially fast movement because the 
+steep the slope is a bit steep now what would happen it will become slow because you 
+have  entered  a  gentle  slope  region  and  then  again  fast  right  so  and  then  again  it  will 
+become slow 
+so see in this gentle region right the changes in w are so small that all your black points 
+are actually indistinguishable from each other it is almost like a snakes body whereas in 
+these steep slopes  you can see a large  change in the w you can see  gaps between the 
+values  of  w  right  so  this  is  irrespective  of  where  you  start  from  gentle  means  slow 
+movement steep means fast movement that is the basis 

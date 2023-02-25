@@ -1,0 +1,155 @@
+so  we  will  start  so  we  were  in  the  3rd  lecture  on  cnn’s  where  we  were  looking  at 
+different visualization tools for understanding what your convolutional neural network is 
+learning and we did a bunch of things and now you move on to the next module where 
+we talk about something known as deep dream  very interestingly titled but  i am sure 
+most of you have already seen this or read about this 
+so here is the idea right so far we were seeing that if we start from a blank image then 
+we could suitably modify it by constructing an optimization problem whose parameters 
+are the pixels of the image and we can modify the image so that it starts looking like a 
+certain class of interest right but now suppose instead of starting with a blank image i 
+start with a natural image right say a sky or any image that you have in your dataset 
+i  start  with  this  and  then  i  focus  on  neurons  in  some  layer  of  the  convolutional  neural 
+network i am focusing on these neurons say any one of these neurons i am focusing on 
+and i want to change the image so that these neurons so when i say neurons i actually 
+mean only a single neuron but for illustration i will show multiple neurons so i want to 
+change the image so that  this neuron fires even  more so how would we achieve this 
+what will we do 
+so say this is  the neuron which  i want  to  fire even more  so what  is  my  optimization 
+problem first of all what are the parameters of the optimization problem 
+student 
+the pixels of the image that is clear now i want this to fire even more so what is the 
+objective function what  you are  going to  maximize lets  call this neuron as hij what 
+you are going to maximize 
+student 
+sorry 
+student no 
+no i want this neuron to fire more 
+student 
+maximize hij right i mean that is i mean why so that sort of a thing ok 
+but of course we will do something so that it is a neat differentiable thing and so on so 
+you want to maximize the activation of one such neuron hij so we could just formulate 
+the following optimization problem that  i want to maximize hij 
+two ok and of course the 
+parameters  of  the  optimization  are  the  image  pixels  and  if  i  consider  one  such  pixel  in 
+the image then i essentially need to compute this gradient 
+the gradient of the loss function which is hij 
+two with respect to this image pixel and i can 
+do it in  these two parts the lead ability of the  loss  function with  respect  to  hij and the 
+derivative of the hij with  respect  to  the image pixel  this  we have seen  a million  times 
+while doing back propagation of course  you are not  gone all the way back to  imn but 
+we  saw  last  time  that  it  is  just  one  more  term  in  the  chain  rule  and  this  again  looks 
+straightforward right the derivative of the loss function with respect to hij looks straight 
+forward so  i have a very simple way of computing the derivative of the loss function 
+with respect to any pixel of the image 
+so now i can apply gradient descent and i can update the image so i started and now 
+remember  that  the  my  original  i  mn  was  not  blank  or  random  or  zero  or  anything  it  is 
+actually the sky image so maybe it was blue or cloudy or whatever pixel that i have in 
+my original image and that pixel i am changing 
+so i have started with the sky image i have changed a bit based on this gradient update 
+rule  gradient  descent  update  rule  and  now  i  feed  it  back  to  the  network  what  will 
+happen what will happen to hij 
+student fire a bit 
+it  will  fire  a  bit  more  because  that  is  exactly  how  you  have  changed  the  image  with 
+exactly that objective function right 
+and  now  if  i  keep  doing  this  what  will  happen  so  remember  what  does  h  ij  actually 
+capture now this is where so if you understand this right you will really understand and 
+appreciate  everything  about  convolutional  neural  network  and  i  will  be  sure  that  you 
+are actually understood the details and not just these boxed architectures right so what 
+if this happens right then what does actually hij capture it captures certain 
+student patterns 
+patterns in the image right now if hij is firing that means these patterns have started 
+student 
+appearing in the image we started with a sky image 
+and  now  hij  is  firing  more  and  more  that  means  it  is  now  the  image  is  suddenly 
+becoming  more  and  more  or  containing  more  and  more  patterns  for  which  h  ij  should 
+fire does that make sense ok yeah so let us run this algorithm we will start with this 
+image and we will run this algorithm so i will run it before that i want some guesses 
+what kind of patterns do you think will start appearing here and this is deep dream is the 
+title right ok so fine 
+so let us see so i will run this algorithm so what  i am doing is  i am starting with this 
+image  and  running  exactly  what  i  showed  you  that  i  will  compute  the  gradient  with 
+respect  to  one  of  the  neurons  and  i  will  keep  updating  the  image  so  that  it  becomes 
+more and more like the patterns that i am trying to capture so lets run this and observe 
+carefully it is almost a magic trick i hope this does not disappoint what do you see 
+student 
+most of them are what 
+student 
+they  are  dreaming  so  they  are  literally  building  castles  in  the  air  right  so  what  is 
+happening  why  is  this  happening  everyone  sees  castles  right  that  is  the  first  thing 
+otherwise 
+student [laughter] 
+ok good why is this happening have you seen the disney logo the castle what does it 
+have in back background how many of you find this interesting how many think this is 
+ok  expected  ok  why  is  this  happening  think  about  training  data  think  about  what 
+would have happen or you missed the magic show so what is the convolutional neural 
+network actually trying to do 
+student 
+i will give you a hint its being over enthusiastic how many of you get that ok so here 
+is  what  is  happening  right  should  i  explain  it  or  no  i  am  not  going  to  ask  you  a  quiz 
+question i am just saying that i have some more images to show ok i will explain it first 
+so this is what is happening right 
+so  in  the  training  data  whenever  the  castle  appears  it  is  typically  has  the  sky  as  the 
+background  ok  so  now  the  convolutional  neural  network  started  drawing  these 
+correlations  so  whenever  it  sees  a  sky  it  is  trying  to  find  a  castle  somewhere  but 
+because  it  knows  that  most  of  the  times  whenever  i  see  a  sky  there  is  a  castle  in  the 
+foreground 
+so those neurons are firing a bit and then now you are trying to fire them even more and 
+more  so  that  keep  trying  to  change  the  image  till  this  castle  actually  appears  on  the 
+image how do you how many if you get this explanation please raise your hands ok 
+so let us see some more examples right so now guess what will happen here ships ok 
+again a generation which thinks of 
+student 
+a ships is ok i shouldnt comment on that 
+student birds 
+fishes 
+student birds 
+birds what else but there are also mountains 
+student 
+ice ok interesting 
+student 
+now  our  expectations  are  increase  let  me  just  run  this  and  see  what  happens  oops  oh 
+no 
+student 
+i have my final trick ok 
+student [laughter] 
+the prestige is gone ok yeah so what do you see here so actually if you go back and 
+look at it carefully right this is very interesting a lot of fish eyes actually start appearing 
+here  and  some  shapes  like  fishes  actually  start  appearing  here  go  back  and  look  at  it 
+carefully and all on the mountains and the green regions a lot of birds and animals start 
+appearing right which is again expected because in your data set  you would have seen 
+birds and animals with a green or this kind of a background right whatever you call it a 
+mix of green and brown background right 
+so  now  it  is  trying  to  find  those  things  even  though  they  do  not  exist  and  as  it  try  to 
+force it more and more it starts creating those images as you start asking to dream more 
+and  more  right  and  since  this  is  about  dreams  i  could  not  let  this  go  it  has  to  had 
+inception in that so what will happen here now 
+student 
+there is actually nothing interesting is this for my own sake that i put this unfortunately 
+nothing interesting happened with this 
+student oscars 
+wow 
+student [laughter] 
+if only but thats the point right this is so data set specific that it cant really generalize it 
+cannot dream beyond the data set actually nothing interesting happens it is just a lot of 
+these  men  are  wearing  brown  suits  and  in  the  data  set  unfortunately  all  brown  things 
+were  dogs  [laughter]  so  this  is  what  will  happen  we  will  start  seeing  dogs  appear 
+everywhere you see one here 
+student [laughter] 
+you see many here actually 
+student 
+it  is  like  a  few  more  and  this  would  have  turned  into  [laughter]  something  unpleasant 
+right so that is what is happening actually see a lot of dogs here here in many places 
+right 
+so this is its still running so what exactly is happening here the same thing that i had 
+detected  right  the  network  has  been  trained  to  detect  certain  patterns  dogs  cats  birds 
+etcetera which appear frequently in the imagenet data and with these backgrounds that i 
+am trying to do or these textures that i have in my images it starts seeing these patterns 
+even  when  they  hardly  exist  and  now  as  i  start  focusing  on  these  neurons  which  are 
+firing and try to modify the image to make them fire even more it will start producing 
+these pixels or these images in the original image right 
+so you can read this explanation which is from the google blog on this they have some 
+really some code and something on this so you can just read this explanation if a cloud 
+looks a little bit like a bird so that will make it look more like a bird this in turn will 
+make  the  network  recognize  the  bird  even  more  strongly  on  the  next  pass  and  so  forth 
+until out of nowhere a bird actually starts appearing in the image right so that is exactly 
+what is happening so this is deep dream 

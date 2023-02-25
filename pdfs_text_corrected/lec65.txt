@@ -1,0 +1,54 @@
+adding noise to the outputs 
+so now going on to the next module which is adding noise to the outputs 
+so  here  when  you  are  given  some  training  data  this  is  the  label  vector  that  you  have 
+been  given  right  where  one  of  these  elements  is  one  so  these  are  like  zero  to  nine  eight  where 
+which digit it is and in this case it happens to be digit two so that element is one right that is 
+the true training data given to you 
+so  what  you  could  do  is  actually  and  actually  what  you  try  to  do  is  minimize  this 
+quantity p i log q i where what is p i p i is the vector which was given and what is q i 
+the  predicted  probabilities  ok  so  now  when  you  try  to  add  noise  to  the  output  what 
+you actually do is you see that i do not trust the true labels they may be noisy 
+whatever data you have given to me that is one way of looking at it that i do not trust 
+it i will just say that it is noisy the other way of looking at it is that in some way i am 
+ensuring that i do not try to over fit to this label right because now my true whatever i 
+am trying to optimize let me just go to that and let us see so instead what we will do is 
+we will use soft targets 
+so this is what i mean by soft target assume that there was some epsilon noise in your 
+labels so instead of treating this as one and all 0s treat the true label as one minus epsilon 
+and divide that among the remaining nine entities right that probability mass divided among 
+the remaining nine entities 
+so now when you are trying to minimize this what is p i this soft distribution right and 
+q i is the predicted distribution so you see why this acts as a regularization why does it 
+act as a regularization what is the aim of regularization do not over fit on the training 
+data  right  to  over  fit  on  the  training  data  what  should  it  have  done  it  should  have 
+treated  only  the  correct  label  now  if  i  am  giving  it  this  information  then  i  am  not 
+allowing it to over fit on the training data right 
+because  now  with  this  distribution  this  quantity  will  not  get  minimized  when  q  i  is 
+equal to the 1hour distribution where all the masses on two do you get that so in some 
+sense we are making sure that now if it tries to over fit on the training data it will not 
+get the minimized error right so you have this corrupted the outputs of it everyone gets 
+this is ok the trainer no that is the whole point 
+student 
+no 
+so that is thing right so some of these are heuristics based so now we have started 
+with  this  whole  derivation  where  we  try  to  show  the  relations  between  trainer  error 
+tested  or  not  but  things  that  we  have  seen  some  of  these  things  right  even  whatever 
+unfortunately i tried to prove on the previous slide the weight decay thing even that is 
+only for these neat networks where you do not have any hidden layer and so on right 
+so most of these are just heuristics you are just saying that the principle is that you will 
+not allow the true training error as computed from the training data to go to zero if you do 
+that you know that you are going to over fit so try whatever you can  to avoid that ok 
+that is the idea do you agree that doing this is going in that direction 
+student 
+training data the hope is that if you do not do that then it will not under fit on the test it 
+right 
+there is no i mean i have you are you looking for a proof where i say that doing this we 
+will  ensure  that  a  training  error  does  not  go  to  zero  but  the  test  error  comes  close  to  the 
+training  error there is  no such proof  right  just a heuristic  it  is  going by the principle 
+that if i do not allow the training error to go to zero then hopefully i will over fit i will not 
+over it as much as i would have otherwise right 
+so that you can think of it as this way right so this is the curve that you are seeing it 
+this was a training curve this was your test curve you are preventing from entering this 
+region where the error is zero that means you will end up somewhere here right and you 
+know that that is a more preferred point as compared to this that is the intuition that you 
+are going right is that 

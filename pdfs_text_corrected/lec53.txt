@@ -1,0 +1,157 @@
+regularization in autoencoders 
+then  we  will  go  to  the  next  module  where  we  will  talk  about  regularization  in  auto 
+encoders and we will talk about a motivation for doing that 
+so  poor  generalization  so  why  do  we  need  a  regularization  people  have  done  the 
+machine  learning  course  or  any  equivalent  course  why  do  we  need  regularization  to 
+avoid 
+student or enable 
+or enable generalization right now in the case of an over complete auto encoder what 
+is likely overfitting is likely why is it so what does what do you mean when you see 
+generalization actually can you talk in terms of training time test time and so on 
+so generalization is essentially that your are training so remember that at training time 
+you  are  trying  to  solve  an  optimization  problem  where  you  are  looking  only  at  the 
+training data so it is quite likely that you will drive the error to zero for the training data 
+that means you have learnt perfectly everything for the training data right but now it is 
+also  possible  that  when  i  give  you  a  new  test  instance  which  you  had  not  seen  during 
+training that means you had not seen instance while doing the optimization that means 
+this instance did not contribute to your loss function 
+then it is very lightly that when i gave this instance then you would get a non zero loss or a 
+loss much higher then what you get for your training data does that make sense that is 
+what over fitting is and it leads to less generalization your model should have generalize 
+to  unseen  data  but  it  cannot  do  this  one  typical  situation  where  over  or  where 
+generalization happens is if you have a dash number of parameters now what did i ask 
+actually 
+student generalization 
+no ok if a case where a over fitting would happen is when you have a dash number of 
+parameters 
+student large number of 
+large number of parameters right now do you see why i am saying this what is there 
+on the slide an over complete auto encoder what would it have 
+student a large number 
+a large number of parameters so what could it do 
+student overfitting 
+over fitting what do we do to avoid over fitting 
+student regularization 
+regularization so that is why we need regularization i have still no told you why do we 
+need an over  complete auto  encoder ok still that  is  an random  variable  i still need to 
+decide but can this happen in an under complete auto encoder also it can right because 
+under  complete  auto  encoder  just  says  that  your  k  is  less  than  n  it  does  not  say  how 
+much less it is right so it is it is still have and depending on a data that you are trying to 
+model it could still have a large number of parameters 
+so  for  example  let  us  take  an  example  for  the  under  complete  case  suppose  you  are 
+doing image classification where you have a digit three at the center of the image ok and a 
+lot of these are white spaces so what is the dimension and suppose this is a one hundred cross 
+one hundred image what is the dimension of this image input how many if you cannot multiply 
+one hundred into one hundred 
+student ten 
+ten k right of this a lot of data is not important so my n is ten k and at least by this thing 
+that i have drawn it looks like probably only twenty percent of that is what actually captures 
+the  digit  but  now  if  i  choose  k  to  be  equal  to  one thousand  it  might  still  be  large  for  this 
+application  so  i  am  using  an  under  compete  auto  encoder  but  it  could  still  be  a 
+situation that my under complete is still having a large number of parameters all of get 
+this intuition 
+it is a very weird example but still really do you get the intuition you could have a very 
+high  dimensional  input  and  you  might  think  you  are  shrinking  it  a  lot  but  there  is  so 
+much redundancy in  your input that even that shrinking still leads to a large number of 
+parameters  and  you  could  still  over  fit  therefore  even  for  an  under  complete  auto 
+encoder you could still need over a regularization 
+so fine so that was the motivation since the over complete  case of course the model 
+can  simply  learn  to  copy  we  have  seen  that  and  that  is  why  we  need  to  introduce 
+generalization  fine  now  what  is  the  simplest  sorry  we  need  to  introduce  a 
+regularization what is the simplest regularization technique that  you know that is not 
+the simplest l two regularization 
+and you see why i say that is the simplest we can take the derivative for those of you do 
+not get it do not worry we will get to it or if you do not get to it do not worry 
+sook the simplest solution is to add the l two regularization term to the objective function 
+so this was my objective function i wanted to minimize the squared error loss i have 
+added  a  term  to  this  what  does  this  term  do what  does  it  doing  first  of  all  tell  me 
+what is this quantity theta is a 
+student all 
+all the parameters that you have right and i am assuming that they have just put it into 
+large vector i am taking the l2 norm of that vector so even you though you have those 
+matrices and just flattening them all out and putting them into a large vector called theta 
+right  so  what  is  happening  here  i  am  not  allowing  my  weights  to  shrink  or  grow 
+grow because if my weights are very large what would happen 
+student grow grow 
+this  quantity  would  grow  so  then  i  cannot  really  minimize  this  minimize  this  as 
+effectively  as  i  want  right why this makes sense how many of  you why this makes 
+sense so i am now why am i not preventing the weights to go to zero ok so we will see 
+this in more detail in the next lecture this is again a basic lecture on bias variance and 
+regularization and so on so we will try to arrive at a more reasonable answer for this 
+for now just see that i am putting some constraints and the weights 
+so  effectively  and  i  am  doing  gradient  descent  i  am  not  allowing  the  weights  to  take 
+very large values i am trying to restrict them to a certain area so i am not allowing to it 
+to  explore  the  entire  w  comma  b  plane  but  trying  to  restrict  it  to  smaller  values  of  w 
+comma v how many of you get this intuitive explanation 
+so in other words what i am trying to do is that i am not giving it in a freedom so that it 
+can completely drive the error on the training data to zero and my hope is that if i do not 
+do  this  if  i  do  not  allow  it  to  completely  memorize  a  training  data  then  it  should 
+generalize  well  on  the  test  data  is  that  intuitive  fine  ok  now  i  have  changed  the  loss 
+function again i have the square i have told you how to do it for squared error loss for 
+the cross entropy loss and so on but now i have changed the a loss function again so 
+again i need to teach you back propagation no what will change now again i need to 
+derive with respect to the last layer 
+what is the minimalistic change that is  going to  happen now just tell me this theta is 
+actually w one w two and so on right just assume all the parameters just flattened out into a 
+vector  fine  and  now  tell  me  what  is  dou  l  theta  by  dou  w  one  going  to  be  or  let  us 
+simplify things let us call this l theta and let us call this omega theta let us call this l 
+dash theta and then your l theta is the combination of these two terms so this derivative is 
+going to be a sum of two derivatives out of that one you already know what is the second 
+student two times lambda 
+two  times  lambda  w  one so  it  is  a  very  simply  change  to  your  gradient  descent  update 
+rule how many of you see that whatever update you will had just add minus two lambda 
+w one to that ok should have been two lambda w but of course you do a half here so it is 
+fine is it 
+another trick which is typically used at least in the context of auto encoders is to tie the 
+weights  of  the  encoder  and  the  decoder  how  does  that  help  what  does  tying  the 
+weights mean now i appreciate what you are trying to say so one we have doing this 
+is just say w star is equal to w transpose you will enforce that you actually have only 
+one  matrix  w  and  here  you  are  using  w  transpose  mathematically  does  that  make 
+sense all your operations go through because this is going to be n cross k and this is 
+going to be k cross n 
+so whatever effectively done  i have reduce the number of  parameters in my network 
+right i am enforcing i am forcing this upon the network that i am not going to give you 
+two sets  of weights  you just  learn the w’s in  a way  such that when  you use w transpose 
+you should be able to reconstruct this how many of you get this not many ok please 
+ask me doubts if you do not there is nothing very 
+student why is it w transpose 
+why is it w transpose because otherwise 
+student  claim that 
+how  can  you  claim  that  that  would  work  because  you  have  no  linearity’s  in  between 
+right  no  w  inverse  would  not  work  what  is  the  simplest  thing  to  do  why  would  you 
+want to compute an inverse that is an interesting question how would  you implement 
+this how would you if there are multiple paths from a weight to the output how do you 
+compute the gradient sum it across all those paths what is happening here how many 
+paths  to  there  exist  from  the  weight  to  the  output  one  is  this  direct  path  and  then  the 
+other is another this path also so you just sum it across these two paths do you get that 
+how many of you do not get that how many of you do not get that ok 
+so if this was w star you did not have a problem you could just have computed dou l 
+by dou w star and dou l by dou w now think of it as this right that you have this this is 
+one  path  w w  to  the  output  ok  and  now the gradient  is  just  going  to  be  sum  across 
+these two parts one path is the single path and the other path is the double path so it is 
+just going to be a sum across these two paths oh no no so you just have one matrix w 
+which are going to update you do not have two matrices you just have one matrix w at one 
+place  you  are  using  w  the  other  place  you  are  using  w  transpose  but  just  look  at  it 
+element wise right do not try to look at it in the terms of matrices 
+so you have n cross k elements here w one one to w n k right you have to computing the 
+partial  derivative  with  respect  to  each  of  these  and  every  time  they  are  considering  all 
+possible paths to the output and that value is getting updated right and at one place you 
+are  using  a  particular  arrangement  of  these  w’s  at  the  other  place  you  are  using  a 
+different arrangement of those w’s that so it will just remain the same right is that ok 
+student no 
+no  this  is  for  regularization  right  so  we  are  reducing  the  number  of  parameters  by 
+half 
+student 
+yes 
+student 
+no  that  i  mean  that  also  has  but  that  is  not  be  the  objective  we  are  trying  to  do 
+regularization  how  many  of  you  have  lost  at  this  point  please  ask  me  if  you  have 
+questions really i do not mind answering but if you just give me blank spaces i cannot 
+read them so this is used at quite a few places where you tie some weights right so that 
+so effectively you are saying that learn it in such a way that it works at both the places 
+and you are reducing the number of parameters so weight tying is something which is 
+very commonly used for regularization in the context of neural networks 
+so that is where we will end the motivation part and it is too very simple ways of doing 
+regularization one is the standard known trick which is to use l2 regularization and the 
+other one was something special that we saw which was tying the weights you all have a 
+lot of doubts about tying the weights 

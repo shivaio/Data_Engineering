@@ -1,0 +1,48 @@
+pca interpretation three 
+now  you  go  to  the  third  interpretation  where  we  will  try  to  say  something  about  the 
+variance 
+so we started off with the following the wish list that we wanted low covariance and we 
+wanted  high  variance  so  far  we  have  paid  attention  to  the  covariance  because 
+everything was  revolving  around this  covariance matrix in  both  the solutions but  what 
+about variance have we achieved the goal with respect to high variance 
+so let us see so what is the i’th dimension of the transformed data it is this you take 
+your data and project it onto the i’th dimension right so x hat is equal to x into pi now 
+what is the variance along this dimension how do you compute the variance  so this is 
+my projected data and let me just call it x hat i 
+so this is the i’th column after projection is that fine everyone is ok with this now for 
+this i’th column i want to compute the variance how will i do that remember that the 
+data is zero mean what is the formula actually it is going to be x hat i minus mu i into 
+x  hat  i  minus  mu  i  right  but  mu  i  is  zero  so  it  just  turns  out  to  be  the  dot  product  dot 
+product of x i hat with itself ok and of course divided by m is this fine 
+i can write this as x p i and then when i take the transpose i will get this ok now what is 
+this  quantity  this  is  exactly  the  moment  where  i  feel  like  saying  [fl]  what  is  this 
+quantity 
+student 
+no look at the circle what is x transpose x times p i 
+student 
+what is p i with respect to x transpose x 
+student eigenvector eigenvector 
+eigenvector so what is this product going to be 
+student lambda 
+lambda i p i is that fine what is p i transpose p i 
+student one 
+one ok so what is actually the variance along the i’th dimension 
+student lambda 
+what is lambda i 
+student eigenvalue 
+so what will happen if i retain the highest eigenvalues 
+student 
+i will get the highest variance dimensions right fine so all roads lead to 
+student 
+eigenvectors eigenvalues right  so andrew ng in one of his lecture says that there are 
+ten different interpretations of pca i only know three of these i do not know the remaining 
+seven maybe he was bluffing so that people like us can keep busy oh this is getting recorded 
+so  yeah  so  you  get  this  so  we  have  satisfied  everything  in  our  wish  list  variance 
+covariance and also did this detour where we saw that it actually amounts to minimizing 
+the  error  in  reconstruction  where  we  are  throwing  away  the  dimensions  along  which 
+reconstruction did not add much to our knowledge about the data so these are the three 
+different  interpretations  that  i  have  right  so  hence  we  did  the  right  thing  by  throwing 
+away  those  dimensions  which  correspond  to  the  lowest  eigenvalues  because  lowest 
+eigenvalues is nothing the lowest variance also 
+so  this  is  the  quick  summary  the  covariance  between  the  new  dimensions  you  can 
+leave actually those you can just read it later on 

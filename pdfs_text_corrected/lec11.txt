@@ -1,0 +1,154 @@
+mcculloch pitts neuron 
+let us start with module two which is about mcculloch pitts neuron 
+so as we are done this during the history lecture way back in one thousand, nine hundred and forty-three mcculloch and pitts 
+they proposed highly simplified computational model of the brain so now let us see 
+what’s the motivation we know that our brain is capable of very complex processing 
+it’s capable of taking a lot of inputs from various sources and then help us taking various 
+decisions and actions now what if you want a computer to do this we want a module 
+which is very similar to how the brain works or at least how we think the brain works 
+which takes a lot of inputs and then does some processing and helps us take a decision 
+so what they proposed is this model which will take a lot of inputs and these inputs are 
+all binary all these inputs that you see here these inputs are fed to this mcculloch pitts 
+neuron  which is an artificial neuron and it is divided into two parts  so  the first part 
+collects all the input so remember you had these dendrites which were taking all the 
+information from everywhere  so  this just collects all the information and then the 
+second part is aggregation  i  have collected a lot of information from all the sources 
+now the second function will decide what this aggregation is and based on that it will 
+take a decision whether to fire or not 
+so the output is again boolean if it’s zero then neuron does not fire if it’s one the neuron 
+fires  so  let us take a concrete example so suppose  i  am trying to make a decision 
+whether i should watch a movie or not so x1 could be is the genre of the movie thriller 
+similarly there could be another variable say xn which says is the actor matt damon 
+so these are all various such factors that i could take is the director christopher nolan 
+the music given by someone and so on so all these are probably factors which help me 
+decide whether i want to watch this movie or not and you want this neuron to help us 
+make that decision 
+so now what is happening here is these all inputs they can be either excitatory or 
+inhibitory so let me tell you what inhibitory is first so you are taking input from a lot 
+of sources now see one of these sources or one of these inputs is am i ill today am i 
+down with  fever  so  if  that input is  on irrespective  of  who the actor  director  or 
+whatever is i am not going to watch the movie right because i just cannot leave from my 
+bed so these are known as inhibitory inputs irrespective of what else is on in your input 
+features if this input is on your output is always going to be zero that means the neuron 
+is never going to fire so you could think of it as suppose my mood is not good today i 
+do not feel like getting up or  if i injured my leg or anything  right if  any of these 
+conditions is on irrespective of what the other factors are i am not going to watch the 
+movie 
+so that is an inhibitory input and excitatory input are on the other hand is not something 
+which will cause the neuron to fire on its own but it combine with all the other inputs 
+that you have seen could cause the neuron to fire and how so this is how so these are 
+all the inputs that your neuron is taking all i am going to do is i am going to take a sum 
+of these 
+i am going to take aggregation of all of these so what does this count actually give me 
+the number of inputs which are on the number of inputs which are value one that is all 
+this aggregate this is a sum of all the one's in my input 
+now this is what g does this is a very simple function is taking a sum of my inputs 
+now the function y takes this as the input that means it takes this sum as the input and 
+if the sum is greater than a certain threshold then it fires  if the sum is less than the 
+certain threshold then it does not fire so again see what is happening here is it is same 
+as now if you depend on the actor director and genre and so on and you fine at least 
+two of these three conditions are satisfied at least i am happy with the actor and the 
+director even though the genre is not something that i care about 
+i will watch the movie or you might be a very niche go movie watcher who only goes to 
+a movie if the actor matches your requirement the director matches your requirement 
+and the genre and the music and everything matches your requirement  so  you are 
+threshold in that case it should be high so this is how it is going to help you make 
+decisions now again a very simplified model and this is theta is called the thresholding 
+parameter that is the value which decides whether the neuron is going to fire or not and 
+this over all thing is known as the thresholding logic so this is what a mcculloch pitts 
+neuron looks like 
+now let us implement some boolean functions using this mp neuron so from now on i 
+will just called it mp neuron and we will try to implement some boolean functions using 
+it so now why are we interested in boolean functions it is because we have overly 
+simplified the way we take decisions we are saying that the way we take decisions is we 
+take a lot of boolean inputs is actor matt damon and genre thriller and so on and based 
+on that we produce a boolean output 
+so an input is all booleans so we have x1 to xn which are all booleans and your output 
+is also boolean so that is a boolean function that you are trying to learn from x to y is 
+that clear you have x just happens to contain n different variables here ok and lot of 
+decision problems you could cast in this framework you can just imagine right whether 
+to come for lecture  today or not  again is you could cast in it depending on various 
+boolean inputs 
+this is a very concise representation of the mcculloch pitts neuron what it says is it 
+takes a few boolean inputs and it has certain threshold if the sum of these inputs crosses 
+this  threshold then the neuron will fire otherwise it will not fire that is the simple 
+representation of the m p neuron now suppose i am trying to learn the and function 
+when would the and function fire 
+all the inputs are on so what should be the value of the threshold in this case 
+three everyone agrees what about the or function 
+one let us see a few more this function so let me tell you what this function is so 
+you see this circle here so that means that this input is an inhibitory input if that is on 
+then the neuron is not going to fire that is how i am representing it so now tell me 
+what should the threshold for this be it is not so hard 
+see if x2 is on it is not going to fire so you have four rows zero zero zero one one zero one one so two of 
+those are ruled out and it is not going to fire now out of the remaining two when do 
+you wanted to fire 
+so what should be the threshold 
+one  now what about this function  zero or three three  is not even a valid option  zero  everyone 
+agrees to that and what about this zero so you get this so now if you have a certain 
+number of input variables and the function that you are trying to model the decision that 
+you are trying to make is a boolean function then you could represent using these mp 
+neurons whether all boolean functions can be represented in this way or not that is still 
+not clear i am just showed you some good examples we will come to the bad examples 
+later on here is the question 
+so can any boolean function be represented using a mcculloch pitts neuron so before 
+answering this question we will see a bit of a geometric interpretation of what mp 
+neuron is actually trying to do 
+so  let us take or function where you have two inputs x1 and x2 and this neuron is 
+going to fire 
+if x1 plus x2 is greater than equal to one that is clear that is how the definition is now 
+if you look at this x1 plus x2 greater than equal to one now let us ignore the greater than 
+part first so we will just talk about x1 plus x2 equal to one what is this equation of a 
+line everyone gets that ok now in this case since we are dealing with boolean inputs 
+and we have two access x1 and x2 how many input points can we have four right zero zero zero one 
+one zero one one 
+so you could have these four points so just note that this is an x1 and x2 axis but only 
+four inputs are valid here this is not a real numbered access this is only boolean inputs 
+possible here 
+now what is the line x1 plus x2 equal to one tell you which line is that 
+so one which passes through one zero here and zero one here this is that line now what do we 
+want that for all those inputs for which the output is actually one they should lie on the line 
+or on the positive side on the line and all those inputs for which the output is zero they 
+should lie on the other side of the line is that happening so what is actually mp in unit 
+actually learning linear decision boundary it just what it is doing in effect is actually it is 
+dividing the input points into two halves such that all the points lying on that line right 
+are sorry all the points for which the input should be zero lie below this line and all the 
+points for which the output should be one sorry in both cases it should have been output 
+so let me just repeat it all the points for which the output is zero lie below this line and all 
+the points for which the output is one either lie on this line or above the line is that fine 
+and so let us convince ourselves about this  even it is not already clear from the 
+equation for how many of you it is already cleared from the equation that this is exactly 
+what it does for a large number of periods but still we will just do a few examples and 
+move ahead 
+now for the and function what is the decision boundary it is x1 plus x2 no that is 
+the decision boundary 
+equal to two so again i have these four points only these four points are possible now 
+where is my decision line 
+passing through that one one and intercepting this somewhere around two zero and this around zero 
+two so that is the line which i am interested in now again do you see that our condition 
+is satisfied that all the inputs for which we want the output to be one are on or above the 
+line and all the inputs for which we want the output to be zero or below the line now what 
+about this function what is the threshold 
+zero so what would the line be x1 plus x2 equal to zero which passes through the origin 
+right and again all the points are either on or above the line so this part we are going to 
+call as a positive half space and this we are going to call as the negative half space 
+now what if we have more than two inputs in a two dimensional case when we just 
+had x1 and x2 we are trying to find a separating line in the three dimension case what 
+will we do 
+plane in the higher dimensions 
+hyper plane so this is now your three dimensional case again there are three axis here 
+but not all points are possible how many points are possible eight points and which is the 
+function that we are trying to implement 
+or  so for these eight out of these eight points for how many is the output one 
+seven and for one it is zero so what is the kind of plane that we are looking at we are looking 
+for a plane such that seven points lie on or above it and one point lies below it and which is that 
+point 
+zero so now what is the equation of that hyper plane x one plus x two plus x three is equal to one 
+you see this so you see that all the seven points are visible but the points zero zero is not 
+visible because it is on the other side of the plane so this is doable in three dimensions 
+also and again in higher dimensions also right we could find in hyper plane 
+so the story so far is that single mcculloch pitts neuron can be used to represent 
+boolean functions which are linearly separable so a linearly separable function is such 
+that there exists a line such that for that function whichever points produce an output of one 
+lie on one side of the line and whichever points produce an output zero lie on the other side 
+of the line 

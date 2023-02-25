@@ -1,0 +1,344 @@
+learning parameter gradient descent 
+in this module we will talk about gradient descent 
+so  what  we  want  to  do  is  find  a  more  efficient  and  principled  way  of  navigating  the 
+error surface 
+and the goal is to find a better way of doing this 
+so let us start by setting up things we will define some notations and some parameters 
+and so on and from there on we will try to come to the algorithm ok so my parameters 
+in this case were w comma b what  i am going to do is  i am  going to put them into an 
+array or a vector right and call that vector as theta so theta is the vector of parameters 
+and theta belongs to r r what r2 right there are two parameters here so it is a two 
+dimensional vector 
+now what i want is again what i will do is i do not know what the value of w comma b 
+is so i started with a random guess so that is always going to be my starting point i 
+will always start with a random guess and from there on move on to good values now 
+once i have started with a random  guess i want  you to tell me some changes that  i can 
+make  to  w  and  b  so  that  i  land  up  in  better  situations  right  that  means  i  land  up  in 
+situations where the error is less is that fine 
+so that change in w and b i am going to call it as delta w and delta b and that again is a 
+vector which is storing these two values so this is the picture right i want to take theta 
+and i want to add a small change to it so this is my theta this vector is actually theta 
+right this is the theta vector i want to add a small change to it which is again a vector 
+this  is  delta  w  comma  delta  b  such  that  i  will  get  a  new  value  for  theta  new  so  theta 
+new would be what actually theta new is equal to w new comma b new is that fine that 
+is what theta new means 
+now what has happened is actually when i have added delta theta to theta i have moved 
+in the direction of delta theta i have come from here to here now i am going to be a bit 
+conservative and i am going to say that while i am ok in moving in the direction of delta 
+theta  i do not want  to  make a giant stride what  i  will do is  i will just move by  a small 
+quantity in that direction 
+so this delta theta is this large magnitude so all i am saying is that i will not i move in 
+that direction i am fine with that but i do not want to make a giant stride i will just take 
+a small stride in that direction so eta is a scalar which actually scales down delta theta 
+so  now  if  i  am  going  to  take  only  a  small  step  in  that  direction  instead  of  this  large 
+change i will just get a smaller change theta new so red the red vector is actually going 
+to be the movement which i make that is the new value of theta so theta new is equal 
+to the original theta plus a small step in the direction of delta theta 
+so  everything  is  clear  you  are  done  we  are  done  with  gradient  descent  what  is 
+missing what is delta theta right i am telling you i want to move in a certain direction 
+but what is the right delta theta to use how many of you know the answer to this what 
+is the answer move in the direction 
+opposite  to  the  gradient  why  where  does  that  answer  come  from  not  the  ml  class 
+folks  how  many  of  you  know  why  we  need  to  move  in  the  direction  opposite  to  the 
+gradient why ok we will see ok so that is the question that we need to answer if i 
+give  you  an  answer  to  this  question  then  what  is  it  i  am  doing  i  am  giving  you  a 
+principled way such that you start from a random value of theta move in certain direction 
+and  you  will  ensure  that  your  loss  has  decreased  and  then  you  have  to  keep  doing  this 
+right so that is the set up and the answer to this comes from taylor series 
+so now what i am going to do is i am going to give you the right direction delta theta 
+fine and for ease of notation i am going to call it as u so remember what this delta theta 
+is what is it change in w comma change in b so it is a vector in r2 remember that 
+ok i am just going to call it as u now this is what taylor series tells me what it tells me 
+is that if i am at a certain value of theta and if i want to change that value a bit then what 
+is going to be the new value of the loss function or any function for that point and this is 
+the formula for that ok now what is let us see what are some quantities here what is 
+this quantity scalar vector matrix 
+scalar this 
+vector we just did that right it is a vector what about this 
+what is this quantity actually 
+gradient what is the gradient what is the gradient no you are telling me how to use 
+the gradient i am asking you what is the gradient you are giving me absolutely correct 
+and absolutely useless definitions 
+that is a very good answer ok so now what i am going to do is i am going to digress a 
+bit  and  i  am  going  to  tell  you  something  about  derivatives  partial  derivatives  and 
+gradients and then we will come back to this ok so now suppose you have a function l 
+this  is  l  in  my  handwriting  this  function  of  w  and  say  this  function  is  w  square  ok 
+now what is what is this called a derivative of the function with respect to w this is 
+the  derivative  and  you  know  this  is  2w  ok  now  suppose  i  have  a  function  b  square 
+now what is this quantity 
+is a partial derivative of the function with respect to w why partial 
+because it is considering b as a constant and taking the derivative with respect to only 
+one of the variables right this happens to be and what is this quantity oh sorry so is w 
+comma b right this is the partial derivative with respect to b ok 
+now can you tell me what is a gradient the gradient is nothing but it is just these two 
+partial  derivatives  taken  together  and  put  into  a  vector  right  now  suppose  i  had  a 
+function  which  depended  on  hundred  variables  what  would  the  gradient  be  size  of  the 
+gradient 
+r100 it would lie it would be a hundred dimensional case ok so now can you tell me 
+with this evidence in knowledge but this primer can you tell me what this is this is a 
+gradient vector 
+which is right there in front of you in a red ink 
+this is what it is right fine everyone ok with that so actually the right way to write 
+this and probably we need to correct in the slides would be theta so remember that theta 
+is equal to w comma b so this is the derivative of l theta with respect to theta which is 
+nothing  but  the  collection  of  the  partial  derivatives  with  respect  to  the  components  of 
+theta  is  it  fine  so  everybody  understands  what  is  a  derivative  partial  derivative  and 
+gradient ok fine so now the gradient is a vector in this case fine ok 
+so now what is this quantity it is a 
+no it is what is this 
+the dot product between these two vectors ok fine now one last thing and many more 
+things actually so what is this square of the gradient 
+this  is  not  the  square  of  the  gradient  what  is  this  hessian  fine  everyone  knows  the 
+textbook what said can you tell me what does it is a scalar vector matrix 
+matrix what is the size of this matrix 
+two by two what are the elements of this matrix 
+second order partial derivatives right so it is the gradient of the gradient right is that 
+fine so what does that mean you had this gradient this is the gradient now you want 
+to  take  the  gradient  of  this  again  with  respect  to  w  comma  b  right  that  is  what  this 
+means  it  is  a  gradient  of  the  gradient  right  so  what  that  means  is  we  will  take  the 
+gradient  of  the  first  quantity  again  with  respect  to  w  so  that  would  be  dou  square  by 
+dou w what would this quantity be 
+what would this be 
+is that fine and you can fill in this quantity right so now it is clear what the hessian 
+is  it  is  the  derivative  of  the  derivative  and  it  would  be  a  matrix  ok  is  that  clear  to 
+everyone  so  i  have  a  habit  of  doing  a  lot  of  these  basic  stuff  i  know  that  the  top  twenty 
+percent of the class gets really pissed off when i do this but as a philosophy i teach for 
+the bottom thirty percent of the class 
+so i do not mind that and the other thing is i use slides so i do not write a lot of math 
+so i can cover a lot of material despite doing all this basic stuff right so i am going to 
+stick to that what i am trying to say is that write this in the feedback that you do not like 
+this basic stuff but  it is just that  i am  going to  ignore that feedback  i mean just being 
+honest right so i like doing this because it just takes me ten minutes to do this and for 
+the  rest  of  the  class  i  do  not  have  to  look  at  blank  faces  afterwards  right  so  it  really 
+helps me a lot fine so is that all clear all the quantities here are clear 
+so now so this is the gradient this is the hessian and now eta remember what did we 
+say about eta 
+it is a small quantity and what do we do with small quantities always in maths 
+we ignore them so once we take their powers you are always ignore them whether it 
+is correct or not who cares i mean someone has told it it is good to ignore so we will 
+ignore it right so now all these higher order terms we can ignore right that means i 
+will only consider this fine 
+so let us again look at what the setup is the setup is that i have some value of theta i 
+want to move away from that value such that what do you say about this loss compared 
+to  this  loss  i  will  call  this  the  new  loss  and  i  will  call  this  the  old  loss  what  is  the 
+relation between them 
+the new loss should be 
+less than so if i or someone gives you a u i am not getting ok someone gives you this u 
+then what does what when would you say it is a good u 
+if this condition holds everyone agrees with that right so i have found a good direction 
+to move in if this condition holds now this condition actually implies that this condition 
+should  hold  right  this  is  l  theta  plus  eta  u  right  so  if  i  just  do  minus  here  i  get  this 
+right  so  this  quantity  which  should  be  less  than  equal  to  zero  implies  that  this  quantity 
+should be less than equal to zero and remember eta is a positive constant ok why cannot it 
+be negative 
+why because you wanted to take a small step in that direction if we make it negative 
+we will do what 
+we will reverse the direction we do not want that as of now right so eta is that for a 
+positive  quantity  so  that  means  this  quantity  should  be  less  than  zero  is  it  fine  with 
+everyone 
+so so far after all this story what we are left with is this condition should hold for the u 
+that i am trying to choose so that i can be sure that i have chosen the correct u right and 
+the  definition  of  correct  u  is  that  the  loss  at  the  previous  step  the  loss  of  the  new  step 
+should  be  less  than  the  loss  at  the  previous  step  is  that  fine  so that  is  what  we  have 
+arrived at 
+now what is the range of this quantity that is why i asked you what is this this is a 
+dot product i will leave it at that so now you tell me what is the range of this people 
+from the ml class cannot answer did i cover this in the ml class no ok fine what 
+is the range of this not a very hard question 
+plus or minus 
+student  mod of u 
+very good how many of you understood that answer he said plus or minus mod of u 
+into mod of gradient the gradient vector right why is it so easy 
+let  beta  be  the  angle  between  u  t  and  this  between  sorry  it  should  not  be  u  transpose 
+between u and the gradient then we know that this condition holds cos beta is given by 
+this quantity and we know that cos beta lies between minus  one and one ok now if  i just 
+say that this quantity is equal to k then i can just get this condition 
+now let us see what are we trying to do we are trying to find a u such that this quantity 
+is  negative we are trying to  find the use  such that  this quantity is  negative now  i just 
+stop at negative we would like to make it as negative as possible right because the more 
+than  negative  it  is  the  more  will  be  the  decrease  in  my  loss  function  right  because  this 
+quantity tell me tells me how much my loss decreases so the more the negative it is the 
+more the loss will decrease so let me make it as negative as possible 
+now what  is  that value when will that happen when  alpha is  you know the answer 
+you started with the answer 
+student 
+no what is that one phrase which you have marked up move in the direction 
+student 
+ok now think of that 
+student 
+what would happen when this is the most negative it can be what would the angle be 
+student 
+one hundred and eighty  degrees  how  many  of  you  get  that  because  when  this  is  the  most  negative  that 
+means the cos beta is actually minus one and when is cos beta minus one when the angle is 
+one hundred and eighty degrees that means u should be such that it is at one hundred and eighty degrees to the gradient hence 
+repeat the phrase 
+student 
+move  in  a  direction  opposite  to  the  gradient  is  that  fine  everyone  gets  it  now  why 
+you need to move in the direction opposite to the gradient 
+so  this  is  what  the  gradient  descent  rule  is  you  are  at  a  particular  value  of  theta  you 
+want to move to a new value of theta such that your new loss is less than the current loss 
+what  gradient  descent  tells  you  is  move  in  a  direction  opposite  to  the  gradient  so  are 
+you  fine  with  this  now  with  gradients  i  have  come  to  scalars  but  i  will  just  explain 
+what i have written here 
+so this quantity is nothing but theta t plus one right is equal to theta t right and what is 
+this right so the new theta is equal to the current theta minus why because we want to 
+move in the direction opposite so it is basically theta t plus one is equal to theta t plus eta 
+into a negative direction right  the direction negative to the gradient  hence  you  get  that 
+minus one 
+now what are these quantities let me just take that carefully so this quantity is gradient 
+of  the  loss  function  with  respect  to  w  sorry  the  partial  derivative  of  the  loss  function 
+with respect to w evaluated at w is equal to wt and b equal to bt what does that mean 
+so  remember  when  you  are  dealing  with  derivatives  as  always  a  formula  and  then  a 
+value add that at a particular value so what is the derivative of x square with respect to 
+what does not matter 2x 
+so derivative of x square with respect to x is 2x what is the value of this derivative at x 
+equal to one two right so you see the difference you have a formula which is 2x now you 
+substitute in a particular value and you get the value at that particular value ok so that 
+is what this means because you are already at w t comma b t now you cannot subtract a 
+formula from here right you have to put subtract a value so you know what the formula 
+is you plug in the values of wt comma bt get that value and subtract it from your current 
+wt is that fine so everyone completely understands what is the gradient descent rule is 
+fine 
+so now we have a more principled way of moving in the w b plane what do i mean by 
+that remember this was our w b plane this was our error this is  something what  our 
+error  surface  looked  like  it  was  this  flying  carpet  i  was  randomly  moving  on  the  w  b 
+plane earlier right and trying to guess what the errors or trying to compute the error and 
+then settle for a particular value now i have a more principled way of moving in the w 
+b plane i know what is the next step based on the current step i just need to move in the 
+direction opposite to the gradient 
+so let us try to so this is what it tells me for one step but i need to keep doing this till 
+what is that golden word 
+student 
+convergence right i have to keep doing this till convergence ok 
+so let us create an algorithm out of this rule i will start a time step zero i will do this for 
+some max iterations instead of saying till convergence i will do it for some iterations at 
+every iteration i will this is how i will update my weights i will take the current weights 
+subtract the gradient from that and get the new weights i mean not subtract the gradient 
+subtract  this  quantity  and  get  the  new  weights  so  now  is  everything  clear  is  the 
+gradient descent algorithm done can you do it for the toy network which i had is there 
+something still missing 
+student 
+eta  is  fine  we  will  take  a  small  value  one  or  something  actually  not  told  you  what 
+these  are  right  i  means  to  write  it  you  know  these  are  derivatives  but  what  is  this 
+actually ok so let us see that now so that is what we are going to see next 
+so  now  we  want  to  find  out  we  are  in  the  car  quest  is  for  this  delta  sorry  the  partial 
+derivative  with  respect  to  w  and  partial  derivative  with  respect  to  b  that  is  the  thing 
+which  we  had  plugged  in  the  formula  but  we  do  not  know  what  that  is  right  so  we 
+need to find that out so now for simplicity let  us assume there is only one point of it 
+which is x comma y so earlier we had this x1 y1 and x2 y2 now i am just assuming 
+there is only one point which is x comma y 
+so now what is a loss function earlier i had this summation over i equal to one to two but i 
+have just one x comma y so i will just use that this is what my loss function and what 
+are the quantities that i am interested in finding one is this the partial derivative of this 
+loss function with respect to w 
+so let us do this lets actually derive this so this is what it looks like now you have to 
+help me in deriving this what will i do first 
+student 
+tell me the next step 
+student 
+two into f of x minus y and push the gradient inside of course the derivative is that fine 
+anyone who has a problem with this next y is a constant this is the true i remember 
+so that is why this is a constant is not the predicted y 
+now this quantity what is f of x actually 
+student 
+sigmoid function right  so  i will just write it now this is  the quantity that  i need the 
+derivative for so  i will just write it here what is the next  step this  is of the form  one 
+over x so what will it be 
+student 
+minus one over x square and then you put the derivative and say it is that fine now the 
+quantity inside is of the form e raise to x so the derivative is e raise to x and you push it 
+inside is this fine so this on slide should come both these are coming together so is 
+that fine now what is this actually 
+student f of x 
+f of x what is this 
+student 
+this is actually one minus f of x just take my word for it for now you can go home and 
+work it out right so this actually if you do one minus this and do some trickery you will 
+get to this quantity right so what you get is a very simple formula f of x into one minus f 
+of x into x i am going to substitute back here so now i exactly know what the partial 
+derivative of w is 
+so  there  is  only  one  point  then  this  is  what  the  partial  derivative  with  respect  to  w  is 
+going to  be of the loss function right  if there were two points what  would  happen  if 
+there  were  two  points  my  loss  function  was  this  is  a  sum  of  two  elements  and  i  am 
+taking some derivative of a sum i will get a sum of derivatives right 
+so  how  many  of  you  will  not  cringe  if  i  say  this  is  the  answer  anyone  who  has  a 
+problem with this you get this how many if you do not get this how many of you get 
+this  good  fine  now  can  you  do  a  similar  thing  for  b  can  you  tell  me  the  answer 
+without actually deriving it 
+student 
+i can perfectly understand what you are saying 
+student 
+x would not be there right because this last x that  you see here came because w into x 
+was there but b we are not multiplying x so what we will get is this you can go home 
+and check 
+so  now  we  have  everything  that  we  need  now  we  actually  have  everything  that  we 
+need  ok  no  more  trick  questions  so  now  we  will  write  code  to  do  this  ok  we  will 
+actually implement the code and see what happens so these are the two data points that 
+i had five comma two and twenty-five comma nine the first thing which i need is something which 
+can implement the sigmoid function so this is one over one plus e raise to minus w x plus 
+b is that fine 
+now i need something which can compute the error so this is summation of half into f 
+of x minus y the whole square i go over all the data points summation of half into f of x 
+minus y the whole square is that fine now what i will do is i will take this try out a lot 
+of values of w comma b and plot the error surface ok but this is only for illustration in 
+practice i will not do this we just know that this error surface exist i just want to verify 
+that  whatever  algorithm  i  come  up  with  does  not  efficient  navigation  of  this  error 
+surface that is what i want to verify that is why i am plotting this 
+next  time  you  need  a  function  which  can  compute  grad  of  b  we  just  saw  this  on  the 
+previous  slide  this  is  f  of  x  minus  y  into  f  of  x  into  one  minus  f  of  x  right  simple 
+everyone  is  fine  with  this  then  i  need  a  function  which  can  compute  the  grad  with 
+respect to w same thing except that i have this x at the end so i have all the ingredients 
+in place now what would i do what is the next thing that i will write the main loop 
+right i will write the main loop now 
+so this is what the main loop look like looks like i start with some random initialize for 
+w comma b remember that our initial theta which is composed of w comma b is going 
+to be some random guess so i started with the random guess which is minus two comma 
+two i have chosen eta to be one that means i am not going to be conservative i am going to 
+move  in  the  direction  of  the  gradient  if  i  chosen  at  one  and  one  i  would  have  been 
+conservative  and  i  am  going  to  run  this  till  one thousand  epochs  which  is  my  notion  of 
+conversions 
+now  in  each  epoch  what  i  am  doing  is  for  every  data  point  so  remember  that  this 
+gradient with respect to w was a summation of i equal to one to two and that formula right 
+so  for  each  data  point  i  am  computing  the  grad  adding  it  right  so  that  is  the 
+summation part similar thing i am doing for b once i have computed the gradient which 
+is the summation quantity i am just moving in the direction of the gradient is that fine 
+everyone understands the code it is simple python code and it does exactly what i had 
+shown in the pseudo code 
+now  let  us  execute  this  code  and  see  what  happens  so  i  will  start  with  my  random 
+point  which  was  minus  two  comma  two  and  now  i  am  going  to  actually  run  this  code  and 
+keep  plotting  what  happens  on  the  figure  so  just  pay  attention  fine  so  now  here  is 
+how the code is running see what is happening what is happening actually so at every 
+point  i am  changing my w so that  i  am  moving in  the direction of the  gradient  i  keep 
+doing that as i keep doing that my error keeps decreasing why because that is exactly 
+what we got from taylor series that if we do this the error is bound to decrease right and 
+then we keep doing this and after a few iterations we will actually reach almost the value 
+which  is  the  zero  error  right  and  this  same  thing  would  happen  if  you  start  from 
+anywhere  else  it  will  keep  moving  in  a  principled  way  and  reach  the  low  error 
+configuration 
+now some of you would say that maybe this was the shortest path right it could have 
+just  rolled  over  from  there  but  that  is  not  a  principled  way  of  doing  that  right  we  the 
+principled way of doing it is to move in the direction of the gradient you might take a 
+longer route but reach  your destination taking shortcuts is always risky in life as well 
+as here so so do not please this is an advice for error assignments and so on so this is 
+the  more  principled  way  and  we  will  reach  the  solution  so  that  is  what  is  happening 
+here so we have actually derived everything that we needed and this is all you need to 
+write for gradient descent for this toy example that you had 
+now  answer  this  question  now  suppose  i  had  hundred  such  variables  instead  of  w 
+comma  b  i  had  hundred  such  variables  what  would  happen  you  do  not  have  to 
+visualize it 
+student 
+in terms of the code 
+student 
+i will just need to have these functions for all of those i will have to calculate it by hand 
+but  still  doable  it  is  just  a  lot  of  tedious  work  of  course  later  on  we  will  see  a  more 
+refined way of doing this where we can do a lot of these computations at one go so we 
+can directly start operating in vectors as opposed to scalars here  i am treating w and b 
+separately here i could have actually had a function which tells me grad of theta directly 
+right  and  later  on  we  will  see  something  like  this  ok  but  for  now  the  code  is  still 
+running here 
+now  it  suffices  so  later  on  we  will  see  gradient  descent  in  more  detail  in  the  course 
+and we will also see a lot of variants of gradient descent but for now it suffices that we 
+have  an  algorithm  which  can  learn  the  parameters  of  a  sigmoid  neuron  so  just  as  we 
+had the perceptron learning algorithm we have the gradient descent  learning algorithm 
+which  can  help  us  learn  the  parameters  of  the  sigmoid  neurons  starting  from  random 
+values and it gives a principled approach for doing that 

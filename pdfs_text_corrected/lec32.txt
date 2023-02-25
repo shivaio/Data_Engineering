@@ -1,0 +1,460 @@
+information content entropy & cross entropy 
+so for the next module we need something known as cross entropy so we will just try 
+to make some develop some intuitions for cross entropy and get to the formula for that 
+and then i will tell you how it relates to the problems that we deal with ok so first let 
+us start with something simple that what is it that we are trying to do ok so with that i 
+will give you an example and i will ask you a few questions and then from there we will 
+slightly try  to go towards  cross  entropy so  now suppose you have an  urn which  has 
+thousands of balls and these balls are of three different colors which are red black and 
+white 
+so you have an urn which has three different types of and there are many such balls 
+which you have put in it and since you have put in it you know how many red balls are 
+there how many blue balls are there and how many white balls are there so for you it 
+is very easy to compute the probability of each of these things 
+so that is say our probability is twenty-five thirty-five and four now talking more formally what is 
+happening here is that you have a random variable x which can take on the values red 
+blue or white right and this is the probability of each of those or the random variable x 
+taking any of these values ok so this is the setup now i am your friend and you tell me 
+that you can peep into the zone you cannot actually count take out all the balls and count 
+them and estimate the probability we can just take a look into this and try to give me an 
+estimate of what these actually what are these probability values that means what is the 
+value 
+so what is the probability that x is equal to red or x equal to white or x equal to blue 
+so i just take a look at it turn it around a bit and try to get some feel ok i see a lot of 
+red balls but a fewer blue balls or white balls and so on and based on that i make my 
+best estimate right so i will just say that maybe these probabilities are thirty-five forty-five and 
+two right so this is actually the true distribution i will call it as p right because this is 
+the correct one and what i have estimated i will call it as q 
+and remember now p has you can think of p as a vector which has these three values p one p 
+two p three because there are three possible events here and similarly q has three values q one q two and 
+q three so in this case i clearly know that i am wrong or when i give you these values you 
+know that you are wrong so you tell me that whatever you have estimated is wrong 
+then i obviously ask you tell me how wrong was i so how would you give me that 
+number that is the thing that we are interested in 
+so the general problem that we are interested in is that there is a true probability 
+distribution and there is an estimated probability distribution and we want to find out 
+how bad was the estimation now can you tell me a simple way of computing this it 
+may not be correct but still it makes sense 
+student squared error 
+you can just take the squared error so what you are essentially telling me is that you 
+could just treat these two as any other vector right and you could take the squared error 
+difference between these quantities  so what you are telling me is this where i goes 
+from one to three ok so this is one valid way of doing this but then we are ignoring the fact 
+that this is a distribution and hence it has certain properties that the sum of the elements 
+is one and so on all of them are positive and things like that so we are ignoring those kind 
+of things we are completely ignoring the fact that we are not dealing with a normal 
+vector but a spatial vector which happens to be a distribution so now we want to find 
+out a more principled way of computing the difference between two distributions and in 
+practice why are we interested in this because we will always have a true distribution 
+and a predicted distribution so that is what we want to do we have some way of 
+computing it but you want a better way of computing it 
+now let me make a case for why do we care about such differences right so let me take 
+a simple case of a classification  problem  and to motivate that i will start from a 
+different example and then i will come to the classification problem suppose there is a 
+tournament going on and there were four teams which leads the semifinals let us call them 
+a b c d ok now you were following the tournament up to the semifinals and after 
+that you didn’t watch the tournament and you do not know who eventually won well 
+the tournament is over and someone has won it 
+i actually watched the tournament and i know that b has won it now can i express this 
+in terms of a probability distribution right so first let us look at what is the random 
+variable here what is a random variable here the team which won right so that is my 
+random variable and it can take one of these four values 
+now i know that team b won because i saw the tournament and i have seen that they 
+won so now how can i write this as a distribution what is the distribution comprised 
+of it comprised of these probabilities assigned to each of these events and there are four 
+such events here so how do i write this distribution so what you are telling me is i 
+could write it as zero one zero zero 
+so essentially they are telling me that all the probability mass is focused on one of these 
+outcomes because that is the certain outcome that is already happened no one can 
+change it so that is the outcome for this tournament so i know that the probability of 
+that even is event is one and everything else is zero so in other words the probability that the 
+random variable x takes on the value b is one and everything else is zero 
+so what i am trying to tell you is that even for a certain event you could still write it in 
+terms of a distribution where all the mass is focused on that event now again i will 
+bring the same setup that i did not watch the tournament after the semifinals so now 
+you   ask  me  give  me  your   prediction   what  which   team   would   win  or  this   is   the 
+prediction which i made before just after the semifinals or just before the semifinals that 
+i think one of these teams is going to win the tournament and the chance of each of them 
+winning is something like this so i know the teams i follow this sport and i probably 
+know that ok b has a very strong team and they have a very good record in the past few 
+months and so on so maybe they have a higher probability of winning so these are the 
+numbers which i assign 
+now again i have made an estimate was my estimate perfect when would it have been 
+perfect if i had predicted with certainty won that b is going to win but i was not willing 
+to bet everything on b so i said there is a very high chance it will win but there is still 
+a chance that there could be some surprises now how wrong was i now again tell me 
+can you tell me what is p and what is q here this is the true distribution and this is my 
+predicted distribution and what am i interested in again the difference between them 
+how wrong did i go and what again what is a simple way of doing this again square 
+errors so again this is what my formula would look like 
+so this is fine in this toy case but why do we care about in real life examples that we 
+are going to deal with in machine learning so in watching learning will deal with a lot 
+of   problems   which   are  classification   problems  and   in   classification   problems   you 
+would again have this setup where you have a label the good thing of the label as a 
+random variable and it could take off one of many values so i will again assume that it 
+could take suppose you are trying to take a picture of fruits and you are trying to 
+classify them 
+and i could again think that i have four fruits say apple banana cherry and dragon fruit 
+ok and this random variable can take one of these four values depending on the image that 
+i am seeing ok now i have been given some training data so for every training data i 
+have been given an image and i have been given the correct label so for that training 
+data what is this distribution suppose i have been given the image of a banana what 
+does this distribution look like zero one zero zero right again i have seen it so i know it is 
+certainly a banana 
+so i do not have any confusion all the probability mass is focused on that now the same 
+image we are going to show to one of our models ok and it is going to make a 
+prediction and will again ask it to give us a distribution the model will give us values 
+perhaps like this ok so this is the models prediction again the model has given us a 
+distribution and we have a true distribution and we are interested in knowing how wrong 
+the model was so that 
+student correct the 
+we can correct the parameters of the model so this is our dash function loss function 
+right so a loss function is some notion of difference between p and q right and so far 
+we have been dealing with a very simplistic notion of this difference which is just the 
+squared error loss ok and we want to do something better than this right so what i 
+have told you is that you could always have a true distribution always have a predicted 
+distribution and you would be interested in finding the difference between them that is 
+the one first part the second part is that even when you are given something with 
+certainty you could still write it as a distribution such that all the mass is focused on that 
+event which was which has happened right which was the label was banana in this case 
+and then you could still predict this from your model and now you are interested in 
+knowing how wrong you are model wind because that is the loss function that you will 
+use and then you will try to update your parameters with respect to this loss function 
+means that is the setup that we are interested in so that is so i made a case for why we 
+need to find differences between two distributions how to do it in a more principled 
+manner we have not seen that yet we will get to that ok so before i get that i also need 
+to tell you something about expectations so let us written to as sports example where 
+there were four teams and say based on pundits and that sport they have said that these are 
+the probabilities of winning 
+and now you are into betting and you bet place your bets on these teams and you place 
+our bets in a way that suppose team events then you end up winning ten k rupees if team 
+b wins then probably will end up winning five k rupees and if team c wins probably ten k 
+and if one of the other team wins maybe will end up losing money or something like that 
+now you want to know what is your expected reward so now let us see what is 
+happening here this was a random variable which could take on one of these four values 
+these are the probabilities of the random variable taking that value taking on the value 
+a or taking on the value b c and d ok this is your value or the gain or the profit 
+associated with the random variable taking one of these values 
+so you have a random variable you have a probability associated with every value of 
+the random variable and you have some gain or value associated with every value of the 
+random variable now how do you calculate the expected gain or expected profit which 
+is this there is a thirty percent chance that you will earn ten k there is a forty percent chance 
+that you will earn five k there is a twenty percent chance that you will earn ten k and ten 
+percent chance that you lose thirty k 
+so the way you will compute it is that and this is the simple expectation formula which 
+is the probability of now the event here belongs to abcd right this is one of the four 
+teams that will win probability of that event happening in to the value associated with 
+that event happen this is a fair computation you get the intuition that this is how you 
+will compute the net reward that you have so this is how you compute the expected 
+value with respect to a particular distribution so this is the background that we need 
+now i will just go on to the next slide and now we will talk about entropy first perhaps 
+information content be first then entropy and then cross sector ok so now what is 
+information content 
+so now again let us take the same case that we have a random variable which can take 
+on values a b c d now let us what we are trying to say is that if i know a certain thing 
+what is the information that i have gained so you and i are talking you tell me 
+something  and  i  want to   see  whether  my   information  was  enhanced   whether  my 
+knowledge was enhanced that is how we will quantify information content 
+so if you are talking to me and you tell me that my name is mitesh the zero information 
+content for me right because i already know that there is no surprise in that ok but if 
+you talk to me and you tell me that today there is going to be a lunar eclipse then there is 
+a possibility there is some information content gain for me right because that is not a 
+event which happens every day if you just tell me you will see the moon today and you 
+live in a region where it is not typically cloudy and there is no information gain there 
+right so what do you see here when is the information gained high when the event 
+which happens is a very surprising event and how do you say supplies in terms of 
+probability 
+student 
+it is a very low probability event right so if there is again this tournament and say d 
+was the weakest team in the tournament and a was the strongest team in the tournament 
+if   you   come   and   tell   me   that   d   won   then   i   would   be   really   surprised   that   some 
+information which i had gained but if you tell me that a won then probably i already 
+knew   it   at   the   back   of   my   mind   because  a is   clearly   the   strongest   team   in   the 
+tournament and there is no information gained for me 
+so one thing that we are trying to establish that the information content i see ok the 
+information content of an event is inversely proportional to the probability of the event 
+there is a that is a fair intuition fine now i want am still talking in terms of vague 
+things i am saying it is inversely proportional but i still need an exact function so that i 
+can compute it so i want something i want a function where i plug in the probability of 
+an event and i get the information content of the event 
+right now i do not have that function i am just building some intuition towards that 
+function ok but this is one requirement that i want the function to satisfy this is 
+something that all of us agree with ok now think of two events which are independent a 
+and b ok so a is the event whether the ac is on here or not and b is a event which 
+tells maybe so let us consider two different random variables 
+so x is the random variable which can take on values zero and one sorry so x is again this 
+random variable which can take on these four values abcd whether who won in the 
+tournament and y is this another random variable which can take on the value on and 
+off depending on whether the a c’s on in this room or not what can you tell about these 
+two random variables they are independent random variables 
+so this is on or off and this is which team won the tournament now i come and tell you 
+something about the random variable y and i come and tell you something about the 
+random variable x ok so now i want you to tell me this what is the information 
+content of x and y i tell you something about x and i tell you something about y and 
+these two events are in these two random variables are independent then what can you tell me 
+about the information content what is the condition that you would want you gain 
+some   information   by   knowing   things   about   x   and   you   gain   some   information   by 
+knowing things about y so what can you tell me it should be the sum right 
+because these two are independent events so whatever information i am getting from 
+this random variable and this random variable which together enhancing my information 
+right it is not cancelling out anything or is there is no common intersection there right 
+if the two events were not independent then i would not expect this to hold because 
+knowing something about the first event only tells me something about the second event 
+right because they are dependent 
+so then that case the information gained would not be additive ok so now let us see i 
+already made a case that this function which tells me the information gain is actually 
+proportional to the probability ok so that means this is what the input is going to be 
+right and then what is the other condition that i want this is a fair thing right i just 
+replaced information content by a function and i know that the function should depend 
+on the probability because that is what we have established here 
+so we know that the function depends on the probability we still do not know what this 
+f is exactly but i am trying to impose some conditions on f one condition of f f is that 
+this condition should hold ok now let us look at this condition which i have underlined 
+this is f of is this fine because it two events are independent you can write them as the joint 
+probability as p of x into p of y this is clear to everyone right you seem to be a bit lost 
+arvind clear ok 
+now what is happening here i have a function f of a into b and that is actually equal to f 
+of a plus f of b what family of functions do you know which has this characteristic log 
+right that is why log is a good choice for this that is why information content is going 
+to be the log of the probability but i wanted to be inversely proportional right so it will 
+be log of one by the probability ok so that is why information content of this thing is so 
+you see this how did we arrive at this log formula 
+and this log can just be to any base it does not matter so all of you get how we arrive 
+at the formula for information contained now just give me a minute i need to think of 
+what is the next thing that i have to say ok and so we have found out the information 
+content of one of these events happening which was the x taking on the value a 
+now let us think of this random variable x so here actually i should have said x equal 
+to a probability of x equal to a ok it makes sense because the random variable is x and 
+the event is x taking on the value a how much information content is in that so if i 
+know that x was a how much will i be surprised by it ok now let us take this event this 
+random variable x which can take on values a b c and d as i said with each value there 
+is a probability associated with it such that this sums to one now i did not need to draw 
+this diagram ok i should 
+so x is a random variable which can take these four values which each of these values i 
+have a probability associated ok so these are the values these are the probability 
+values now what do i also have i have the information content associated with each of 
+these right and the information content actually tells me the surprise of that evening 
+now if i ask you what is the entropy of this random variable x so remember i had this 
+case where i was betting i am with every poor outcome i had a value associated with it i 
+had the same situation here with every outcome have a probability and i also have a 
+value associated with this and the value is the information content 
+now if i ask you what is the entropy or the expected information content of this random 
+variable then how will you compute that i am asking you for an expectation 
+so i will compute summation i belonging to a b c d p of x equal to i information can 
+take what is the formula for that 
+student minus 
+minus i will just take the minus outside ok so this quantity is called the entropy of the 
+random variable right it is the expected information content in the random variable 
+now   if   you   see   what   would   be   the   expect   entropy   of   a   random   variable   if   it   is 
+corresponding to a certain event that means say the sun rises always in the east right 
+so what is going to be the entropy of that zero why you will have one of the sums in that 
+summation as one log one right and every other sum would be zero into log of something 
+so zero into anything is going to be zero even though that quantity is not defined zero into 
+anything is going to be zero so the total entropy is going to be zero ok so this is entropy 
+now what is it that we are actually interested in cross entropy so we have not gone 
+there yet ok so we need to perhaps add one more slide so far everything is clear ok 
+so now we are interested in something known as cross entropy 
+so there again the situation is that there is something which is the true distribution and 
+something which is the predicted distribution now actually before going there so let 
+me just erase this off how many of you have thought that entropy is related to the 
+number of bits that you need to transmit something do you know why that connection 
+exists no now again let us think of this that you are trying to transmit a message 
+and that message is again a random variable which can take on four values a b c d so 
+think of these as four commands that we are trying to send to someone right and then 
+based on that command someone will take some action now in the digital case how will 
+you transmit this encode it to bits so what is the encoding that you will use zero zero yeah 
+we will come to that zero one one zero one one so how many bits are you actually using for every 
+message 
+two bits ok for every bit so maybe this is a this is b this is c and this is d so for every 
+message you are using two bits let us see actually what when you are doing this what are 
+you actually assuming so actually assuming that all of these are equally likely if all of 
+these are equally likely can you tell me the information content of any of them it is 
+going to be minus log of one by four ok that is actually equal to minus log and this is to the 
+base two ok one by four is two raise to minus two that is equal to two 
+so the information content is actually equal to the number of bits that you are going to 
+use to transmit that message now let us see if this is just in this special case or in a 
+different case also suppose this could take eight values how many bits would you use three 
+bits right so you will have zero zero zero zero zero one ok and this would be a to h now what are we 
+actually assuming here each of these is equally likely what is the probability one by eight 
+what is the information content two raise to minus three that is equal to three 
+so the number of bits that you actually use to transmit something this can you can talk 
+of it in terms of the information content of that now suppose i want to transmit this over 
+the long distance so i need to bit be a bit efficient in terms of number of bits that i use 
+right so now in this one of these cases suppose it is of the following form right that 
+let us look at the case where x can take one of four values and say let me just put the right 
+values so i will say one by two one by four one by eight one by eight ok now what is the information 
+content of each of these one two three three and this is the message that i am going to send 
+so what am i doing here i am using a different number of bits depending on the 
+probability of that event why does this make sense why is this a smart thing to do if 
+you want to transmit something which you are going to transmit a lot of times you better 
+use less number of bits for that and this is exactly what is happening here a was having 
+the highest probability and you are using the lowest number of bits for that now what is 
+the expected number of bits that i will use up if it is a i will use one if it is b i will use two 
+if it is c three and d three 
+so what is the expected number of bits that i will use again i have the same situation 
+right i want you to cast it into the same situation i have the probability values and with 
+each of these guys i have a cost or a value associated what is the cost one bit two bit three bit 
+three bit so what is the expectation now can someone compute the expectation one hundred and seventy-five 
+actually let me just write it down it would be again i belonging to a b c d p of x equal 
+to i into the number of bits that you will use so that is just equal to log of log to the 
+base two of p of x equal to i minus one what does this quantity actually this is the entropy 
+we just saw this a this is the entropy of the random variable and what is it telling us 
+actually that the entropy is one hundred and seventy-five 
+so what is the meaning of this actually so on average you will be needing one hundred and seventy-five bits 
+whereas if you are assuming everything is equally likely on average you are using two bits 
+right so you see that on average you are making some savings here right so that is 
+what the entropy tells you if you know what the probability of these events is then you 
+better use that to decide the number of bits that you are going to use to send each of 
+these 
+so   now   let   us   complicate   this   a   bit   more   now   we   have   the   entropy  now   let   us 
+complicate it a bit more so there is some true distribution which exists there is some 
+true distribution from which these messages are coming right but you do not know 
+what that true distributions we never know the true distribution that is the entire problem 
+that we have been dealing with in machine learning 
+so what you will do is we will somehow try to predict this distribution and this then the 
+and the recipe that you will use is the same as that i used for the example where i had an 
+urn right so there are these thousands of 10000’s of messages which has going to keep 
+coming  on you do not have access to the entire stream  but you have seen some 
+thousand of those messages just as i had peeped into the urn and i had seen some balls 
+and i had made an estimate that i think based on these messages that i have seen so far i 
+think these are the actual probabilities 
+so the true probabilities are say p one p two p three and p four corresponding to a b c and d i 
+do not know what this two properties are but i can estimate them looking at some samples 
+or basically using my domain knowledge right maybe i would know that if one of these 
+messages is stopped and i am actually trying to talk to a computer or a computer 
+program that maybe stop is something which are used very rarely only at the end of the 
+program or something so you have some either some domain knowledge or based on 
+some samples i can estimate the value of this probability 
+and i just try to relate it to the exact example of urns where you had these 10000’s of 
+balls but you could not see all of them you sampled some and estimated a probability 
+here again there is a continuous flow of message you cannot have access to all of these 
+because they are going to continue but i have seen some of those and based on that you 
+estimate these probabilities now based on this estimation how many bits 
+so now this is the estimation that we have now based on this you will decide the 
+number of bits that you will use for each of these messages right because you have 
+some estimate so you want to be smart you do not want to keep two bits for all of them 
+so you will just say that i will use log qi bits for the i’th message 
+this is fair thing because i know that the information content is proportional to the 
+probability in fact it is exactly given by this formula minus log of qi so based on my 
+estimated probability i am going to do this ok and this is the number of bits that i have 
+reserved now do you see a problem with this this is my estimation but the data is 
+actually going to come from the true distribution it is not going to follow the distribution 
+q it is going to follow the distribution p 
+so now what is actually happened is this right this is the situation that we are dealing 
+with we have p which was a true distribution that is the rate at which the data will 
+come but with each of these events the value that we have associated is now related to q 
+because q is what i have access to i do not have access to p i just have access to q so i 
+have associated a value based on q does this make sense i should have actually used 
+log p one bit’s log p two bits and log p three bits but i do not know what p one p two p three are 
+i just estimated them based on some samples so that is q one q two q three and these are the 
+number of bits that i am using now if i have to compute the expectation how will i do 
+it i have to use p because that is the true distribution from which the data is coming 
+so   what   would   the   expectation   now   look   like   everyone   gets   this   the   actual 
+probabilities are this but because i am poor at estimating them i ended up associating 
+these values which could be wrong right because i would have overestimated the 
+probability of one of these messages and hence i have reserved lesser bits for that or 
+underestimated the probability of one of these events and hence reserved more bits for 
+that or vice versa 
+i could have assigned a wrong number of bits to them right p no so do we have access 
+to p in the sense so someone knows that right i mean there is a again in the same case 
+as in the label case right we have access to the true p there and we are estimating a q 
+when we are given these images for the training data we know that the distribution is zero one 
+zero zero if the image is b for banana 
+student 
+then it is validated right so now this is what is this quantity called this is called the 
+cross entropy ok you get why it is called the cross entropy because now you have two 
+different distributions involved here ok you have the q distribution based on which you 
+made your decisions you assign values to these events based on the q distribution but 
+the true distribution is the p distribution 
+so the actual number of bits that you use up on average is going to be based on the true 
+probability they try to understand that now what will happen is for event a you have 
+assigned a certain number of bits now how many bits will get used up it depends on 
+the actual probability of p if that message is repeated many times then that is how this 
+summation would be computed 
+so  this is  called   the  cross  entropy but now why is  this  the  difference between   two 
+distributions that is what we wanted given two distributions we wanted to be able to find 
+the difference between them now am telling you that cross entropy is a way of finding 
+that difference why is it so so what would you want this difference to what is the 
+property that you would want this difference to have if p is equal to q then if p is equal 
+to q then 
+student 
+not zero maybe it should take the lowest possible value right so this function right this 
+is actually telling you loss of p comma q right this is what this is and we are calling it 
+as the cross entropy this function you take it is minimum value when p is equal to q 
+right because now at that point you are not really making any loss that is the best you 
+could have done does this function take it is minimum value when p is equal to q yes 
+why how is that obvious but why there could be something else which is lower than 
+the actual entropy right why how you have to we are trying to minimize something 
+so you have to give me answer 
+so yeah so let us do that ok so how many of you it is obvious that q is the answer i 
+mean the answer is p is equal to q it is not ok now this is the part which i am a bit 
+worried about but i will just do it anyways so let me see how do i put this ok so 
+remember that we had a p and we had a q and we want to find a q such that this quantity 
+is minimized that is what our objective is 
+so we want to minimize this with respect to qi ok now how do you find the minimize 
+suppose i have this problem how do i find the minimum value how do i find the value 
+of x which minimizes this take the derivative and set it to zero ok and then in this case i 
+will get x equal to zero is that value can i do the same thing here and suppose it was this 
+so now this is a function of two variables again i could do the same thing i could take the 
+partial derivatives and set them to zero 
+and i will get the minimum value now here this is actually a function of how many 
+variables k in general right so q one q two q three up to qk ok now can you try doing the 
+same thing can you can you take the derivative and set it to zero this is again a sum right 
+it is very similar to this situation it is actually let me just write it down it is p one log q one 
+plus p two log q two up to p k log qk 
+now i want to take the derivative with respect to one of these guys say q two what would 
+it be p two by q two is equal to what will i do that is the derivative p two by q two i will set it 
+to zero do i get anything what is it that i am doing wrong here there is something that i 
+am deliberately doing wrong is this an unconstrained optimization problem there is a 
+constraint on the variables what is the constraint so why my true optimization problem 
+is minimize with respect to q i’s such that summation q i’s equal to one 
+do you know an easy way of dealing with these problems how many of you know the 
+lagrange multiplier how will i use it here what will my objective function become 
+then summation of qi minus one lambda then minus ok how many of you understand the 
+intuition behind this that is a good answer now let us let me try to explain why this 
+makes sense right this is the constraint that we have to operate within this constraint 
+what i have done is i have taken the so now if the constraint is not satisfied what will 
+happen to this quantity if the constraint is not satisfied that means my summation is 
+not equal to one that is what means whether the constraint is not satisfied what will happen 
+to this quantity it will be a nonzero quantity right fine then what will happen to my 
+overall objective and i think we have made a mistake this should be plus i should add 
+it right should be plus no it does not oh the lambda can be ok sorry so let me assume 
+this is plus 
+so what i am trying to do is that this is my objective function which i am trying to 
+minimize i have added another quantity to it if this quantity is not equal to zero then i will 
+not be the absolute minimum i will be at the minimum plus something right but if this 
+quantity if the constraint is satisfied then this quantity will go to zero then am actually at 
+the minimum of the function do you get this right so this is the function that i want to 
+minimize i have added some quantity to it now that quantity is actually related to the 
+constraint that i do not want to violate if i violate the constraint this is going to be non 
+negative right 
+so whatever minimum value i achieved i will be slightly higher than that because some 
+nonnegative value has got added to it ok is that fine but if the constraint is satisfied 
+then i can achieve the minimum value so that is roughly the intuition behind using this 
+lagrangian multiplier it is a very crude intuition but there is of course a lot of math 
+behind that but i am just giving you the intuition behind this which one 
+student 
+yeah that is what you could adjust the lambda and ensure that it is not negatively ok so 
+now now can you do the same thing can you equate this to zero can you take the derivative 
+and equate to zero what will you get now this term will give you p i by q two as before oh 
+sorry p two by q two as before plus lambda times yeah plus lambda times one ok fine so 
+equal to zero so then what will you end up getting p two is equal to i think it is something 
+wrong here now this should be minus p two by k 
+so p two is equal to lambda times q two ok and then further actually you can show that 
+lambda is going to be equal to one how can you show that your constant is fine so do you 
+see how we will get lambda equal to one so what does it actually tell you then p two is 
+equal to q two that means all in fact you can show that all p i’s are equal to q i’s that 
+means the distribution p is equal to distribution q 
+so this cross entropy term will be minimized when your true distribution or when your 
+plated  distribution   is   the   same   as   the   true   distribution   and   hence   it   captures   the 
+difference between the two ok and that is exactly what we were interested in we were 
+interested in a quantity which can allow us to capture the difference between the true 
+difference between a true distribution and the predicted distribution 
+so we have arrived with that quantity and that quantity is cross entropy so therefore 
+for all our classification problems where we have this scenario that we are given the true 
+distribution where all the masses focused on one of the labels and you are estimating a 
+distribution where you could give non zero quantities to many of those and you want to 
+find out how wrong your estimates were with respect to the true distribution you can use 
+cross entropy as a measure for that right so now your loss function which you wanted 
+to depend on the difference between p and q it can just be the cross entropy between p 
+and q 

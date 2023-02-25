@@ -1,0 +1,89 @@
+ensemble methods 
+so  next  we  look  at  on  ensemble  methods  and  this  is  just  to  build  the  intuitions  for 
+something  known  as  dropout  which  is  very popular  technique  in  deep  neural  networks 
+and convolution neural networks and even recurrent neural networks 
+ 
+so  how  many  you  have  seen  ensembles  before  seen  it  in  machine  learning  ensemble 
+was not done in machinery done with ok ravi did it so as a combine so the ensemble is 
+essentially just the combining the output of different models to reduce the generalization 
+error right why does that  make sense have these different  models  all of these would 
+have different biases and variances right 
+so now  you are combining them so  i will end up with  a better thing on the test error 
+right so that is the idea behind ensemble now the models could correspond to different 
+classifiers  right  for  example  here  i  have  a  logistic  regression  and  svm  and  a  naive 
+bayes i have trained them independently using the same data or different subsets of the 
+data  and  a  test  time  i  am  taking  a  prediction  from  all  of  them  and  then  taking  an 
+ensemble of those predictions that is the basic idea 
+now  it  could  be  different  instances  of  the  same  classifier  trained  with  different  hyper 
+parameters i could have the same neural network a 3layer neural network but trained 
+with different hyper parameters so the hyper parameters could be learning rate it could 
+be  batch  size  it  could  be  the  number  of  neurons  in  each  layer  and  so  on  right  so  it 
+could  be  same  classifier  but  different  hyper  parameters  different  features  right  so 
+instead of looking at all the one hundred features that i have given i could train these classifiers 
+with different subsets of the features ok or different samples of the training data 
+so bagging is one such ensemble method where you have different instances of the same 
+classifier which are trained on different samples of the training data ok so i have one 
+classifiers  trained  on  a  subset  t  one  of  the  training  data  another  classifier  trained  on  a 
+subset t two of the training data and so on right  and so each of these model is trained with 
+a different sample of the data 
+now when would bagging actually work what would you want these classifiers to be 
+so each classifier is going to make certain errors 
+what do you want these errors across classifiers to be dependent independent 
+student independent 
+independent  right  so  if  one  classifier  makes  the  errors  on  certain  test  instances  other 
+classifier makes errors on a different  set  of test instances and the third classifier makes 
+errors on a very different set of instances that is the condition that  you are looking for 
+right there is errors if all of them make error on the same instance then all of them are 
+collectively going to make an error on the final prediction also right 
+because  it  is  like  i  asked  three  guys  all  of  them  gave  me  the  wrong  answer  so  my  final 
+answer is  going to be wrong but at least two of these three guys gave me the correct  answer 
+then  my  final  answer  is  going  to  be  correct  right so  that  means  the  errors  that  these 
+models make i want these errors to be independent if i treat error as a random variable i 
+want these errors to be independent 
+so  so  consider  a  set  of  k  such  logistic  regression  models  suppose  that  each  model 
+makes an error epsilon i on the test example now let epsilon i be drawn from a zero mean 
+multivariate  normal  distribution  so  the  variance  is  equal  to  v  and  how  many  such 
+epsilons do i have how many such distributions i am considering 
+student k 
+k  right  because  for  each  classifier  there  is  a  distribution  so  then  i  can  compute  the 
+covariance between these random variables ok i will add that let that covariance be c is 
+that fineok now the true the error made by the average prediction of all the models is 
+going to be given by this model one made an error of epsilon one model two made an error of 
+epsilon two 
+so  the  average  error  is  going  to  be  given  by  this  now  what  is  this  expected  squared 
+error  this  is  the  error  this  is  the  expectation  this  is  the  square  that  is  the  expected 
+squared error is that fine again this is a square of a sum so it will lead to a lot of terms 
+of the form epsilon i squares and what will happen now which terms will go to zero 
+the terms having epsilon i epsilon j again the same thing they are independent so i can 
+write the expectation of a product as the product of expectations and those expectations 
+are zero so this is what it is going to look like what is this oh sorry actually we had not 
+assumed that the covalence 
+what is this right and what is this covariance i am sorry i have not we had assumed 
+that there is some covariance said wed not assume they are independent right we would 
+want it to be independent but in the general  case we will assume some covariance and 
+then i will show you the special case where they are independent 
+so then how many vs do i have here k right and how many cs do i have here 
+this summation is k into k minus one right or i equal to one to k and j equal to i plus one to k 
+fine  and  so  this  is  what  it  looks  like  now  can  you  make  some  inferences  from  this 
+equation this is what the expected mean square error is going to be now think in terms 
+of  variance  covariance  and  tell  me  when  would  this  be  beneficial  i  have  already  told 
+you the answer if the errors are independent what would covariance be zero right 
+so then what is the mean square error one by k one by k into v right so that means bagging 
+would work when your classifiers the k classifiers that you are combining 
+if  the  errors  are  independent  then  the  mean  square  error  should  actually  have  been  v 
+right for a single classifier it was  v right because mean square error is nothing but the 
+expectation of the error expectation of epsilon i square which is nothing but v 
+but if you are if you are combining k classifiers and if these classifiers are independent 
+in terms of their errors then your mean square error is going to be one by k into v because 
+this term is going to disappear ok now if your classifiers are perfectly correlated then 
+what would happen and basically c is equal to v right is that fine so now what would 
+happen what is the net result if i substitute this as v going to be v right 
+so  if  you  are  all  your  classifiers  are  perfectly  correlated  that  is  the  other  case  we  had 
+tried taken and all of them are making errors on the same test instances and the same 
+errors right then you will not get any benefit of doing bagging but if you look at the 
+other  extreme  where  all  your  errors  are  independent  or  all  your  classifiers  are  making 
+independent errors then you will get a benefit your expected mean square error would go 
+down from v to one by k into v everyone gets that 
+so this was just to develop an intuition that taking an ensemble helps right and using 
+this  intuition  now  we  are  going  to  see  at  how  to  do  this  ensemble  in  the  case  of  deep 
+neural networks 

@@ -1,0 +1,309 @@
+singular value decomposition 
+so with this we will move on to the last topic in the yeah so that is something that you 
+will have to so the way i would do it right is that you keep aside some one hundred images from 
+your  data  as  validation  data  now  once  you  have  learned  these  eigenvectors  try  to 
+compute  the  reconstruction  error  for  these  one hundred  images  and  just  vary  it  do  one hundred  one thousand 
+ten thousand written as many dimensions as you can and see at what point is a reconstruction 
+error  ok  for  you  right  and  this  is  assuming  that  you  have  some  notion  of  what  is  a 
+reasonable reconstruction error so we all know that the minimum is zero 
+but  if  you  have  five  then  maybe  for  face  database  it  might  be  but  if  it  is  a  database 
+where you are trying to look at mechanical parts so suppose you are looking at motors 
+and rotors from a machine assembly now there you want to be able to distinguish minor 
+detects defects on this and a detect could a defect could actually just be one single or two 
+pixels  getting different  from the original image  right so there the reconstruction loss 
+would be much needs to be much more robust you get the point so it depends on your 
+application so you will have to take some validation data either have a domain expert to 
+tell  you  what  is  reasonable  or  go  by  the  number  that  you  get  right  and  this  is  the 
+validation error that i get 
+so everyone understands the question and perhaps the answers ok so we now go to the 
+last module 
+student 
+yeah if you can 
+student 
+yes you can now project any face into this database a so that is the  eigen basis that 
+you  have  got  you  have  got  the  basis  vectors  now  any  data  you  can  project  onto  this 
+basis 
+student 
+now  so  if  you  are  trying  to  learn  these  eigenvectors  by  say  using  one hundred  images  all  of 
+which belonging to a particular demographic say all caucasian images right and now 
+at the runtime you have an asian image then you will have obviously have some error 
+right but you have large even of data say if you have if you are constructing this from 
+million images then it should generalize that is i mean just as for any machine learning 
+algorithm 
+the training it from small data and you bring out some outlier at test time it is not going 
+to work right but if you have reasonable data it should generalize any other questions 
+to calculate the eigenvectors x is m cross ten m cross ten k yes now we move on to the 
+last topic for the basic portion and the next class we will do auto encoders will be back 
+to deep neural networks so singular value decomposition right 
+so  this  is  actually  the  stuff  that  i  need  an  important  theorem  from  here  at  multiple  two 
+places in the course so now before doing the right let us get some more perspective 
+on what eigenvectors do and why are they actually important 
+so let v one to v n be the eigenvectors of a and let lambda one be the corresponding eigen 
+values so we know this a v one equal to lambda v one and so on ok now suppose all the 
+vectors  in  r  should  be  r  raised  to  n  ok  so  if  a  vector  x  belonging  to  rn  can  be 
+represented using this basis ok now what if i am interested in the operation a into x 
+what is the advantage of representing it using this basis so this is what you are saying 
+the other day 
+student 
+what  is  ax  it  is  a  matrix  vector  multiplication  right  and  it  is  going  to  be  a  heavy 
+computation  now  if  all  my  vectors  in  rn  are  represented  using  the  eigenvector  as  the 
+basis what happens to this matrix operation 
+student 
+it reduces to 
+student 
+let us see so i was interested in ax but i know x is this so you get this step and what 
+happens finally do you have the matrix anywhere here so what happens to the matrix 
+operation 
+student 
+it  reduces  to  a  sum  of  scalar  operations  right  if  your  vectors  were  representing  using 
+the eigenvector as a basis 
+so this is one reason why this is important right so you can now get away of the get 
+rid of the matrix operations and just do scalar operations right so now there is a catch 
+here  which  i  am  going  to  ignore  just  to  try  it  if  i  bring  in  the  catch  you  guys  will  get 
+confused so i will ignore if anyone has a doubt maybe talk to me after the class but for 
+now let us go with the fact that the matrix operation reduces to a scalar operation 
+now so far what we have done is discussed square matrices i have said that they are the 
+villains  of  linear  algebra  but  who  are  the  super  villains  of  linear  algebra    rectangular 
+matrices  everyone  says  that  but  why  imagine  what  they  do  to  a  vector  yeah  so  can 
+rectangular matrices have an eigenvector 
+student 
+yes obviously yes that i mean any matrix can have an eigenvector 
+student no 
+no  why  can  you  write  something  of  this  form  you  can’t  right  because  when  the 
+matrix operates on an n dimensional vector what does it give you 
+student 
+an  m  dimensional  vector  right  hence  they  are  super  villain  right  because  they  take 
+the  vector  from  one  space  and  transform  it  to  a  completely  different  space  that 
+completely  lots  lost  it  is  identity  right  so  that  is  why  rectangular  matrices  are  even 
+harder 
+so  now  we  just  saw  that  for  square  matrices  this  eigenvectors  form  a  very  convenient 
+basis where these operations reduce to a scalar operation but now rectangular matrices 
+do not even have eigenvectors so then cannot we have the same advantage there can 
+we  have  the  same  advantage  there  you  can’t  right  because  you  do  not  have  an 
+eigenvector but i would teach you about singular value decomposition so i better have 
+something so get the connection ok there is a problem with square matrices with the 
+rectangular  matrices  so  now  let  us  see  so  we  will  try  the  aim  is  to  see  if  we  have 
+something equivalent to this scalar transformation that we had for square matrices 
+how many of you have seen this in linear algebra before so you know whatever i am 
+going  to  talk  about  fine  so  the  result  of  ax  is  a  vector  belonging  to  r  m  and  the 
+original x belongs to r m so we do miss it miss out on this advantage that you could 
+have reduced the matrix operation to a scalar operation and now we will try to see if we 
+can still get back that advantage 
+so  notice  this  is  matrix  you  can  think  of  it  as  a  function  which  provides  a 
+transformation from rn to rm so what is the set of inputs to the matrix it is vectors 
+belonging to rn  that is the set of input 
+now suppose we had a pair of vectors v one u one v two u two vk u k each belonging to these two 
+different universes one is rn the other is rm and there was a specular relation between 
+them that a into vi is equal to sigma into ui suppose i am just being ambitious let us see 
+whether  we  can  actually  have  this  pair  but  suppose  we  had  this  pair  then  can  you 
+connect this back to the discussion on scalar operations so let us just see that in detail 
+and  we  will  of  course  assume  that  these  are  orthogonal  and  form  a  basis  so  the  vi’s 
+form  a  basis  in  rn  and  the  ui’s  form  a  basis  in  rm  is  that  clear  that  is  all 
+straightforward we have these vectors 
+now every a vector belonging to rn which was the input space can be represented using 
+a linear combination of v straightforward and any vector belonging to the output space 
+can be represented of 
+student 
+of  u  right  so  that  means  any  x  in  the  input  space  i  can  write  it  as  this  linear 
+combination and now if i do the matrix operation what happens 
+student 
+you get this a into vi what is a into vi sigma ui i have still not shown you how to find 
+these sigma is ui by the way right ok once again the matrix multiplication reduces to a 
+scalar multiplication 
+so now let us try to look at a geometric interpretation of this 
+so  what  you  have  is  this  original  space  which  is  rn  you  are  using  a  as  a  matrix 
+operation right as a function and you are transforming vectors from n to rm right so 
+this  is  the  space  transfer  that  i  was  saying  it  vectors  are  being  picked  up  from  rn  and 
+being put into r m ok and rn is a space of all vectors which can act as inputs to this 
+function and rm is a space of all vectors which are the outputs of this function ax 
+now we are interested in finding a basis u v such that v is the basis for the inputs when 
+i say basis all of you should immediately start thinking of dash vectors 
+student orthonormal vectors 
+orthonormal vectors orthogonal or orthonormal right once we have orthogonal we do 
+not  care  about  the  rest  u  is  the  basis  for  the  outputs  such  that  if  the  inputs  are  and 
+outputs  are  represented  using  this  basis  then  all  our  matrix  operations  reduce  to  scalar 
+operations  so  we  are  just  trying  to  find  the  rectangular  analogy  for  the  square  a 
+phenomenon that we observed ok that is what we are trying to do now can you tell me 
+i  have  told  you  that  if  such  a  v  and  u  exists  then  you  could  do  this  can  you  give  me 
+such a u and v 
+so what do we mean by so here i said actually i said this right that the dimension of 
+the row space is actually k and the dimension of the column space is also k what do you 
+mean by the dimension is i mean right here i am telling this is rn and this is rm and 
+now i am telling you the dimension is k what do i mean by that 
+student 
+the only k linearly independent vectors 
+and this is  again  something from  linear algebra which  i  expect  you to  know is  that all 
+possible vectors in rn only a subspace belonging to rk can actually act as input to a x to 
+produce a nonzero output so i am talking about a null space column space and things 
+like that right so this should be clear if it is not it is it is not very important at for us 
+right now 
+and hence we have only k dimensions 
+so let us look at a different way of writing this so you have this a v one is equal to sigma 
+one u one av two is equal to sigma two u two so i can again do the same trick that i put all the v’s 
+into one matrix where vi’s are the columns of this matrix and i will put all the us into 
+another matrix where ui’s are the column of this matrix is that fine everyone ok so far 
+and  then  i  can  write  it  as  this  matrix  operation  same  thing  that  we  did  when  we  are 
+doing  eigenvalue  decomposition  right  so  we  had  written  it  as  a  into  u  is  equal  to  u 
+into sigma right because there we had the condition that ax is equal to lambda x now 
+we have a u is equal to sigma v or rather the other way around so av is equal to did i 
+missed up did i no right 
+student 
+sorry 
+student 
+fine yeah so av is equal to sigma into u 
+so is this fine no but when you do the diagonal operation you will get it as u into sigma 
+y the same way as a x equal to lambda x but when you write it is a into u is equal to 
+lambda comes later on 
+and if we have k orthogonal vectors so remember i said that this basis consists only of 
+k dimensions right because that is r the set of vectors which can act as input to a so 
+what i but i want a basis for the full rn so what do i do for the remaining n minus k 
+have you heard this gram schmidt othogonalization right so if i give you if there if 
+you are trying to construct a basis for n ok for rn rather and if i give you k orthogonal 
+vectors they can do k  you can construct the remaining n minus k using  gram schmidt 
+orthogonalization right so you can get the full basis ok fine so let me just see and this 
+is  orthogonal  ok  so  you  can  write  so  you  see  these  two  forms  can  you  relate  it  to 
+something that we have seen before in the course 
+this is singular value decomposition what else did we see before 
+student 
+eigenvalue so this exactly the same forms right and i have used the same set of tricks 
+to arrive at it right so i first put the vectors into a column as columns into a matrix then 
+wrote this in the matrix format and then pre multiplied post multiplied by certain things 
+and i got these two formats and remember that v and u both are dash matrices 
+student 
+orthogonal  matrices  right  so  that  inverse  is  just  their  transpose  ok  ok  so  far 
+everything is fine now i still do not know what u and v are all this analysis is assuming 
+that i know what u and v are so now can you tell me how to get these u’s and v’s 
+suppose  v  u  and  sigma  exist  then  we  can  write  this  right  so  a  is  u  sigma  v  so  a 
+transpose would be the transpose of that now can  you work with me what is the next 
+step 
+student 
+ok next 
+student 
+this  is u sigma v transpose so then this would be  i think the next  step is  no the next 
+step is also wrong that fine ok fine i just had some error with the transpose ok what 
+will happen now what will disappear from here 
+student 
+u transpose u that is i right u transpose the inverse of u 
+so you get this what does this look like this looks like the eigenvalue decomposition 
+of 
+student a transpose a 
+a transpose a that means v consists of the 
+student eigenvectors 
+eigenvectors of the 
+student a transpose a 
+a transpose a so now can you tell me what u would 
+student 
+ok fine 
+so  this  looks  like  the  eigenvalue  of  eigenvalue  decomposition  of  a  transpose  a 
+similarly we can show that a a transpose is equal to u transpose sigma square u ok so 
+then u is the set of eigen vectors of a a transpose right and now here what was with 
+will the eigenvalue decomposition always exist for a matrix 
+student no 
+no under what conditions would it exist first of all it has to be a square matrix 
+student 
+ok  right  but  now  for  a  rectangular  matrix  would  be  singular  value  decomposition 
+always exist 
+student yes 
+yes  right  because  it  depends  on  the  eigenvalue  decomposition  of  square  symmetric 
+matrices  ok  is  that  fine  ok  so  for  any  matrix  shall  always  have  the  eigen  value  oh 
+sorry the singular value decomposition 
+so  this  is  perhaps  yeah  ok  now  just  one  last  bit  and  let  us  see  if  all  of  you  can 
+understand this so now i can write a in this form this is nothing but what i already said 
+right this is u this is sigma this is v transpose ok now from here from this step do you 
+see how i got to this step this is something that we were struggling with yesterday also 
+when we were trying to find out summation x i x i transpose something similar here you 
+know the four ways of multiplying matrices right so this is which way one of the ways 
+yeah so does everyone get this right so a simple thing would be first to just take these 
+sigmas inside right because this is a diagonal matrix right this is all 0’s so these are 
+actually you can write it as sigma one u one sigma two u two and sigma k u k right 
+now this ends up being the product of two matrices right and you can write it as a sum 
+of columns into rows right so what i am writing it as a sum of sigma one u one multiplied 
+by v one so sigma one u one into v one transpose is a scalar matrix vector matrix right so each 
+of these terms here is a 
+student matrix 
+matrix  and  you  are  adding  k  such  matrices  ok  now  try  to  relate  it  to  reconstruction 
+error you are taking a matrix trying to write it as sum of many matrices if i trim some 
+terms  from  this some terms  from  this sum  what  would happen  if  i have all the terms 
+then  what  would  happen  i  will  get  a  back  exactly  if  i  drop  some  terms  what  would 
+happen 
+student 
+i get an approximation of a how good would that approximation be 
+student 
+first is depending on the number of dimensions but is there a natural ordering in these 
+dimensions if i want to throw away some dimensions which one would i throw away 
+student 
+smallest 
+student singular values 
+singular values sigmas are the singular values so you see that this is getting multiplied 
+here  every  matrix  is  getting  multiplied  by  the  singular  value  corresponding  singular 
+value  so  if  i  drop  out  the  terms  which  have  the  smallest  singular  values  then  those 
+matrices  the  elements  would  have  been  very  small  so  i  will  not  lose  much  in  the 
+approximation  so  again  the  same  idea  that  i  am  trying  to  approximate  the  original 
+matrix by a smaller rank 
+by of so now the original matrix had m cross n entries ok how much if i use only k 
+eigenvectors or the sorry k singular vectors or k dimensions to approximate it how much 
+storage would i need how many values do i need so the original matrix was m cross 
+n how many entries are there here 
+student 
+each of this is how much 
+student 
+m for ui plus n for vi ok and plus one for the sigma and how many of these are there 
+student k 
+k  so  if  k  is  very  less  than  your  m  and  n  right  then  again  you  will  have  some 
+compression you get this ok so all of these ideas are related and i want you to be able to 
+connect  them  right  that  all  of  this  is  towards  doing  some  approximations 
+reconstructing  some  reconstructing  a  matrix  from  it  is  components  and  doing  this 
+reconstruction in a manner that you end up making minimum error in the reconstruction 
+is  this  idea  clear  even  if  some  part  of  the  math  is  not  clear  is  this  idea  clear  how 
+many forget this ok so some of you do not you do not 
+student 
+yeah  so  what  is  the  original  dimension  of  a  m  cross  n  right  now  i  am  trying  to 
+reconstruct it using a sum of sum k terms ok so hence this k comes now each of these 
+terms how many elements do i have i have ui which is of dimension m i have v i which 
+is  of dimension n and then  i have the sigma i which is  of dimension one right  and  i 
+have k of these so this is the total amount of storage that i need i am saying that as k is 
+much less than m and n which would typically be the case 
+then you are getting a much lower space reconstruction of the original data right and 
+you are doing this reconstruction smartly because you are not taking any k dimensions 
+you  are  taking  the  k  most  important  dimensions  and  this most important  is  defined  by 
+the singular values this is designed by the sigma is that fine 
+ok and actually there is a formal theorem which says that sigma one u one v one transpose is 
+the best ranked one approximation of the matrix is this a rank one matrix is sigma one u n 
+i hope you guys have done the assignment right sigma one u one v one transpose is the rank 
+one  matrix  and  if  i  take  this  idea  further  this  summation  is  the  best  ranked  two 
+approximation and if i keep going this summation is the best rank k approximation so 
+what  it says is  that if  you are trying to  reconstruct  the original matrix right  from  these 
+components  and  if  you  go  by  the  eigen  or  the  singular  values  and  you  pick  the  ones 
+corresponding  the  top  k  singular  values  then  the  best  that  is  the  best  possible 
+reconstruction that you could have done 
+now  how  do  you  formally  define  reconstruction  how  would  you  make  it  as  an 
+optimization problem what are you trying to minimize 
+student 
+the  actual  matrix  has  some  values  which  is  the  matrix  a  ok  b  is  the  reconstructed 
+matrix  using  only  k  dimensions  how  many  of  you  understand  what  is  this  product 
+saying what is this 
+student 
+first k columns of u these are the k singular values and these are the first k rows of so 
+ok i was just talking about this is the first k columns of u these are the k singular values 
+are put across the diagonal and this is the first k rows of v transpose and this is exactly 
+the product which i showed you here is that fine 
+ok  so  there  is  a  theorem  this  is  called  the  svd  theorem  it  says  that  if  you  want  to 
+reconstruct a then this is the best rank k approximation that you can get now if i want to 
+pose  it  as  an  optimization  problem  what  will  i  say  what  would  i  have  minimized 
+actually this is the reconstruction right so let us call it a hat actually and what does 
+this mean this is the dash norm 
+student 
+frobenium norm what does the frobenium norm give you squared difference between 
+the  elements  right  roughly  speaking  ok  so  it  will  tell  you  what  is  the  square 
+difference  between  the  ij’th  element  of  a  and  the  ij’th  element  of  b  so  whenever  we 
+have this situation if you are trying to if this is our objective function that we have trying 
+to reconstruct a or try to transform something and get a predicted a or a reconstructed 
+a then the best possible reconstruction would be given by this solution 
+so  this  optimization  problem  has  a  solution  that  you  just  use  the  eigenvectors  of  xx 
+transpose and sorry aa transpose and a transpose a right is that clear ok so this is 
+the theorem that we will be using when we are talking about autoencoders and we will 
+try to  connect  auto  encoders to  pca ok so just revise this is  the prerequisite for next 
+class  whatever  we  have  done  in  the  last  three  sort  of  extra  lectures  you  have  to  revise  it 
+before  you  come  for  class  tomorrow  right  ok  and  yeah  this  is  sigma  is  just  some 
+terminology  sigma  is  actually  the  square  root  of  lambda  a  that  was  obvious  and  u  is 
+called the left singular matrix of a and v is called the right singular matrix of a 

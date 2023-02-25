@@ -1,0 +1,192 @@
+pca interpretation two 
+so that is what we look at in the second interpretation of pca right 
+so again we have the same setup that given n are linearly independent for n orthogonal 
+vectors we can represent x i exactly as a linear combination of these vectors what do i 
+mean by exactly perfect ok if you actually describe the whole things in words ok so 
+that is exactly what i mean right so you are going to write x i as alpha one i into p one plus 
+alpha two i into p two and so on and when you do the summation on the lhs on the rhs 
+you  just  get  back  the  lhs  when  you  do  the  summation  on  the  right  hand  side  you  get 
+back the left hand side 
+so that means it can exactly be represented when you use all the n eigenvectors now if 
+i start chopping of stuff what will happen 
+student 
+it  will  just  be  an  approximation  ok  now  we  this  is  what  i  meant  and  this  is  this  the 
+equation holds that means this is exact and we know how to find the alpha is because p 
+js are conveniently orthonormal so we know how to find that easily ok now what if we 
+consider only the top k dimensions what is going to happen there is going to be some 
+error in the reconstruction i am not capturing all the information in my original data but 
+there is some error which i am not being able to capture and i made a conscious decision 
+that that error is not important i am willing to let it go 
+hence  i  want  to  represent  the data using fewer  dimensions ok so this is  exactly  what 
+you do in pca when you take the top k dimensions is this fine ok so now we want to 
+select  pi’s  such  that  we  minimize  the  reconstructed  error  ok  and  this  is  again  erratic 
+actually we should try to write it as x i minus x since these are vectors and the square of 
+vectors would just meet this right 
+so but you get the point right were just trying to do the element wise squared error loss 
+were trying to minimize that we want to do this so now let us try to see that if you are 
+aiming to do this what is the condition that we arrive at ok so no i thought i would ask 
+for some changes on this 
+for a minute all of you can you just bear with the fact that these are actually vectors and 
+not scalars so this square actually does not mean anything it actually means x i minus x 
+i hat transpose x i minus x i hat so when i use square with vectors this is what i mean 
+is that everyone can work with that notation fine 
+so now what is x i actually the real point right the correct point which can be obtained by 
+the  full  reconstruction  if  you  consider  all  the  n  dimensions  what  is  x  i  hat  just  an 
+approximation where you are considering only the k dimensions remember that each of 
+these quantities is a vector fine ok now what is happening here let me just try to say 
+this so let me just do this way so this is your original x and you are actually writing it 
+as a linear combination of your p’s somewhere you will have alpha k pk and then all the 
+way up to p n 
+so this is p k alpha n ok now what is this full thing this is x and what is this x hat ok 
+you see the picture what is the equation trying to tell you ok now what is the difference 
+between these two then these guys right if i want to take difference between x and x hat 
+everyone gets that it is the remaining term say that means alpha k plus one into p k plus one 
+up to alpha n into p n is that clear 
+so can i write it as  yeah can i write it as this ok so you get this right so i am only 
+taking these guys because the rest will get subtracted so one is the full n dimensions the 
+other is only k dimensions so if i take the difference between them what remains is k 
+plus one to n dimensions and that is exactly what i have written here ok 
+and now i am coming back to the proper notation where this is a vector right so i am 
+writing the square as the dot product between the same vector is this ok these are the m 
+data point right this sum  this is  overall the m  data points  you need to  minimize that is 
+that  clear  ok  so  this  is  fine  now  want  just  some  rearrangement  so  i  have  just 
+expanded out that summation this is what it would look like right i have just expanded 
+out these two summations 
+now  let  us  try  to  do  this  in  your  head  and  see  what  are  the  kind  of  terms  that  you  get 
+there are two different types of terms that you will get so first of all let us understand that 
+when  you  expand  this  you  will  end  up  with  a  lot  of  dot  products  you  will  get  a  dot 
+product between this and this and this and so on right so can you split those terms into 
+two different types 
+student 
+square terms so one where i is equal to j and one where i is not equal to j is that clear 
+fine  so  let  me  just  write  it  as  that  so  i  will  have  k  plus  one  to  n  right  that  means  n 
+minus k terms  where i  would be equal  to  j  right  so  that means pk plus  one was  getting 
+multiplied by k pk plus one pk plus two was getting multiplied by pk plus two and so on and 
+then i will have these remaining terms  where i is not equal to z right so these are the 
+dot  product  between  the  other  vectors  is  it  fine  you  see  why  i  have  split  it  this  way 
+what will happen now the second term will go to zero ok and what about the first term 
+alpha ij square ok now what is alpha ij actually how did you find alpha ij 
+student 
+it  is  a  dot  product  between  we  did  this  right  finding  any  of  these  components  is  just 
+taking the dot product between x i and that dimension so x i transpose pj is that fine ok 
+is this fine and again this is slight abuse so this is actually what no this is ok right a 
+this is ok sorry i am just going to write it as this is this fine i just written it twice and i 
+can change the order since it is a dot product 
+now  what  i  am  going  to  do  is  so  this  is  actually  summation  over  an  index  i  and  a 
+summation over an index j and i can change the two summations i can interchange them 
+ok so that is what i am going to do now is this fine i will push the summation all the 
+way inside what is this actually this entire thing actually m times covariance of 
+student 
+so is this i is this what you are telling me that this is m x transpose x is this fine how 
+many  if  you  do  not  get  this  i  see  a  lot  of  blank  faces  how  many  if  you  do  not  get  this 
+quite a few so this is so i is equal to one to m right so you are going over the data points 
+ok so this what is the dimension of this actually 
+student n cross one 
+n cross one and this is one cross n what does this product give you 
+student 
+n cross n what are the entries in this matrix so this was say x one one up to x one n and this is 
+again x one one up to x one n ok so that is going to be x one one square or rather let me just write it 
+in the generic form right so it is going to be x one i into x one j right is that fine and how 
+many such matrices are you adding 
+student 
+m of these so what would you get then what would the first let us so ok so let us do 
+this  so  the  first  entry  of  this  matrix  is  going  to  be  x  one  one  square  what  about  the  first 
+entry of the next matrix in this series 
+student 
+x two one x two one square right so this is slightly tricky to demonstrate let me just a give me a 
+minute i will just collect my thoughts and do it properly ok let us take a small example 
+ok so x one one x one two x one three suppose we have a three dimensional matrix three dimensional data so 
+i am taking a sum of m such matrices ok i equal to one to m that means this is going to 
+vary this indexes the  first  index is  going to  vary  from  one to  m now let  us see the first 
+matrix and let us look at the first element of that matrix the first element of this matrix is 
+going to be x one one square ok 
+now let us look at the next matrix what is the next matrix going to be it would be x two one 
+x  two  two x  two  three  right  and  multiplied  by  x  two  one  x  two  two x  two  three  what  is  the  first  element  of  this 
+matrix going to be 
+student 
+x two one square what about the third one x three one square this is fine so far now you are adding 
+all these matrices so what is the first element of the resultant matrix going to be x one one 
+square plus x two one square plus x three one square what is this actually this is the dot product 
+of  x  one  with  itself  right  and  what  does  that  give  you  the  variance  if  the  data  is  zero  mean 
+right ok now can you make a similar argument of the ij’th entry is going to give you the 
+covariance between the i’th and the j’th entry is that clear right you could do a similar 
+analysis  you  can  actually  work  it  out  after  going  back  how  many  of  you  have  found 
+comfortable with this there is still many who are not ok 
+so let us look at an ij’th entry right so can someone help me with say that one comma two 
+entry  ok  or  the  first  matrix  what  is  it  going  to  be  x  one  one  into x  one  two  right  for  the  second 
+matrix 
+student 
+x  no  this  is  some  yeah  correct  and  for  the  third  matrix  three  two  ok  now  what  is  this  sorry 
+what is the summation of these when you take the full sum you will get these three as as 
+what is this in this summation tell you 
+student 
+covariance between 
+student first and second 
+the  first  column  and  the  second  column  is  that  clear  now  is  it  with  everyone  nowok 
+fine so what you have here is actually the covariance matrix you seems to be lost is it 
+with you sure  ok fine 
+so what we have here is something of this form ok 
+so now what we want to do is we want to minimize this quantity subject to the following 
+condition  is  that  ok  what  is  the  solution  for  this  if  i  did  not  have  the  summation  ok 
+suppose i just wanted one dimension so i want to minimize say p sig p transpose sigma 
+p such that p transpose p is equal to one what is the solution for this 
+student 
+smallest  eigenvalue  of  sigma  right  and  you  can  show  by  induction  that  if  you  want  k 
+such things that here i am looking for n minus k such things right then these would be 
+the  n  minus  k  smallest  eigenvalues  of  sigma  but  now  i  am  talking  about  the  smallest 
+eigenvalues but  in  the first  solution  i said  we need to  pick the largest  eigenvalues so 
+what is the difference 
+student 
+these  are  the  ones  we  are  throwing  away  these  are  the  ones  along  which  the  error  is 
+going to be minimum if we throw these away the error is going to be minimum so we 
+will  throw  away  the  last  n  minus  k  dimensions  which  means  well  keep  the  first  k 
+dimensions is that clear so you arrived at the same solution is that right so that means 
+in  pca  you  are  actually  trying  to  pick  the  dimensions  in  a  way  such  that  your 
+reconstruction  error  is  minimized  and  this  was  exactly  what  our  reconstruction  error 
+was so do not worry about this math bit just see that we started with this quantity this 
+is what we wanted to minimize ok 
+and  we  did  some  trickery  and  we  came  to  this  formula  that  minimizing  that  error  is 
+equivalent  to  minimizing  this  quantity  and  for  this  we  know  the  solution  that  the 
+solution is the smallest eigenvalue and we want n minus k such things that means there 
+would be the n minus k smallest  eigenvectors is that clear that means we are going to 
+keep only the k largest eigenvectors ok that means you are going to project your data on 
+to k largest eigenvectors 
+now  so  the  key  idea  here  is  this  right  minimize  the  error  in  reconstructing  x  i  after 
+projecting the data onto the new basis 
+so let us take an example and we will work with our toy example again 
+so this was the data that we had and suppose i give you a new basis which is one comma one 
+and  minus  one  comma  one  ok  this  is  a  new  basis  this  is  an  orthonormal  basis  orthogonal 
+basis you can see that u one transpose u two is equal to zero ok 
+now i need convert it to an orthonormal basis so i have just divided by the magnitude 
+is it ok fine now consider the point thirty-three comma three this was our original point according 
+to which coordinate axis x comma x that means this was thirty-three and this was three ok now i 
+can  find  the  alpha  is  right  because  this  is  an  orthonormal  basis  i  can  directly  find  the 
+alpha is now the perfect reconstruction would be this so actually if i do this i get back 
+the original point 
+now  what  would  happen  if  i  throw  away  the  second  dimension  because  the  second 
+dimension had corresponds to a smaller eigenvalue ok i will get this so you see that the 
+point  is  still  close  to  the  original  point  i  have  not  actually  lost  much  right  what  has 
+happened is i have actually projected the boy lie point on this line right the line x equal 
+to y that is why i get x equal to y and in doing that i am not losing much information 
+from  the  original  data  is  this  clear  right  so  you  understand  what  happens  when  you 
+reconstruct the data 
+there  is  no  end  to  this  ok  so  just  to  recap  the  eigenvectors  of  a  matrix  with  distinct 
+eigenvalues  are  linearly  independent  and  we  use  this  fact  conveniently  at  least  in  the 
+case of square matrix where the also happen to be orthogonal so we know that they can 
+form a very convenient basis and pca exploits this to find the top k eigenvectors which 
+to be retained 
+and  while  doing  this  they  have  seen  that  two  things  are  at  least  ensured  one  the 
+covariance between the dimensions is zero because that is exactly how we formulated it and 
+found the solution we saw that it turns out that we need to diagonalize a certain matrix 
+and the solution is the eigenvectors 
+we also saw a different interpretation where we saw that it is the same as throwing away 
+the  dimensions  along  which  the  error  would  be  minimum  right  and  both  these 
+interpretations led to the same solution which was project the data onto the eigenvectors 
+of the covariance matrix of the original data ok and this n minus k dimensions current 
+contribute  very  little  to  the  reconstruction  now  what  is  the  one  thing  which  i  have  not 
+proved yet what was our wish list 
+student variance and covariance 
+variance and covariance right high variance low covariance i proved low covariance i 
+have  also  proved  something  with  respect  to  reconstruction  error  because  that  is 
+something  i  require  for  auto  encoders  so  just  remember  this  bit  about  reconstruction 
+error 

@@ -1,0 +1,397 @@
+lecture  three 
+before we move on to the next modulate some small corrections from yesterday’s class 
+so  one  was  this  partial  derivative  it  should  have  been  dou  w  square  so  we  already 
+taken one derivative with respect to w and now you are taking another derivative it is the 
+gradient  of the  gradient and similarly should this  should have been  dou b  square  and 
+this should have been dou w dou b 
+the  other  small  thing  which  i  wanted  to  say  was  so  when  i  was  executing  this 
+algorithm  right  so  i  forgot  to  mention  that  just  notice  what  is  happening  is  the  black 
+dot that you see the black dots that you see right and which are very close to each other 
+actually because you are just making small movements those are the changes in the w 
+comma b values and the red dots  are the  corresponding loss to  that  w comma b values 
+right just to clarify 
+so that is why you see a movement on the w b plane which is this movement and as you 
+keep changing that your loss function changes and it becomes better and better right that 
+means it goes closer to zero 
+so  in  this  module  we  are  going  to  talk  about  the  representation  power  of  a  multilayer 
+network of sigmoid neurons right so i am going to compare these two things which are 
+written  in  the  title so  first  tell  me  what  was  the  representation  power  of  a  multilayer 
+network of perceptrons ok i roughly hear what you are saying and basically what  you 
+are telling me is  that  a  multilayer of network of perceptrons with  a single hidden layer 
+can be used to represent any boolean function precisely right no errors that’s what we 
+saw with that illustrative proof where we actually constructed once its network 
+now what is the representation power of a multilayer network of sigmoid neurons so 
+multilayer network of neurons with a single hidden layer can be used to approximate ok 
+so just see the difference in the language so this was a represent that means exactly 
+this  is  approximate  that  means  i  will  tolerate  some  error  any  continuous  function 
+instead of boolean function to any desired precision so this was not this was precisely 
+with no errors this is up to any arbitrary desired precision 
+so what  does this mean actually what  is  the meaning of this so there is  a guarantee 
+that for any function ok which takes our original x from r n to r m what is the m that 
+we  have  been  considering  in  all  our  examples  one  right  we  just  care  about  one  output 
+but  it  can  be  r  m  also  we  can  always  find  a  neural  network  with  one  hidden  layer 
+containing  enough  neurons  so  that  is  the  operating  trace  here  enough  neurons  whose 
+output  g  of  x  so  that  means  you  would  have  a  network  it  would  take  as  input  n  x  it 
+would produce some y hat and that is what i am calling as g of x right that g of x would 
+be very close to the true function f of x 
+so remember that we said that there is this true function f of x which gives us the true 
+y’s and we are trying to predict this y hat so the true why i am calling by f of x and the 
+y hat i am calling by g of x and you can come up with a neural network which can give 
+you values which can predict values which are very close to your true values does that 
+make sense do you see the value of this theorem what is it trying to tell me tell me 
+can you can you give me an interpretation of this why is this so useful do you know 
+what this theorem is called universal approximations here and we did that in the history 
+right 
+so  this  was  one thousand, nine hundred and eighty-nine  ok  what  is  the  significance  of  this  why  do  we  care  about  such 
+arbitrary functions and what does this theorem telling us actually it is of course telling 
+us something about the representation power of a multilayer network of sigmoid neurons 
+but why is this important so we will see that 
+so  this  the  remainder  of  the  lecture  i  have  borrowed  ideas  from  this  url  you  should 
+actually  read  this  it  is  a  very  interesting  book  it  is  available  online  for  free  very 
+illustrative so please take a look at it ok 
+so  now  actually  what  we  are  interested  in  is  we  are  interested  in  knowing  whether  a 
+network of neurons can be used to represent any arbitrary function like the one shown in 
+the figure ok so let me put some labels on this so they understand what i am trying to 
+say suppose this is salinity again i go back to my oil mining example and i say that my 
+decisions are based only on a single variable which is salinity and this is actually how the 
+amount  of  oil  varies  right  as  the  salinity  increase  it  is  a  very  arbitrary  function  it  is 
+definitely not a linear function it is not even a quadratic function it is not an exponential 
+function it is just some arbitrary function but a mathematical function this is possible it 
+is quite likely that salinities has this influence or in oil production or maybe it does not 
+but i am just taking that as an example 
+now what do we want the network to learn if i take some data and train the network at 
+the end of training what do i want so if i feed at this point after training what should 
+happen it should give me this value right that is what training means and that means i 
+should be able to approximate this curve if i do that that means i have learned from the 
+training data so let us see 
+now  we  make  an  observation  that  such  an  arbitrary  function  can  actually  be 
+approximated by a lot of something that we call as tower functions these are all single i 
+mean  pulse  functions  which  you  have  many  of  these  and  you  could  have  an 
+approximation right and you can see that this approximation is bad at many places but 
+still it is an approximation it largely gives you the same shape as the original curve what 
+would happen if i increase the number of such tower functions 
+student 
+the approximation would improve right if i keep increasing it the approximation would 
+go more and more better right so now just try to keep things in mind whether i write 
+in the theorem right you can make it arbitrarily close to the actual value that means you 
+can  keep  doing  something  so  that  your  approximation  becomes  better  and  better  and 
+you already see something of that sort this is still in the sense of a figure we need to 
+relate  this  back  to  a  neural  network  but  you  see  that  as  i  am  increasing  these  tower 
+functions i become approx arbitrarily close to the actual function 
+now this is what is actually happening right i have multiple such tower functions i am 
+adding them up all of them are shifted in time so this tower function is actually this one 
+this  tower  function  is  actually  this  one  and  so  on  right  and  i  have  not  drawn  the 
+remaining ones i am taking all of these tower functions adding them up and getting my 
+original  function  right  and  the  more  such  tower  functions  have  the  better  is  the 
+approximation 
+now you make a few observations right all these tower functions are actually the same 
+what is the only difference they just shifted and their magnitude changes right but they 
+are all tower function right so let us think of this that if i know how to make a rectangle 
+then i can make any rectangle right i just need to change the size of the rectangle and 
+maybe shift  it or oriented differently or something right so they are  all similar  i just 
+need to learn how to draw a tower right that is what my quest is 
+now if i take the original input salinity pass it through multiple such blocks each block 
+is  capable  of  making  a  tower  function  and  each  of  these  would  give  me  one  of  these 
+towers that i am looking for and  i am looking for so many of these right  if i have as 
+many such tower makers then i could get these towers i could just add them up and then 
+get the original function back and the more these i have the better is my approximation 
+right so i am taking as input the salinity and trying to predict the oil does this make 
+sense  still  we  have  not  figured  out  a  neural  network  way  of  doing  this  we  are  still 
+building intuitions of how to do this 
+now our job now is to figure out what goes in this black box that is the tower maker and 
+how does it connect to neural networks if you figure that out then our story is complete 
+then  we  know  that  a  neural  network  can  actually  do  this  and  that  precisely  proves  the 
+statement which  i had made that it can it can represent  arbitrary functions  so we will 
+figure this out over the next few slides 
+now if you take the logistic function and set w to w to a very high value what will we 
+get just try to think about it the answer is already written but i want you to imagine it 
+w covers what 
+student 
+the slope right as i make w very high what will happen is i will get the so let us try 
+changing the value of w ok i just increase the value of w and see what happens to the 
+sigmoid curve 
+some error here actually there is some problem the w value should have increased and 
+that is how the sigmoid slope increases not  the b value the b value comes later on so 
+actually  sorry  about  this  the  w  value  as  i  keep  increasing  so  do  not  think  that  b  is 
+increasing think that the w is increasing  it will become sharper and sharper and it will 
+come very close to the step function right it will not become exactly the step function 
+that will only become in the limit but if i keep increasing i will get very close to the step 
+function everyone agrees with this 
+now what happens if i increase the value of b it will shift everyone is confident about 
+that can you tell me why 
+student 
+what will shift actually the point at which the transition happens right so what is this 
+point actually 
+student 
+this is the point at which i get that half value right and let us look at our function this is 
+a function when will i get that half value when w x plus b is 
+student zero 
+zero right so that means x equal to minus b by w that is why it is proportional to b so 
+as  i keep increasing the  value of b this  will keep shifting ok  is that  fine everyone ok 
+with this 
+now  what  if  i  take  two  such  modified  sigmoid  functions  which  are  shifted  differently 
+and both are very close to the step function right so here is where one threshold is here 
+is where the other threshold is and now i subtract this one function from the other what 
+will i get 
+you know the term 
+you will get a tower right is that fine everyone gets this right so these places up to 
+this point both are zero so zero minus zero will be zero at this for this small range this is one and this 
+is zero so that one minus zero and then afterwards both are one so one minus one would be zero so you 
+get that tower function so now i have my tower maker 
+now  can  we  come  up  with  a  neural  network  to  represent  this  operation  i  want  a 
+sigmoid neuron i was working with a sigmoid neuron with some arbitrary weights right 
+so  that  i  recover  that  step  function  can  you  imagine  now  given  x  i  want  this  tower 
+function and that is exactly what one of the blocks was right so what i am asking you 
+is oh god so i am asking you to give me a neural network for this can you think of it 
+can you try imagining it 
+two neurons in the hidden layer how many of you agree with that ok can you can you 
+take some more time to imagine what it would be 
+and i have already ok right 
+so this w one b one if i set it appropriately i will get this step function if this w two b two i set it 
+appropriately i will get this step function now i needed to subtract one from the other 
+right so i will do plus one minus one this is just a simple addition and i will get this is that 
+fine  everyone  agrees  with  this  this  is  just  a  adder  right  this  is  just  an  aggregator 
+everyone  gets  this  so  now  i  have  given  you  the  tower  maker  if  you  put  enough  of 
+these tower makers and learn the w’s appropriately what will you get 
+that  function  that  we  were  needed  so  you  can  approximate  it  arbitrarily  to  any 
+precision that you want as long as you keep increasing the number of these units right 
+so these units actually give you one tower more of these units that if you have actually 
+this much this is the input ring the more such tower makers that you have the more is 
+the  bars  that  you  will  get  and  then  you  can  approximate  everyone  gets  the  intuition 
+behind this fine ok this all is always good in one dimension 
+now what will happen in two dimensions what if we have more than one input what 
+is the tower there do you do you guys all do all know what is the tower there 
+if  you say no i will give you a zero on the assignment remember the last question of 
+the assignment did  you all make a tower did  you all make  a  2d tower  did  you all 
+copy that no so what if we have more than one inputs suppose you had again trying to 
+take a decision about whether we will find oil at a particular location of the ocean right 
+and suppose now we base it on two two right so say this is salinity this should be x one 
+should be x two should be y and this is pressure 
+now just observe  about the red  and blue points so the  red points  are  where  you will 
+not for those configurations of salinity comma pressure you will not find oil and the blue 
+points are for which  you will find oil what is the one thing that  you can tell me about 
+the red points and the blue points not linearly separable right but we still want to be 
+able to learn this is that fine a single perceptron cannot do it i will also make a case for 
+a  single  sigmoid  neuron  cannot  do  it  and  then  i  will  show  you  that  in  fact  first  i  will 
+show you that with a network of neurons we can do it and then i will show that with a 
+signal single sigmoid neuron you cannot not actually do that 
+so now this is again a valid problem you could have we could imagine that you will get 
+this kind of data where you have two factors and your function is some arbitrary function 
+of  these  two  factors  it  is  not  a  need  linear  boundary  between  the  blue  and  red  points 
+everyone sees that the blue and red points are not linearly separable you cannot draw a 
+plane  such  that  all  your  red  points  lie  on  one  side  and  the  blue  points  lie  on  the  other 
+side  everyone  sees  that  ok  but  the  solution  which  i  have  plotted  here  that  is  a  good 
+solution  it  makes  sure  that  all  the  red  points  are  in  this  region  and  the  blue  points  are 
+outside 
+so it will predict a high value for these red points and a zero value everywhere for the 
+blue points is that obvious how many of you understand that figure ok good 
+so now i want to show that even in 2dimensions i could come up with arbitrary i could 
+come  up  with  a  neural  network  which  could  actually  approximate  this  and  again  what 
+will i look for a tower maker right i just want something which can make towers and 
+approximate it 
+so this is what a 2dimensional sigmoid looks like slightly incorrect because i have what 
+i have done is i have actually said w two to zero so if you actually i would want you to do 
+this go back and plot this for w one equal to three and w two equal to three 
+just go back and plot this and see what you get you will not get such a smooth such a 
+nice  looking  s  but  you  will  still  get  something  which  looks  like  looks  like  a  snakes 
+hood right so in  still get that  s shaped  function  it just that it would be bent at  some 
+points and it be thinner at some points and broader at the other points so just go back 
+and see and then you will realize what is happening right 
+so here again what we want to figure out is from the single sigmoid i was able to take 
+you to a tower function right from a 2dimensional sigmoid what does a tower mean 
+here and how do i take you to the tower so that is what i want to do so i have said w 
+two equal to zero and i will it will become obvious why i have done that so just understand 
+what the figure is doing right so this if you just look at this is like the cross cut right 
+so you are looking at the front view of this figure and that is just the sigmoid function 
+without the w two right and now since i have said w two equal to zero no matter what i set x two 
+to the same function will get repeated throughout that axis do you get that 
+so that is why this entire function is just getting repeated throughout this axis and then 
+you just get a similar s shape function everyone gets that how many of you do not get 
+that how many of you get that so this if you look at the front view this is the sigmoid 
+of  one  variable  but  since  i  have  said  w  two  to  zero  no  matter  what  i  change  x  two  to  the 
+function is going to remain the same so it will just get copied throughout the x two axis is 
+that fine with you 
+now what will happen if i increase w two sorry w one same thing right it will just keep 
+shifting  till  it  becomes  almost  like  a  2d  step  function  ok  now  what  will  happen  if  i 
+increase b shift i can do the same thing here also same logic applies here also ok 
+now what is the next step that i am going to do take two of these which are shifted by 
+some point and then subtract what will i get everyone had this figure in mind so just 
+see right so this portion both are zero so zero minus zero would be zero this portion this is one but 
+this is zero so that would be one minus zero and again in this portion both of them are one so one 
+minus one would be zero so you will get this kind of function would you like to live in such 
+a tower i am very serious yes or no no why it is open from two sides right you 
+cannot live in this tower so you want something which is a closed tower right so how 
+will you do that give me an intuition 
+we will do the reverse thing what will be set to zero 
+w one ok 
+and this is how it would look the orientation would change and again so notice that this 
+is your sigmoid function and since i have set x one to zero no matter what i change along the 
+x one axis the same function gets copied and you get a nice looking a sigmoid function 
+now  again  i  will  do  the  same  thing  i  will  increase  the  w  i  will  get  a  close  to  a  step 
+function i will increase the b i will move along this axis 
+next step take two of these subtract get what another tower function this is also not a 
+tower that you like to stay in so what do i do now add them sure add this tower to 
+the other tower 
+so now what  will happen if  i add these  two will  you  get  a tower function what  will 
+you get 
+you  will  get  a  tower  function  with  a  parking  floor  right  is  that  what  you  will  get 
+everyone  understands  why  this  is  so  these  portions  both  are  zero  so  you  get  zero  same 
+logic applies for all the four corners right is that fine now for this portion or rather this 
+area right so this guy is zero this guy is one so you will get a one the same logic applies for 
+all these four corners in the centre both are actually one so one plus one would give you two so 
+this is two this is level two this is level one this is level zero is that fine 
+so  what  am  i  done  so  far  i  have  taken  my  x  one  x  two  passed  it  through  some 
+transformations  right  this  what  are  these  transformations  we  will  see  but  transform  it 
+through these multiple hoops right where i adjusted a w’s and b’s and i have got some z 
+right  and  this  is  how  that  z  behaves  for  different  values  of  x  one  comma  x  two  i  will  get 
+these  different  values  and  these  values  range  from  zero  to  one  to  two  is  this  pictured  clear  i 
+have taken my  original  x  one comma x  two passed it to  some of these transformations and 
+irrespective of what my x one to x two is this tells me the entire range of values that i will get 
+for some combination of x one comma x two i will get zero for some combinations i will get one 
+for some combinations i will get two and some combinations also between one and two right 
+so these places where it transitions is that clear is that picture clear to everyone 
+so now i can treat this as the output z ok now from here how do i go to a tower 
+threshold  it  how  will  you  threshold  it  what  do  you  want  you  only  want  this  much 
+part to exist right this without the parking floor how will you do it any output which 
+is greater than equal to two you want to keep it any output which is less than two you want 
+to make it zero if i do this will i get a tower right sorry greater than equal to one any value 
+which is greater than equal to one you want to keep it anything which is less than one you 
+want to make it zero so this entire thing will get demolished how do you do this this is 
+an if else ok 
+if else if something is greater than equal to zero do something else do something else what 
+is that 
+perceptron  right  but  we  do  not  want  to  use  perceptron  we  want  to  use  sigmoid 
+neurons  have  you  learned  an  approximation  from  a  sigmoid  neuron  to  a  perceptron 
+very high w right you get the intuition let us see what we do on the next slide 
+so  i  take  this  any  z  which  comes  from  here  i  will  pass  it  through  a  sigmoid  neuron 
+which are very high slope such that the threshold is at one anything which is greater than one 
+will pass out as one anything which is less than one will go to zero so everyone sees how we 
+took this structure and converted it to a tower we have this tower now now what do i 
+do with this 
+i  lead  multiple  such  towers  and  i  can  approximate  this  i  could  put  a  tower  here  here 
+here  and  so  on  i  could  have  these  multiple  towers  and  here  of  course  all  my  towers 
+would be of zero height right in this region right so now i can cover the entire 2d space 
+with a lot of tower functions and approximate this exactly that is a very weird statement 
+approximate  this  exactly  i  mean  approximate  this  to  arbitrary  precision  everyone  gets 
+this  do  you  see  why  we  constructed  these  tower  functions  and  now  we  can  put  them 
+inside this cone and approximate it 
+now  all  this  is  fine  i  was  making  some  towers  there  so  can  you  now  give  me  a 
+complete neural network which does this i want you to imagine that remember you are 
+taking  what  i  am  asking  you  to  do  is  this  x  one  x  two  give  me  this  such  that  i  get  this  two 
+dimensional  tower  i do  not know how to  draw it something like this maybe whatever 
+so  i  want  this  2dimensional  tower  what  is  this  network  of  perceptrons  going  to  look 
+like just go back to all the operations that we did and try to imagine in your mind 
+no we will not use perceptron because we can always use a sigmoid neuron instead of a 
+perceptron with the high w i do not expect you to answer this i just want you to imagine 
+right  we  just  try  with  a  there  is  something  known  as  a  pen  there  is  something  on  a 
+paper ok so here is the solution 
+so what is happening here you have this salinity and oh actually this is slightly wrong i 
+do not know why you guys saying it is correct actually at both places i need both the 
+inputs it is just that in one case i do not care about that input because i have said w two to 
+zero so i learn these weights w1 w2 b w1 w2 b of course here the network should learn 
+that  w  two  is  equal  to  zero  right  and  then  you  get  this  one  tower  do  not  needs  this  to  be 
+modified this figure is incorrect 
+so we need x one x two both as inputs we need to label it with w one w two equal to zero and b and 
+so on it so we will discuss this later anyways but you get the idea right that you take 
+these two inputs make one tower take the inputs again make another tower add them up 
+to  get  this  function  pass  it  through  this  step  neuron  function  step  sigmoid  function  so 
+that  you  get  the  tower  so  this  is  one  block  you  will  have  many  such  blocks  each  of 
+which will learn different w’s and b’s so that they get shifted and then you will place 
+them all together you have an aggregator on top of this which will combine them just a 
+minute how many of you get this ok good 
+yes  so  that  is  a  good  question  i  am  going  to  come  to  that  right  so  i  have  very 
+conveniently given you a solution where i have what is the bad thing that i have done i 
+have  hand  coded  these  things  right  i  have  hand  coded  w  ones  w  twos  and  b’s  is  that 
+fine in practice no i mean that is where we started off and we do not want to hand code 
+these right 
+so  now  you  know  a  learning  algorithm  for  a  single  sigmoid  neuron  now  what  you 
+have  is  a  network  of  neurons  right  for  this  network  of  neurons  i  need  to  give  you  a 
+learning algorithm driven by the objective function  that whatever output it gives would 
+be very close to that arbitrary function that you are trying to model 
+if  i  give  you  a  learning  algorithm  then  you  would  be  convinced  that  if  this  has  to  be 
+minimized and the weight configuration which need it needs to arrive at as w two is equal 
+to zero then the algorithm should be able to do that right because we saw we have some 
+faith  in  these  algorithms  in  the  case  of  a  signal  sigmoid  neuron  that  with  the  right 
+objective function it will give me a principled way of reaching that objective function in 
+this  big  network  my  objective  function  is  to  arbitrarily  to  approximate  this  of  this  true 
+function right 
+so now if i give you that as the objective that whatever outputs the network generates 
+so the network might  generate something like this so that has to  be very  close to  the 
+true output that is the objective function that i am going to use in that learning algorithm 
+and if that learning algorithm works which will prove then you should be able to arrive at 
+the necessary weights to make this approximation right is that clear and in fact there 
+might you might not even have to do these multiple towers in practice all i am trying to 
+prove is that there is one solution which exists 
+if there is one solution which exists i can say that locate the network can learn that is the 
+only claim i make i am not saying this is the only solution right same as in the case of 
+the boolean functions where i said that one solution exists where you have to raise to n 
+neurons  of  the  hidden  layer  that  was  a  sufficient  solution  that  was  not  a  necessary 
+solution for the and function we were actually able to do it with a single sigma neuron 
+right so just keep that in mind i am just giving you a sufficient solution 
+and the network could actually learn something better than this all right this is again a 
+very bulky solution why it scales with the number of neurones’ proportional to number 
+of input variables that you have so that is for a sufficient solution but you would want 
+something  better  than  that  all  i  am  trying  to  say  is  that  it  can  approximate  i  am  just 
+telling  you  the  representation  power  and  just  as  we  had  the  catch  there  that  the  hidden 
+layer is very large the same catch applies here also is this story clear to everyone 
+so i have given you a solution i have not told you how to learn the weights i have given 
+you a network now later on we will discuss a learning algorithm for this network and 
+we  will  have  some  confidence  that  given  a  particular  objective  function  that  learning 
+algorithm  can strive to  go to  minimum  error or  minimize the quantity of that objective 
+function that is going to come in two lectures from now is that fine 
+and that was for the tower function now i could have actually directly done this right 
+so i wanted to approximate these functions so i could have placed a lot of these kinds 
+of things here and approximated it right so that instead of that very high slope sigmoid 
+function i could just use a normal sigmoid function also ok and again there is  a error 
+here but i hope you get the picture it is just that you feed both the inputs to them 
+so for one dimensional input we needed two neurons to construct a tower for two dimensional 
+input how many neurons did we need i am just counting these because these are simple 
+aggregators right and this is one constant at the end so how many did we need actually 
+o of two n i mean o of i mean so for n how many would we need let us try to work that 
+out ok so i will ask you that in the quiz how many do we need for n dimensions 
+now why do we care about approximating any arbitrary function we will again try to 
+close  the  loop  now  we  saw  that  we  can  arbitrarily  we  can  approximate  any  arbitrary 
+function but now again i want to come back to the point why do we want to do this and 
+can we tie this back to the classification problem that we were dealing with 
+and  this  is  the  data  which  i  had  given  you  which  was  there  were  some  points  some 
+values of x and y sorry this should be x one and x two it is where this is pressure and salinity 
+or salinity tendency and this is the output which is oil 
+now  there  was  this  is  what  the  function  actually  looks  like  now  what  would  have 
+happened if i had used a single sigmoid neuron to try to approximate this function try to 
+represent this function and sigmoid neuron in two dimensions right so the two dimensional 
+sigma  what  would  have  happened  can  you  give  me  one  solution  for  this  remember 
+earlier i had said that perceptron cannot handle data which is not linearly separable but 
+then i anyways used it for data which was not linearly separable and we got some line 
+such that we got some errors the red points and the blue points are not clearly separated 
+so i am asking you for a similar thing here i force you to use a sigmoid neuron what 
+would you give me 
+is  this  fine  this  is  one  of  the  possibilities  of  course  it  could  have  been  oriented 
+differently  and several  things what  is  happening here is  that  for these blue points it is 
+acting correctly but  for these red points it is not acting correctly i am assuming red is 
+positive and blue is negative i think that should have been the other way round but let 
+us assume red is positive and blue is negative again now for these red points this part is 
+working fine but it is misclassifying all these blue points 
+so all these bad locations is actually saying that you can find oil and for all these good 
+locations here it is saying that you cannot find oil that is what a sigmoid neuron would 
+do and you could have multiple solutions are possible here right but all of them would 
+have this problem that will make errors on some red points and some blue points right 
+but  the  true  solution  that  we  wanted  is  something  like  this  again  there  are  multiple 
+solutions  possible  right  you  could  have  anything  there  are  you  could  have  even  finer 
+one  side  you  could  just  have  this  much  there  many  things  possible  this  is  one  such 
+solution what  the illustrative proof told  you is  that  you  can actually use a network of 
+perceptrons  and  approximate  this  arbitrary  function  which  exists  between  the  input 
+variables and the output variable 
+so  if  this  is  the  function  which  exists  between  the  input  variables  and  the  output 
+variables  now  you  could  take  these  multiple  two  dimensional  tower  functions  and 
+approximate it with the catch that you might need many of these in the hidden layer but 
+you  can  still  do  that  ok  so  that  is  why  this  in  theorem  important  because  now  any 
+problem  that  you take right  any problem  that  you will have in  machine learning would 
+always want you to take an x learn a function of x which takes you to y this function will 
+be have some the function will have some 
+parameters  right  and  now  what  this  theorem  is  saying  is  that  you  could  adjust  these 
+parameters such that you can arbitrarily come close to the true function right so that is 
+the significance of this any machine learning problem that you can think of in the sense 
+of  classification  or  regression  you  would  find  that  this  is  useful  and  i  am  giving  you  a 
+very  powerful  tool  to  do  that  of  course  with  the  catch  that  i  am  not  giving  you  any 
+bound on the number of neurons that you will need i am just saying use as many as you 
+want 

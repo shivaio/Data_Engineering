@@ -1,0 +1,128 @@
+skipgram model 
+so with that we will move on to the next model i am still not telling you how to solve 
+this problem we will come to that later 
+i am just going to the next model which is the skip gram model ok and this is the 
+famous word2vec which you are trying to implement 
+the model that we just saw was known as a continuous bag of words it predicts the 
+output given the context skip gram model does the reverse of that 
+you are given a word you want to predict all the context words so now i am given the 
+word on i am trying to predict the words which appear on the left and right side of it is 
+that fine so how many prediction problems am i solving how many predictions am i 
+giving you four in this case right so you see that this is a case where your y actually 
+belongs to r four right of course it is not r four it is four into v and because you are predicting 
+the entire distribution but what i meant is that you want these four different outputs you 
+just do not want one single output 
+apart from that does everything else remain same you have an input word you compute 
+a hidden representation from that hidden representation you try to predict the outputs 
+you get a probability distribution what is your loss function it is a dash of cross 
+entropies sum of cross entropies how many cross entropies do you have four in this case 
+and also notice that i have i hope i have yeah i have changed w word and w context 
+they are flipped now is that fine the role of context and the word has changed 
+in the simple case when you are trying to take one word as the input and only predict 
+one word around it it just becomes the same as the first case that we saw in the 
+continuous bag of words there is no difference there because there also you take one 
+word and predicts the other word 
+so the entire math’s remains the same how many of you get that and even when we 
+have multiple context words our loss function is just going to be the sum of the cross 
+entropies for all those d predictions that i need to make or d minus one predictions that i 
+need to make and then once i see a loss function which is a sum of some things i am not 
+worried because i know how to deal with each of these components and gradients are 
+additive so if you have the gradient of some it is just the sum of the gradients so as i 
+long as i know how to deal with one of these i can deal with the sum so that is why i do 
+not really worry all of you are at that level 
+where you do not worry with the sum as a loss function what are the problems with this 
+already written there same as the bag of words right 
+the end so 
+now we are doing these four expensive computations at 
+the softmax 
+computation is expensive there are three different solutions and there are three different ways 
+that we can deal with it one is something known as use negative sampling the other is to 
+use contrast of estimation and the third is to use a hierarchical softmax so we are going 
+to see all of these and i will shamelessly continue for a few more minutes so first we 
+will see use negative sampling because that is very easy 
+so let d be the sat set of all correct w comma c pairs in the corpus what do we mean by 
+that all words which actually appeared in the word comma context pair so you can 
+look at the vector which i have constructed so sat on sat or sat chair you can imagine 
+that all of these appeared in the context of each other so this is my correct corpus as 
+from what i got from my data 
+now let d prime with a the set of all incorrect w comma r pairs in the corpus and r here 
+stands for random some how am i going to construct this corpus so i take a word i 
+know all the words which appeared with it and i know all these other words which have 
+not appeared with it so i will randomly sample a word from there and put it as r is that 
+fine so i can compute d prime again d prime comes for free d was always for free 
+now d prime is also obviously for free 
+so i have w comma c and w comma r and i have these corpora d and d prime and as 
+before let v w be the representation of the word and u c be the representation of the 
+context word ok so v w will try to these two and you see will try to this and u r 
+something else that we will use for this hopefully is that fine okay 
+now for a given w comma c which belongs to d which is the true corpus what are we 
+interested in maximizing so let us think of z is a random variable weather which tells us 
+whether this is a true pair or not so given w comma c i want to maximize that p of z is 
+equal to one ok now this is what i want to maximize now it depends on me how do i 
+model this probability so can you guess how am i going to model this the answer is 
+there in the figure can you tell me what is the model that i have chosen can you tell me 
+what is the formula for z equal to one given w comma c that i have chosen this stands for 
+dot product this stands for the sigmoid function 
+i know this is some uc representation this is some vw representation note that these 
+representations are not learned yet i need to learn them using the training objective that i 
+set 
+but at the beginning they are initialized to some random values and the way i am going 
+to model probability of z equal to one given wc is that i am going to say that it is just the 
+sigmoid function of the dot product between them how many of you get this are you 
+comfortable with this this is the modeling choice which i have made or rather the 
+authors of skip gram right now how am i going to now what do i want to do for all w 
+comma c belonging to d i want to maximize this probability is that fine for all the w 
+comma c pairs which belong to my true corpus which is the d corpus i want this 
+probability to be high how many such pairs do i have many many right so let us call 
+them as i have n such w comma c pairs 
+so can you tell me what my loss function is going to look like maximize this for the first 
+pair and for the second pair and for the third pair all the way up to the end pairs 
+so what is it going to look like for every w comma c which belongs to my correct 
+corpus i want to maximize that probability of z equal to one given that w comma c pair 
+right and since it is an and i will have this product how many of you are comfortable 
+with this 
+so this as such and this is something that you do regularly you should have done this in 
+machine learning or pattern recognition or somewhere right that you want to basically 
+maximize the log likelihood of the data which is saying that you want to maximize the 
+probability of every training instance which is saying that you want to maximize the and 
+of all these probabilities right be you take the and of all of them is that fine 
+now for the other case wr belonging to d prime what is it that i want to maximize 
+this probability right because i know this is an incorrect pair so i want my random 
+variable to output zero ok 
+now what is this going to be the probability one minus the probability that it was correct 
+and that actually if you just simplify a bit it turns out to be this now for all the elements 
+which belong to d prime what is the objective function that i have i want to maximize 
+this for the first w comma r random pair for the second w comma are random pair and so 
+on for all the random pairs in my corpus so it is just going to be a product of all these 
+probabilities is that fine so now what is my total objective function 
+for every pair in d maximize that for every pair in d and for every pair in d prime 
+maximize the zero probability so what is the total going to be is this fine 
+how many of you agree with this so for everything belonging to d i had this and rule 
+for everything belonging d prime i had another and rule and i am interested in both the 
+acts right maximize for d and maximize for d prime of course different quantities for d 
+and d prime ok fine so you get this once you basically take the log and so on so this 
+is a simple set of math operations that i do you will end up with this neat formula ok 
+that for all the w comma c pairs belonging to d you want to maximize this quantity 
+which means you want to maximize what you want to maximize the when will this 
+quantity be maximized when the dot product between the two is high that means again 
+what are you doing we are trying to bring the context vectors close to the word vectors 
+again transitively what will happen the words which appear in the same context will go 
+close to each other what is the additional thing that you are ensuring here the words 
+which do not appear in the same context you are trying to push them apart why 
+because of second loss function 
+you see the difference between the two now in the first case you are only opt i mean you 
+are obsessed with bringing things close together here you are also focusing on the case 
+that where you do not want certain things to be close together because they never appear 
+in the same context is that fine so you see that this is a more powerful loss function in 
+the earlier one so that is what the skip gram model does 
+and in the original paper mikolov et al sample k random pairs for every positive pair 
+right 
+so that means if your size of d was n what was the size of d prime b k into n so that 
+they had that many positive examples and k times that the number of negative examples 
+and this was a hyper parameter which was tuned and they used a value of k such that it 
+gave them the best results also remember that we have this problem of constructing w 
+comma r now i said that consider all the words which do not appear with your word 
+and sample from there and put something there so they used a slightly that means how 
+do i sample that one is i assign all the words a uniform distribution that every word is 
+equally likely what is a better way of doing that okay i think i just finished this next 
+time 

@@ -1,0 +1,116 @@
+so today we are going to talk about learning vectorial representations for words 
+so these are the acknowledgement slash references for where are the things that i have 
+referred to by preparing for this lecture so you can just go this some of these are also 
+available as video lectures on youtube can take a look at them also 
+in the first module we are going to look at one hot representations of words 
+so as usual we will start with this motivation or motivation motivating question why do 
+we  need  to  learn  representations  for  words  vectorial  representations  for  words  when 
+words are there right  you can write them using alphabets and characters and so on so 
+why do we need vectorial representations mention whatever you have seen so far in the 
+course i have seen anything like this let us see 
+so  suppose  you  are  given  an  input  stream  of  words  and  it  could  be  a  sentence  or 
+documented  if  i  say  documented  pretty  much  covers  almost  all  the  text  that  you  see 
+right you can always abstract everything as a document and email is also a document a 
+manuals are also documents and so on 
+and  we  are  interested  in  learning  some  function  of  it  and  so  i  am  given  a  document 
+and i am interested in the function y hat say y hat is equal to sentiments of the words in 
+the document or the sentiment of the document itself 
+this is imaginable this is not something that i am cooking up this is something that you 
+would want to do you would log on to for example if you are a movie maker you would 
+want to know once the movie is released people have written reviews about it what is a 
+sentiment is positive or negative similarly if apple has released a new product or a new 
+feature  you  would  want  to  know  what  are  the  reviews  written  about  this  product  and 
+what is the feature what is the sentiment coming out of it is positive or negative 
+now sentiment is a binary thing or it could be rated also right it could be on a scale of 
+one to ten also but let us consider it is binary that either people liked it or did not like it 
+so now  i am  trying to  learn this function which gives me which takes as input words 
+but as output gives me real numbers either zero to one or on a scale or one to ten or whatever 
+right and this is not something that we have dealt within the course so far let how do we 
+take as input word so all inputs have already always been numbers right they were 
+either  coming  from  rn  or  they  are  coming  from  zero  to  one  raise  to  n  or  something  of  that 
+sort 
+we never had the situation when we have words as written so right so now how do we 
+deal  with  the  situation  and  also  i  have  made  a  case  for  that  learning  this  function  is  a 
+valid thing to do you have several news cases where you will need this 
+so now if we employ a machine learning algorithm that some mathematical model so 
+we  saw  that  we  could  have  several  such  models  logistic  regression  svm  and  neural 
+network and feed forward neural networks and so on right and at the end we are trying 
+to  learn  this  function  y  hat  is  equal  to  f  of  x  but  in  our  case  the  x  instead  of  have  be 
+instead of x being numbers it turns out that x is actually a collection of words 
+so  now  how  do  we  reconcile  with  the  situation  where  we  have  suddenly  have  words 
+instead of numbers so the way to do that would be we need a way of converting these 
+words or documents into some number into some vectorial representation and once we 
+have this vectorial representation right so now we have r r raised to n and we know 
+how to deal with r raise to n given r raise to n how to predict r or even r square or rm 
+in  general  that  we  know  right  we  can  design  neural  networks  or  any  other  machine 
+learning  algorithm  should  do  that  but  how  do  we  go  from  here  to  here  that  is  the 
+question right and that is why we need to learn vectorial representations of words 
+this  is  a  motivation  clear  to  everyone  okay  now  let  us  start  getting  with  a  (refer 
+time 0352) how to do that right 
+so now we will start hearing this word corpus have you heard this word before that is 
+exactly what you are collecting for the word to like assignment right you are collecting a 
+corpus in specific languages and you have taken a very toyish corpus for the purpose 
+of illustration so here is a corpus it just contains four sentences right so think of it that i 
+have a very restricted domain i have very small set of documents and i just have these four 
+sentences with me this is the valid corpus 
+the  corpus  that  you  have  constructing  is  probably  much  larger  scale  you  are  trying  to 
+collect  one hundred  thousand  sentences  or  fifty  thousand  sentences  or  something  of  that  order 
+right ah but we will take this toy example 
+now  consider  set  v  of  all  unique  words  across  all  these  input  streams  so  i  just  call 
+them input streams by input streams i mean sentences or documents or whatever right 
+you could take it as any sequence of words and v is set of all unique words across all 
+this input sentences that you have 
+so can you tell me what v is here what would can you tell me some elements of v of 
+the set v human machine interface and so on so that is why in fact this is the entire 
+set v which is written on the left hand side right and v is called the vocabulary of the 
+corpus so that means everything in the corpus comes from this vocabulary all sentences 
+are constructed by arranging words from this vocabulary 
+some  of  you  might  always  i  mean  find  this  very  trivial  but  i  am  just  going  over  the 
+basics  so  that  at  least  the  terminology  is  clear  to  everyone  and  what  we  want  is  a 
+representation  for every  word in  v so that  is  the title of the lecture learning vectorial 
+representations of words so for every word in our vocabulary whatever corpus we are 
+dealing with the vocabulary would change and for every word there you want to learn a 
+representation for that word so that is what our quest is today ok 
+and now one very simple way of doing this is right you tell me you want a vector and 
+that is all you care about here is a vector i will give you one hot representations so if a 
+total number of words in my vocabulary is v i just construct a vector of size v ok and i 
+have assigned a number to every word in my vocabulary right so i will say human is 
+equal to zero machine is equal to one interface is equal to two and so on 
+and if you ask me for a vectorial representation of that word i will just say take this the 
+or vector of size v and switch on the corresponding bit and anything else would be zero 
+hence  one  hot  right  at  any  given  point  of  time  only  one  of  the  elements  in  the  vector 
+would be on so that is a simple one hot representation as this is a very simple recipe to 
+get a vectorial representation of words and for every word in your vocabulary 
+now  what  is  the  drawback  of  this  v  tends  to  be  very  larger  right  so  for  example 
+there is a standard corpus known as the penn treebank corpus which is used in various 
+nlp applications for various reasons and that corpus has a vocabulary of fifty k 
+google of course operates at it is own scale so they have a word one t corpus which has 
+thirteen  million  words  so  this  is  like  all  the  most  of  the  web  pages  that  they  have  drawn 
+constructed a vocabulary from that 
+so now i am talking about for every word representing it by a vector of size thirteen million 
+theory  does  not  good  work  right  there  is  too  much  of  storage  required  for  that  and  if 
+you look at that information in it is so redundant that is all zero except for that one bit which 
+is on 
+and the other important problem is that these representations do not capture any notion 
+of similarity other three words that  i  have shown  you  which do  you want  to  have similar 
+representations  cat  and  dog  why  because  both  of  them  are  domestic  animals  right 
+both of them are mammals so there are some things that you would want at least at the 
+minimum that the similarity between a cat and dog is more than the similarly between cat 
+and truck 
+or alternately the distance between cat and dog is less than the distance between cat and 
+truck so now once i start talking about vectors i can talk about similarities like cosine 
+similarities or i can start talking about euclidian distance so once anything i convert it 
+to  a  vector  i  can  start  asking  these  questions  other  two  questions  which  i  am  asking  are 
+valid right  what  would  you expect  to  be the euclidian distance between cat  and dog as 
+compared to cat and truck 
+now what happens with the one hot representations take any two words in your corpus 
+any two what will be the euclidian distance what will it be square root of two right for 
+all the words take any two words in your corpus what will that cosine similarity mean zero 
+because all these vectors are orthogonal right so the cosine similarity is going to be zero 
+but  this is  that means these vectors  are not  really capturing any information about  the 
+essence of the word right 
+so remember always we are interested even like that has been our philosophy right from 
+auto  encodes  and  so  right  or  even  principle  component  analysis  they  are  always 
+interested in  learning meaningful representations  which capture something fundamental 
+about  the  entity  that  we  are  trying  to  represent  right  but  here  something  like  that  is 
+clearly not happened ok so that is not acceptable 

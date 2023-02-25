@@ -1,0 +1,171 @@
+stochastic and minibatch gradient descent 
+now we look at stochastic and mini batch versions of these algorithms 
+so we will digress  a bit actually we should have ended up somewhere else but  i was 
+just going to digress a bit 
+so  this  is  the  original  gradient  descent  code  that  we  had  and  i  have  highlighted 
+something in this red box 
+so  notice  that  the  algorithm  actually  goes  over  the  entire  data  once  before  making  an 
+update it has going over this entire for loop which is over all the data points of course 
+in this toy example i had only two data points but in i practice i will have many many 
+data points i go over all the data points compute the derivatives and then make this one 
+update 
+student 
+because  that  is  the  right  thing  to  do  ok  this  was  the  exact  formula  that  we  painfully 
+derived right that the gradient with respect to the loss function right which we had the 
+summation  i  equal  to  one  to  n  remember  and  the  true  derivative  was  a  sum  of  the 
+derivatives  with  respect  to  all  the  data  points  that  is  what  we  analytically  derived  and 
+hence we are doing that it was that is the right thing to do not for any other purpose ok 
+that is what it should always be right so that is the right thing to do because this is a 
+true gradient and we actually derived it 
+ 
+and hence this was not an approximation so all the theoretical guarantees hold if i do 
+this i know that now this is the true gradient or the true derivative and if i move in the 
+direction  opposite  to  the  gradient  everything  falls  in  place  because  i  proved  it  using 
+taylor series 
+but what is the flip side of this this is the right thing to do but what is the flip side if 
+you  have  millions  of  point  we  will  go  over  all  these  million  points  and  make  this  one 
+update now imagine the consequence when you are in a plateau region right even that 
+momentum or whatever  your movement in  the plateau is  going to  be relatively smaller 
+right  you  are  going  over  these  million  points  and  making  that  tiny  delta  update  right 
+so imagine how much time it will take your algorithm to converge you get the problem 
+so the algorithm will take a million calculations and then make one tiny update to your 
+w ok this is going to be very slow can we do something better always right so let us 
+take a look at stochastic gradient descent fine 
+so i have done a very subtle change to the code what is it do not tell me indentation but 
+that is what i have done so you can tell me that so what is happening now for every 
+data point i am making an update to my w values 
+now  the  algorithm  updates  the  parameters  for  every  single  data  point  if  you  have  a 
+million data points how many updates will be make in one pass over the data a million 
+for every data point will make an update right so that slowness factor in what is known 
+as batch gradient descent right batch gradient descent is when you look at the entire data 
+and then make one update 
+what is the flip side what does this module titled stochastic gradient descent so what 
+is the flip side these are not the true gradients the true gradient is summation over all 
+the points now this is no longer the true grading this is just a point estimator this is just 
+a  approximation  of  the  gradient  right  and  stochastic  because  we  are  calculating  the 
+gradient based on a single data point right it is a sampling one data point and computing 
+the gradient that this is what the entire population looks like right 
+this is almost similar to tossing the coin once and saying that this is what the probability 
+of heads is if it lands at heads then the probability is one otherwise its zero right you see 
+the error you see the problem with that right as opposed to tossing the coin a thousand 
+times and then deciding the probability is just tossing it once so this is always going to 
+be a erroneous right this this is going to be bad 
+so  now  there  is  no  guarantee  that  each  step  will  decrease  the  loss  why  because  the 
+guarantees  were  only  when  you  are  doing  the  right  thing  which  was  to  compute  the 
+gradients over all the data points now there is no theoretical guarantees right because it 
+is  all  stochastic  now  so  it  is  possible  that  in  a  particular  data  point  your  loss  might 
+increase  also  the  overall  loss  on  the  data  with  respect  to  that  point  it  might  decrease 
+but the overall loss right 
+so now let us see this algorithm in action and i want you to make certain observations 
+about this so this is the code that i am going to run now so let us see 
+so i will start and you have to observe and let me know and this is really becoming an 
+eye test for all of you but that is good so for nothing interesting to observe or already 
+maybe 
+remember  i  am  running  gradient  descent  this  is  not  momentum  not  nesterov  this  is 
+gradient descent ok i have already given you the answers what do you observe 
+student 
+i can still pretend an answer a let us do that we see many oscillations why why do we 
+see  the  oscillations  are  these  oscillations  the  same  as  the  oscillations  that  we  see  in 
+momentum no these are different everyone gets that right why are there oscillations 
+what is each click here correspond to one data point right so what is happening here 
+because  we  are  making  greedy  decisions  right  we  are  looking  at  one  point  this  point 
+says to decrease the loss with respect to me move in this direction and we blindly move 
+in that direction 
+now we look at the next point it says oh no no wait you need to move in this direction 
+so we again move in that direction so all these points are actually trying to just make 
+things  better  for  themselves  they  are  not  thinking  about  what  is  happening  to  all  the 
+other points in my data right so all these points are actually competing with each other 
+so  some  decision  which  i  took  with  respect  to  where  to  move  which  was  locally 
+favourable  for  one  of  these  points  may  not  be  good  for  the  other  point  right  hence  i 
+keep  these  tiny  oscillations  which  i  make  these  are  the  stochastic  noise  that  you  are 
+seeing now 
+now can we reduce the oscillations by improving the stochastic estimates always yes 
+fine so let us see what do i mean by that 
+so we look at a mini batch version of this so what i am going to do is instead of so 
+this  code  is  actually  for  mini  batch  stochastic  gradient  descent  it  is  a  very  minor 
+alteration on the stochastic gradient descent i will just let you stare at it for a minute or 
+so what i am doing here is i am instead of doing it for every point i am waiting for a 
+certain number of points and then making the update right that is what i am doing here 
+now for this i have kept k equal to two what does that mean i look at two points compute 
+the  derivatives  with  respect  to  them  and  then  make  an  update  for  two  points  at  a  time 
+what do you expect no what do you expect with respect to this code 
+so let us see we will try to run this now and you will start seeing a red curve here and 
+make some observations about this so this is the red curve yeah its visible oops i do 
+not read any of those 
+student 
+if you need to fix this right these bullet us should come only after the curve has finished 
+this journey ok do not read any of that ah so what do you see about the red curve it is 
+completely contained inside the black curve that means its oscillations are smaller than 
+the black curve right does that make sense why this is happening because now you are 
+not  listening to  just one point  you are listening to two points  and then at least  you  are 
+doing something better right instead of just taking one 
+so  what  is  the  analogy  with  respect  to  our  coin  toss  experiment  you  are  tossing  the 
+coin  twice  and  then  deciding  what  is  the  probability  are  heads  or  tails  right  so  it  is 
+always going to be slightly better than tossing it only once right and now what would 
+happen  in  the  limit  if  i  keep  increasing  this  you  will  end  up  with  a  batch  gradient 
+descent where you look at the entire data 
+so looking at only one data point is bad because it is very noisy looking at the entire 
+data is bad because it is very time consuming so you need to do something in between 
+which is mini batch gradient descent ok and typically  you look  at values of  sixteen thirty-two sixty-four 
+but it also depends on the amount of data you have and if you have a billion points you 
+might actually want to look because if  you have a billion points and you have a  batch 
+size of sixty-four you will take one billion by sixty-four times to finish the data once 
+so you might want to keep a larger batch size at that point right but just ignore that but 
+you will try different batch sizes and see which one works better so in the assignment i 
+will be asking  you in to  experiment with bad sizes  yes ok no sorry wrong question i 
+will be asking them to implement stochastic and mini batch also or only vanilla 
+student mini batch 
+mini  batch  fine  that  is  fine  ok  so  you  will  see  this  in  your  assignment  so  everyone 
+sees  what  was  the  difference  between  stochastic  and  mini  batch  you  have  better 
+estimates now and therefore this red curve is contained inside the black curve fine 
+so you have some things to remember one epoch get used to this terminology one epoch 
+is one pass over the entire data one step is one update to the parameters n is equal to the 
+number of data points and b is equal to the mini batch size now you have to fill in the 
+second column in vanilla or the batch gradient descent what is the number of steps that 
+you take in one epoch 
+student one 
+one in stochastic gradient descent 
+student n 
+n n 
+studentn 
+in mini batch gradient descent 
+student n by b 
+n by b everyone gets that so get used to this ok so this epoch step batch size all this 
+is  something  that  you  will  see  regularly  when  you  are  reading  papers  on  deep  learning 
+fine 
+so similarly we can have the stochastic versions of momentum based gradient descent 
+and nesterov accelerated gradient descent 
+so these are just the codes it is very easy to see what is happening here again basically 
+this is just an indentation right so if you look at the difference between the two codes i 
+have just indented it inside that means i am making these updates for every data point 
+right and same thing you could do for nesterov also 
+now let us see ah this guess what is it this is the gradient descent stochastic gradient 
+descent now let us see if you have really understood nag and momentum based gradient 
+descent  one  of  these  curves  here  corresponds  to  stochastic  nag  the  other  one 
+corresponds to stochastic momentum tell me which one is which 
+student blue pill 
+blue pill red pill blue is 
+student 
+how  many  of  you  say  that  ok  i  am  confused  ok  how  many  of  you  say  that  blue  is 
+momentum how many if  you say that  red is  momentum oh there is so many  you do 
+not have an opinion 
+student sir not clear 
+not  clear  i  will  buy  that  so  ok  so  look  at  this  who  is  taking  longer  u  turns 
+momentum or nag momentum roughly which guy is taking the larger u turns 
+student red guy 
+red guy  right  i mean  roughly speaking there  is only one point to  judge by this here 
+because here they are almost same and that could happen in practice right because this is 
+now noisy so the red curve corresponds to 
+student momentum 
+momentum  because  it  is  taking  a  larger  u  turn  we  saw  that  momentum  takes  larger  u 
+turns and the blue curve is corresponding to nag ok so no i remember this was an error 
+on the slide yeah so this has to be red and this has to be blue so ok so the momentum 
+is actually red and the nag is blue because it is taking a shorter u turn and the reason you 
+do not see it very clearly is because both of these are running in this stochastic mode 
+but you still see the relative advantage of them that nag still takes shorter u turns both of 
+them are faster still faster than vanilla gradient descent 
+you see that black curve at the top and both of these are faster than them both of them 
+all three have run for the same number of iterations after sixty steps you see what happens 
+to stochastic gradient descent and what happens to nag and momentum basically gradient 
+descent  and  of  course  you  can  have  the  mini  batch  versions  of  momentum  and  nag 
+also 

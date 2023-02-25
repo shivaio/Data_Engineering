@@ -1,0 +1,127 @@
+ok the next thing that we are going to do is optimization over images so this is again 
+interesting  and  it  eventually  led  to  this  whole  field  of  adversarial  deep  learning  or 
+adversarial machine learning in general right so we will see what this is 
+suppose i have a trained convolutional neural network ok and now i want to figure out 
+what kind of image should i pass through this so that it gets recognized as a dumbbell 
+why we want to do i would not want to have such a weird objective can you think of a 
+reason why would want such a weird objective i know there is  a convolutional neural 
+network which can distinguish k classes these classes could be anything 
+now i want to deliberately create images which get passed as the dumbbell class why 
+would  i  want  to  do  this  ok  you  are  going  into  your  details  so  i  will  give  you  a 
+application right suppose this network is supposed to do face detection and the k classes 
+which  are  there  are  k  people  right  now  you  want  to  see  what  kind  of  image  should  i 
+feed to this so that i get recognized as amitabh bacchan right so now that could have 
+certain benefits and various high places and so on its i would want to do that right 
+so thats the whole idea behind adversarial learning so now i am asking this question 
+that i want and here its in of course a toy setup there is no reason i why i would want 
+to generate dumbbells but say if i am going to if its an automatic verification whether 
+my  product  looks  like  a  dumbbell  or  not  i  might  want  to  do  this  right  so  you  could 
+think of all sorts of reasons why you want to do this so what we will do is the question 
+that we are interested in is that i have a blank slate with me it just contains some pixels 
+i want to be able to modify this pixel so that my class dumbbell class gets fired 
+now we have done enough gradients enough back propagation everything in this class 
+so i will ask you to give me a solution for this and the hint is treat the image itself as a 
+parameter matrix the second hint is assume that all of this is going to remain constant 
+you are not going to change any of this and you have initialized your parameters which 
+is the image pixels to 0s that means you are started with a gray image 
+now i will change the question a bit only a bit and all of you will be able to answer this 
+ok suppose my network is strained and now i want to change the weights in this layer 
+so that my accuracy improves so that when its a dumbbell class it predicts dumbbell 
+how  will  you  do  that  it  will  pass  the  same  image  what  will  you  do  how  will  you 
+change  the  weights  in  this  layer  back  propagation  what  is  the  update  rule  say  the 
+gradient descent update rule say that the gradient descent update rule 
+student 
+w is equal to ok you guys actually unanimously said gradient is an update rule ok so w 
+is equal to w minus oops oops oops ok minus eta into ok 
+student 
+thats what you will do now if i ask you the question for this you can answer it but if i 
+ask you the same question here why cannot you answer it 
+student 
+so  here  what  were  you  doing  computing  the  gradients  of  the  loss  with  respect  to  the 
+weights what will you do here 
+student 
+it put respect to each of these pixels and then update this pixel by using what formula 
+student 
+i1  thats  the  first  pixel  is  equal  to  i1  minus  eta  gradient  i1  where  what  is  gradient  i1 
+actually everyone gets the intuition right you can do it now 
+so we could pose this as an optimization problem where what we want to do is given an 
+image  we  want  to  maximize  the  score  of  the  output  class  and  i  also  want  some 
+regularization because whatever i get i want it to look like an image right 
+so  we  will  see  different  types  of  regularization  for  doing  this  some  very  simple 
+regularizations but this is the overall idea right  so any generic loss function is always 
+the training loss plus the regularization so i have just kept both the training loss as well 
+as the regularization whats my training loss the score for the class that i am interested 
+in  and  what  are  the  parameters  of  this  object  of  this  optimization  problem  the  input 
+pixels right 
+so far we had already be always been doing w b but instead of w b you now have i as 
+the parameters of your optimization problem is that fine 
+and now we can just think of the entire image as a collection of parameters and we can 
+now update the weights of this matrix which is the image matrix ok 
+so let us see how we will do it so we start with a zero image as i said set the score vector 
+to all zeros and one for the class that i am interested in ok 
+now compute the gradient of this score vector with respect to ik its i want this quantity 
+to  be  maximized  everything  else  to  be  zero  so  thats  what  my  loss  function  is  so  i  am 
+going to compute the gradient of each of the pixels with this now i am going to update 
+the pixel using my gradient descent rule which i just explained brief previously 
+now  i  again  do  a  forward  so  now  instead  of  this  zero  image  i  have  a  modified  image 
+slightly modified image because the pixels i have moved away from zero update based on 
+the gradients now this image  i will pass  back through the network  and  what  will  i do 
+now again change so this is the same as the weight matrix right so you should be able 
+to visualize it exactly the same way as you would have visualized this you had certain 
+weights here you change them a bit again did the forward pass again did the backward 
+pass change them a bit and keep doing this till 
+student 
+till convergence right whatever is your definition for convergence till you are satisfied 
+and instead of score of one you are at least getting a score of nine or ninety-five or something like 
+that right so we will keep doing this right till convergence at the end you will you all 
+of you can imagine that this image will keep getting modified ok 
+so now let us see if we learn run this score or the run this code for certain classes so i 
+mean  interested  in  the  dumbbell  class  and  i  have  ran  that  algorithm  starting  with  the  zero 
+image and this is the kind of image that i end up with you see a dumbbell here without 
+me drawing it right if you go back and look at it you will see that there are a lot of these 
+dumbbell  like  shapes  which  have  actually  appeared  here  the  colour  is  of  course  very 
+much different i dont think dumbbells are of these colours ever but you can see that its 
+actually trying to produce that shapes which will cause the dumbbell output to fire 
+now what is interesting is that its being very redundant so its not trying to generate a 
+single  dumbbell  a  generating  a  lot  of  dumbbells  of  different  orientations  so  i  just 
+keeping its basis covered so that some of this should actually fire and cause a dumbbell 
+output to be maximized ok 
+now let us see if we take a cup and this is like the trophy cup i believe so this is what 
+is  appearing  here  there  is  one  more  cup  here  and  there  is  one  more  cup  here  its  a 
+generating these cups so that you cant be you would not be able to see it its different oh 
+it really looks like i am manipulating it but i am not you can go back in check it those 
+cups are there ok 
+and  then  for  dalmatian  actually  this  at  least  you  can  see  some  white  and  black  spots 
+right at least thats fine 
+so  dalmatians  are  these  dog  which  have  these  white  and  black  spots  so  and  you  can 
+also  see  some  kind  of  a  shape  here  right  which  with  my  drawing  so  it  is  actually 
+producing that doglike shape and its producing multiple of those so its being redundant 
+i am trying to compute that right 
+and  now  you  see  right  with  these  very  arbitrary  images  which  to  you  and  me  do  not 
+know nowhere close to  we will fire will classify this as dalmatian but for the machine 
+and  is  classifying  this  as  a  dalmatian  and  this  is  bad  right  this  is  not  good  there  is 
+nothing  to  be  impressed  about  this  is  actually  bad  because  i  can  give  it  these  horrible 
+images and still get away by something called as a dalmatian 
+so if i want to sell some a dalmatian on olx this is what i can do right i can upload 
+this image and a machine would trigger it and some one would buy it ok so and this is a 
+bell paper so  you can  go back and see  you see a  lot of bell papers here and similar for 
+lemon and so on right 
+ 
+ 
+so various classes  you  can see that its actually  trying  to  produce those  shapes but  its 
+nowhere actually producing a clear image which is  undoubtedly of that object  right  is 
+generating something which can later on be used to fool the network right which is not a 
+good thing ok and we can actually do this for any arbitrary neuron so i was trying to 
+actually fire this neuron which was the output layer but maybe i want something else to 
+fire here so i want to actually see what is it that causes this neuron to fire so i could 
+repeat  the  same  algorithm  by  setting  something  here  as  high  and  then  again  back 
+propagating  the  gradients  only  from  here  and  reconstructing  the  image  every  time  so 
+that this neuron then five is right 
+so these are what the updated images look like which excite certain neurons and some 
+layers so what  does this look  like its actually like a pirates ship  if its not  very clear 
+you have these multiple layers of things and something like this ok so its some neurons 
+are actually firing for this kind of a pattern there are some other neurons which are firing 
+for different kinds of patterns and so on right 
+so you can just create images which cause certain neurons to fire and all these are lot of 
+fun to do so you should i would encourage you to do this i will get more insights into 
+what your network is 

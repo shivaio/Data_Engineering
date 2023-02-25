@@ -1,0 +1,98 @@
+lecture – two 
+power of mlps 
+so welcome to lecture two of cs seven thousand and fifteen which is the course on deep learning so we will 
+talk about mcculloch pitts neuron thresholding logic perceptrons and a learning 
+algorithm for perceptrons and talk about the convergence of this algorithm and then we 
+will talk about multilayer network of perceptrons and finally the representation power 
+of perceptrons 
+so  let us start module one which is on biological neurons  so  remember during the 
+history we had started all the way back  in the 1880s when we spoke about biological 
+neurons  so  we will just start there spend a few minutes on it and then go on to the 
+computational models which is mcculloch pitts neuron 
+so now this is a course on deep learning so we are going to talk about deep neural 
+networks now the most fundamental unit of a deep neural network is something known 
+as an artificial neuron 
+and the question is why is it called a neuron where does the inspiration come from so 
+we already know that the inspiration comes from biology and more specifically it comes 
+from the brain because we saw that way back in the 1890s this term neuron was coined 
+for neural processing units or the cells in our brain 
+so now before we move on to the computational neurons or the artificial neurons we 
+will just see the biological neurons in a bit more detail and then we will move on from 
+there 
+so this is what a typical biological neuron looks like  so  here actually there are two 
+neurons this portion is called the dendrite so it is used to receive inputs from all the 
+other neurons 
+so that is the place where the input comes in then remember we said that in 1950s we 
+discovered that these neurons are actually discrete cells and there is something which 
+connects them so that connection is called a synapse and it decides the strength of the 
+connection between these two neurons so there is an input there is some strength to the 
+connection 
+then once this neuron receives inputs from various other neurons it starts processing it 
+so that is the central processing unit which is called the soma and once it is done this 
+processing it will it is ready to send its output to other set of neurons so that output is 
+carried on by the axon so we have inputs we have some weights attached to the input 
+we have some processing and then an output so that is what a typical biological neuron 
+looks like 
+and let us see a very cartoonish illustration of how this works right how the neuron 
+works so our sense organs interact with the outside world and then they pass on this 
+information to the neuron and then the neuron decides whether i need to take some 
+action in this case the action could be whether i it should laugh or not right whether the 
+input is really funny enough to evoke laughter  so  if that happens this is known as 
+something that the neuron has fired 
+now of course in reality it is not just a single neuron which does all this there is a 
+massively parallel interconnected network of neurons so you see a massive network 
+here now the neurons in the lower level site so these neurons they actually interact 
+with the sensory organs they do some processing based on the inputs  so  they decide 
+whether i should fire or not 
+and if they fire they transmit this information to the next set of neurons and this process 
+continues till the information is relayed all the way back and then finally you decide 
+whether you need to take any action or not again in which this case it should be laughter 
+so  that is how it works and when i say massively parallel interconnected network i 
+really mean it because there are ten raise to eleven which is roughly one hundred billion neurons 
+in the brain 
+now this massively parallel network also ensures that there is some division of work 
+now what do you mean by that is not that every neuron is responsible for taking care of 
+whether i should laugh or not or not every neuron is responsible for processing visual 
+data some neurons may possess visual data some neurons may possess speeds data and 
+so on so there is this division of work every neuron has a certain role to play so for 
+example in this cartoonish example that we took 
+so there might be this one neuron which fires if the visuals are funny right whatever you 
+are seeing is funny there will be one neuron which finds sheldons speech to be funny 
+the way he speaks  so  that might be funny and there might be another neuron which 
+actually   finds   the   dialogue   content   to   be   funny  and   now   all   of   this   pass   on   the 
+information to the next level and this guy would fire if at least two of these three inputs are 
+funny so that means i have some threshold based on which i decide whether to react or 
+not if it is really funny then only i laugh it otherwise i will not laugh 
+so the neurons in the brain as was obvious in the previous slide are arranged in a 
+hierarchy and i will take a more realistic example where we look at the visual cortex 
+so   is   this   is   the   portion   of   the   brain   which   is   responsible   for   processing   visual 
+information right so as you see here you have our retina from where the information 
+starts flowing and it goes through various levels 
+so you see you follow the arrows and you will see there are several levels there is one 
+level here then another here another here and so on right so it is again as i was trying 
+to illustrate in that cartoon the information is relayed through multiple layers and then it 
+goes all the way back to the spinal cord which decides that in this case i need to move 
+the muscle right 
+so   that   is   what   is   being   decided   here   right   so   the   information   flows   through   a 
+hierarchy of layers and in this particular case i am going to focus on these three circled 
+layers which are v1 v2 and ait right so these actually form a hierarchy and let us see 
+what this hierarchy does right 
+so at layer one you detect edges and corners so i am looking at you all i just see some 
+dots and some shapes so that is what layer one recognizes i just recognize some edges and 
+some dots and so on 
+now layer two tries to group all of these together and come up with some meaningful 
+feature groups right so it realizes oh these two edges actually form the nose these two 
+dots actually form the eyes and these two edges actually form the mouth right so that is 
+slightly higher level of processing that it is doing and then layer three further collects all this 
+and leads to higher level objects right 
+so now it is realizing all these things put together is actually a human face right so you 
+add edges and circles or dots  then you had some feature groups and then the feature 
+groups combine into objects right so that is how this hierarchy processes 
+so here is a disclaimer i understand very little about how the human brain works right 
+and what you saw is a very oversimplified explanation of how the brain works right 
+what i told you is there is an input a layer of networks which does a network which has 
+many layers which does some processing and then you have an output right that is the 
+very simplistic view that i gave you this is an oversimplified version but this version 
+suffices for everything that we need for this course right this is not a biology or a neural 
+processing course right so it is enough for this course so that is where we will end 
+module one 

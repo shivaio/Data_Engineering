@@ -1,0 +1,318 @@
+better initialization strategies 
+so in this module we will talk about better initialization strategies 
+so this is where we are in the story right we saw that deep learning has evolved and at 
+least  these  are  the  four  things  which  have  happened  so  we  have  by  the  way  this  slide  is 
+incomplete what are the other things which have happened actually which you already 
+said  in  the beginning  two  more things  which are not  technical  but which happened more 
+data right 
+and more compute but  these are not really technical in the sense that i  mean this just 
+happened we have large amounts of data that means more data means what if you are 
+more data for training you would have complex networks but not over fit right because 
+you  have  so  many  so  much  of  data  right  and  more  compute  of  course  it  speeds  up 
+some of these matrix computations which happen 
+so remember in  a deep  neural  network most of the things which  are doing are  matrix 
+matrix  operations  right  you  are  taking  are  that  is  what  exactly  you  did  in  your  back 
+propagation assignment you did a lot of matrix vector computations and so on and the 
+advent of gpu’s this became very very fast rate orders of magnitude fast 
+so  this  two  which  are  here  as  nothing  much  to  talk  about  that  is  just  something  we  all 
+understand  what  has  happened  they  and  so  now  we  will  talk  about  better  weight 
+initialization strategies 
+so  let  us  start  with  this question  right  we  will  take  this  network  and  we  will  ask  this 
+question what  happens if we initialize all the weights  to  zero  i like it when  you all try to 
+visualize it and ok so  you have to  see  what  happens right  so let us start with  a one one 
+which is w one one x one plus w one two x two 
+so i always start small l i do not try to see what will happen everywhere just start with 
+one neuron and see what happens take a one two what would a one month’s value b if all 
+the weights are initialized to zero zero and a one two again zero right and same for a one three it is all the 
+way all the neurons in this layer are going to be zero till is it 
+so  that means they will  all get  the same  activation  so if the a's are same the h s are 
+also going to be same and that is obvious irrespective of what nonlinearity you use now 
+what will happen during back propagation what  will delta w one one b this  again  i do not 
+know why you do this ok anyway that will be erase it into x one 
+so  remember  that  the  gradient  is  always  proportional  to  the  input  and  you  have 
+somewhere  along  the  lines  along  the  chain  rule  you  have  this  h  one  one  and  a  one  one  just 
+remember that and what would delta at gradient of w two one b is that fine 
+now  can  you  see  some  things  on  the  left  hand  side  and  make  some  comments  on  the 
+gradients we have seen that a one one is same as a one two and h one one is same as h one two that means 
+these gradients are going to be equal right that means the weight started off at the same 
+value they are going to get the same updates and again remain at the same or different 
+value  but  this  same  right  then  of  course  move  from  where  you  started  will  not  be  zero 
+anymore but they will all be at the same value 
+both the weights will get updated with the same value and they will remain equal so but 
+fine  as  i  keep  training  they  will  move  away  from  each  other  right  this  is  what  i  told 
+you  when  you  feed  in  the  first  example  take  a  both  the  weights  remain  the  same  but 
+now if you feed another example and you keep feeding batches there there is no dearth 
+of data that you have and eventually these weights will move away from each other 
+the  update  is  the  same  again  the  weights  are  the  same  again  the  same  situation  will 
+hold right again your w one one x one plus w one two x two is going to be the same as w two and x one 
+plus w two two x two and the same argument repeats 
+how many if you get this ok so once you initialize the weights to zero in all subsequent 
+iterations the weights are going to remain the same i mean they will move away from 
+zero but they will all be equal ok and this symmetry will never break during training so 
+what actually is happening in terms of the capacity of the network this is same as 
+student single line tying the weights 
+the  same  as  tying  the  weights  so  this  symmetry  will  never  break  during  training  so 
+asking what is the net effect which is happening 
+so you have so many weights in your layer but all of them are moving together will so 
+in essence you do not have the same freedom as you have with n different weights right 
+here in some sense unintentionally tied them because it started off with the same value 
+now you are all moving at the same values rate you are all going to the same value so 
+you  do  not  really  have  the  amount  of  freedom  that  you  would  actually  expect  with  n 
+different parameters all of you get this 
+and the same is  true for w one two and  w two two also  which are the weights  connected to  the 
+second  neuron  and  this  is  in  fact  true  for  all  the  weights  in  layer  two  you  can  actually 
+mathematically verify it that means whatever this small analysis that i did here just go 
+back and do it for all the weights in the network and you will see that all of them if you 
+are going to initialize them to zero all of them are going to remain equal 
+this  is  known  as  this  symmetry  breaking  problem  this  is  are  known  problem  this  is 
+existed much before two thousand and six and so on if we initialize all the weights to zero you will have the 
+symmetry breaking problem is there anything sacrosanct  about zero or would this happen 
+even if you initializer to same but non zero values and that should have been cleared from 
+the  iteration  right  because  after  the  first  iteration  we  were  at  non  zero  weights  and  after 
+that the story repeated right 
+so even if you initialize it to non zero weights the same story is going to report repeat 
+so that means as long as you initialize all the weights to the same value you are going 
+to end up with this symmetry breaking problem ok which is not good so what is it that 
+we have learnt about initializing weights 
+student 
+definitely  do  not  initialize  all  weights  to  zero  definitely  do  not  realize  them  to  the  same 
+value ok this is the first thing that you have learned so we are seeing different ways of 
+not  making  the  light  bulb  and  then  we  will  come  to  a  way  of  making  it  so  zero  and 
+equalist no bad yes some weights will not get updates in that case right 
+so then that that should be fine so that is the other thing i wanted to make at some point 
+right  these  four  things  right  initialization  optimization  regularization  and  activation 
+function these are not independent things they are all tied to each other 
+so as you said now if  you use regularization then probably  you could be a bit careless 
+with  the  initialization  even  if  you  had  initialize  the  weights  together  drop  out  would 
+have ensured that some of these weights are not active at a particular training instance 
+that means they will not get weight updates that means they will move away from the 
+other weights 
+so that is this is not that only one of these things can be done right you are going to 
+use a combination of these things but while analyzing them we will just look at one of 
+these things assuming that the others are not being right so will assume that we are 
+not using drop order anything is that fine 
+so this at least this in practice  you are not supposed to initialize the weights to 0s and 
+equal values that is what we have learned so far now for the rest of the to convince you 
+about some other weight initialization methods what i am going to do is i am going to 
+take  a  feed  forward  network  where  you  have  as  input  some  thousand  points  each  of 
+this point is five hundred dimensional and the input data is drawn from a unit gaussian what i 
+mean by that is you have this x one two x one five hundred rate for the data instance one 
+so all of these five hundred dimensions come  from  a unit  gaussian is  that  fine so this comes 
+from a unit gaussian this comes from a unit gaussian and so on ok that is what i am 
+going to assume 
+and the network has five layers each layer has five hundred neurons the input is five hundred neurons each 
+of  the  five  layers  is  also  five hundred  neurons  and  now  we  will  run  forward  propagation  no 
+backward propagation no loss nothing and i am not even giving you an objective this is 
+just some input and i just want to see what happens up to the last layer i am not even 
+bothered  about  the  actual  last  layer  that  means  i  am  not  trying  to  minimize  any  cost 
+entropy squared error loss anything 
+so let us try a few initialization strategies so we realize zero is not good realize equal is 
+not good so let us try some random initializations but small weights ok and this is my 
+way of randomly initializing with small weights 
+so my w is a matrix of size fan in into fan out rate which is n cross n ok the number of 
+weights  coming  in  and  out  rate  so  n  cross  n  and  i  am  drawing  from  a  uniform 
+distribution and then multiplying it by point zero one which ensures that all the weights are 
+very small  you get  the setup now with  this  i am going to  start  with  the input and then 
+keep doing these transformations 
+so  i  will  do  w  transpose  x  plus  b  pass  it  through  a  sigmoid  and  do  this  five  times 
+because  i have five deep layers now this is  what happens to  the activations across the five 
+layers so the first  layer remember that we had  drawn from a unit gaussian right  so 
+that is what the data input data looks like so this is the first layer which is the input data 
+basically and then this is what happens across the different layers 
+so  what  is  actually  happening  and  this  is  for  the  tanh  activation  function  there  is  no 
+variance  in  the  output  of  so  this  tells  me  so  this  basically  tells  me  that  for  all  the 
+neurons what is the average value that i am getting right and i should ideally get some 
+histogram that for some neurons i am getting the value minus one for some neurons minus 
+nine eight and so on but what this is telling me is as i keep progressing across the layers 
+all the neurons have very similar values and they are all close to zero 
+this  is  what  actually  happens  in  practice  i  have  just  actually  run  it  and  computed  the 
+histogram 
+and if i use sigmoid activation functions again something similar all the values tend to 
+be close to the center which is five so this is five and although i had started with a nice 
+gaussian distribution 
+now  what  will  happen  during  back  propagation  so  do  not  try  to  think  for  now  that 
+why  this  happens  i  am  just  telling  you  have  actually  run  the  code  and  this  is  what 
+happens  now  given  that  this  has  happened  what  will  happen  during  back 
+propagation  so  all  the  activations  in  a  layer  are  very  close  to  zero  all  the  gradients  are 
+going  to  be  close  to  zero  that  means  no  gradients  are  going  to  flow  back  that  means 
+which problem are we dealing with vanishing gradient problem 
+so if you initialize your weights to very small values and this is easy to see in the case 
+of tan h so for tan h this is my function right and this is zero now remember that this is 
+wi  summation  wi  xi  if  all  my  weights  are  close  to  zero  or  very  small  values  what  is 
+summation w ix i going to be it is going to lie somewhere here right 
+so all these inputs are actually going to be very close to zero now if my inputs are going 
+to  be  close  to  zero  i  know  that  during  back  propagation  at  some  point  my  gradient  is 
+proportional  to  the  input  that  i  have  given  and  when  i  say  input  here  i  mean  layer  one 
+layer two layer three and so on 
+so  that  means  all  my  inputs  are  very  close  to  zero  now  my  gradients  are  actually 
+proportional to the input so all my gradients are also going to be close to zero that means 
+my  gradients  are  vanishing  right  because  remember  that  across  five  layers  you  will  have 
+these  products  of  gradients  right  all  of  them  are  very  close  to  zero  so  you  will  end  up 
+with  something  very  close  to  zero  raise  to  five  how  many  if  you  get  this  right  so  our 
+gradients are going to vanish 
+if  you  do  this  very  small  initialization  of  the  weights  and  that  is  exactly  what  is 
+happening so this is the histogram for the gradients and i see that all my gradients are 
+actually very close to zero that means no effective training is happening my weights are 
+not receiving any updates this is what happens in practice if you initialize your weights 
+to very small values 
+now let us try to do the opposite of this very small values did not work so let me try 
+large values and  for large values  i just  sample from  the uniform  distribution  i  will get 
+some  numbers  between  zero  to  one  now  can  you  guess  what  will  happen  remember 
+summation wi xi all your weights are large so why am i saying that number between zero 
+to  one  is  actually  large  it  is  not  by  all  practical  because  this  is  going  to  give  me  this 
+function  is  actually  going  to  give  me  numbers  between  zero  to  one  why  am  i  calling  them 
+large weights 
+student 
+no i will i just talked about the weights assume there is no biases how many of you get 
+that  answer  remember  there  are  five hundred  neurons  so  if  you  have  five hundred  small  values  that 
+summation is going to  be still large right  if  you all of these are four or five which still 
+looks small but if you have two hundred and fifty of these or if you have five hundred of these the resultant sum 
+could be somewhere of the order of two hundred and fifty right and that is very large because if you pass 
+that to a sigma and neuron what will happen saturation right so you get this why i am 
+calling these weights as large 
+so and this is actually what happens so when i have these tan h activations across all 
+the five layers i observe that my neurons saturate i either get minus one as the output or plus 
+one as the output and same thing happens if i use sigmoid activations i either get zero as the 
+output or i get one as the output right neurons saturated means what will happen gradients 
+will vanish right 
+so even if you initialize the weights to very large values all your gradients are going to 
+be close to zero because they are going to vanish and again you have a problem so what 
+have we seen so far zero is not good equal is not  good small  weights is not good large 
+weight is not good then what do we do 
+so let us see what to do so let us try to arrive at a more principled way of initializing 
+weights and this again do not should the messenger i am going to give you a proof under 
+certain assumptions ok so just bear with me i just tell you what those assumptions are 
+going to be as we go along so as i said right 
+so  i mean  you would argue that in  practice these assumptions do not  hold  true but  at 
+least they give us some insights into what is happening right what is the overall idea 
+behind what  is  being  proposed  so  let  us  start  with  that  so  now  consider  this  deep 
+neural network and i am just considering the first layer of it where i have this neuron s 
+one one and i am talking about things before the activation 
+so i know that  s11 is equal to this quantity right so all the incoming weights to the 
+first neuron which is w one i into x i now for some reason i am not telling you why i am 
+interested in  the variance of this can  you tell  me why  i  am  interested in the variance 
+what  did  you  see  in  the  previous  examples  there  was  no  variance  right  there  was 
+hardly any variance so let us see what happens if you compute the variance of this 
+so i am just taking the variance formula a variance of a sum is equal to the sum of the 
+variances  right  this  is  of  the  form  variance  of  a  into  b  where  a  is  w  one  i  and  b  is  x  i 
+what is the formula for this or if you know it or do not know it do not care so this is 
+the formula 
+so this is the generic formula for variance of a into b where you have to assume that a 
+is w1i and b is xi so this is just a formula there is no trick here no math i mean no 
+nothing fancy here just apply the formula for variance of a b and substitute a is equal to 
+w one i and b is equal to x i 
+now  i  will  assume  that  all  my  inputs  are  zero  mean  fine  we  have  been  assuming  that 
+forever  and  all  my  weights  are  also  from  zero  mean  ok  what  is  the  effect  of  that  which 
+quantities  will  disappear  this  will  disappear  because  mean  as  zero  means  the  expected 
+value of the weight is zero so the square of that is zero an expected value of the input is zero the 
+square of that is zero 
+so what am i left with summation where i variance of xi into variance of w1i ok now 
+i am going to assume that the variance of xi is equal to the variance of x that means it is 
+the same for all the i’s so i had this remember i had these five hundred inputs 
+so i am assuming that for all the inputs the variance is the same they all come from a 
+similar variance distribution and i am also going to make the same assumption for the 
+weights fine and then i end up with this neat formula that the variance of s11 is equal to 
+n  times  the  variance  of  w  into  variance  of  x  right  because  i  assumed  that  all  these 
+terms are equal and there are n such terms everyone is fine with the maths so far with 
+the assumptions that we have 
+so in general for any of these neurons right instead of just s11 i could take any s1i and 
+this is what the variance is going to be variance would turn out to be because i have 
+assumed  that  all  the  weights  and  all  the  inputs  come  out  from  the  same  variance 
+distribution ok from a distribution having the same variance 
+now let us what  would happen if this quantity is very  greater than one the variance of 
+s1i  would  be  very  large  right  and  what  would  happen  if  this  variance  tends  to  zero 
+variance  would  be  very  low  so  i  am  just  giving  you  two  extremes  to  build  the  intuition 
+and let us see what we are going to do with that intuition fine 
+now let me add one more layer and see so i have added one more layer and using the 
+same  procedure  as  above  he  will  arrive  at  variance  of  s21  is  actually  given  by  this 
+formula  and  actually  what  has  happened  here  is  that  this  is  si  had  xi  earlier  but  now 
+instead of xi i have s1i because those are the inputs to this layer right 
+so this is exactly the formula that we had arrived at earlier assuming zero mean and the 
+same variance for all the weights  and the inputs and  i am arriving in  the same formula 
+for the next layer where instead of x i have s1i 
+so this will result in this quantity ok but i already had a formula for a variance of  s1i 
+what was that n into this quantity so i will just substituted it there so i can say that 
+variance of s2i is actually equal to this i just substituted this value 
+so that turns out to be i have a square here when i have two here so you see where i am 
+headed with this what will be the variance of s k i this raised to k and is on everyone 
+gets this ok i can just continue the same analysis and i have assumed that these weights 
+and always are the same variance right 
+so in general i can say this ok now can you tell me something about when would this 
+variance vanish when n variance of w is 
+student less than one 
+less  than  one  ok  and  which  is  the  thing  that  we  should  aim  for  you  would  want  this 
+quantity to be equal to one in which case it will neither blow up nor shrink fine so so it 
+to  ensure  that  the  variance  is  the  output  of  any  layer  does  not  blow  up  or  shrink  we 
+should ensure that n into variance of w is equal to one right so what is this this just take 
+a minute to understand this i am saying that i am going to initialize my weights 
+so  i  should  initialize  them  in  such  a  way  that  the  weights  are  coming  from  some 
+distribution  like  we  saw  that  the  distribution  was  a  uniform  distribution  from  where  i 
+was drawing the weights 
+so they are coming from some distribution i should try to draw them from a distribution 
+such that this condition holds if this condition holds then across layers my activations 
+will not blow up or shrink though that is exactly what was happening in the earlier case 
+when i was doing those bad initializations with small values and large values 
+so  let  us  see  how  to  do  that  so  what  i  am  going  to  do  is  i  am  going  to  consider  a 
+random variable z ok where is z comes from a normal distribution ok and i am going to 
+scale it is value i will draw from there and then i am going to scale it by one by square root 
+of n what is n number neurons in each layer right here it is the same across all layers 
+but it could also be different so i am considering a particular layer and n is the number 
+of neurons in that layer 
+and  now  if  w  is  actually  equal  to  z  by  square  root  of  n  then  i  can  write  that  n  into 
+variance of w is  actually equal  to  this quantity everyone is  fine with  this there is  no 
+trickery  here  i  am  just  saying  that  why  i  am  doing  this  is  not  clear  that  will  become 
+clear  but  at  least  what  i  am  doing  is  clear  i  am  drawing  the  weights  i  am  taking  a 
+random  variable  z  which  comes  from  a  normal  distribution  and  then  i  am  setting  my 
+weights to whatever values i have drawn  i just divide them by the square root of n 
+now let us see what is variance of a z a square into variance of z hey that is a basic 
+formula all of us know this so now what is variance of z by one in z into one by square 
+root of n one by n into variance of z right so the n and n cancel and what is variance of z 
+what did i assume about z it came from a normal distribution zero mean and unit variance 
+so variance of z is one that means this quantity n variance of w is going to be one if i have 
+initialized  my  weights  such  that  they  are  equal  to  this  right  and  now  do  you  see 
+whether the weights are very small very large or what are they some now they made the 
+weights dependent on the number of neurons 
+so  if  you  have  very  large  number  of  neurons  you  are  drawing  drawing  weights  such 
+that or  you are initializing weights such that it is  some normal  variable  divided by the 
+square  root  of  n  right  so  now  when  you  do  this  summation  w  i  x  i  your  summation 
+cannot blow up because you have already divided it by n 
+how many if you get this so this is a standard way used for initializing weights how 
+many if you tried this for your back propagation assignment why did you try this ah 
+student 
+because  you  are  having  some  problems  with  saturation  i  guess  right  so  this  is  how 
+you should initialize your weights this is more or less the standard technique and some 
+variant of this right because instead of n you would have this fan in and fan in out it 
+how many weights are coming in and how many weights are going out 
+so you make it proportional to the square root of n into k or something like that right 
+so  but  in  general  this  idea  right  of  course  this  proof  we  arrived  at  it  with  lot  of 
+assumptions but we at least got to some principle way of initializing weights and this is 
+a largely used standard this and some variants of it 
+so now let us see if i actually take the same network that means five layers five hundred neurons at 
+every layer and then initialize it using this so this exactly what i had told you right that 
+take  it  from  a  unit  distribution  sorry  a  normal  distribution  and  then  divided  by  the 
+square  root  of  the  number  of  neurons  in  that  layer  and  now  let  us  see  what  happens 
+across the five layers 
+you see what happens we get this good variance in the activation functions they are not 
+all going to zero or one or point five right so this solves the purpose for tan h activation and 
+also for the sigmoid activations 
+you  see  a  good  spread  in  the  weights  and  remember  actually  for  sigmoid  although 
+these values look close to each other but this is the zero to one range this is actually minus one 
+to zero which will not happen for sigmoid so within the zero to one range you get a good spread 
+if you initialize the weights this way 
+but it turns out that this initialization does not work for the relu function in the relu 
+function you still see this effect that you started off with a good spread but as you keep 
+going across depths this spread disappears why would that happen to someone gave an 
+intuition for this and is again one of those heuristic things that in the case of relu you 
+need  to  account  for  this  divided  by  half  because  half  of  the  relu  is  not  active  right 
+half of the relu is zero 
+so you need to account for that fact and do this simple trick that instead of taking the 
+square root of the fan in you take the square root of fan in by two because you know that 
+half  the  times  it  is  not  going  to  produce  any  output  right  so  that  is  a  very  simple 
+heuristic  that  someone  tried  and  that  leads  to  better  activation  functions  better 
+activations across all these layers right so as you see across all the layers the spread is 
+good now so the same idea ok so now you have a good way of initializing neurons 
+so this should help you in your future assignments fine so this is how what you have 
+learned about how to initialize your weights and it makes a lot of difference to how 
+your  network  will  behave  right  and  that  is  what  the  i  was  trying  to  show  that  by 
+computing  these  activations  across  different  layers  and  i  showed  that  as  you  change 
+these initializations strategies you get better activations 

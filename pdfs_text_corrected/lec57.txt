@@ -1,0 +1,133 @@
+ensemble methods dropout 
+lecture  eight 
+so  in  this  lecture  we  are  going  to  talk  about  a  bunch  of  regularization  techniques  for 
+deep neural networks you might find some very familiar terms here for example l2 
+regularization  perhaps  something  else  also  but  i  promise  you  that  we  will  see  a  very 
+different interpretation of this from what you have done in your earlier courses right 
+so again as is the trend in this course i will start with some basic concepts i will take 
+today’s lecture to finish  off the basic part which is the bias variance tradeoff and  i will 
+try to make it more informative then what you have done in your earlier courses and in 
+the rest of the lecture which will happen on friday we will build upon these basics and 
+then try to look at these as the regularization forms 
+so let us start so these are the sources which i have looked at so one of them is the 
+chapter  seven  from  deep  learning  book  other  is  this  very  good  lecture  by  ali  ghodsis  on 
+regularization  and  of  course  this  paper  on  dropout  so  let  us  start  with  bias  and 
+variance  again  some  five hundred and ten  minutes  would  be  similar  to  what  you  have  seen  in  the 
+middle class but then i will go on to something different 
+so we will begin with a quick overview of bias variance and the tradeoff between them 
+so let us consider the problem of fitting a curve through a given set of points ok now 
+remember i have always been telling you that there is always this true relation between x 
+and y which is f of x right and which we never know 
+so we do not know what this is in the movie example we do not know what this is in 
+the credit card fraud detection or in the oil mining example in this particular example i 
+know it right so what i have done is i know that the true relation between x and y is 
+the sinusoidal curve i know this but instead of giving you every point on this sinusoidal 
+curve what i have done is i have such sampled some points from it i have taken some 
+points and given to you 
+so from now on we will behave as if we do not know that this is how it came it is a big 
+secret and we now want to fit a curve to this that means i want to learn the function f 
+hat of x ok which of course will have some parameters and what will be my goal is that 
+now let us look at this again my goal would be if i feed at this point after the model is 
+train the output should be as close to this point as possible that is our training criteria 
+everyone gets this 
+so we consider two models the first model is a simple model how many parameters 
+does it have 
+student two 
+two parameters right the other model and this is what happens when i train the simple 
+model of course i will get a line but do you see something special about this line why 
+did  i  get  this  as  a  line  or  this  as  a  line  so  on  average  it  is  trying  to  minimize  the 
+distance from all the points if i have this as the line then i will have a very high error 
+for these points right so just something which goes along the average and hence the 
+sum of the squared errors would be minimized right 
+so it is important that when you see these figures you should make these connections to 
+the math behind it so this is the geometry  you have to make connections to the math 
+behind it right and i hope all of you make that connection now i take a complex model 
+which is a degree twenty-five polynomial ok so this is w one x w two x square w three x cube and so on 
+it  is  a  degree  twenty-five  polynomial  that  i  have  used  and  i  again  learn  the  parameters  of  this 
+using how will you learn the parameters you have a quiz two days from now on gradient 
+descent 
+what  else  do  you  know  if  you  know  any  other  algorithm  of  course  you  know  but 
+getting this end right what else will you use you can use gradient descent for learning 
+these  parameters  the  same  idea  right  you  will  define  a  loss  you  will  compute  the 
+gradients with respect to all these parameters how many of them are there here twenty-six and 
+just update those parameters till a fixed number of iterations or any convergence criteria 
+ok and this is the curve which i get for the complex model note this in both these cases 
+we are making an assumption about  how  y is  related to  x right  in this case  i made a 
+simple  assumption  in  this  case  i  made  a  slightly  complex  assumption but  in  both  the 
+cases we do not know what is true relation is 
+the true relation is actually the sine curve but we do not know that we are just making 
+an assumption so  you remember the five things in machine learning you have a data 
+you make an assumption about  how the input is related to  the output so  these are my 
+two assumptions then i have some parameters you know the number of parameters in 
+these cases i use a learning algorithm which happens to be gradient descent and then i 
+minimize an objective function which would be squared error loss in this case fine 
+now the training data actually consists of one hundred points ok but you do not see one hundred points 
+here 
+so  what  i  have  done  is  i  have  sampled  some  twenty-five  points  from  here  and  use  that  as  the 
+training  data  so  i  have  learned  my  parameters  w  one  and  w  naught  or  w  twenty-five  up  to  w 
+naught  using  these  twenty-five  points  now  i  will  repeat  this  experiment  k  times  what  i  do  is 
+every time i will get a different sample of twenty-five points and i will try to learn the parameters 
+of the model will  i get the same curve every time will i get the same function every 
+time  no  my  parameters  would  change  slightly  right  because  my  training  data  is 
+different 
+so  i  am  trying  to  learn  it  differently  to  adjust  to  that  training  data  so  my  function  is 
+going to be different it is the same form it is either the linear function or the polynomial 
+function but the parameters the coefficients are going to be different 
+i will actually draw these different functions and we will make some observations from 
+that so this is the black curve that you see is the true sinusoidal curve from which the 
+data  has  come  the  blue  line  is  one  of  these  functions  which  i  have  trained  from  one 
+random sample of the data right 
+now i train different functions from different random samples of the data and see what 
+happens  i  get  different  lines  this  obvious  can  you  relate  to  this  every  time  i  am 
+basically learning a different value of w one and w naught is that ok and i have done this 
+twenty-five  times  and  plotted  these  lines  what  do  you  observe  with  respect  to  each  of  these  if 
+you compare any line to any other line 
+so  if  you  compare  one  of  these  lines  to  the  remaining  twenty-four  lines  what  do  you  observe 
+they are very close to each other they are not very different from each other however 
+there  is  a  problem  they  are  very  far  from  dash  the  actual  function  that  means  we  are 
+under  fitting  we  have  very  few  parameters  in  fact  only  two  that  is  why  we  are  under 
+fitting let us look at the other case fine this is the function the polynomial the blue 
+curve that you see is the polynomial that i learned from one random sample of the data 
+now i am going to learn this from a different sample of the data you see what happens 
+you see that the green curve is actually very different from the blue curve you see that 
+here actually this was peaking whereas this is going down similarly this was peaking 
+but this is going down and so on so you see that there are clear differences between the 
+two  curves  and  if  i  draw  the  next  curve  you  see  it  is  even  more  different  the  same 
+function learnt from different data point is turning out to be very different why because 
+it is over fitting on those twenty-five points that i have given the simple model did not even have 
+the capacity to do or fit because it is just two parameters 
+how much can i over fit i will just end up drawing the average line right but here it is 
+really  able  to  overt  fit  and  you  see  that  these  twenty-five  curves  or  i  do  not  know  how  many 
+curves that i will draw all of these are going to be very different from each other you 
+see that and everyone agrees that this would happen if you actually try to do this ok so 
+complex models train on different samples of the data are very different from each other 
+what is happening there is over fitting ok 
+now let me define two concepts from statistics one is bias bias is very simple it tells us 
+that this is the true function if you are trying to learn the approximate function and you 
+do it many times then you will get an expected value of the function so it tells you how 
+much does this expected value differ from the true function ok you get the definition 
+the definition is straight forward ok now for the simple line or the simple model the 
+green line that you see is actually the average of all those twenty-five lines that you had seen ok 
+what can you say about the bias very high right because this difference is very high 
+this  green  line  is  very  different  from  the  red  curve  which  is  my  true  function  right 
+predicted and true function now what about complex model the blue curve that  you 
+see is actually the average of all those twenty-five different curves that i had drawn so what is 
+the bias it is very low does that make sense this means that the simple model has a 
+high bias and the complex model has a low bias is it clear to everyone 
+now let us define another quantity which is variance everyone knows what variance is 
+so this is  one of the  functions that  i have learned this is the average of that function 
+and the variance tells me the spread now based on the figures that you have seen can 
+you tell me what would happen for the simple model low variance or high variance 
+student low variance 
+low  variance  because  all  these  models  were  very  close  to  each  other  there  was  not 
+much spread in the models what about the complex model 
+high variance all these models were very far from each other the spread was very high 
+ok  so  roughly  speaking  it  tells  us  how  much  the  different  f  f  act  f  x  is  that  you  are 
+learning how different are they from the average f of x 
+so  informally  i  can  say  the  following  simple  model  has  a  high  bias  low  variance 
+complex  model  has  a  low  bias  high  variance  and  as  always  going  to  be  a  tradeoff 
+between the bias and variance 
+so why is there always a tradeoff between the bias and variance people have done ml 
+course  why  is  there  a  tradeoff  how  many  of  you  know  the  mathematical  answer  to 
+that  you  have  not  done  this  in  the  ml  course  no  so  it  turns  out  that  both  bias  and 
+variance contribute to the mean square error and let us see how 

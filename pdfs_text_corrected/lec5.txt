@@ -1,0 +1,28 @@
+so this is what the progression was right that in two thousand and six people started or the study by 
+hinton and others led to the survival and then people started realizing the deep neural 
+networks and actually we use for lot of practical applications and actually beat a lot of 
+existing systems 
+but there are still some problems and we still need to make the system more robust 
+faster and even scale higher accuracies and so on 
+so in parallelly while there was lot of success happening from two thousand and twelve to two thousand and sixteen or even 
+two thousand and ten to two thousand and sixteen in parallel there will also a lot of research to find better optimization 
+algorithms which could lead to better convergence better accuracies 
+and again some of the older ideas which were proposed way back in one thousand, nine hundred and eighty-three now this is 
+again something that we will do in the course so most of the things that i am talking 
+about we are going to cover in the course so we are going to talk about the imagenet 
+challenge we are going to talk about all those networks the winning networks that i had 
+listed there alex net zf net google net and so on 
+we are going to talk about nesterov gradient descent which is listed on the slide and 
+many other better optimization methods which were proposed starting from two thousand and eleven so 
+there was this parallel resource happening while people were getting a lot of success 
+using traditional neural networks they are also interested in making them better and 
+robust and lead for lead to faster convergence and better accuracies and so on 
+so this led to a lot of interest in coming up with better optimization algorithms and 
+there was a series of these proposed starting from two thousand and eleven so adagrad is again something 
+that we will do in the course rms prop adam eve and many more so many new 
+algorithms i have been proposed and in parallel a lot of other regularization techniques 
+or   weight   initialization   strategies   have   also   been   proposed   for   example   batch 
+normalization or xavier initialization and so on  so  these are all things which were 
+aimed at making neural networks perform even better or faster and even reach better 
+solutions or better accuracies and so on this all that we are going to see in the course at 
+some point or the other 

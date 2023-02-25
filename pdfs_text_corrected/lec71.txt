@@ -1,0 +1,350 @@
+better activation functions 
+let us start with better activation functions 
+so  before  i  get  into  activation  functions  right  let  me  first  tell  you  why  i  care  about 
+activation functions why do i actually want to come up with better activation functions 
+so  will  start  with  the  following  question  what  makes  deep  neural  networks  powerful 
+among other things what is this one thing which makes it powerful so let me give you 
+this intuition 
+this  i have a deep network ok and do not worry it is  a thin network but  i could  have 
+had  a  wide  network  also  but  just  for  illustration  i  have  taking  a  deep  network  thin 
+network 
+now imagine that each of these neurons that you have if i replace the sigmoid in each 
+layer  by  a  simple  linear  transformation  a  by  the  way  this  is  technically  incorrect  so 
+orange is always input so this should not be a sigmoid there right either add one more 
+layer there or let us change the figure 
+so suppose i replace all these sigmoids by linear transformations what would y be can 
+you write y as a function of x what would it be give me the function will we just be 
+this right so first we will do w one of x which is this right then will take w two of that then 
+w three of that and w four of that 
+so i could actually have written this just as y equal to w x where w is equal to w four w three 
+w two w one so there is no depth here there is actually only one weight which i could have 
+learned you get that right if you just have all linear transformations then essentially you 
+do  not  have  so  many  weights  you  just  have  one  weight  throughout  you  get  that  make 
+sense 
+so what you are learning eventually we will just y as a linear function of x and initially 
+at some point we started off with such linear functions right w transpose x in the case of 
+perceptron and mp neurons 
+so  what  does  that  lead  to  what  kind  of  decision  boundaries  does  that  lead  to  linear 
+decision  boundary  so  if  you  do  not  have  these  nonlinearities  we  cannot  have  these 
+arbitrary decision boundaries will only be left with linear decision boundaries 
+in particular will not be able to solve this problem that we had right we were given some 
+red  and  blue  points  and  there  was  no  way  to  draw  a  line  such  that  the  red  points  are 
+separated  from  the  blue  points  what  we  needed  is  some  kind  of  circles  or  ellipses  to 
+separate  the  red  points  from  the  blue  points  that  cannot  be  done  with  linear  decision 
+boundaries  that  can  happen  only  if  you  use  a  deep  neural  network  with  nonlinear 
+decision boundaries and we actually have a proof for that what that proof the universal 
+approximation theorem actually towards right 
+so that is why nonlinearities or the activation functions clear a very important role in the 
+success  of  deep  neural  networks  right  hence  you  want  to  examine  them  very  closely 
+and  see  what  are  the  newer  kinds  of  nonlinearities  that  have  been  proposed  so  we 
+always start with the basics so will start with sigmoid see what are the problems with 
+sigmoid and then see what we can do to solve some of these problems 
+so this is  what  the sigmoid function looks like  you have seen it a million  times and it 
+actually constrains the input to zero to one right so it takes some input and it constrains it two 
+values between zero to one now since we are always interested in gradients right because 
+the  entire  training  and  that  is  why  i  did  that  precursor  in  the  first  module  the  training 
+always depends on gradients 
+so it is always important to look at what does the gradient look like so we know what 
+the gradient looks like we have computed this is just sigmoid of x into one minus sigmoid 
+of x so now let us see what happens if you use such a sigmoid neuron in a deep neural 
+network 
+this is a deep neural network and without loss of generality i am going to use a thin deep 
+network but  the same holds  for a deep for a wide deep network  also so suppose  you 
+are interested in computing the gradient with respect to w two right at some point in the 
+chain rule you will have this term how many of you are convinced about this ok and 
+that will lead to this could that cause a problem 
+so at some one of the terms in your chain rule is going to be this dou h three by dou a three i 
+am assuming all of you are convinced about that and i have given you the exact formula 
+for dou h three by dou a three will that lead to a problem 
+student 
+good  so  what  is  the  consequence  of  this  to  answer  this  we  need  to  understand  the 
+concept of saturation right 
+so a sigmoid neuron is said to have saturated if it is output is one or zero or rather close to one 
+or close to zero ok what would happen in that case to the gradient 
+student 
+it  will  vanish  right  because  sigmoid  of  x  into  one  minus  sigmoid  of  x  so  it  either 
+extremes is going to vanish and you do not even need the formula for that you can just 
+see it from the diagram right because the gradient here is going to be zero that is obvious 
+right it just a what horizontal line 
+so this gradient would be zero so fine why does it bother us what is our entire training 
+premise based on gradients right what does our update rule what happens if this guy 
+is zero no update e the weights just stay where they are right that means the training 
+gets stalled right 
+so think about this right if all the neurons in your network have saturated that means 
+all the weights the gradients will be zero that means all the weights will remain where they 
+are  you  pass  another  input  nothing  is  going  to  change  right  it  still  be  zero  so  if  this 
+neurons have saturated your training will just stalled ok so that was one of the reasons 
+which is to cause problem in training deep neural networks earlier right 
+so that is one of the reason why it was not converging because these weights used to 
+these  neurons  is  to  saturate  so  this  is  one  problem  with  sigmoid  neurons  a  saturated 
+sigmoid neuron can cause the gradient to vanish 
+but why would the neurons saturated i mean what would cause them to saturate ok 
+this saturate find their gradients will vanish but why would they saturate we should be 
+able  to  get  some  hints  from  the  figure  that  has  been  drawn  so  this  is  actually  that  x 
+needs to be changed 
+so on the x axis we have x quite obviously but that has to be something else  so what 
+it is what is happening is what does the sigmoid neuron do it takes this aggregate it 
+or someone just disappear  so is  it very boring today  no right so 
+you have this aggregated sum of the inputs once you have that aggregation you applied 
+the sigmoid now tell me when would it saturated 
+student 
+when the aggregation is very large that means one of the two things could happen either 
+the x’s are very large or the w’s are very large would the x is x is be large i see a lot of 
+you saying no why 
+student 
+good we normalize them right we make sure they are between zero to one so we do not 
+allow  those  arbitrary  large  values  of  pressure  density  and  so  on  right  we  make  sure 
+they are between zero to one so then the weights can be a problem right now why would 
+the weights be lies move later first 
+student 
+if  i  initialize  the  weights  to  a  large  value  if  i  initialize  all  my  weights  in  my  infinite 
+wisdom to a large value what would happen right from the first training example itself 
+w  i  x  i  would  take  on  a  very  large  value  and  your  neurons  will  start  saturating  so 
+imagine if all the weights throughout my network are initialized to large values 
+then  right  from  training  instance  zero  my  neurons  will  start  saturating  and  i  will  not  be 
+able to train anything how many of you experienced this while doing back propagation 
+and  the  others  did  not  do  the  assignment  they  copied  it  please  raise  your  hands  how 
+many of you experienced it now many more hands will be raised still now ok honest 
+people that is a paradox 
+consider what would happen if you use sigmoid neurons and initialize the weights to a 
+very  high  value  they  will  start  saturating  and  hence  you  will  have  this  problem  of 
+vanishing gradients ok everyone gets this so this is a problem at this sigmoid neurons 
+the other problem with sigmoid neurons which is very interesting is that they are not zero 
+centered what do i mean by that they are not zero center that is what it ok so sigmoid 
+is are not zero centered what do i mean with that mean by that they are not zero centered 
+the  value  is  between  zero  to  one  right  so  the  average  cannot  be  zero  it  is  always  going  to  be 
+above zero ok sigmoid neurons are always going to take on positive values between zero to one 
+so why is that a problem so that is an interesting explanation oh did i say that did i 
+put  the  acknowledgements  somewhere  so  all  of  this  material  that  i  have  been  talking 
+about  it  is  taken  from  andrej  karpathys  lecture  notes  so  here  is  this  interesting 
+explanation for this 
+so  now  consider  this  particular  network  ok  and  i  am  going  to  focus  only  on  this  part 
+that means the output layer  and just the layer before that  and the layer before that has 
+these two weights w1 and w two i am going to focus on that 
+so  to  update  these  weights  i  need  to  compute  so  what  do  we  need  to  compute 
+gradient ok now you will answer so we need to compute the gradient with respect to 
+w1 and w two and this is what it is going to look like what is the red part and blue part 
+why red and blue the red part is dash for both common for both right 
+so this is going to be common i do not know why i did that ok  so 
+this red part is common for both and what is the blue part actually what is dou a three by 
+dou w one h two one and dou a three by dou w two 
+so dou a three by dou w one is just h two one and dou a three by dou w two is just h two two ok so let me 
+just plug in those values and note that h two one and h three are between zero to one so can you make 
+some interesting commentary on this interesting but useful not just philosophical stuff 
+that these two derivatives are for the weights at a given layer i have just taken two weights 
+but i could have taken n weights and the same thing would have hold 
+because i know that the derivative is proportional to the input that it gets and the rest of 
+the  part  is  going  to  be  constant  because  that  is  coming  from  the  chain  rule  up  to  the 
+previous layer right 
+so now what is happening because of that just to make fun of you guys i mean if you 
+get  that  sorry  good  yeah  it  is  not  very  straightforward  but  let  us  see  so  if  the  first 
+common term in red is positive right then what would happen to these two guys they 
+would both be positive right because h two one and h two two are positive 
+now the first common term in red is negative then what would happen to these two guys 
+both  negative  so  that  means  the  gradients  of  the  weights  at  a  particular  layer  where 
+either  all  be  positive  or  they  will  all  be  negative  you  get  that  that  is  because  of  this 
+common part and the blue part the blue part we know is positive 
+so  what  matters  is  the  common  part  and  that  common  part  can  either  be  positive  or 
+negative for all of them together right that means for a given layer all the gradients at a 
+layer are either positive or they are all negative so let us see what is the implication of 
+that right 
+so this actually restricts the possible update directions 
+so which is the quadrant which has all positive first ok sorry for embarrassing yeah 
+and all the negative is the third quadrant that means your movements can only happen 
+in the first quadrant and the third quadrant so do you see a problem with this right so 
+you are going to actually try to move that your theta 
+which is a collection of w one and w two is theta minus eta into the gradient right and you 
+know that this vector which is the gradient vector can either be positive that means can 
+lie  in  the  first  quadrant  or  it  can  lie  in  the  third  quadrant  these  movements  are  not 
+possible that means there are certain  turns or certain  movements  or  certain  directions 
+that  i  am  not  allowed  to  take  so  what  would  this  mean  it  would  take  a  dash  time  to 
+converge 
+student longer time 
+longer time to converge right because i am restricting my movement so imagine you 
+have to go from destination to destination b and i say that you can never take a right turn 
+right  and  there  is  some  going  to  be  some  problem  it  will  take  longer  to  reach  there 
+unless the directions are to our left right unless your destination is 
+but that will not happen 
+so suppose this is the optimal w star 
+and we start with some random initialization because that is why we are going to start 
+then the only way i can reach it is i may by making a series of this kind of movements 
+right  as  the  exact  pattern  is  what  will  have  to  take  because  these  are  the  only 
+movements which are allowed or some movements which are allowed and it will lead to 
+a certain cryptic pattern and i will not be able to have the complete freedom of moving in 
+the direction which would have directly taken me to the optimal 
+so  that  is  a  problem  with  something  not  being  zero  center  and  lastly  sigmoids  are 
+expensive  to  compute  because  you  have  to  do  this  exp  right  it  is  not  something  as 
+easier  as  something  else  that  we  will  see  in  the  lecture  today  ok  so  these  are  some 
+problems with sigmoid functions 
+student 
+so  this  is  some  issues  that  were  they  with  sigmoid  functions  so  this  pointed  that  ok 
+maybe we should try better activation functions 
+that is why tanh become very popular but tanh is not something which happened post 
+two thousand and six right so this was like ninety-two or ninety-three when i think yan lacunae had started moving to 
+tanh from sigmoid functions right now again here other inputs are compressed between 
+minus point to one ok where inputs are now zero centered which takes care of this problem 
+which i mentioned at the end 
+that  these  directions  of  movements  are  constrained  and  was  the  derivative  of  this 
+function one minus tanh square right what happens at saturation even without looking at 
+the formula the gradient would vanish to zero right so the vanishing gradient problem is 
+still there 
+what  you  have  solved  is  a  problem  of  zero  centering  and  that  itself  used  to  give  better 
+results  than  just  using  a  sigmoid  function  but  it  is  still  computationally  expensive 
+because  you  still  have  to  do  these  e  raise  two  components  right  the  you  still  have  to 
+compute these exponential powers so it is still computationally expensive 
+so  then  in  around  two thousand and twelve  i  guess  is  when  this  relu  was  introduced  in  the  context  of 
+convolutional neural networks right and this is what the relu function actually looks 
+like  is this a nonlinear  function it just looks like a line right why is  it  a nonlinear 
+function it is a nonlinear function right because x is you cannot write x the output as 
+a function of i mean as a linear transformation right so you have this zero in fact if you 
+take two relu functions smartly 
+you  can  actually  get  the  sigmoid  i  mean  you  can  get  an  approximate  for  the  sigmoid 
+function so you can go back and check this right so if you take these two functions and 
+subtract  one from  the other what  is  this this is a relu function this is also  a  relu 
+function right 
+so  i  define  relu  as  max  of  zero  comma  x  so  both  of  these  are  relu  functions  some 
+variant  of  that  and  now  if  you  subtract  one  from  the  other  you  will  actually  get  a 
+approximation of the sigmoid function right and this cannot happen if you have two linear 
+functions  take  any  two  linear  functions  you  will  not  be  able  to  get  this  kind  of  an 
+approximation 
+so relu is a nonlinear function what are the advantages of relu one is it does not 
+saturate  in  the  positive  region  right  it  is  computationally  very  efficient  the  output  is 
+either zero or x there is no powers nothing like that right and it practice it converges much 
+faster than sigmoid and tanh so that is what this two thousand and twelve paper show and now relu has 
+actually become more or less the standard in all convolutional neural networks 
+but there is still a caveat while using relu ok so the derivative of relu we can see 
+that if x is less than zero then the derivative is going to be zero right and if x is greater than 
+zero then the derivative is going to be one and that straight away follows from the definition 
+of relu which is zero or x 
+so when it is zero the derivative will be zero and when it is x the derivative will be one so now 
+consider this given network and let us assume and this is not a very far faced assumed 
+assumption it can happen in practice that at some point a large gradient causes the bias 
+b to be updated to a large negative value so what i am saying is that something happens 
+and b gets updated to a large negative value 
+now what would happen to this quantity remember this quantity which i have circled is 
+actually the input to the blue colored relu neuron that i have so i am asking you what 
+would happen to that input that input would become negative 
+so the neuron would output zero and i am calling it a dead neuron why if the input is zero i 
+mean  is  a  input  is  negative  then  the  relu  functions  output  would  be  zero  what  would 
+happen to the gradients during back propagation zero that means what would happen to 
+the weights 
+student 
+would not be updated right now but that is fine right if you give some other input this 
+will recover why am i calling a dead means permanent right unless you are in some 
+fantasy world but dead is dead right so why am i saying that it is dead i could might 
+as  well  i  would  give  it  a  next  input  and  then  probably  things  would  be  ok  bias  is  still 
+very negative because nothing is getting updated right or bias is still very negative you 
+know that x one and x two are constrained because you have normalized them right and w one 
+and w two have not been updated 
+so still the situation does not change so what happens is that once a relu neuron dies 
+because  somewhere  in  the  chain  rule  you  got  a  zero  it  will  stay  dead  forever  ok  it  will 
+never be able to come out of that it will always produce a negative output that means 
+that output will be clamped to zero that means no gradients will flow back and that means 
+all the weights will not get updated connected that neuron 
+so  in  practice  when  you  train  a  network  with  relu  you  will  observe  that  a  large 
+fraction of the units can die if the learning rate is set too high why this if condition 
+student 
+what was the assumption that i made that the bias receives a large negative update and 
+that is possible if your learning rate is very high because you got some small negative 
+gradient but your learning rate blew it up 
+now what is the practical implication of this if a training a network and a large number 
+of your relu neurons have died what does it mean most parts of your network are 
+dash useless they are not learning any feature nothing right is all zero that means you have 
+this large number of parameters versus getting wasted because they feed into a relu 
+you function and the relu function just keeps outputting zero 
+so if you have n neurons in the particular layer and most of them are zero that means you 
+are  not  really  learning  an  n  dimensional  feature  representation  you  are  just  learning  a 
+much  smaller  feature  representation  right  so  can  you  give  me  a  simple  way  of  one 
+simple way of avoiding this among many other ways 
+student 
+no dropout  is  statistical  right  it is  probabilistic  this is  like always dead one thing is  to 
+update  the  weight  to  a  large  to  a  positive  value  and  one  mind  you  is  a  large  positive 
+value  right  later  on  we  will  see  y  but  one  is  reasonably  large  ok  so  were  going  to 
+initialize the bias to a positive value 
+so  that  even  if  this  large  negative  gradient  flows  through  there  is  still  a  chance  that  it 
+will not become very negative and hence it will not mess up the things the way it does 
+that  is  one  solution  to  that  right  but  still  you  will  find  that  even  after  that  the  relu 
+neuron  a  lot  of  those  can  die  but  still  in  practice  they  work  better  for  a  deep 
+convolutional neural network ok and we can also use other variants of relu 
+so  there  have  been  to  avoid  this  dead  neuron  problem  there  are  other  variants  of 
+relu  which  have  been  proposed  and  that  is  what  we  look  at  next  so  there  is 
+something known as a leaky relu is it obvious from the equation what it does right 
+so  instead  of  producing  zero  it  will  just  produce  a  very  small  value  proportional  to  the 
+input now what would happen to the gradients they will not saturate right will have 
+the gradient would be if the input is negative what would the gradient be 
+student 
+one  right  so  that  means  some  gradient  will  still  flow  through  how  many  if  you  get 
+this  right  so  that  means  if  you  use  a  leaky  relu  neuron  some  gradient  would  still 
+flows through so just understand this trend right that ah and this is i mean all this stuff 
+is simple there is nothing great in this but just put it in context right 
+so  in  two thousand and six  to  two thousand and nine  people  realized  ok  now  we  can  trained  networks  and  maybe 
+whatever  we  have  done  with  unsupervised  pre  training  actually  corresponds  to  better 
+initializations or better optimizations or better activations and so on 
+so  now  let  us  try  doing  research  in  that  so  that  led  to  the  discovery  of  relu  now 
+people started observing problems with relu and then proposed a variant of it which is 
+leaky relu right so that is how this area has now become very prolific and grow right 
+so  we  started  off  with  this  seed  idea  that  it  is  possible  to  train  these  deep  neural 
+networks and now we are trying to make arrive at better and better ways of doing it 
+making  it  more  and  more  easier  to  train  them  and  take  care  of  some  of  these 
+irregularities which existed earlier so one of them being sigmoid not being a very neat 
+function to optimize with right so that is what all this is about individually all of these 
+are probably easy for you to understand once you go back and look at the slides you all 
+this is nothing great in this 
+but what i want you to really understand is this bigger picture of what is happening here 
+as  long  as  you  get  that  time  frame  with  and  of  course  leaky  relu  is  again 
+computationally very efficient there is no exponents no squares nothing like that and it 
+is  close  to  zero  centered  and  it  is  still  not  zero  centered  but  close  to  zero  centers  because  you 
+have outputs on both side and then someone came up with a generalization of this which 
+is parametric relu so y one make it alpha x and alpha will also be a 
+student parameter 
+parameter it is a trainable parameter it is not a hyper parameter ok how many of you 
+know the difference between parameter and hyper parameter ok you have used this in 
+the  back  propagation  as  i  am  right  so  it  is  a  trainable  hyper  parameter  it  will  get 
+optimized along with your other parameters in the network 
+so  then  someone  said  leaky  relu  fine  parametric  relu  is  fine  let  us  try  to  do 
+exponential relu ok so it has all the benefits of relu it ensures that at least a small 
+gradient will flow through even when your inputs are negative that means it avoids this 
+dead neuron problem again close to zero centered outputs but it is expensive because now 
+we have added this exponential right 
+so these are all ideas which came out during this period and all of them were shown to 
+work better than the other and so on and of course at the end i have to tell you a final 
+conclusion right whenever i give you so many possibilities 
+so i have given you sigmoid tanh relu parametric leaky exponential now what do 
+you use right  this the idea is  not  to confuse  you but  to  give  you one solution  which 
+would largely work yeah what regularization 
+student 
+yeah  you could have done  yeah that  there is  exactly so  a lot of 
+this research right which has happened in this period it is not a lot of it is juristic right 
+you  solve  one  problem  with  relu  ok  the  neurons  and  saturated  ok  just  make  it 
+something which does not saturated 
+so that is there it is possible that the other solutions would also go there is not that this 
+is  the  only  solution  which  works  now  then  someone  came  out  with  max  out  neuron 
+which is a generalization of relu and leaky relu why do i say it is a generalization 
+what was relu that means w one equal to b one equal to zero w two equal to one 
+so  it  is  a  special  case  of  the  max  out  neuron  what  about  leaky  relu  this  was 
+parametric value but again what about so now what is happening w one equal to alpha b 
+one equal to zero w two equal to one b two equal to zero so you see how it generalizes right so this is 
+how these variants keep kept coming up 
+now  the  problem  of  course  is  doubles  the  number  of  parameters  right  because  you 
+earlier had only w transpose x plus b now you have w one transpose b one w two transpose b 
+two and so on right so it is actually doubling the number of parameters that you have 
+so now coming to the final conclusion of all of this right what you need to remember is 
+that sigmoids are bad 
+so no one uses sigmoids in convolutional neural networks they still use somewhere i 
+am i am sorry about this relu is more or less the standard unit for convolutional neural 
+networks 
+so any standard cnn that you will pick up it will use relu as the activation function 
+if you want you can explore leaky relu max out elu and so on but it will require a lot 
+of careful tuning say if you want to use something out of the bulk box relu is just fine 
+relu just works fine in practice despite all this dead neuron and other problems 
+student 
+yeah so then the argument for that is that how often when you reach the point x equal 
+to zero right so the chance of that having is happening is very very low and if you get 
+there you can always approximate it by some epsilon or something and for that training 
+instance  just  go  on  right  any  ways  you  are  making  so  many  approximations  with 
+stochastic and mini batch and so on 
+so this is one more approximation that is how people typically deal with it but in most 
+cases it will not come in that point appearing is very low but the question is valid and 
+tanh  sigmoids  are  still  used  in  lstm’s  and  rnn’s  which  you  will  see  at  some  later 
+point in the course ok so there are a couple of more modules that i need to do so we 
+just take a break here 

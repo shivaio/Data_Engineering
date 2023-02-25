@@ -1,0 +1,260 @@
+l2 regularization 
+ 
+so let us start with l2 regularization so i have seen this before 
+so all of you see that this is l2 regularization right what does l2 regularization does 
+now tell me in the context of things that we have discussed today what is this empirical 
+estimate of the train error ok and what is this is  that fine right so everything that we 
+are going to write is l because of its w but fine right ok now why does this relate to 
+model complexity what am i doing here actually by adding this 
+so  they  are  going  to  see  a  very  detailed  analysis  of  this  but  i  just  want  to  see  first 
+whether you get an intuition behind this so by doing that what you are trying to do not 
+allow  the  model  to  become  very  complex  right  you  do  not  want  a  model  where  your 
+weights can take any possible value you just want the weights to be small so you are 
+reducing the freedom on the model right less freedom less complex you get the intuition 
+at  least  we  will  see  this  in  more  detail  but  at  least  you  get  the  intuition  why  we  are 
+doing this 
+so we are using omega remember that we are using this omega theta as a surrogate for 
+model  complexity  so  if  you  add  something  in  all  omega  theta  just  make  sure  you 
+understand that this relates to model complexity ok fine and now for sgd what would i 
+need  for  gradient  descent  just  in  case  you  have  forgotten  what  sgd  is  what  do  we 
+need nothing we have done it [fl] gradient of this which is a sum of the derivatives 
+of the two quantities of which you know one right you know this already and what is 
+the other guy alpha w right 
+so  you  see  this  l2  regularization  right  one  reason  why  it  is  preferred  is  now  imagine 
+you have already written code for gradient descent all you need to do is change it at one 
+place  add  this  to  your  update  rule  that  is  all  you  need  and  you  can  think  of  the  vector 
+form of this where you have a vector of parameters you can think of the matrix form of 
+this  variable  vector  matrix  of  parameters  all  you  need  to  do  is  add  one  term  to  your 
+update  rule  so  it  can  be  done  with  very  minimalistic  change  and  this  would  be  your 
+update rule now let us see geometric interpretation of this 
+now from here onwards some of you will start getting a bit uncomfortable with some of 
+the math because of these assumptions that it only works for squared eggs in a vacuum 
+right  so  you  will  see  those  kind  of  things  i  will  not  tell  you  upfront  what  is  the 
+assumption i am making because that will just spoil the analysis you will just not enjoy 
+it  as  much  as  you  would  ignorance  is  bliss  right  so  if  you  do  not  know  what  the 
+assumptions are you will probably enjoy it more 
+but for some of you will pick it up just keep it to yourself at the end i will tell you what 
+are  the  assumptions  i  had  made  ok  there  are  some  tricky  assumptions  that  i  want  to 
+make but just live with it and just try to enjoy it while those assumptions last right ok 
+so now let us assume that w star is the optimal solution for l w what is l w the train 
+error not our regularized error just the train error 
+and so if w star is the optimal solution what can you take tell about the derivative with 
+respect  to  w  star  or  derivative  at  w  star  sorry  it  is  going  to  be  zero  from  basic  calculus 
+right so  which  i say minimize x square the minima is  where derivative of x squared 
+with respect to x is equal to zero right 
+so now consider one point which is ok so what i actually want to consider is that let 
+me just see how to see this so let us see my w star ok and i want to consider some point 
+in the neighborhood of w star ok that is what i want do so one way of saying it is that h 
+is equal to w minus w star is that fine ok so that is what i am going to use in the next 
+few steps 
+so suppose i have such an h which is equal to w minus w star that means i can move 
+from w star to some point in its neighborhood by using h and what does taylor series 
+tell  us  this  is  what  taylor  series  tells  us  right  that  the  value  of  the  function  at  this 
+neighborhood  point  is  equal  to  this  all  of  you  know  taylor  series  well  now  it  is  that 
+fine i do not need to really go over this right 
+this  is  approximation  up  to  the  second  term  second  order  derivative  now  what  was  h 
+actually w minus w star so i will just substitute that and this is what i get is that fine 
+what  is this quantity one minus  zero infinity minus infinity  zero right we just did that ok so 
+that term will disappear what am i left with this quantity ok and i have forgotten what 
+is next 
+now again i am interested in the derivative of this ok so what will happen if i take the 
+derivative what would i get i am interested in computing grad l w what will the r h s 
+be how many of you fine with this remember this is a quadratic form right so this is 
+of  the  form  x  square  that  is  i  mean  that  is  roughly  how  i  remember  it  is  not  correct 
+because  of  the  form  x  square  so  when  you  take  the  derivative  one  of  the  x  is  will 
+disappear and this quantity will remain ok so everyone gets this ok 
+so now what do i have is i have the formula for the gradient with respect to l w and it 
+is in terms of the gradient with respect to or rather the gradient at l w star that is what i 
+have  achieved  so  far  but  what  am  i  actually  interested  in  the  regularized  loss  i  am 
+what  i  am  still  dealing  with  is  the  non  regularized  loss  this  is  just  the  empirical 
+estimate  of  the  training  error  that  is  not  what  i  am  interested  in  i  am  interested  in  the 
+regularized loss 
+how many of  you lost at  this point  h is  the second order derivative oh so these are 
+brackets just for clarity but i see it is making it more unclear  yeah actually we should 
+have used u and then call it u transpose h u so it is the brackets here are not indicating 
+function ok this is just h transpose h now let us say it i realize how bad it is so last 
+step what are we taking gradients with respect to is w right is it fine 
+so we have a so i mean do not get too confused right so up till this point we have a 
+formula for l w right and i am just interested in the derivative of that ok and all i have 
+achieved by this is that i have ok in fact i have one more step right 
+what is this quantity zero ok so we now know that the derivative of the loss function 
+with respect to w can be written as this quantity is it ok and i have just derived it step 
+by step there is nothing great about it anyone is can why i am doing this is not clear 
+that  will  become  clear  hopefully  but  what  i  am  doing  is  clear  right  is  that  fine  can  i 
+move ahead 
+now what we are actually interested in is this quantity because this is the true loss that 
+we  are  going  to  deal  with  right  and  we  just  saw in  the  previous  slide  that  this  quantity 
+which  is  on  the  l  h  s  is  equal  to  this  thing  on  the  r  h  s  this  is  what  we  saw  on  the 
+previous slide can i just go back to the previous slide because the derivative of this was 
+just alpha w now let us start with this so on the next slide let me just see if there is 
+anything else that i need to see here ok 
+so far everyone is clear what  i have derived so  far why is not clear but what is  clear 
+what is being derived so far so i have said that the derivative of the loss function or the 
+regular is loss function can be written as this quantity ok is that fine where w star is the 
+optimal solution for with respect to the un regularized loss function ok and now i have 
+what i am interested in this solution with respect to the regularized loss function ok 
+now  let  w  tilde  be  that  solution  for  the  regularized  loss  function  so  that  means  the 
+derivative  of  the  loss  the  regularized  loss  function  at  w  tilde  is  going  to  be  zero  nothing 
+great about this but i just told you on the previous slide that i can write this quantity as 
+this quantity that is what we derived on the previous slide ok just take my word that is 
+what  we derived on the  previous slide ok let just no confidence in  me ok  that is fine 
+now can you are you if i write it as this just rearranging some terms oh sorry 
+so  i  am  just  grouping  all  the  w  tilde  some  terms  and  this  is  a  matrix  is  needed  here 
+right because i need to i can only add two matrices so what i am just doing is putting 
+the elements across the diagonal everyone understands this everyone gets this step ok 
+so now i have a formula for w tilde in terms of w star ok i am going to go a bit further 
+and be a bit bold  and compute the inverse also  so now  i have  a  exact  formula for  w 
+tilde in terms of w star so what is this actually what is this relation that i am trying to 
+establish suppose i know the solution with respect to the un regularized loss and now i 
+have added regularization what happens to the new solution 
+so i am telling you the new solution would be smaller weights and so on that is what l2 
+regularization tells you now you are just trying to make an interpretation for that so i 
+have given you a closed form solution that w tilde is actually equal to this quantity that 
+you see on the right hand side ok why you are doing this is still not clear but right now i 
+just  focus  on  the  what  part  of  it  this  is  just  some  mathematical  steps  that  i  am  doing 
+anyone who is not comfortable with this 
+now notice what would happen if alpha tends to zero what would be w tilde be w star what 
+do you mean by alpha equal to zero no regularization right so that is just one corner case 
+that i want to do but that is not what we care about anything what that is stupid to do all 
+this and tell you that if you do not use regularization you will get the same solution but 
+that is not what i am going to tell you right we are interested in the case when alpha is 
+not equal to zero ok so let us look at that case 
+now i am going to assume that h is a symmetric positive semi definite matrix squared 
+egg in a vacuum ok so if that is the case then i can write h as this i have just done the 
+dash of h eigenvalue decomposition  all right  ok and  i  know that since it  is a squared 
+symmetric matrix the eigenvalues are going to be eigenvalues are going to be orthogonal 
+yes eigenvalue vectors are going to be orthogonal and that is why i can write this that q 
+transpose is the inverse of q 
+now let us start with whatever we had on the previous slide and substitute what what i 
+am going to substitute instead of h i am going to use q lambda q transpose ok so i 
+am doing that so is that ok i will just go over the steps and let me know at any point if 
+you  have  a  problem  what  i  have  done  is  i  have  replaced  this  i  by  this  and  its  valid 
+because q q transpose is just equal to i i have just taken q and q transpose as common 
+right so this is a c b plus some a z b so i have taken a and b out right is that fine ok 
+now what is the next thing i am going to do this is of the form a b c inverse so i am 
+going to write it as and the inverses are neat right 
+this is fine what will happen to this quantity i what is this quantity q and this is what i 
+am  left  with but  there is still something more  i  can do  i  guess  let us see ok so  i can 
+write  this  entire  thing  as  a  diagonal  matrix  how  many  of  you  see  that  it  is  a  diagonal 
+matrix  because  lambda  is  a  diagonal  matrix  i  of  course  is  a  diagonal  matrix  i  is 
+multiplied by a scalar which is also going to be a diagonal matrix and the whole thing is 
+again multiplied by some diagonal matrix ok what is the inverse of a diagonal matrix 
+the reciprocal of the diagonal elements 
+so i its fine so i have a very neat formula for what w tilde looks like in terms of w star 
+ok  again  why  am  i  doing  all  this  and  god  knows  but  and  here  d  is  equal  to  this 
+quantity 
+so  what  exactly  is  happening  here  in  terms  of  linear  algebra  or  in  terms  of  geometric 
+interpretations  so  let  me  just  see  if  i  have  to  do  something  first  ok  so  what  is 
+happening to w star is getting 
+student 
+rotated remember what happens when a matrix where hits a vector it gets rotated and 
+scaled  also  and  then  what  is  this  diagonal  matrix  going  to  do  scale  it  element  wise 
+scaling  actually  everyone  gets  this  operation  ok  and  then  i  am  again  rotating  it  by  q 
+again  the same stupid question if alpha is  equal  to  zero what  would happen  q transpose 
+would rotated by something and then q would rotate it back way that means  you will 
+end up getting the same solution ok if alpha is equal to zero we understand 
+now if alpha is not equal to zero first let us see what does this matrix look like so what is 
+this matrix actually it is a diagonal matrix what are the diagonal elements the what is 
+the  first  element  in  the  diagonal  one  by  everyone  agrees  with  this  what  is  the  second 
+element ok fine and what is the other matrix that i have lambda so d is equal to the 
+product of these two things right so what is d going to be what is the first element of 
+this matrix is going to be how many if you say lambda one by one lambda one plus alpha this 
+much is clear everyone gets this 
+so this is a diagonal matrix of the form a b c let us consider a three by three matrix now i am 
+going  to  multiply  it  by  another  matrix  x  y  z  which  is  also  a  diagonal  matrix  right 
+because this is also it so this matrix i have already told you what it looks like the other 
+matrix  is  also  a  diagonal  matrix  now  what  is  this  product  actually  a  x  b  y  c  z  and 
+everything else has zero now everyone gets it now can  you say what would this product 
+look like if you can actually make out it would be a diagonal matrix and what would the 
+diagonal elements be 
+so  now  what  is  happening  so  first  this  rotation  is  happening  that  no  one  is  denying 
+after rotating what is happening this is a this product is actually a vector that is fine ok 
+what are we doing to every element of the vector scaling it scaling it by what quantity 
+these  quantities  that  every  element  is  getting  scaled  by  the  corresponding  entry  in  the 
+diagonal in this diagonal right 
+so the first entry is getting scaled by this the second entry is getting scaled by this and 
+so  on  ok  i  just  want  you  to  take  some  thirty  seconds  and  try  to  figure  out  where  i  am 
+headed from here 
+let us see if i can yeah maybe look at this sentence and see first of all everyone agrees 
+with this sentence right is there anyone who does not agree with the sentence i am just 
+trying  you  to  figure  out  the  implication  of  the  sentence  you  get  it  some  people  are 
+nodding their heads just in because if you scale it right then there is no guarantee that 
+what  the  vector  has  changed  ok  what  happens  in  the  following  case  that  means  that 
+dimension  will  be  left  as  it  is  ok  but  if  the  eigen  if  this  condition  holds  what  would 
+happen that dimension is almost getting multiplied by a zero right 
+so see these two extremes when the eigen value is very large  you will end up staying 
+where you were so those dimensions will not be affected if the eigen value is very small 
+then you are almost getting scaled down to zero so now what will happen is actually only 
+the  significant  directions  larger  eigen  values  will  be  retained  so  what  is  the  effective 
+number of parameters in your model now 
+see remember that this w vector is a vector of all the parameters what am i telling you 
+that some of these are going to disappear when which condition holds the third can the 
+third  bullet  holds  some  of  these  are  going  to  disappear  that  means  the  effective 
+number of parameters which remain in your model is going to be less right and you see 
+that it is going to be given by this quantity right 
+so that is sometimes known as the effective number of parameters in a neural network 
+if the effective number of parameters in  your neural network is decreasing that means 
+what  you  are  doing  making  the  model  less  complex  right  so  that  is  what  we  have 
+achieved you see that ok 
+now let me end with a pictorial interpretation of this you see two figures here and there 
+is only one figure but you see two different things here can you tell me what this is and 
+what this is that is the first question i want to ask you the hint is that in this lecture we 
+care about the other hint is what was w star the solution for the 
+student 
+unregulated loss which means which loss l theta you need any more hints sorry this 
+box is the contours of l theta this box contours of omega theta so this thing just ignore 
+this part of the figure for now ok this i have marked as w star w star was the solution 
+when  i  only  had  the  un  regularized  loss  ok  there  is  the  solution  when  i  had  the  un 
+regularized loss ok 
+so  remember  the  contour  maps  that  we  had  seen  so  this  is  the  minimum  of  that 
+particular  function  so  this  is  the  contour  map  for  l  theta  that  is  clear  now  what 
+probably is not clear is why is this the contour map of omega theta let me just go ahead 
+actually 
+please do not read this this is the prestige ok so do not read that so this is the contour 
+map of omega theta right because omega theta in the what is the minima for the omega 
+theta  it  is  a  function  of  the  form  w  square  what  is  the  minima  zero  and  what  does  that 
+function  look  like  and  what  is  this  point  zero  the  origin  right  so  that  is  why  this  is  the 
+contour for omega theta ok 
+now what is happening this was the solution when you had without regularization and 
+now  this  is  w  tilde  which  is  a  solution  with  regularization  so  can  you  make  some 
+commentary  on  this  with  respect  to  not  just  general  commentary  with  respect  to  the 
+things  that  we  saw  in  the  derivation  we  talked  about  rotation  scaling  dimension 
+specific scaling so what is happening this was my original solution vector this was my 
+original  solution  vector  when  i  did  not  have  the  regularization  term  now  what  has 
+happened  the  rotation  has  happened  and  we  saw  that  there  is  a  rotation  operation 
+happening more importantly what has happened scaling has happened 
+more importantly what has happened dimension specific scaling is happening right one 
+dimension has not this dimension has scaled down this dimension has not scaled down 
+enough that is exactly what we wanted right we wanted the less important weights to 
+go  down  and  the  more  important  weights  to  stay  there  we  did  not  want  a  uniform 
+scaling down we wanted a dimension specific scaling down 
+so the weight vector has been rotated yes each dimension after rotation has been scaled 
+some  dimensions  have  been  scaled  down  more  the  other  dimensions  have  been  scaled 
+down  less  how  many  of  you  can  make  this  interpretation  from  the  figure  now  that  i 
+have told you this interpretation 
+now still if you do not how mean if you can still have a doubt with this you still have a 
+doubt what is doubt fine so so this was the original solution vector right the map told 
+us that what actually happens is when you add this omega theta the solution vector  gets 
+rotated ok at the same time there is also some scaling down and that scaling down is for 
+dimension 
+how  many  dimensions  do  you  have  here  two  dimensions  right  so  this  is  one 
+dimension  this  is  the  other  dimension  now  in  the  original  case  both  these  weights 
+actually seemed almost equal right i mean if you look at the w one coordinate and the w two 
+coordinate they were same now after this regularization what has happened is what are 
+the new coordinates for w one and w two this is the coordinate for w one right this is the value 
+of w one and this is the value for w two 
+both  of  them  are  admittedly  smaller  than  the  original  values  for  w  one  and  w  two  in  the 
+absence  of  regularization  or  both  of  them  equally  smaller  no  they  are  being  scaled 
+differently one rate has been scaled down more the other weight has been scaled down 
+lesser  right  and  that  is  exactly  what  the  math  was  telling  us  that  they  get  scaled  in 
+proportion to those lambda one by lambda one plus alpha and that is exactly what we see in 
+the figure is that fine 
+how many if you get this interpretation now is that ok so all of its elements are shrink 
+oh you have a question so this final resultant right it is so what would have happened 
+is that there would have been first rotation then scaling down and then again rotation so 
+what  you  are  seeing  here  is  the  final  rotation  right  so  it  is  not  it  should  have  been 
+showed in three steps by just shown the final step 
+so  its  question  was  that  we  first  had  a  rotation  then  had  a  scaling  and  then  again  a 
+rotation  but  i  even  as  explained  in  the  figure  i  spoke  only  about  one  rotation  so  i 
+basically  clubbed  both  the  rotations  and  so  what  you  see  finally  is  rotations  scaling 
+down and again rotation 

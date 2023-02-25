@@ -1,0 +1,80 @@
+lecture  four 
+now  we  will  move  on  to  the  next  module  where  we  want  to  learn  the  parameters  of 
+feed  forward  neural  networks  and  we  first  start  with  some  intuition  and  then 
+mathematical details 
+so  we  have  introduced  feed  forward  neural  networks  and  we  are  now  interested  in 
+finding an algorithm which can allow us to learn the weights of this network 
+so recall our gradient descent algorithm this is how it looked ok i had initialized those 
+two parameters w naught b naught and then i was iteratively doing this in a loop at every 
+step i was moving in a direction opposite to the gradient at that step 
+now can i write this a bit more compactly we can write using vectors 
+so are you ok if i write it this way so these two was actually nothing but vector at every 
+point so i can just write it this way so theta is the vector containing w and b ok or 
+theta  is  the  vector  of  all  the  parameters  my  network  had  it  just  so  happened  that 
+network had only two parameters so see where am going with this how many of you see 
+where am going with this 
+good so where delta theta t right just to remind you it was this the partial collection of 
+all the partial derivatives with respect to all the parameters in this toy example all was 
+equal to two right we just had two parameters now you see where am going with this ok so 
+now in this feed forward neural network instead of theta equal to w comma b what do 
+we have theta is equal to so many parameters ok so what would grad of theta t now 
+be partial derivatives with respect to 
+student 
+all the weights but there is a problem here right this is the matrix how do you take the 
+partial derivative with respect to the matrix who asked you to use the matrix how you 
+take the partial derivatives with respect to matrix so what  i am interested in this right 
+the question i know there is some loss function which is a function of theta one of the 
+elements of theta has this matrix w one which belongs to r n cross n right and now i want 
+the derivative with respect to w so see what i am trying to do this is scalar and we take 
+the derivative of that with respect to a matrix what is all that the derivative with respect 
+to 
+student 
+every element of the matrix ok 
+so we can still use the same algorithm except that del this grad of hat of so now i could 
+just  say  that  theta  two  hat  i  mean  initialized  all  parameters  and  theta  naught  right 
+compute the gradient with respect to all of them and then do this update right  i could 
+just instead of putting them in matrices i could just think of them as a large vector just 
+had initially i had just had w comma b now this vector is even more large in fact i will 
+show you actually how it is 
+so this is the grad with respect to theta looks very nasty now this is how nasty looks 
+right so you have this weight matrix w one you have the derivatives with respect to first 
+element of w one all the way up to the last element last element so with respect to all the 
+n cross n elements of w one what is the next entry going to be w two hundred and eleven to 
+student 
+w2nn next after wl11 ok and then after this ok 
+student 
+what  is  remaining  biases  right  so  you  have  b11  to  b1n  this  slight  error  here  but 
+intentionally this actual  is  k because k is  not  equal  to  n right  the last layer has only  k 
+parameters  whereas  so  that  it  looks  ok  is  this  clear  so  is  this  are  all  the  partial 
+derivative that we need right you do not need to worry about taking a partial derivative 
+with respect to our matrix it just boils down to taking the partial derivative with respect 
+to all elements of the matrix 
+so earlier you just had two parameters now you have these n cross n plus n cross n upto l 
+right  so  l  into  n  cross  n  plus  l  into  n  that  many  number  of  parameters  is  what  you 
+have you get the calculation right or rather you have l minus one layers each of which 
+has n cross n parameters right and l minus one layers which also have the biases so these 
+are  the  w’s  these  are  the  b’s  then  the  output  layer  one  layer  which  has  n  cross  k 
+parameters  and  k  cross  one  bias  so  these  are  all  the  number  of  parameters  that  you 
+have and this is exactly what this size of this matrix is right it has all these parameters 
+and you need to compute the partial derivative with respect to each of these parameters 
+so this is what grad theta is composed of it is composed of the partial derivatives with 
+respect to all the parameters of your network ok so now if someone gives you each of 
+these  quantities  same  oracle  give  you  each  of  these  quantities  then  can  you  apply 
+gradient  descent  right  you  can  use  the  exactly  the  same  algorithm  that  you  are  using 
+earlier just the sizes of earlier vectors changes 
+how many of you are convinced that now you can use that gradient descent there is not 
+a  trick  question  how  many  of  you  convinced  how  many  of  you  not  convinced 
+assuming  that  someone  has  given  you  these  quantities  right  i  know  that  it  is  hard  to 
+compute we will see how to compute that but let us assume someone has given you this 
+then you can use gradient descent that is what the case i made in the previous slide right 
+that you could initialize with all the parameters compute the gradients with respect to all 
+the parameters and just do this update fine so now we need to answer two questions first 
+is this is the key question 
+because we are taking derivative of what loss functions so we need to know what the 
+loss functions that is the crucial question right and then we are taking derivatives with 
+respect to all these elements so whatever i was told you that assume that oracle gives 
+you  now  you  have  to  do  the  hard  work  and  actually  find  it  out  right  so  if  you  can 
+answer  these  two  questions  then  we  are  done  we  have  an  algorithm  for  learning  the 
+parameters  of  feed  forward  neural  networks  we  all  agree  that  if  you  have  these  two 
+elements then we have done 
+so here i will end this module 

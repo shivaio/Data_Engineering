@@ -1,0 +1,68 @@
+back propagation pseudo code 
+so  we  move  on  to  the  next  module  and  now  we  will  write  pseudo  code  to  for  back 
+propagation 
+so we have all the pieces of the puzzle we have the gradients with respect to the output 
+layer that was the special layer because the output activation function is different they 
+are  the  gradients  with  respect  to  all  the  hidden  layers  that  means  i  have  the  gradients 
+with respect to the activations as well as the pre activations 
+so in the h’s as well as the a’s and i also have the gradients with respect to the weights 
+and  the  biases  and  this  is  all  index  agnostic  right  that  means  i  am  just  using  k  as  the 
+index everywhere i have a generic formula which applies at any layer for the weights as 
+well as the activations and the pre activations right ok now we can put all this together 
+into a full learning algorithm so let us see what the pseudo code looks like 
+so we have this t  equal  to  zero well  run this for some max iterations we initialize all the 
+parameters  to  some  quantity  will  randomly  initialize  them  ok  now  for  these  max 
+iterations  can  you  tell  me  what  is  the  first  thing  that  i  will  do  so  there  will  be  two 
+functions here ok tell me what those two functions would be 
+student forward 
+forward  propagation  and  then  backward  propagation  right  so  you  do  a  forward 
+propagation  and  you  compute  all  these  activations  pre  activations  output  layer  loss 
+everything  and  then  you  do  this  backward  propagation  where  you  feed  all  these  things 
+which you have computed these are the quantities which you have computed you will 
+pass this to your backward propagation algorithm it would not look so nasty as this it 
+will not take so many parameters you could write it smartly and then you will just do 
+the parameter update 
+so  what  will  the  back  propagation  give  you  actually  all  the  gradients  all  the  partial 
+derivatives  right  and  then  once  you  have  the  partial  derivatives  you  know  how  to 
+compute  the  update  law  so  now  let  us  look  at  these  two  functions  more  carefully  the 
+forward propagation and the backward propagation 
+so forward propagation is simple for all the hidden layers that means from layer one to 
+layer l minus one what will i do give me the code a k is equal to good then ok and what it 
+what is h of zero you are starting the loop from one right so you will need h of zero that is x 
+and then you will have a special treatment for the output layer and your final output will 
+be whatever output function you use ok this makes sense you can write this in python 
+you will have to write this in python 
+now we have computed all the h’s and the a’s what have we computed all the a’s all the 
+h’s and all and the y right now you want to do back propagation so back propagation 
+the loop will be from i equal to one to n minus one good so the first thing i will compute is 
+the gradient with respect to the output layer see even here the output layer was outside 
+the loop the same thing would happen here also in the back propagation also first you 
+will compute the gradient with respect to the output layer and this is the formula 
+if  you  remember  from  last  class  right  that  is  the  formula  which  i  have  substitute  here 
+and note that f of x is known to you because you computed that in the forward pass and e 
+of y one hot vector which with a correct label said to one and you know what the correct label 
+is because we have given you the  data right ok then what would the 
+loop  be  l  to  one  or  l  minus  one  let  us  see  first  you  compute  the  gradients  with  respect  to 
+parameters it is l 
+so because we are using k minus one then you compute the gradients with respect to the 
+layer  below  computes  gradients  with  respect  to  the  pre  activation  right  this  is  exactly 
+how  you will proceed this  is  clear to  everyone the same three  components that we have 
+used you might be a bit confused about the ordering in which we have put them because 
+we computed the gradients with respect to pre activation first and then the weights but 
+once you go back you will realize because it is the way we have indexed it because this 
+is already outside 
+so  this  has  already  been  computed  so  you  can  already  compute  the  gradients  with 
+respect to the weights of the outermost layer is that fine so this is straightforward you 
+can go back and check this ok now anything remaining or you have everything can you 
+just take a minute and see if you can visualize the python code and we will just assume 
+that you are done the assignment you can read you will have multiple these vectors and 
+matrices and so on and you are just doing a lot of matrix operations using (refer time 
+0406) or  or whatever you prefer right 
+now what is missing here input is missing ok input we have given right the ominous 
+data set has been given is there something that yours i have still not shown you how to 
+compute  oh  i  did  not  update  the  parameters  here  is  it  no  the  parameter  update  will 
+happen  in  the  outer  loop  right  so  those  forward  prop  back  prop  and  then  update  the 
+parameters  right  so  the  main  algorithm  was  forward  prop  back  prop  update  the 
+parameters  when  we  saw  forward  prob  an  obvious  seeing  backward  prop  so  what  is 
+missing  one thousand  iterations  something  in  the  last  line  before  end  of  course  do  you  know 
+how to compute this 

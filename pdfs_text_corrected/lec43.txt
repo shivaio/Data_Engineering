@@ -1,0 +1,137 @@
+linear algebra  basic definitions 
+now from here on we will go on to something even more basic we will start defining 
+some basic definitions from  linear algebra  and these are again  important  for something 
+that i need in the next lecture so let us start with this 
+i mean in the process we all just see why the  eigenvectors are important for us in this 
+course 
+so how many of you know what a basis is so a set of vectors belonging to r n is called 
+a basis if they are linearly independent right and every vector in r n can be expressed 
+as  a  linear  combination  of  these  vectors  so  a  set  of  n  vectors  v1  to  vn  is  linearly 
+independent  if  no  vector  in  the  set  can  be  expressed  as  a  linear  combination  of  the 
+remaining n minus one vector so a more weird we are stating it that so that everyone get 
+confuse is that if you take this linear combination 
+the only solution to this is all the ci’s is equal to zero and that make perfect sense right that 
+is  that  same  as  that  linear  combination  linear  independence  and  all  that  thus  is  make 
+sense to everyone ok so what does linear independence mean that any vector from this 
+set cannot be expressed as the linear combination of the other set other vectors in the set 
+and  a  more  formal  way  of  saying  that  is  this  everyone  gets  this  what  is  linear 
+independence 
+now  let  us  consider  some  very  stupid  examples  again  the  space  r  two  and  we  consider 
+these  two  vectors  one  zero  and  zero  one  are  they  linearly  independent  yes  ok  they  cannot  be 
+expressed as a multiple of each other  right  now any vector ab belonging to  r square 
+can be expressed as a linear combination of these two vectors ok and x and y are linearly 
+independent the only solution is c one x plus oh sorry c one x plus c two y is c one and y equal to 
+zero what about if i move to r three one zero zero zero one zero and zero zero one so x y and z axis right are the unit 
+vector 
+so in that x and y turns to be unit vectors in the direction of the coordinate axis and we 
+are used to  representing  every point in  r two as a linear combination of these two vector is 
+that exactly what  i  what we do so when we say  that  i have a point two comma three  i am 
+actually  telling  you  that  the  point  is  two  one  zero  plus  three  zero  one  right  i  am  expressing  at  are  the 
+linear combination of the coordinate axis 
+but now this nothing sacrosanct about x and y right i could have chosen just about any 
+other axis so in particular we could have chosen this as our basis are these two vectors 
+linearly  independent  can  any  vector  and  r  two  be  expressed  as  a  linear  combination  of 
+these two vectors sure so i give you a vector a b how do you going to express it as a 
+linear combination of these two vectors so you will do it this way right how will you 
+find that values are the x one and x two so other linear system of linear equations right 
+so this is what you will do i know all are good in doing this and what do we actually do 
+when we do this what is the algorithm that we use how do we solve this what is the 
+algorithm that you use solving this 
+student gaussian elimination 
+gaussian elimination right in two variables of course we do not call it an algorithm that is 
+what  we  did  in  eight  standard  or  something  but  when  we  come  to  engineering  we  call  it 
+gaussian elimination right so the same algorithm 
+so in general given a set of linearly independent vectors we can express any vector that 
+belonging  to  rn  as  a  linear  combination  of  these  vectors  right  i  can  say  z  is  equal  to 
+alpha one u one plus alpha two u two and so on given alpha one to alpha n are linearly independent 
+ok so that means any vector in rn can be expressed using these vectors which form the 
+basis of rn does that make sense that is why call the basis vector because anything else 
+these  are  the  fundamental  vectors  using  these  anything  else  can  be  expressed  in  that 
+space it is that clear 
+so this is how it will be how do i write this in matrix notation a there are lot of these 
+and these thing i do not really understand what you mean by that yeah good so this is 
+what you mean so that we writing same in matrix notation and now this is again a dash 
+a system of linear equation there was a lot of space to fill and one dash good so system 
+of linear equation and again you can solve them using 
+student gaussian elimination 
+gaussian elimination what is the complexity of gaussian elimination let us see options 
+right n n square n cube [fl] n cube right the gaussian elimination the complexity is o n 
+cube  right  and  i  am  not  doing  all  this  just  to  the  sake  of  time  pass  i  have  a  point  of 
+make  which  i  will  make  on  the  next  slide  right  so  now  this  was  for  any  basis  that 
+means if you have any n linear independent vectors 
+now i will consider a special basis where instead of n linearly independent vectors in 
+addition  these  vectors  are  also  orthogonal  ok  orthogonal  vectors  are  linearly 
+independent ok so a set of orthogonal vectors are linearly independent but the converse 
+is not all this right 
+so now let us see what if we have an orthonormal basis that means a basis consisting 
+of  orthonormal  vectors  so  orthonormal  is  combination  of  two  words  ortho  means  the  two 
+vectors  are  orthogonal  and  normal  means  all  the  vectors  are  unit  vectors  that  means  i 
+am normalized them by their magnitude 
+so what is the condition that holds ui transpose uj is equal to zero if i is not equal to j and 
+ui transpose ui is equal to one ok now what happens in this special case so we have this 
+again we can express any vectors z as a linear combination of these now let me try to 
+do  this  i  am  just  pre  multiplying  this  equation  by  u  one  transpose  what  happens  on  the 
+right  hand  side  everything  disappears  all  of  the  this  terms  will  disappear  because  they 
+are of the form ui transpose uj where i’s not equal to j and the first term is 
+student one 
+one so what remains alpha one so you can directly find alpha one using a dot product of two 
+vectors  what  is  the  complexity  of  this  operation  n  th  is  just  n  products  ok  now  how 
+many such alphas do we need to find 
+student 
+n  of  those  so  what  is  the  complexity  n  square  so  that  is  now  you  see  why  an 
+orthonormal  basis  is  a  very  convenient  basis  you  can  get  all  these  coefficients  just  by 
+doing a dot  product  between two vectors and later on i will show  you that  you  might  not 
+need all of these you might just need some subset k of these right so that means you 
+just  do  k  of  these  dot  products  and  get  these  values  so  do  you  now  understand  the 
+meaning  of  what  is  why  why  do  i  say  it  is  orthonormal  basis  is  the  most  convenient 
+basis that you can hope for right 
+so the another way of looking it right at it is again just to make few more comfortable 
+with  vectors  and  projections  and  so  on  right  so  this  was  your  original  point  z  one  z 
+which is a comma b right and how do you actually draw that vector that this is a and 
+this is b ok so how do you find the coordinates actually  you projects on to  your basis 
+vectors which were these x and y vectors that is how you found the components along 
+those the coefficient along those 
+now instead of this x and y i have any other set of vectors which is u one and u two and i 
+will do the same thing i will project this on to u1 ok i will project this on to u two and that 
+projection will give me alpha one and alpha two right so now what is alpha one and that sense 
+this is z this is alpha one and this is theta right so alpha one is equal to z into cos theta ok 
+and what this cos theta so again you arrive at the same thing fine 
+so  essentially  taking  a  projection  of  a  vector  on  to  your  basis  is  this  fine  to  everyone 
+there is just to difference arriving at the same formula that alpha is are given by a dot 
+product between the basis vector and your original vector 
+so an orthogonal  basis is the more convenient basis that  you can hope for that  is  the 
+point which i wanted to have you are convinced about that 
+now  but  what  does  any  of  this  have  to  do  with  eigenvectors  i  started  off  with 
+eigenvectors  i  proved  one  property  there  and  then  i  came  to  this  linear  algebra  basic 
+definitions and what a basis is set of linear independent vectors and i eventually showed 
+you that an orthonormal basis is the most convenient basis that you can hope so what 
+does any of this have to do with eigenvector 
+student 
+always for us square symmetric matrix right why do you care about square symmetric 
+matrix not sure yet so we get to that so first of all it is turns out the eigenvectors can 
+form a basis and this is for any matrix so the eigenvectors of a matrix having distinct 
+eigenvalues are linearly independent 
+so does every matrix if  i have  an n cross n matrix will it have n  eigenvectors no it 
+can have less than or equal to eigenvector depending on the  so what 
+is this saying is that if these eigenvectors are having distinct eigenvalues ok then these 
+eigenvectors  would  be  linearly  independent  fine  ok  and  turns  out  that  for  a  square 
+symmetric  matrix  that  is  the  even  more  special  the  eigenvector  of  a  square  symmetric 
+matrix are 
+student orthogonal 
+orthogonal  right  and  we  already  know  that  orthogonal  is  good  right  so  remember 
+when we have orthogonal we do not really care about orthonormal because that is it is a 
+simple operation if you have a set of vectors u one u two u three which are orthogonal you can 
+just divide them by the magnitudes and just get  a set  of orthonormal vectors  right so 
+orthogonal and orthonormal i will use it interchangeably ok and whatever i done thus 
+they  form  a  very  convenient  basis  so  the  eigenvectors  of  a  square  symmetric  matrix 
+form a very convenient basis 
+so that is how i connect the parts which was about the eigenvectors to the second part 
+which  was  about  basis  and  why  would  we  want  to  do  this  and  we  already  we  had  a 
+coordinate axis that is the very good basis one zero zero zero zero one zero zero one and n dimension similarly 
+so why should i want to use the different basis i have said that  eigenvectors is a very 
+convenient basis but why do i care about it i already have a very very convenient basis 
+which  is  just  these  one  or  two  vectors  are  along  these  directions  right  so  why  do  i  care 
+about a different basis i understand that i that is there somewhere but something more 
+than that that is one advantage which i will talk about what else more interesting ok 
+in  what  sense  i  love  the  power  which  comes  with  my  job  right  that  you  give  a  right 
+answer and still i can embarrass you know so that is correct actually 

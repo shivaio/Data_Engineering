@@ -1,0 +1,83 @@
+greedy layerwise pretraining better activation functions better weight 
+initialization methods batch normalization 
+welcome  to  lecture  nine  of  cs7015  today  we  will  talk  about  greedy  layer  wise  pre 
+training  better  activation  functions  better  weight  initialization  methods  and  batch 
+normalization  so  today’s  lecture  is  more  like  tips  and  tricks  to  make  deep  learning 
+work 
+so when you are actually experimenting with deep learning in practice what are some 
+of the things that you need to take keep in mind and it is also my way of connecting the 
+history that we saw to where we are today right so there were certain things which we 
+saw in the history and now i  will try to bring those back and connect to  where we are 
+headed  from  here  right  where  we  have  reached  today  and  where  we  are  headed  from 
+here 
+so that is with that in module one i will do a very quick recap of training neural networks 
+and not take more than five minutes and i need it for a specific purpose 
+so  we  already  saw  how  to  train  such  a  very  shallow  neural  network  what  was  the 
+learning  algorithm  gradient  descent  and  this  was  the  update  rule  right  in  particular  i 
+wanted you to notice that the gradient actually depends on the input 
+so when  you compute the gradient formula  you have this multiplication by x so it is 
+proportional to the input and this is one fact that we will use it at least a couple of cases 
+in the lecture today so this was a very shallow single neuron network what if we have 
+a wider network still which algorithm 
+student gradient descent 
+gradient descent ok and we just have these three different formulae and for each of these 
+formulae note that the gradient or rather this gradient depends on the input that you are 
+feeding in ok i did not keep this in mind 
+and what if you have a deeper network so we saw a very shallow network we saw a 
+wide network and i am showing  you a deep network what will you do again gradient 
+descent 
+but you will apply the chain rule for computing the gradients and again here in general 
+you will notice that for any of these weights w1 w2 w3 the gradient formula will have 
+this h i minus one what is h i minus one 
+student 
+input  from  the  previous  layer  right  and  h0  is  the  actual  input  so  the  gradient  at  any 
+layer is actually proportional to the input from the previous layer and this could either be 
+the input from the hidden layer or the actual input 
+and finally we saw this thin so we saw a wide network we saw a thin network now 
+we will see a wide network and a deep network right sorry we saw earlier we saw a wide 
+network and a deep network now we see a wide and deep network and here again you 
+have compute the  gradient  by applying this chain rule across multiple paths and that is 
+what  we  use  and  we  call  it  back  propagation  and  remember  again  they  are  the  same 
+thing  holds  that  the  gradients  at  some  point  are  proportional  to  the  input  at  that  layer 
+everyone remembers that ok 
+so this is important so what we have is things to remember from what we have seen 
+so far is that so training neural networks is basically a game of gradients right so you 
+compute the gradients and everything depends on those how will you update the weights 
+and everything from there on is about the gradients 
+and  these  gradients  actually  tell  you  the  responsibility  of  the  parameters  towards  the 
+loss  and  you  appropriately  update  them  and  we  saw  a  variant  way  different  sorry 
+various variants of how to use the gradient so we saw the gradient descent we saw nag 
+momentum and all 
+but  in  all  of  these  the  underlying  core  thing  was  to  compute  the  gradient  and  then  do 
+some  manipulations  based  on  that  and  the  other  key  thing  is  that  the  gradient  at  a 
+particular layer depends on the input to that layer ok 
+so now let us go back and just retrospect a better and see what is it that we have learned 
+so far so so far what i have taught you gradient descent oh sorry backpropagation is 
+something which was proposed way back in one thousand, nine hundred and eighty-six right 
+so in fact it was existing before that but it was popularized by this work of rumelhart 
+and  others  in  one thousand, nine hundred and eighty-six  right  so  but  then  in  the  1990s  or  early  two thousand  if  back  propagation 
+already  existed  and  we  could  train  deep  neural  networks  then  why  did  not  we  here  so 
+much about deep learning at that time of course you guys were busy with school and 
+all at that time but why did the others or older people like me not hear about it 
+student computational power 
+computational power is that the only thing 
+student 
+computation and memory is are the only thing 
+student convergence 
+who  said  convergence  ok  good  so  actually  what  happened  right  in  the  late  80s  and 
+early  90s  and  even  early  two thousand  when  you  used  back  propagation  to  train  really  deep 
+networks it was not very successful and what  do i mean by not successful actually 
+what are the two things that could happen someone gave the answer already 
+student 
+it does not converge right that means  you do not reach the optimum solution right in 
+fact till two thousand and six it was very hard to train very deep networks 
+and  typically  even  a  after  a  large  number  of  epochs  these  networks  did  not  converge 
+that means they were still at a very high loss and although in principle everything is fine 
+you have a deep neural network you have an algorithm that can train it but you are still 
+not being able to train it properly and you are not being able to make any practical use of 
+that 
+so that was the story till two thousand and six so today is about what happened in two thousand and six what it led to 
+in the next few years and then where we are currently right so that is the journey that 
+we  need  to  make  ok  and  that  is  why  we  started  off  with  this  quick  recap  of  back 
+propagation because that is what i want to tell  you that why did it not work earlier and 
+where are we today 

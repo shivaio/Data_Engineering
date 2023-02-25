@@ -1,0 +1,108 @@
+evaluating word representations 
+now we come to this important part about how do you evaluate word representations 
+so there are different tasks that are set up i hope some of you have read that paper and i 
+can  see  that  none  of  you  have  read  that  paper  so  semantic  relatedness  is  one  way  of 
+evaluating word representations 
+so ask humans to  judge the relatedness between a pair of words  so  i  construct  some 
+pairs  of  words  and  i  show  them  to  a  human  and  ask  them  how  related  do  you  think 
+they are on a scale of one zero to one so it is likely for cat and dog someone would say eight or 
+at least you would expect values greater than six 
+now  you  have  learned  the  representations  using  your  model  it  could  be  any  of  the 
+models that we have seen so far continuous bag of words skip  gram  or  glove vectors 
+so these are the three things right continuous bag of words skip gram which is known 
+as  word2vec  and  the  glove  representations  and  within  them  you  could  have  this 
+hierarchical softmax and other things and so on 
+so  you  could  if  i  asked  you  what  is  the  similarity  between  cat  and  dog  according  to 
+your word representations you could just use the cosine similarity and tell me that this 
+is the representation right so now i will have many search words w one w two for which i 
+have the human judgment and i have the model judgment right so i will have w one one w two 
+one then w two one sorry one two and so on i will have many such word pairs for each of these 
+word  pairs  i  would  have  the  human  judgments  and  i  would  have  the  model  judgments 
+right how close do the humans think they are and how close do the think they are 
+now  i  can  compute  the  correlation  between  these  two  decisions  or  these  two  random 
+variables and  i would  want  that for  a  good model  this correlation should be high so 
+whenever  humans  said  that  the  two  words  are  actually  similar  the  models  word  vectors 
+should also predict a high cosine similarity and whenever humans said that the two words 
+are not similar the models word vector should also result in a low cosine similarity how 
+many forget this 
+so that is one way of evaluating how good your word representations are right so as i 
+was  saying  earlier  how  do  you  tune  those  parameters  so  you  could  have  such  a  set 
+once  you  have  learned  some  word  representations  and  you  want  to  see  whether 
+parameter  k  one  was  better  than  sorry  rather  hyper  parameter  k  one  was  better  than  hyper 
+parameter k two  you could just take those  two word representations  learned by these  two 
+different hyper parameter settings evaluate them on this corpus and whichever gives a 
+higher correlation you can keep that hyper parameter how many of you get that 
+other task is synonym detection so from a resource known as word net  or from other 
+dictionaries you could  get all the synonyms of a word so then people create a corpus 
+where  you  give  us  in  sin  a  word  and  give  four  candidates  or  some  k  candidates  out  of 
+which one of these is the correct synonym the others are just distraction words right and 
+distracting  words  now  what  would  you  expect  your  word  representations  to  do  you 
+have word representations for all of these what would you want how would you pick 
+up the synonym based on word representations 
+students 
+the one which has the highest  cosine similarity so again  you will compute the cosine 
+similarity you will rank these and you will pick up the synonym right and now again i 
+gave you one hundred such instances i gave you a word for candidates and i gave you one hundred such 
+different  word  comma  candidate  pairs  and  you  pick  the  synonym  for  everyone  and  see 
+for sixty of them you got it right then your accuracy sixty percent so that tells you how good 
+your word representations are 
+again if you are given two different hyper parameter settings one gives you sixty percent 
+accurate  the  other  gives  you  seventy  percent  accurate  you  will  probably  go  with  the  one 
+which gives you seventy percent accurate they are find how you can use this 
+the third is analogy task 
+where you find the nearest neighbor of this operation what should it be granddaughter 
+this is this analogy teller brother is  to sister as grandson is to something right so now 
+the  idea  here  is  that  if  i  mean  it  is  like  pretty  weird  right  so  if  i  take  brother  minus 
+sister i get something 
+now if  i  add  grandson  to  that then  i should  get granddaughter  it  is  intuitive in  a way 
+right i mean this is what you expect your word vectors to do right so that is how the 
+analogy task works so you could set up an analogy task you could have and you could 
+get several such an analogy tasks from online tests and so on and you would want your 
+word representations to exhibit this kind of a behavior right 
+so again you have these one hundred analogy tasks for each of these you know the true answer 
+and from each of these you predict the answer from your word representations and first 
+see  for  how  many  of  them  you  get  it  correct  then  you  could  also  have  a  syntactic 
+analogy so you can tell me what this would be right in fact here again it should be the 
+other  way  round  we  works  minus  we  work  thus  we  speak  would  be  we  speaks  right 
+so that is the syntactic thing right 
+so you are getting a different form of the world so your word representations should 
+also have this kind of properties that is what you desire so just evaluating whether your 
+word representations show this kind of a property or not so we have seen  three tasks 
+one is semantic relatedness whether a pair of words how do humans rank it and how do 
+the model how does the model rank it then the synonymous detection and the analogy 
+tasks  in each of these  you do something with  the word  representations  in the first  two 
+you  use  the  dot  product  and  this  last  one  you  use  some  arithmetic  operation  over  the 
+word representations 
+so  you  would  want  v  brother  minus  v  sister  is  equal  to  v  grandson  minus  v 
+granddaughter right so v granddaughter right so that is there is  a plus minus error 
+there 
+so  now  which  algorithm  gives  the  best  result  right  so  whenever  we  see  a  bunch  of 
+algorithms  same  as  we  did  with  adam  and    and  so  on  we  always 
+want to answer this question which of these gives the best result 
+so there was this study done by boroni  et al in two thousand and fourteen that show that the predict based 
+models right which are either which are the predict based models actually  skip  gram 
+continuous bag of words and even glove for that matter right because it is also a predict 
+based model these continuously or consistently outperform count based models that is 
+what they said but a year later there was a separate study done by someone and in my 
+opinion  this  was  a  more  thorough  analysis  because  the  earlier  study  right  they  did  not 
+really give svd a chance to win in my opinion this is all on camera 
+but the later the second set of guy right they gave svd a chance to win so i will tell 
+you one example of how they gave is really a chance to win so remember in word2vec 
+you had this weird three by four which you are using to raise the probability right now what 
+they  did  is  they  said  even  in  the  cooccurrence  matrix  actually  these  counts  that  you 
+have  if  here  you  are  using  them  by  three  by  four  in  the  case  of  word2vec  and  getting  better 
+results why not do the same thing in the cooccurrence matrix also 
+at the end of the day you are raising the count to three by four right so whatever counts you 
+have here based on that you will compute ppmi or pmi or whatever but first why not try 
+to adjust these counts so why not have a parameter k such that you can raise the counts 
+to  this  parameter  and  then  do  all  those  computation  and  that  is  fair  because  the 
+word2vec has a parameter hyper parameter so why not give a similar hyper parameter 
+to svd 
+similarly  they  did  something  to  take  care  of  the  k  negative  samples  which  word2vec 
+has  why  not  give  svd  also  similar  chance  right  so  when  they  did  these  kind  of 
+adjustments they found that after these modifications svd does as well as or even better 
+than  word2vec  models  for  the  similarity  tasks  but  not  for  the  analogy  task  but  the 
+analogy task was the last task right brothers to sister’s grandsons to grandmother right 
+so in most cases we care about similarity and in very few cases we care about analogy 
+if you are doing nlp application so that means in most cases svd would just be fine 
+so that is what i just said at the beginning 

@@ -1,0 +1,235 @@
+ok  so  now  we  will  go  to  the  next  module  this  is  for  the  camera  and  this  is  on 
+convolutional neural networks 
+so far we have done what  we have just talked about  a convolution  operation  you just 
+taken some input boxes and converted them to output boxes what does this anything of 
+this have to do with neural networks i keep saying that is a course on neural networks 
+right so everything has to link to that so what is the connection 
+so we will try to understand this by taking the example of image classification and i will 
+use  the  same  trick  to  get  everyone’s  attention  so  the  next  few  slides  are  going  to  tell 
+you  the  difference  between  machine  learning  and  deep  learning  ok  so  now  everyone 
+will pay attention 
+so this is the task you have give given an image and you want to classify it into one of k 
+categories and i am considering four categories here car bus monument flower ok what 
+is the simplest thing that you can do suppose this is a twenty cross twenty image you know the 
+simplest thing 
+student sir 
+given on the slide you will just take this as a four hundred dimensional input feature vector right 
+and  you will treat  it as a four class classification problem  train  some multiclass svm or 
+anything  on  that  right  so  you  have  a  simple  input  so  you  are  given  some  one  million 
+images all of these are four hundred dimensional and they come from one two three or four these are the four 
+classes which is car bus monument and so on 
+ 
+so you can just treat this as an input feature vector and do your classification right that 
+is the simplest thing that you do or else what you could do is you could do some kind of 
+feature  engineering  right  you  could  say  that  actually  this  entire  blue  sky  is  not  really 
+helping me in  deciding anything these entire  green lawns and all this is not  helping if 
+monument car bus and flower are the classes what i care about is the shapes i do not 
+care about the details inside the shapes i am not trying to decide whether the car is of a 
+blue color or what model the car is and so on right all i want to see is that this particular 
+shape of a car is present or not 
+now what kind of filter gives you the shape of the image 
+student 
+edge detector right so i could use edge detector so now this is something that i have 
+used based on my domain knowledge that for these four classes actually just detecting the 
+shape  is  important  so  i  will  ignore  everything  else  so  there  is  a  lot  of  details  there 
+right  so  i have actually sparcified my  entire input  i have just looking  at the edges in 
+the input and now this is a better refined feature as compared to the earlier feature how 
+many of you agree that this is a more refined feature representation right 
+but this was handcrafted i actually hand coded the edge detector kernel because i knew 
+that it is eight at the center and minus one everywhere else right that is how i thought of it that 
+that is what an edge detector is or at least i read about it somewhere right so that is how 
+you would do it so this is feature engineering 
+so  what  is  this  this  is  how  you  do  machine  learning  right  you  take  an  input  you  do 
+some feature engineering and then you train a classifier on top of that but now you could 
+become  even  more  creative  with  the  feature  engineering  and  that  is  what  the  computer 
+vision  community  was  doing  largely  before  two thousand and twelve  come  up  with  different  ways  of 
+capturing better and better features from images so too popular in features from that era 
+and that is i am just talking about two thousand and twelve not some like five hundred years back but from that era 
+was sift and hog features which actually tell you how do the gradients of these pixels 
+change across the image right 
+so  this  is  again  try  to  capture  something  like  how  what  is  the  variation  in  the  image 
+from pixel to pixel right so that is the essence that how is you do not care about these 
+entire blue patterns because they are just telling you sky it is redundant right if you have 
+seen some ten pixels or twenty pixels which has sky you know that a large part of it is going 
+to be sky 
+so  these  try  to  capture  some  abstractions  from  the  image  and  these  are  better  than  the 
+edge detectors and these features were extremely popular so what you would do is you 
+take your original input this is a deterministic algorithm you apply the hog algorithm 
+or  the  sift  algorithm  and  it  gives  you  a  transformed  representation  for  the  image  and 
+you can use this transform representation to do classification and a lot of work prior to 
+two thousand and twelve two thousand and eleven show that these features work extremely well across a wide variety of across 
+a wide variety of image tasks ok 
+so  again  what  was  happening  here  this  was  feature  engineering  because  someone 
+realized that what i care about is this gradation in the input images and i can capture this 
+by  this  nice  algorithm  called  sift  or  hog  of  course  someone  came  up  with  that 
+algorithm but it is still kind of feature engineering right 
+so  this  is  how  the  learning  is  to  happen  is  you  are  given  some  input  you  do  a  static 
+feature extraction no learning so feature extraction  is  deterministic  you  take the input 
+pass  it  through  one  of  these  algorithms  either  the  edge  detector  or  the  blur  detector  or 
+sift or hog and you get some representations for the input and the only learning that 
+happens is on top of this transformed input so you now have a transformed input and 
+on top of that you are going to train a classifier and you are going to learn the weights of 
+the classifier so the only thing that you learn is the weights of the classifier 
+so  that  is  equivalent  to  learning  only  the  soft  max  layer  in  case  of  a  feed  forward 
+network that is the output layer right 
+now  instead  of  using  these  so  this  is  the  question  instead  of  using  these  handcrafted 
+kernels  or  features  such  as  edge  detectors  or  blur  detectors  or  what  not  can  we  learn 
+meaningful kernels in addition to learning the weights of the classifier do you get this 
+question  at  least  whether  the  answer  or  not  but  you  get  the  question  so  what  i  am 
+asking is that why should i hand code this edge detector ok 
+why not have after what is the edge detector it is like a three cross three matrix right and i have 
+seen  tons  of  such  matrices  in  my  feed  forward  neural  networks  i  have  dealt  with  very 
+large matrices which were called parameters of the network 
+so why not  have  a three cross  three or a five cross five or  whatever dimensional  matrix and try to 
+learn  what  should  be  the  right  values  in  this  matrix  instead  of  hand  coding  the  edge 
+detector matrix do you get the idea how to do that as still far but at least do you  get 
+the idea that is what i am we are trying to do ok 
+so now instead of just learning the weights  of the classifier we also  want  to  learn the 
+weights of the kernels that means instead of using handcrafted features i am now going 
+to 
+student 
+learn  the  features  so  that  is  the  difference  between  deep  learning  and  machine 
+learning  so  you  had  handcrafted  features  there  and  now  you  are  going  to  learn  the 
+representations also by treating them as additional parameters in your networkhow you 
+will  do  that  we  will  see  and  it  is  very  simple  given  that  you  understand  how  to  train 
+feed forward networks 
+but then why the stop there why just have one feature representation for the input can 
+i learn multiple such kernels right i could have one three cross three matrix which learned this 
+first representation another three cross matrix which learned this another representation and 
+yet another three 
+three or five 
+five or seven 
+seven matrix which learns this different representation so 
+instead  of  learning  one  static  representation  from  the  input  i  could  learn  multiple 
+representations from the input 
+ 
+in fact why not why just stop there what is the next thing that i am going to try to do 
+multiple  layers  of  features  right  so  that  means  at  the  first  layer  i  learned  this 
+representation now i could take this and try to learn an even more abstract representation 
+and then keep doing this to make it deeper and deeper do you get this ok 
+so  at  every  stage  now  i  have  these  parameters  which  are  helping  me  learn  the 
+representation of the input i am learning multiple representations at every layer and then 
+having  multiple  layers  of  these  representations  right  and  everything  is  learnable  end  to 
+end ok so you get the difference between deep learning machine learning now there is 
+no  handcrafting  of  features  you  are  learning  the  feature  representation  i  know  i 
+understand there is some confusion about how you would do this 
+ 
+but we will get to that just trust me on that that you will be able to figure out how to do 
+this ok 
+and all of this we have some weight matrices here we have some weight matrices here 
+these are the layer one weight matrices the other layer two weight matrices and these are the 
+output layer matrices and you see this layer wise arrangement of these weight matrices 
+and  they  are  very  comfortable  with  this  because  we  have  done  feed  forward  neural 
+networks where we had these multiple layers and we knew how to back propagate from 
+the last layer to the first layer 
+now what i am trying to say is that i would like to adjust these weights of filters in such 
+a  way  that  my  classification  loss  is  minimized  and  what  is  the  loss  function  that  i  am 
+going to use here 
+student 
+cross entropy because this is a multi class classification problem ok 
+ 
+so just hang on with this intuition and we will make it more clear fine 
+so such a network which has these multiple convolution learned convolution operations 
+at every layer and then multiple such layers is known as convolutional neural network 
+ok  fine  so  get  this  idea  that  we  need  to  learn  kernel  filters  by  just  treating  them  as 
+parameters  of  the  classification  model  ok  but  how  is  this  different  from  a  regular  feed 
+forward  neural  network  you  could  have  taken  a  regular  feed  forward  neural  network 
+and i will show it to you on the next slide and what is the difference between that and a 
+convolution operation 
+so if you understand that then you would be done for this lecture yeah 
+so we have an input so let us say now i will take back the eminist case where you are 
+given an input as an image and these are digit inputs and you want to classify them into one 
+of ten inputs and i am going to assume that my input is four cross four that means i have sixteen 
+pixels ok 
+so the simplest thing that i could have done or the feed forward neural network way of 
+doing  this  is  that  i  would  just  flatten  out  this  image  i  will  get  sixteen  inputs  i  need  ten 
+outputs  at  the  output  layer  so  i  have  an  output  layer  which  will  have  one  of  these  ten 
+classes  and  then  i  add  as  many  layers  that  i  want  in  between  ok  this  is  what  a  feed 
+forward  neural  network  would  look  like  and  if  i  consider  any  one  neuron  in  the  first 
+layer  it  takes  inputs  from  all  the  sixteen  inputs  right  that  is  how  a  feed  forward  neural 
+network is you have these extremely dense connections where every output depends on 
+every input at every layer ok 
+ 
+now  so  this  is  the  same  story  which  i  have  said  now  let  us  look  at  what  a 
+convolutional neural network looks like so again you have these sixteen inputs i am using a 
+two cross two convolution ok now if i use a two cross two convolution if i place it here then i 
+am  using  pixels  one  two  five  and  six  and  computing  one  value  so  you  see  the  difference 
+between  this  and  a  feed  forward  neural  network  in  a  feed  forward  neural  network  h11 
+would have depended on 
+student 
+sixteen values sixteen inputs and a convolutional neural network it is depending on 
+student 
+only four only four neighbors ok and similarly h12 i am using a stride of two by the way right 
+so  i  am  not  placing  the  filter  here  i  am  just  skipping  one  step  h12  would  depend  on 
+pixels three four seven eight  ok and so on right 
+so one thing is clear that as opposed to a feed forward neural network you have sparser 
+connections here is that clear and why do we have sparse connections because we are 
+exploiting our knowledge about images that in an image you do not really care about the 
+interactions between on between a pixel at the leftmost left top most corner and the right 
+bottom corner right so there is sky here there is ocean here or there are trees here you 
+would want to capture the neighborhood around that pixel not really capture it with the 
+entire image that is why you do not want all of these sixteen inputs to contribute  you only 
+want a small neighborhood to contribute do you get that intuition ok 
+ 
+so  this  is  the  first  property  of  a  convolutional  neural  network  that  it  has  sparse 
+connectivity ok but its sparse connectivity really good i just made a case for that now 
+i  am  going  to  counter  argue  right  is  it  really  good  that  you  have  these  sparse 
+connections because you are losing out information right you are using out interactions 
+between certain pixels so why can why is that good 
+student 
+i  am  hearing  a  lot  of  interesting  answers  but  remember  that  you  are  always  going  to 
+have multiple layers ok so consider these two pixels in the first layer these two pixels did 
+not  interact  because  h2  only  dependent  on  these  three  and  h4  only  dependent  on  these  three 
+there  is  no  a  there  is  no  unit  here  which  depends  on  both  x1  and  x5  is  that  obvious 
+because i am just using a window of size three 
+but now once i go to the next layer once i go to g3 g3 depends on h2 h3 h4 here which 
+in  turn  depends  on  x1  x2  x3 x4 x5  right  so  even  though  at  this  layer  x1 and  x5  are  not 
+interacting with each other as you go deeper these interactions become obvious do you 
+get that right so that is why you will always use a deep convolutional neural network 
+where all the pixels get to interact at a deeper layer but at the more image it layers you 
+just want to capture the interactions between a neighborhood 
+so it is like you take this neighborhood find out something then take neighborhoods of 
+neighborhoods and then try to find out something at the next layer and keep continuing 
+in  this  layer  how  many  of  you  get  this  right  ok  so  this  is  what  sparse  connectivity 
+looks like 
+ 
+another  characteristic  of  cnns  is  something  known  as  weight  sharing  so  let  us  see 
+what  it is so remember  i had considered this two cross two kernel  and  i was placing it at 
+these four pixels which is pixels  one two five and six and i was pacing another kernel  at  these four 
+pixels which is pixels eleven twelve fifteen and sixteen right these four pixels and i have used different 
+colors  for  them  indicating  that  these  filters  are  different  so  they  are  both  two  cross  two 
+filters but i am assuming at the values inside them are different does this have to be the 
+case just think what a filter is trying to do 
+student 
+it is striding across the entire image at every location i want to do the same operation 
+remember when we are doing blurring or edge detection or sharpening i had the same 
+filter which i was applying at every location so i want to see what is the effect of this 
+filter  throughout  the  image  so  i  do  not  really  want  to  change  this  filter  that  means 
+these four weights would be the same as 
+student pink weights 
+the  pink  weights  how  many  of  you  get  this  so  this  is  a  question  do  we  want  the 
+kernel weights to be different for different portions of the image so imagine that we are 
+trying to learn a kernel that detects edges so the same kernel configuration is required 
+throughout the image because that is the kernel configuration which will detect an edge 
+so  you  want  the  same  kernel  to  be  there  everywhere  so  we  are  going  to  share  these 
+weights  they should not be these pink  and orange weights  we will just have the same 
+weights everywhere ok so this is known as weight sharing 
+so now this is something ridiculous if you think about it now how many weights do i 
+have in layer one 
+student 
+four weights that is all that looks too less right it would lead to 
+student 
+dash fitting 
+student 
+under fitting because we have very few parameters so how do i deal with the situation 
+student 
+you  will  have  multiple  kernels  right  so  you  will  have  another  kernel  which  takes 
+something else you will have one more kernel which takes something else and you can 
+have as many such kernels right so the more the number of kernels will have you will 
+have  that  many  into  four  as  the  number  of  parameters  and  that  many  outputs  at  layer  one 
+how many if you get this ok good 
+so  these  are  the  two  important  characteristics  of  convolutional  neural  networks  one  is 
+sparse connections and the other is weight sharing ok 
+so so far we have focused only on the convolution operation now let us see what does 
+a full convolutional neural  network look  like or  maybe  i will do this next  time  i think 
+this is 

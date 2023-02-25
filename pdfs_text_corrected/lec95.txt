@@ -1,0 +1,90 @@
+ok  the  another  thing  that  you  can  do  is  to  figure  out  whether  things  are 
+working properly or not so you can do something known as an occlusion experiment 
+so these 
+are  all  your  debugging  tools  sort  of  to  say  if  you  are  working  in  vision  or 
+computer vision  where  you  are  using  a  convolutional  neural  network  and  this  is  to 
+gain  more 
+insight said most of you will get away by just taking an off the shelf convolution 
+neural network training it on your data getting some accuracy and reporting it 
+but  for  those  of  you  who  want  to  really  understand  what  is  happening  and  how  can 
+compare  whether  a  five 
+five  filter  would  have  been  better  than  a  seven 
+seven  filter  then 
+you could have observed what these filters are actually learning and in your data does it 
+make 
+ 
+improve  things  further  so  this  could  actually  tell  you  for  example  if  you  want  to 
+five filter versus seven 
+sense to have a five 
+five filters are not 
+so  this  is  for  people  who  really  want  to  get  into  the  know  how  of  how  things  are 
+being able to distinguish enough but if you had used a smaller or a larger filter things 
+working  otherwise  most  of  you  i  do  not  really  expect  you  to  do  this  is  but  this  is  an 
+would have been different right 
+important  set  of  tools  to  have  and  i  would  strongly  encourage  everyone  to  experiment 
+seven filter because maybe the five 
+with them and some of this you will do in the assignment ok 
+ 
+so here is the idea of behind occlusion experiments so we are interesting knowing that 
+what patches in the image are actually causing the output to belong to a particular class 
+right 
+so  i  have  here  the  figure  of  a  dog  and  the  class  being  probably  predicted  is  a 
+pomeranian  and  i  want  to  know  that  what  patch  of  the  image  actually  resulted  in  this 
+output right so have you tried doing this in any other context if you want to know if 
+you have several features or several things several factors and you want to decide which 
+actually influenced the output how would you do it so what you could do is you could 
+drop one factor right and see whether  your output would have drastically changed if it 
+goes  from  positive  negative  then  that  maybe  that  was  the  factor  which  really  mattered 
+right 
+so if for example it is a movie review classification right so when you drop certain 
+words  from  your  review  so  you  drop  the  word  amazing  great  and  so  on  and  keep 
+everything else the same now it is quite likely that your probability of the review still 
+being tagged as a positive review will at least drop earlier maybe with these words it was 
+getting tagged as a positive review with nine probability it would come down to six but 
+now if you drop words like the and for and so on then you do not expect the output to 
+change  much  because  these  words  are  not  really  important  indicators  of  positive  or 
+negative ok 
+so  the  similar  thing  that  you  do  here  is  you  occlude  certain  patch  patterns  a  certain 
+patches of the image so i have shown one occlusion here so i have replaced that patch 
+by a gray patch and i again feed the image to the convolutional neural network and i see 
+what  is  the  probability  of  the  pomeranian  class  right  now  ok  and  i  do  it  for  all  such 
+patches in the image i can do for as many patches as i want 
+and  i  create  something  known  as  a  heat  map  so  the  red  portions  here  are  the  ones 
+which  do  not  cause  a  large  drop  in  the  output  probability  if  you  occlude  them  and  the 
+blue  portions  are  the  ones  which  cause  a  large  drop  in  the  output  probability  if  you 
+occlude  them  and  it  is  pretty  obvious  because  what  is  happening  is  when  i  cover  the 
+face of the dog the probability drops drastically and that is what you would expect right 
+so this is also an indicator that your network has actually learned something meaningful 
+it is being able to detect this based on the facial features and not just randomly guessing 
+that this is a dog right and see the similar experiment 
+so for example if there is  a car sometimes these results  are not  very  at  least  to  me it 
+does not look very intuitive so i would have expected that the wheel would have been 
+one of the deciding factors right so if i occlude the wheel the probability should drop 
+drastically  but  the  other  way  of  looking  that  it  is  that  its  really  learning  a  lot  of 
+redundant features so it is not heavily relying on the wheel unlike in the dog case even 
+if  the  wheel  is  occluded  it  is  relying  on  certain  other  features  which  look  like  cars  and 
+hence the probability is not dropping drastically right 
+so  this  allows  you  to  interpret  what  kind  of  things  it  is  running  so  if  its  heavily  for 
+example for face detection if its heavily relying on nose to detect the face to say that this 
+is the face the moment you block the nose it will drop its probability of detecting this as 
+a  face  but  thats  not  good  right  because  you  want  these  redundant  features  remember 
+we had discussed this at some other point where it should try to detect the face not only 
+from the nose but also from the ears from the hair from the eyes and so on 
+so  if  your  occlusion  is  not  drastically  reducing  your  probability  that  means  it  has 
+learned some redundant  features which are still allowing it to operate well even though 
+certain  portions  of  the  image  are  not  there  that  means  it  is  more  robust  noise  in  that 
+case right and here it looks like it is not so robust because it is probably heavy this is 
+the rearview mirror of the car so it is probably heavily relying on that feature to detect a 
+car ok 
+then this is another thing where the true label is an afghan hound and for some reason 
+if you occlude the face of the woman its probability decreases now let us not comment 
+on  that  but  if  you  go  back  and  look  at  the  image  you  might  be  able  to  make  some 
+observations right so these are things so this is an indicator that is probably not really 
+learnt  it  well  maybe  all  the  afghan  hound  images  that  it  saw  maybe  a  woman  was 
+carrying the dog always right 
+so its learn this wrong association that when i see a woman with some object it that is 
+the portion which is the dog which is bad right so now you can see that your network 
+has  not  learned  something  interesting  and  you  would  want  so  if  you  look  at  one 
+network which is predicting a dog based on this kind of a occlusion and another network 
+which  is  predicting  a  dog  based  on  this  occlusion  then  you  would  prefer  the  other  one 
+and so this is a very interesting experiment to do 

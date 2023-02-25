@@ -1,0 +1,211 @@
+lecture  four 
+now we will go to the gradient with respect to the hidden units 
+so this portion so you already see there is a repetition here and i do not need to treat 
+each hidden unit separately i can just have a formula for the hidden unit and then i could 
+compute it for all the hidden units so that is what our aim is so let us do some simple 
+stuff first and then you will come back to it 
+so suppose you have a variable x you compute two functions from that one is x square the 
+other is x cube i will call this as y one and i will call this as y two and i take y one and y two and 
+compute a z which is say a log of y one by y two now what i am interested in is this what is 
+the  answer  for  this  how  do  you  get  this  this  is  a  fair  question  to  ask  y  one  y  two  are 
+functions of x z is a function of y one y two hence z is a function of x so i can compute this 
+derivative and i can ask for this derivative how would you compute it if i cannot really 
+do this right 
+so if this path did not exist then it is trivial it is just the chain rule along one path but 
+now  you  have  two  paths  so  what  will  happen  add  them  right  so  can  you  tell  me  a 
+formula  for  that  so  let  me  know  if  this  makes  sense  to  you  ok  does  this  make  sense 
+now let me complicate this a bit just let me just do it as y three now 
+student 
+what will happen 
+student 
+that is all right so you see that if there are multiple paths you can just add up the chain 
+rule across all these paths right that is what chain will across multiple paths does 
+so with this we will go back to this figure so now i am interested in i am interested in 
+going to the hidden layers again  i will do this to bit calculation where i first asked for 
+this guy and then i will ask for the light blue guy right and am going to look at one unit at a 
+time  now  what  is  the  what  am  i  interested  in  the  derivative  of  the  loss  function  with 
+respect to say d h two two right the second unit of the second hidden layer 
+now what i am going to say here is exactly what i had written on the previous slide this 
+was our final  function right  which was z so z was sorry  again  i have not  chosen my 
+variables  well  ok  but  if  so  we  had  exactly  the  same  situation  right  which  is  which 
+you see here ok so we will just have to sum up the derivatives partial derivatives across 
+all the paths which lead from this guy to this guy and there could be as many paths as 
+there can be but i do not care i will just sum across all those paths in fact actually here 
+there are not just two paths because we have always assumed there are k classes so there 
+are actually k of these paths right 
+so this form this is exactly the formula which i wrote on the next slide right this one but 
+just written in  terms  of the network that we are  dealing with so  you can just go back 
+and look at this but as long as you understand this figure you from my point of view we 
+can  go  ahead  so  everyone  understands  this  figure  that  we  just  need  to  compute  the 
+derivatives across all the paths and add them up 
+so now let us start we again the same recipe we will compute it with respect to one guy 
+and then go towards the gradient so what is this now let me explain right so dl theta 
+there are k of these guys between right so there are k paths so this summation has to 
+happen over k paths just as you told me when there were two paths the summation was two three 
+paths  to  three that is  k paths  of the summation over  k guys the derivative  with  respect  to 
+each of these guys and the k’th the m’th unit rate that is the index that i am iterating over 
+and then the derivative of this guy with respect to whatever you are interested 
+that  is  just  that  there  are  only  two  nodes  in  the  path  in  the  chain  but  there  are  k  such 
+chains how many of you exactly get this ok how many of you have a problem want me 
+to  repeat  this  you  have  problem  oh  many  of  you  ok  good  please  do  this  so  i  am 
+interested in this quantity that means i am interested in the partial derivative of this loss 
+function with respect to this guy 
+and this guy is nothing but h ij that much is clear is the j’th unit of the i’th hidden layer 
+in fact this is actually h two two so my i is equal to two and j is equal to two now i just made a 
+case  on  the  previous  slide  that  if  you  have  such  a  function  which  first  computes  some 
+intermediate  values  and  then  your  final  function  is  computed  based  on  all  these 
+intermediate  values  right  and  now  you  are  trying  to  find  the  gradient  the  partial 
+derivative of this with respect to the original input that you had 
+so then what you will do is you will sum across all the paths that lead from this guy to 
+the output how many such paths are there you already see two such paths here right but i 
+am saying there are k such paths because there are some other nodes here which i have 
+not drawn we have already said that in the output layer we have k nodes right so there 
+are k paths so that takes care of the first bit that the summation is going to be over the k 
+paths 
+now what is each of these paths composed of this intermediate value and this quantity 
+that  we  are  interested  in  first  we  will  take  the  derivative  of  the  out  of  the  loss  with 
+respect to this intermediate value what is that that is the unit in the that is the unit in 
+the previous layer or the next layer rather so i am interested in i so i am looking at the 
+unit in the next layer hence i plus one right because that is what comes in my path the next 
+layer  is  what  comes  in  my  path  we  have  always  the  special  case  that  this  guy  feeds 
+into k guys but all the other hidden units before that feed into n guys right 
+so that is let us just keep that complication aside for the minute and we just look at this 
+case ok is that fine so we have agreed there are k paths and each path is composed of 
+these  two  nodes  from  the  last  loss  function  to  this  intermediate  value  and  then  from  this 
+intermediate value to the quantity of interest and why is this i plus one because the next 
+node in the path when i am at the i’th layer 
+so i will be feeding to the i plus 1’th layer right and in fact i will be feeding to all the 
+nodes in the i plus one th layer that is why i am taking or all the k paths right and then that 
+node which is this node with respect to the quantity that i am interested in is this clear 
+now  right  this  is  very  similar  to  the  toy  example  which  i  did  i  just  have  k  paths  now 
+instead of two paths there 
+so let us move ahead now what is ok which of these quantities do we already know is 
+there any quantity that we know this one why because in this special case i plus one is 
+actually equal to l right because we are feeding into the last layer and they have already 
+seen how to compute the partial derivatives with respect to the last layer 
+so this quantity is known we do not know this for the generic case yet but we will get 
+that but for this special case when we are feeding into the last layer we know this does 
+everyone get this ok now do we know this quantity so what you have told me is that 
+we know this quantity because that is  what  we have computed in  the previous module 
+do we know this quantity we have to compute it can you compute it ok let us just do 
+it right so let us assume that this hij that am dealing with is actually h two two ok fine now 
+what  is  a  i  plus  one  m  actually  which  are  the  elements  there  a  three  one  and  a  three  two  i  am 
+assuming that i only have two units in the output layer ok 
+so  my  m  is  equal  to  two  now  is  this  fine  this  is  how  the  next  layer  is  related  to  the 
+current hidden layer plus biases ok now what  am  i interested in one of these guys ok 
+let me take one of these guys so can you tell me what is a three one first row multiplied by 
+the first column there is only one right plus b two one 
+student 
+sorry 
+student 
+b three one  now let me just clarify something what is this in terms of variables i j k m what 
+is this this is i this is j this is k this is m this is i plus one right ok this is one of the ms 
+that  i  am  dealing  with  now  i  want  the  derivative  of  this  with  respect  to  hij  in  fact  i 
+want  it  with  respect  to  h  two  two  where  this  is  i  and  this  is  j  is  this  clear  what  is  this 
+derivative  w  three  one  two  everything  everyone  fine  with  this  now  help  me  find  this  what  is 
+this  ijkm  and  i  plus  one  what  is  this  this  is  coming  from  the  m  how  many  of  you  see 
+this  because  that  is  the  unit  that  you  are  connecting  to  and  this  is  j  so  what  is  the 
+formula how many as many as the number of neurons in the next layer a bias will be 
+connected to all the neurons in that layer right everyone gets that right there are only two 
+units 
+so there will be only two guys ok so what is the formula for this w i plus one mj everyone 
+comfortable  with  that  ok  fine  you  can  just  go  back  and  look  at  this  and  it  should  be 
+cleared  right  so  whenever  you  are  dealing  with  vectors  and  matrices  right  if  you  are 
+really good at it you can imagine the entries and figure out what is happening if you are 
+not  good  at  it  do  not  be  lazy  just  work  it  out  right  you  just  need  to  write  down  this 
+product  and at  the  end remember everything is  always  element  wise  and  you are never 
+dealing with a vector or matrix now just dealing with the individual components of them 
+so  you  should  always  be  able  to  compute  these  derivatives  or  partial  derivatives  with 
+respect  to  the  individual  components  and  that  is  exactly  what  i  did  here  right  if  you 
+just  work  it  out  if  you  just  write  it  out  then  you  will  always  get  it  if  you  cannot  but 
+eventually try to get to a point where you can just visualize it but if you cannot at least 
+try to work it out 
+so this is what it will look like ok now consider these two vectors one is this vector what 
+does this vector look like this is a collection of all the partial derivatives so this is just 
+a  collection  of  all  the  partial  derivatives  nothing  new  we  have  already  seen  this  now 
+what is this vector actually in fact i have started with the matrix and i am saying look 
+at this vector what does this mean this i plus one is just the layer in which the matrix is 
+right so that index we do not really care about for a matrix what we care about is the i 
+comma j index ok now what does this dot comma j mean all the i’s belonging to j that 
+means the dash column j’th column everyone gets this this is all the i’s or all the entries 
+belonging to the j’th column 
+so it is effectively just the j’th column so it is one comma j two comma j up to k comma j 
+right so these are two valid vectors now tell me what is this quantity going to be this is 
+the dash between two vectors dot product dot product between two vectors is a 
+student 
+is a summation over element wise thing ok i have said enough now try to connect this is 
+a very simple maths the column that you will ever get in your life try to connect this to 
+something which is already there in the slide how many of you think the answer is this 
+this into this plus this into this plus this into this and just write it as a formula you will 
+get  this  everyone  sees  that  ok  so  now  i  have  a  compact  way  of  writing  one  of  these 
+entries 
+one of these guys i have a compact way of writing this it happens to be the dot product 
+between two vectors one of them is the gradient but do i know this already do i know this 
+quantity already in this special case yes because i plus one is equal to l and that i have 
+already  computed  this  of  course  i  know  right  because  these  are  the  weights  that  i  am 
+dealing  with  where  do  i  go  from  here  this  dot  yeah  it  means  anything  from  that 
+column so that means the entire column 
+student 
+ah no these are weights right so this is a weight matrix it has columns and rows i am 
+talking  about  the  j’th  column  so  i  fixed  the  value  of  j  i  am  talking  about  the  j’th 
+column but i am not telling your given i’th entry there am just telling you all the entries 
+there that just means the j’th column you can take this offline ok this is very simple i 
+will take it offline ah now where do i go from here 
+student 
+i plus one 
+student 
+ok no in this specific case are we done 
+student 
+where  are  we  right  now  with  respect  to  one  unit  where  do  we  want  to  go  the  entire 
+thing so what is the quantity that i am interested in gradient with respect to always say 
+with respect to h i right 
+student 
+where i  is  two in  this case this special case ok what  is  that going to  be collection of all 
+these  guys  that  you  have  already  computed  ok  now  simplify  this  what  is  this  first 
+column of the matrix multiplied by the same  vector the second  column of the matrix 
+multiplied  by  this  vector  the  nth  column  of  the  matrix  multiplied  by  this  vector  this 
+reminds  you  of  something  very  very  difficult  this  is  a  very  very  complicated  matrix 
+multiplication right 
+first row of the matrix multiplied by a column the second row of the matrix multiplied 
+by column how many if you get this right so this is can you tell me what this is wi 
+plus one transpose 
+student 
+perfect  right  so  now  you  see  that  this  entire  quantity  we  can  compute  in  one  go  by 
+using  a  matrix  vector  multiplication  right  so  that  is  what  i  meant  when  i  was  saying 
+that we should not be doing these unusual computations but we able to compute that at 
+one row right so now we can just do this matrix vector multiplication and get this entire 
+quantity ok now what is still missing in this module 
+so  what  is  the  special  case  that  i  have  assumed  i  told  you  that  i  already  know  these 
+quantities but only if i plus one is equal to l i need to tell you this in the generic case ok 
+so we are almost there except that i do not know this when i is not equal to l or i is less 
+than equal to l minus one ok that is the case that i am looking for 
+so that is again very simple again what will i do i will compute it with respect to ok 
+what is this this is the guy that  i am interested in the generic i not the l’th one right 
+the generic i this is what the vector looks like the gradient vector looks like i want each 
+of these guys ok now i will take one of those and i will write it as this ok what am i 
+doing am saying that  i  already have the  entries up to  here ok  at  a very  general  level 
+even here i could have said the same thing remember that i had said that the output layer 
+you can always write as hl right 
+so even at the output layer i could say this chain rule always holds how many of you 
+agree with that i want to go from the loss function to one of the lighter blue guys so 
+am saying that i can go through the intermediary dark blue guys that is all i am saying i 
+have just compressed this entire path into up to the dark blue guy remember i had said 
+earlier that i will be compressing this chains now how many of these quantities do you 
+know  the  first  one  is  what  we  computed  on  the  previous    the 
+second one looks very difficult sorry 
+so h ij is nothing but sigmoid of a ij or any nonlinearity of the a ij so i can just write 
+this derivative as i will just write it as sigma prime ok 
+or g prime is  this fine now  i have it with  respect  to  one unit what  will i do go to the 
+gradient  fit  it  all  these  values  now  simplify  this  what  is  this  a  vector  right  what  is 
+this another vector there is a one to one correspondence between them so you have two 
+vectors and you are doing a one to one multiplication what is this 
+student 
+how many of you say dot product dot product is always a what is the output here 
+student vector 
+can it be a dot product can it be a dot product no please empathic no ok so what is it 
+going to be an element wise multiplication and this is how you denote that ok so what 
+is  this  called  you  had  a  multiproduct  right  so  this  is  every  element  of  one  vector 
+multiplied by the corresponding element of the other vector ok so now again the entire 
+vector we can compute at one row right i am not i am when i am teaching this i am telling 
+you how to compute one element and then go to the gradient but when you are going to 
+implement this we are just going to compute the gradient at one go 

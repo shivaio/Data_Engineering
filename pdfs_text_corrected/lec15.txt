@@ -1,0 +1,159 @@
+proof of convergence 
+in  this  module  we will  talk  about  the proof  of  convergence  for  the perceptron  or  the 
+learning algorithm that we saw in the previous module 
+so we have some faith and intuition that it actually works  we just need to formally 
+prove it that it actually converges so that is what we are going to do in this module 
+so before that a very few very simple definitions so if you have two sets of points p 
+and n in an n dimensional space and we call say that these points are absolutely linearly 
+separable if there exists some n plus one real numbers which has w0 to wn such that every 
+point which belongs to p right p is the case where the output is one 
+then these set of weights satisfy this condition and every point which lies in the negative 
+set the set of weights satisfy this condition so nothing very different from what has we 
+have been saying so far it is just formally defining it 
+now our proposition is that if the set p and n are finite and there is a fixed number of 
+points in that which was the case in the toy example that we were doing and which will 
+be the case in most examples that we do and linearly separable the perceptron learning 
+algorithm updates the weight vector ok before i go there ok let me not give you the 
+definition and let me ask you the definition 
+so now i have given this definition the first definition and given this part of the 
+proposition can you tell me what do i need to prove if i need to prove that the algorithm 
+converges  that is one way of looking at it  but  what was happening in that wrong 
+argument which was i was making that it continuously kept toggling that means i am 
+not making a finite number of updates right i have to keep changing again and again and 
+this process continues in a loop 
+so that is how i am going to define convergence that the perceptron learning algorithm 
+updates a weight vector of finite number of times it only needs to update it finite number 
+of times and it will reach a configuration such that now it is able to separate the p from 
+the n ok that is what the proof of convergence means 
+so in other words if you are going to pick up these vectors randomly from the set p and 
+n cyclically as we were doing in the toy example then a weight vector wt is found after 
+a finite number of steps which will separate these two steps these two sets so that is 
+what we are trying to prove so that is the definition of converge does it make sense 
+so proof is on the next slide and it is going to take me around five to ten minutes to prove 
+it so just stay focused all right so here is a few set up right so i am going to before i 
+go to the actual proof i am going to make a set up so that it becomes easier for us to 
+prove it so the first thing that i am going to say is that if there is a point which belongs 
+in negative set then the negative of that point belongs in the positive set and that is very 
+clear because if the point belongs in the negative set then w transpose x is less than zero 
+but then w transpose minus x would be greater than equal to zero right  so i  take the 
+negative of the point i can just put it in the positive set so instead of considering these 
+two different things p and n i am just going to consider one p prime which is an union 
+of p and all the n points negative ok will the set up clear if this is a setup then what is 
+the condition that i need to ensure for every point in p dash 
+student 
+w transpose p should be greater than equal to zero right so i do not care about the 
+negative case i have just made everything positive now and it is i am not done anything 
+wrong here it is just a simple trick ok and now this is how the algorithm will look in 
+this setup these are the inputs with label one inputs with label zero n minus contains a 
+negation of all the points in n and p prime is a union of these  now  again i start by 
+initializing w randomly while convergence i will do something i will pick a random p 
+from p prime now what is the if condition 
+less than zero 
+do i need the other if condition 
+no right because everything is now positive ok and the other small thing that i am 
+going to do is i am going to normalize p ok so that again does not mean because we 
+are talking in terms of angles and i am not changing the direction of the vector i am just 
+shrinking it right so i am just or maybe scaling it also i am just making it unit norm 
+so that does not change anything so it is still everything still holds 
+and in particular you can see here so if this condition was true this condition will also 
+be true ok so so far just i am done some simple tricks to make things easier for me 
+later  on so now p has been normalized  now  remember  that this data is linearly 
+separable that is what we started the proposition if p and n are linearly separable then 
+the   perceptron   learning   algorithm   will   converge   so   now  if   p and   n   are   linearly 
+separable irrespective of whether we have the perceptron learning algorithm or not what 
+do we  know 
+there exists a w star which is the solution vector right there exists at least one w star 
+which is the solution vector right such that it will separate the p points from the n 
+points so this vector which we do not  know but we just  know that it exists so you 
+can refer to it so we will call this w star fine now we start the proof 
+so w star is some optimal solution which we  know exists 
+but we do not  know what it is right now suppose you had a time step t so remember 
+that this algorithm is going on while convergence so you have time step one two three you are 
+picking up points so we are at a time step t at which you pick up a random point pi and 
+you find that the condition is actually violated so this should actually be less than zero if i 
+know the condition is violated so now what will you have to do 
+w is equal to 
+w1 so i will just call it the new w wt plus one is equal to the old w plus pi ok now what 
+i am going to do is i am going to consider the angle beta between w star and wt plus one i 
+do not know what w star is but we can still assume it exists and make some calculations 
+based on that so what is the angle between w star and wt plus one its beta and what is the 
+cost of that angle this 
+and remember that we do not have w star here because we had assumed that it is the 
+normalized vector so we do not need that but this is actually equal to one ok so now if i 
+just take the numerator w star in dot product wt plus one now i am going to expand wt as 
+wt plus pi fair that is exactly what i did on the previous step 
+now now what is pi actually it is so what you had is you had these p1 p2 p3 my 
+hand writing is really horrible and up to pn right so i have just picked one of these pi’s 
+ok now what i am going to define is now suppose this is my these are my pi’s so 
+these are all the vectors that i have now suppose i have this w star suppose this was the 
+w star that i am interested 
+now for each of these i could compute w star p1 w star p2 and so on up to w star pn 
+and i could sort them now what i am doing is that for whichever of these points w star 
+pi is the minimum i  am going to call that value as delta suppose w star p one is the 
+smallest quantity out of w star p1 w star p2 w star pn and i am calling that quantity 
+delta 
+so i have this quantity here and my delta is the minimum of all the possible values that 
+it can take it can make w star p1 p2 up to pn so delta is the minimum quantity so here 
+i have an equality 
+now are you ok with this this is the minimum quantity right so any pi that i put in 
+here it is always going to be greater than or worst case equal to delta 
+now again this w2 itself i could write it as wt minus one plus pj because that also would 
+have come up from some update in the previous step ok  again this is there which i 
+could call it as delta and still retain the greater than equal to here ok fine so let us see 
+where are we heading with this 
+now notice that we do not make a correction at every time step when i was running that 
+toy algorithm i was not making a correction at every time step we were only making a 
+correction at those time steps for which the condition was violated so now if i am at 
+t’th time step maybe i have made only k which is less than or equal to t corrections at 
+max i would have made t corrections but it could have been less than that also 
+so now every time we make a correction we are adding a value delta to this so at the 
+time step t what would happen  i  had started off from w naught i have reached time 
+safety and i have made a case that i have not made t updates i have made k less than 
+equal to t updates so how many deltas would get added 
+k delta so i could say that with respect to w naught where i had started from this is 
+what this quantity is ok is that fine anyone has a problem with this 
+so far what are we shown we started with this this condition was true again not less 
+than equal to and hence we made the correction and this was the point that we picked up 
+at the t th step and thence we made that correction 
+and we also showed that the numerator is actually greater than equal to this quantity we 
+showed it by induction fine now let us look at the denominator and particularly let us 
+look at the denominator squared ok is a step right 
+this is actually wt plus one dot product wt plus one but  wt plus one can be written as wt plus p 
+i  this bracket needs to disappear right is that ok fine now what is  what is this 
+quantity 
+that is less than equal to zero so now can you guess what is the next thing that i am going 
+to write 
+that is correct yeah it is a negative quantity so that is going to be less than equal to 
+this so that is fine and what about pi square or this term 
+because this is less than right that is why 
+correct is this fine ok now what is pi square 
+one now can you guess what i am going to do by induction 
+so what is wt square again just this wt plus one square was wt square plus one wt square is 
+going to be wt minus one square plus one right and how many such ones will get added k of 
+those right starting from w naught ok 
+so what have we shown the numerator is greater than equal to this the denominator is 
+less than this ok now if i put them together i actually get that cos beta is going to be 
+greater than equal to the numerator over the denominator ok now what is this quantity 
+proportional to k k square k cube square root of k k by two 
+student square root of k 
+square root of k right you have i mean roughly speaking you have a k here you have a 
+square root of k here so i could roughly speaking say that it is proportional to square 
+root of k so as k grows what will happen to cos beta it will grow and that is fine right 
+it can keep growing 
+student 
+only until one right so cos beta is going to be proportional to k what is k the number 
+of updates that you make now if i were to take that degenerate case which you guys 
+were hinting at where that it will keep changing again and again what will happen to k 
+it will keep going to infinity can that happen 
+no because cos beta will blow up right and that is not allowed so k has to be finite so 
+that cos beta stays within its limits right hence are we done how many if you think we 
+are done how many if you are satisfy that we are done 
+so yeah so this says that we can only have a finite number of such k updates that we 
+make and after that the algorithm will converge so we have a proof of convergence 
+now coming back to our questions this is where we had started at one point what about 
+non boolean inputs so perceptron allows that we took imdb rating and critics rating as 
+an input do we always need to hand code the threshold 
+no in our perceptron learning algorithm are all inputs equal no we now assign weights 
+to input what about functions which are not linearly separable we still do not  know 
+so that is where we are headed now not possible with a single perceptron but we will 
+see how to handle this 

@@ -1,0 +1,47 @@
+relation between svd and word2vec 
+now  and  later  on  actually the  same  guys  they  also  came  up  with  this  formal  relation 
+between svd and word2vec which is again under some assumptions 
+but  i  am  not  going  to  do  the  proof  here  i  am  just  going  to  give  you  the  intuition  so 
+recall that svd does a matrix factorization of the co occurrence matrix levy et al showed 
+that word2vec  also  does such  a implicit matrix factorization so what does this mean 
+so recall that word2vec gives us w context and w word it gives us these two parameters 
+so they say that there exist a matrix m such that ok this is wrong just be the product of 
+two  matrices  right  this  is  the  product  of  two  matrices  it  should  be  w  context  transpose  w 
+word or just see which way the transpose should be 
+so it is actually a product of these two matrices that we have learnt ok and what is m m is 
+actually  nothing  but  the  pmi  matrix  minus  this  log  k  where  does  the  k  come  from 
+what  was  k  the  negative  samples  that  you  have  taken  so  they  actually  showed  that 
+whatever  representations  word2vec  runs  it  is  actually  doing  a  factorization  of  this 
+matrix  where  this  matrix  has  a  strong  connection  to  the  pmi  matrix  and  svd  also 
+works with the pmi matrix 
+if  you  take  svd  matrix  and  do  these  modifications  to  it  that  means  you  take  every 
+value which is the pmi and then subtract this log k from that and then just do an svd 
+of that you will essentially get back the same word representations as word2vec 
+there was some certain assumptions made in the paper but that is i mean i do not want 
+to  go  into  those  but  the  key  idea  here  is  that  you  can  actually  show  that  svd  and 
+word2vec are actually connected and if you think about it at an intuitive level though 
+these methods are relying on the same underlying principle that words appear together 
+based on that the word representations get updated or in svd based on there the counts 
+get updated and you then eventually end up with certain representation 
+next the underlying principle is the same so there has to be a connection right it is not 
+that  they  are  doing  fundamentally  something  different  both  of  them  are  relying  on  the 
+idea of co occurrence or the idea of distribution right so they have to at some level be 
+similar in some ways right so that is what they finally showed and so now but still in 
+most applications word2vec is preferred 
+so one reason for that is that this is an iterative training procedure right as compared to 
+svd  and  i  come  back  to  your  question  right  how  do  you  do  that  how  do  you 
+compute the eigenvectors of x transpose x and the answer is there is no simple way of 
+doing that and you have to do that expensive matrix multiplication 
+and then rely on various very smart libraries for computing the eigenvectors which are 
+still order n raise to two point something or something like that they  not order n cube but 
+they are still order n raise to two point something means they are still expensive and then 
+of  course  you  have  this  memory  issue  that  if  you  have  a  very  large  vocabulary  your 
+pmi  matrix  is  going  to  be  very  high  dimensional  and  then  you  need  to  do  the 
+factorization  of  that  high  dimensional  vectors  so  that  runs  into  these  computational 
+efficiency issues 
+on the other hand word2vec by design is an iterative algorithm because you are going 
+to  grade  gradient  descent  which  is  that  every  times  that  you  are  going  to  update  some 
+parameters of the model you are not learning all the parameters together you are only 
+dealing  with  some  parameters  at  every  time  set  right  so  that  is  more  computationally 
+efficient especially if you do the contrastive divergents or the negative sampling or the 
+hierarchal sample so that is why perhaps it is still more popular than svd 

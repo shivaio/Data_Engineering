@@ -1,0 +1,124 @@
+back propagation computing gradients wrt parameters 
+ 
+before we move on to the next module a quick summary of what we have done so far 
+so we introduced feed forward neural networks and we wanted to learn the parameters 
+right from the last layer to the first layer and we figured out that what we can do is that 
+we  can  just  use  the  gradient  descent  algorithm  as  it  is  except  that  we  have  this  small 
+problem that we have so many parameters now and located at differ different points in 
+the  network  right  some  at  the  initial  layer  some  at  the  final  year  and  you  want  to 
+compute the derivatives or the partial derivatives with respect to all of these 
+if you can do that put them all in this large matrix then we can just use gradient descent 
+as  it  is  so  that  is  what  we  figured  out  and  then  we  wanted  to  find  out  the  gradients 
+with respect to or the partial derivatives with respect to all these parameters so then we 
+realize that this can be done using  chain  rule because there is  a path  from  your output 
+which is the loss function to any of these weights so we just need to follow that path and 
+apply  this  smart  this  chain  rule  smartly  and  just  sum  up  the  derivatives  across  all  the 
+paths that lead to that weight so in that process we started from the output layer we just 
+treated it a bit special because the output function is special and this is the last layer 
+so we just first computed the gradient with respect to the output layers then we figured 
+out  how to  compute the gradients with  respect  to any of the hidden layers and now if 
+you are at a particular hidden layer now the weights that feed into this layer we could or 
+we have not reached there 
+so now the next thing that we need to do is that we have computed the gradients with 
+respect to any of these hidden layers and now we want to find the gradients with respect 
+to the parameters which is the weights and the biases so it is the do you all remember 
+this  or  it  is  all  long  history  or  the  story  is  back  right  fine  so  now  we  are  at  the  last 
+point which is computing gradients with respect to parameters 
+ 
+so again this is the overall picture we were in this chain rule and we have come all the 
+way to the last point where we are ready to now compute these quantities so now start 
+by  recalling  that  a  k  is  equal  to  b  k  plus  w  k  h  k  minus  one  right  this  is  our  activation 
+formula  pre  activation  formula  right  so  i  am  talking  about  these  light  blue  guys  ok 
+which is clear in image 
+and now i what have i done so far i have been able to come up with a formula to write 
+the gradient of the loss function with respect to any of these light green guys right that 
+is what where we ended last time right where we are able to compute the gradients with 
+respect  to  the  sorry  light  blue  guys  ok  and  now  i  want  to  compute  the  gradient  with 
+respect to any of these parameters or any of these parameters 
+so  any  parameter  it  does  not  matter  am  at  some  i’th  activation  layer  pre  activation 
+layer  and  i  just  want  to  compute  the  gradients  with  respect  to  the  weights  which  feed 
+into this  layer and that  is  what  we are interested in  so we are just taking any layer k 
+and you want to find the gradient with respect to the weights there now can you tell me 
+so can  you tell  me what  is  what  is  the thing that am  going to  do here or what  is  the 
+recipe that we have been following 
+i  need  to  move  what  is  the  recipe  that  we  have  been  following  apart  from  yelling  at 
+people  who  come  late  we  find  the  element  wise  partial  derivatives  first  and  then  put 
+them  all  together  to  get  the  gradient  ok  what  is  the  element  here  what  is  what  am  i 
+looking for right now i want to compute this fill this blank what goes here 
+student w 
+w any of these w is right and in particular say w k that is what  i am looking for so 
+what is the first thing that i am going to attack 
+student wkij 
+good w k i j and once i have this for one of these guys i just know a generic formula 
+with respect to i j and k and i can just put it into a gradient vector ok is that fine ok so 
+now can you ok now from here to here if i want to reach from here to here so this is 
+what  i  am  interested  in  right  now  how  is  the  chain  rule  going  to  look  on  look  like 
+based  on  whatever  you  have  already  seen  till  where  have  you  already  reached  you 
+already know this quantity right now if i want this how am i going to write it 
+student 
+i will find up to the light blue guys which is this i already know how to compute it and 
+then from  the light  blue guys  i will go to  the this  is  fine right so this is  the quantity 
+that i am looking for ok now what is one element of this guy dou a k by is it fine ok 
+what is the dimension of this actually is it a scalar a vector a matrix matrix or a tensor 
+what is the tensor what is it is it a matrix what are the dimensions what does this 
+derivative mean or this gradient mean i change one element of w k how much does 
+one element of a k change how many elements are there in ak n how many elements 
+are  there  in  w  k  n  cross  n  so  how  many  partial  derivatives  which  i  have  n  cross  n 
+cross n what is this 
+student tensor 
+a tensor right so this is going to be a tensor ok so when i say one element of this i 
+mean  this  ok  so  this  is  one  element  of  this  gradient  ok  now  can  you  tell  me  the 
+formula for this what is this quantity hk minus 
+student one 
+hk minus one or hk minus one j or 
+student 
+everyone gets this hk minus 1i how many of you get this 
+so  let  us  do  it  right  so  you  have  ak1  ak2  ak3  that  is  your  ak  vector  ok  you  have 
+bk1  bk2  bk3  plus  wk1  one  yeah  i  know  again  this  is  one  of  those  silly  things  but  if 
+everyone does not raise their hands and compelled to do this so h k minus one one hk minus 
+one two hk minus one three ok so let us take one of these guys right so a k one can you tell me the 
+formula for that 
+student 
+plus first row ok one two this one three now can you tell me this quantity so what is i here one ok 
+so i want this by w k i j right so i is one so i can take any of the j so let me take j equal 
+to two so what is it going to be this will go off this is constant this is constant only this 
+term  remains  and  the  derivative  is  hk  minus  one  two  which  is  j  right  so  that  is  what  the 
+formula  says  so  i  have  a  formula  for  one  of  these  guys  ok  and  that  is  a  generic 
+formula  so  always  remember  if  you  cannot  figure  out  what  it  is  just  write  it  down  in 
+scalar terms just add up all the terms and you will get the formula right so now this is 
+what the chain rule is going to be 
+so  this  is  what  it  is  going  to  be  this  is  one  element  of  that  tensor  this  is  how  that 
+entire thing is going to look i have just flattened it out and put it here 
+now let us take a simple example of wk belonging to r cross three cross three everyone is fine 
+so far right or anyone who everyone is fine please raise your hands i mean fine i mean 
+not  in  life  but  with  the  lecture  fine  so  this  is  what  it  looks  like  right  for  a  three  cross  three 
+matrix 
+now let us see we already found out that this guy is equal to hk minus one comma j right 
+so this is what this matrix looks like nothing rocket science here right so each of these 
+quantities is actually can be written in this form where i appropriately substitute i k and 
+j and i know that this quantity can be further written as this quantity right that this is 
+our clear right so i have written it as this 
+now  can  you  simplify  this  i  do  use  a  lot  of  this  ok  can  you  simplify  it  is  it  looks 
+similar  to  something  that  you  did  on  the  assignment  does  this  look  like  matrix  which 
+has  some  very  regular  patterns  yeah  i  can  see  someone  doing  this  and  this  everyone 
+gets it 
+so  let  us  see  so  this  the  first  column  the  second  term  in  the  product  is  all  same 
+throughout  all  the  rows  right  what  i  mean  is  all  these  guys  are  similar  same  thing 
+happens in the second row the third row right ah that is sorry the second column and 
+the third column what about the rows these are all equal right so what does this look 
+like actually the outer product of two vectors everyone gets this raise your hands ok 
+good 
+so i do not need to do an example so it is fine right this is an outer product of these two 
+vectors one happens to the quantity to be the quantity that we already knew right and 
+the other happens to be a quantity that we can figure out i mean we already know this 
+what  is  we  know  how  to  compute  the  hidden  representations  right  the  hk’s  we  can 
+compute 
+so  fine  so  finally  we  come  to  the  biases  this  is  what  one  entry  looks  like  this  is 
+exactly the sum which i had written out now i take the derivative with respect to b k i of 
+the  loss  function  so  i  could  write  it  into  as  this  chain  rule  where  the  first  quantity  is 
+something i already know i have computed the gradient with respect to the pre activation 
+layers what about the second quantity anonymous roar is what i was expecting 
+student one 
+one  ok  fine  we  can  now  write  the  gradient  with  respect  to  the  bias  what  would  it  be 
+what is this what is this it is just the gradient with respect to the pre activation layer 
+right simple so now we are done with all the gradients that we were interested in 

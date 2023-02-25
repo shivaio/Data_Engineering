@@ -1,0 +1,142 @@
+contours maps 
+so we look at something known as contours 
+so now visualizing things in 3d can sometimes become a bit difficult especially for the 
+person  who  is  making  the  slides  so  we  can  can  we  do  a  2d  visualization  of  this 
+traversal have i done this in the ml course no good can we do a 2d visualization of 
+this traversal along the error surface 
+so for that we need to understand something known as contours how many of you have 
+looked at contour diagrams before how many of you know how to read them all of you 
+know how to read them 
+so let us see now suppose this is what my error surface looks like and i have a single 
+scalar  variable  so  this  is  just  a  function  of  w  for  example  and  this  is  what  my  error 
+surface looks like 
+now what i am going to do is i am going to take horizontal slices on this error surface 
+fine  now  can  you  tell  me  how  this  is  going  to  look  from  the  top  sorry  let  me  you 
+should  start  answering  before  understand  the  question  this  is  this  error  surface  is 
+actually so i was wrong in saying this is theta assume this is w comma b and you are 
+just seeing the front view of the error surface what you are seeing here is just the front 
+view 
+this  error surface is  actually like a dementors hat so right so  imagine that it is a hat 
+place like this and you are just seeing the front view of this otherwise a top view does 
+not make sense right so now i am going to slice this hat at two vertical positions and 
+now you are looking at it from the top what are you going to see 
+student ellipsis 
+ellipsis everyone agrees with that 
+so we will see something like this do  you see  something peculiar about  this  is  this a 
+contour map is this no ok and all of you raise your hands when i asked do you know 
+contour so do you see something peculiar about this what is it how many if  you get 
+that so what  you are seeing here is this portion right where the slope was very steep 
+the difference between the two circles or the two ellipses is small and you can visualize it 
+if you try to look at it from the top this distance is actually going to be small right and 
+in  the  areas  where  the  slope  was  gentle  relatively  gentle  the  distance  is  more  and  you 
+can again visualize it right from if you look at from the top this is the distance that you 
+are going to see and what do  you say about these guys what does that indicate they 
+are the same 
+student 
+value  across  that  entire  region  the  value  is  same  because  you  have  taken  a  verticals 
+you  have  taken  a  horizontal  slice  at  a  particular  vertical  position  right  so  you  have 
+taken a horizontal slice at this position that means the error is going to remain the same 
+throughout that rim is this clear to everyone ok it is very important that you understand 
+this 
+so  there  are  only  two  things  that  you  need  to  understand  if  you  want  to  read  contour 
+maps one is  a small distance between the contours indicates that the steep slope exists 
+along  that  direction  and  a  large  distance  between  the  contours  indicates  that  a  gentle 
+slope  exists  along  the  direction  so  everything  today  is  going  to  be  about  steep  and 
+gentle slopes and the other thing that you know need to know is that whenever you see 
+one circle the error is the same along that circle or ellipse whatever you boundary that 
+you  see  the  error  is  the  same  because  you  are  taking  these  vertical  slices  so  we  are 
+ready with this rule everyone understands this perfectly 
+so  i  will  just  give  you  a  couple  of  exercises  and  you  have  to  tell  me  whether  you 
+understand this or not 
+so i have plotted a three d surface or two d i have what is this 
+student 
+no 
+student there is a contour 
+there is a contour everything is not going to look like clean circles always right ok so 
+this is  a contour every line that  you see here represents  one  cut  along the vertical  axis 
+right  that  means  the  error  is  the  same  there  now  what  you  are  seeing  is  a  contour  i 
+want  you  to  guess  the  three  d  surface  from  this  you  just  guess  it  i  mean  just  keep  it  to 
+yourself fine the color is the same right blue is good red is bad 
+so blue means the darker the shade of blue the lesser the value of the error the darker 
+the  shade  of  red  the  higher  the  value  of  the  error  ok  i  want  you  to  imagine  the  three  d 
+surface  if  you  can  do  that  then  i  will  be  sure  that  you  understand  what  how  to  read  a 
+contour how many if we can imagine this you can just say yes right i can never figure 
+out whether you actually speak it 
+so  let  me  help  you  with  the  first  one  and  then  we  will  do  a  few  more  so  let  us  start 
+with the extremes right so let me see how to do this so this portion i also need to do it 
+for the video ok so let me just do it here so this portion what do you think about the 
+slope there very  flattish  why because this is  the line that  you see  and the other line is 
+not even in the figure right so it is basically very flat the slope is very gentle is it a 
+low region or a high region high region fine ok now what is actually happening here 
+what is the slope here 
+student high 
+very high that is why these two regions are very close to each other so from this high 
+region  what  is  happening  suddenly  there  is  a  slope  and  you  are  going  down  and  you 
+know you are going down because you are reaching a blue region right ok now what is 
+happening here 
+student very flat 
+very flat and this also flat but slightly upper than the lower guy is that fine now can 
+you all imagine this ok and is this what you thought it is perfectly yes right is exactly 
+what you thought ok just a minute so the orientation here has been changed a bit right 
+so this portion actually corresponds to this portion are the two this is clear this portion 
+corresponds to this portion right the just orientated fine 
+so  you  start  off  this  high  plateau  region  which  is  here  then  you  start  going  down  go 
+down and then you see a fold here right that is this fold so you went to a darker shade 
+and then you came up to a slightly lighter shade the shades are ok 
+guess  the 3d surfaces  how many if  you want  to  play  this forever now start  with  the 
+extremes the bad guys the good  guys the plateaus and the valleys and then see how do 
+you go from the plateau to the valley ok tell me the corners first this plateau or valley 
+student plateau 
+plateau this plateau higher than this or lower than this 
+student lower than this 
+lower than this this 
+student valley 
+this  towards  the  valley  it  is  still  between  red  and  blue  right  it  is  not  like  right  down 
+there and what happens to all these guys all are very steep slows all converging down 
+into the valley so can you perfectly imagine this 
+and you will tell yes when i say when i show you the three d surface right again you need 
+to reorient yourself so this corner here is this corner this corner here is this corner so 
+we  had  these  two  plateaus  at  the  top  we  had  this  slightly  higher  valley  slightly  lower 
+valley  and  then  all  of  them  going  into  a  very  deep  valley  you  see  that  everyone  gets 
+this how many  if  you  have a problem  with  this  if  you have a problem  with  this  you 
+will  just  sleep  off  in  the  rest  of  the  lecture  so  i  want  you  all  to  understand  this  very 
+carefully i do not mind repeating it how many of you understand this you understand 
+the regions with gentle slope 
+student yes 
+the regions where you have a steep slope and you end up into that valley which is the 
+valley here can you point it out fine ok so we will move ahead 
+so now we know what contour maps are and how to visualize them and so on right so 
+now we will try to see the gradient a descent algorithm instead of running it on the 3d 
+error surface we will try to run on this 2d contour map 
+so this is what i already showed you right i started from here and i showed you how it 
+comes here or something like this right that was the gradient descent let me just erase 
+this ok that is something like what the gradient descent algorithm 
+now  again  you  just  need  to  reorient  yourself  so  let  us  see  this  corner  is  this  corner 
+this  corner  is  this  corner  and  so  on  right  so  you  get  the  reorientation  right  it  just 
+shifted now i am going to start my gradient descent algorithm from here from this point 
+ok everyone see is that ok i am going to start from there and you have to help me and i 
+am not going to just keep clicking you have to tell me what is going to happen so what 
+will happen initially fast movement slow movement 
+student slow movement 
+slow  movement  right  so  i  am  running  it  one  two  three  four  five  six  seven  eight  it  just  keeps  running  very 
+slowly now what will happen 
+student fast 
+fast ok now you see actually you can see the arrows these arrows are the quantity the 
+magnitude of the movement right so earlier this movement was so small that you could 
+not even see the arrows i have been drawing arrows right from the beginning but  you 
+could  not  see  them  at  the  beginning  now  you  can  see  them  right  now  what  will 
+happen 
+student slow 
+slow right so you see the exact same movement that i did on the three d surface now you 
+can visualize it on the two d surface right and you can easily tell me where it will go fast 
+where it will go slow right and where it will just keep moving very drag its feet and so on 
+ok  so  this  is  where  it  starts  dragging  its  feet  and  the  same  thing  happened  when  we 
+were  in  this  region  right  so  just  you  just  make  the  connection  that  we  are  in  the 
+corresponding three d region there ok fine so we are moving very  slow and it just keeps 
+running 
+so that is where we lend this module so we just revised gradient descent we saw that 
+things are proportional to the gradient  that is why gradient descent and the smaller the 
+gradient  the  slower  the  movement  the  larger  the  gradient  higher  the  movement  gentle 
+the slope 
+student smaller 
+smaller the gradient steeper the slope larger the gradient 

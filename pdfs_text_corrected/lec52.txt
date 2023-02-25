@@ -1,0 +1,210 @@
+link between pca and auto encoders 
+so  we  will  move  to  the  next  module  where  i  would  like  to  show  you  a  link  between 
+pca and auto encoders 
+so this is what i am trying to show you that under certain conditions pca is or rather 
+an  auto  encoder  is  equivalent  to  a  pca  and  the  conditions  are  if  you  use  a  linear 
+encoder if you use a linear decoder if you use a squared error loss function and if you 
+normalize the inputs to this so for the time being just ignore the last bullet let us look 
+at the other three bullets using squared error loss functions 
+so remember i gave you different choices right you could have used the cross entropy 
+or  the  squared  error  loss  but  i  am  going  to  prove  this  equivalence  only  under  the 
+condition when we have the squared error loss what do i mean the u encoder is a linear 
+encoder g is  a linear function we are not  using a sigmoid or  any logistic or anything 
+like that and linear decoder again the same thing we are not using the sigmoid or soft 
+max or anything at the output it is a linear function under these conditions i will show 
+that or i will try to show you that pcas equal auto encoders equal to pca 
+what does this mean actually now what do i mean by it is equivalent what do i have 
+to  show  you  actually  how  many  of  you  understand  what  i  am  trying  to  prove  how 
+many of you can mathematically define it ok so we will try to make this clear over the 
+next fifteen minutes 
+first let us look at the last condition right which i ignored ok i always anticipate all this 
+right so i have full faith in  you guys ok what is this mean now what  i am doing 
+centering  the  data  and  i  am  also  doing  one  by  square  root  of  m  why  mean  as  the 
+standard deviation 
+so the operation in the bracket ensures that your data now has become zero centered right 
+it  is  a  zero  mean  and  now  let  x  dash  be  this  matrix  this  one  right  such  that  all  it  is 
+elements are zero mean is this still a flicker again alright 
+so  let  i  am  calling  x  dash  as  this  matrix  ok  so  this  matrix  where  i  also  have  one  by 
+square root of m  i can write it as everyone  gets  this is  simple now do you see where 
+this is headed what would x transpose x be covariance matrix so i needed that one by 
+m right at the out 
+so now this is the covariance matrix so if i do this normalization to the original data 
+and then if i take let x dash be that quantity and then if i take x transpose x then i will get 
+the co variance matrix everyone gets this that i did this to get the co variance matrix so 
+that i mean i did this so that when i take x transpose x i get the co variance matrix after 
+this normalization only it will be the covariance matrix 
+so first we will show that if we use the linear encoder decoder and a squared error loss 
+function  then  the  optimal  solution  to  the  following  objective  function  what  does  this 
+objective function 
+student squared error 
+squared  error  loss  is  obtained  when  we  use  a  linear  encoder  do  you  understand  the 
+implication  of  this  what  does  being  stated  here  ok  so  i  have  fixed  the  decoder  i 
+have said that the decoder is  going  to  be  a decoder  i  have fixed the  encoder or  i have 
+fixed the loss function this is going to be a squared error loss function this is given to 
+me now under these conditions i am trying to minimize this loss function ok 
+then i am telling you that the only solution to this is that the function dash should be a 
+linear  function  which  function  the  function  g  should  be  a  linear  function  you  cannot 
+choose sigmoid or logistic or anything else right the optimal solution will occur when g 
+is a linear function everyone gets what is being stated here 
+so  this  summation  that  i  have  written  right  or  in  fact  this  the  entire  objective  that  i 
+have  written  is  actually  equivalent  to  this  objective  is  this  fine  with  everyone  even 
+though i have not defined what h is just fine with everyone so we had   x which was x 
+one to x m ok i had picked one of these xi’s what is the dimension of this 
+student one cross 
+one cross m and then i had multiplied it by a weight matrix w not w star remember that 
+what do the dimension of w 
+student n n 
+n cross k and what will i get as the output 
+student 
+i got an h which was one cross k what did i do this 
+student multiply it by 
+multiply it by 
+student w star 
+w star which was k cross m and what did i get as the output 
+student x hat 
+x hat which was one cross n right so what i am telling you is that i could do this together 
+for all these x i's i could do this operation at one go and i can call this as x matrix and 
+what will i get here h one to h two to h m and i can call it as the h matrix and i multiply it 
+by w star and what do i get x cap ok is that fine ok but without defining these things 
+also it was fine so it does not matter 
+so now how many of  you get that this quantity is the same as this quantity now how 
+do  i  explain  this  was  the  frobenius  norm  of  a  matrix  some  of  the  squares  of  the 
+elements 
+now what is the matrix x it is the x one one up to x one n and x m one up to x m n and all 
+elements in between right what is the matrix h w star we just did that the same thing 
+expect that it is x hat 
+student 
+i  take  the  difference  between  these  two  what  do  i  get    every  element  of  that  matrix  is 
+equal to this quantity that i have underlined right so i get a new matrix such that every 
+element of that matrix is equal to this quantity is that fine now i am taking the square 
+of every element of that matrix and adding them up what is that equal to 
+student 
+a  frobenius  norm  how  many  of  you  get  that  now  almost  everyone  ok  so  this  is 
+equivalent  to  the  frobenius  norm  ok  now  where  have  you  seen  the  frobenius  norm 
+before what did we show in the svd theorem 
+let us try to connect things right if you do not learn how to connect things it is going to 
+be very difficult what is this x hat it is a dash of x 
+student reconstruction 
+reconstruction it is a dash of x approximation what is the solution to this optimization 
+problem what is the solution to this optimization problem i shall started off with the 
+answer  that  we  saw  this  in  the  svd  theorem  and  then  i  asked  you  a  question  what  thirty 
+hours  thirty-two  hours  not  even  thirty-two  hours  are  passed  since  we  did  this  come  on  what  is  the 
+solution to this no no that is fine 
+but what is the solution x hat is equal to what the best approximation to x is given by 
+what is it fine  yeah so some k  yeah but it is  going to come from the svd theorem 
+right  is  that  fine  it  depends  on  what  rank  approximation  you  want  but  it  the  best 
+approximation to this is going to be given by the svd of x is it ok everyone gets that 
+yes forgot about it but now do you remember it all those extra lectures 8’o clock in the 
+morning 
+so  that  means  h  w  star  should  be  equivalent  to  this  that  we  know  from  the  svd 
+theorem  that  the  optimal  solution  is  going  to  be  given  by  svd  so  if  i  just  compare 
+terms ok then i could write that one solution is this that h h is equal to u into sigma 
+and w star is equal to v transpose i could have chosen the other solution also where h 
+is  equal  to  v or sorry u and w star is  equal  to  sigma  v ok  but  i  will work with  this 
+particular solution you see this i am just matching variables right it is said that a b is 
+equal to c d e so i am saying that a is equal to c d and b is equal to e 
+now we will work with this so and we will try to show something so let us see what 
+we are trying to show 
+now first thing that we will show is that h is actually a linear encoding so what does 
+this mean you first always understand what has been tried to prove right i am saying 
+that i am going to show that h is a linear encoding of x then what is it that i am trying 
+to show 
+i am trying to show that h is equal to a linear encoding of x when h is of the form w x 
+and  not  something  of  the  form  w  sigmoid  of  w  x  or  something  like  that  or  any  other 
+nonlinearity  for  that  matter  is  the  statement  clear  that  is  what  i  am  trying  to  show 
+when i say h is a linear encoding i mean that h is obtained by a linear transformation 
+of x 
+now h as we defined on the previous slide is equal to this now if i already had an x 
+here then  i was done but  i do not  have any x there  yet  so  i  want  to  a get  to  a form 
+where i can show that h is equal to w in to x so i will just do some simple trickery and 
+arrive try to do arrive at that form 
+so the first thing i am going to do is pre multiplying pre multiply by this quantity and 
+this is fair because this is just equal to i what next i will write these three x’s as u sigma v 
+transpose and i will leave one x as it is that 
+now  just  can  you  just  try  to  see  what  the  next  step  would  be  this  v  transpose  v  will 
+disappear because it is equal to i now what happened here i actually just expanded this 
+inverse  so  i  will  think  of  this  as  a  b  c  so  a  b  c  inverse  is  equal  to  c  inverse  b 
+inverse a inverse 
+so i have just applied that it just that my inverse is a very straight forward matrices here 
+they are just the transform of the original matrices everyone gets this step well you can 
+stare at for a for a few more seconds if you want how many of you do not get this how 
+many of you get this ok now what is next this u transpose u disappears 
+student 
+this also disappears 
+student 
+no 
+student 
+it is this u is only the first k columns of u right this is not the entire u this is just the 
+first k columns of u fine now what next a into b inverse is 
+student b inverse 
+b  inverse  a  inverse  what  will  happen  now  that  quantity  will  disappear  so  what  do 
+you have left now ok so this is something ok so now let us look at this is let us say 
+this is n cross n and this is n cross k what is the output going to be 
+student n cross k 
+n cross k and what is the output going to look like is the first k columns of 
+student identity 
+the  identity  matrix  everyone  gets  that  if  you  do  not  you  can  just  work  it  out  with  the 
+small  matrix  after  going  home  and  you  will  get  it  right  if  so  if  i  done  the  full 
+multiplication  i  would  have  got  the  identity  matrix  but  i  am  just  talking  the  first  k 
+columns so i will get the first k columns of the identity matrix do not fed too much if 
+you are not getting this you can just work it out on paper and you will get it 
+so i get the first k columns of the identity matrix and this inverse disappears this sigma 
+transpose into sigma transpose  now what next what is this product 
+going to be the first k elements of 
+student sigma inverse 
+sigma inverse and that is going to get multiplied by sigma k cross k so that will give 
+me the first k elements of 
+student identity 
+identity  matrix  there  is  some  very  simple  matrix  operations  where  you  are  just  taking 
+some columns right so if you do not understand this right now do not worry you can 
+work it out  everyone is  confident  they  can do this  please raise  your hands if  you  are 
+confident and now what do i finally get this multiplication will give me 
+student the first k columns 
+the first k columns of v ok so have we come to the desired form what i have shown 
+now h is a dash of x or linear transformation of x that means my optimal encoder was 
+a linear encoder and what was the optimal weight matrix w the first k columns of v yeah 
+i  someone  pointed  it  last  time  also  i  could  not  i  ignored  it  i  will  just  pretend  i 
+understood 
+but i get it i know that there is a simpler solution i do not know why do it this way but 
+there  is  a  simpler  solution  i  just  like  making  life  miserable  for  you  guys  but  but  the 
+point is you can figure it out that it is a it is a linear transformation of x now 
+we have that the encoder is equal to the first k columns of v ok what is v eigenvectors 
+of x transpose x ok 
+student a 
+what is the other thing that you know about the eigenvectors of x transpose x they are 
+the solution for the 
+student eigen 
+if you have given an matrix x then the pca is the eigenvectors of the co variance matrix 
+was the co variance matrix x transpose x what is are it is eigenvectors capital v right 
+so what have we arrived at are we done with the proof yes how many of you think that 
+done with the proof how many of you think that we are done now 
+so it is done right so we have proved what we wanted to prove right so what did we 
+want to prove that you are doing auto encoders you are trying to train an auto encoders 
+and  you  are  loss  function  is  the  squared  error  loss  function  we  saw  a  neat  way  of 
+writing that  squared  error loss function  as  a matrix operation where x minus capital  h 
+into w 
+and  then  we  saw  that  these  squared  error  loss  function  is  nothing  but  the  frobenius 
+norm of this and we knew that the minima of this objective function the frobenius norm 
+of x minus h w would occur when s w is equal to svd of x right we started from 
+there and showed that h is actually a linear transformation of x and what was that linear 
+transformation which matrix was used for the linear transformation v capital v what is 
+capital v it is the eigenvectors of 
+student x transpose 
+x  transpose  x  so  what  is  happened  in  effect  is  that  if  i  was  trying  to  train  my  auto 
+encoder  with  this  objective  function  the  weights  in  my  initial  layer  w  would  actually 
+converge  to  v  which  are  the  eigenvectors  of  x  transpose  x  that  means  the 
+transformation that i have learnt this transformation which i have learnt is the same as a 
+transformation that i have had learned using pca because pca would also have given 
+me v into x where v was the eigenvectors of the co variance matrix and we just arrived 
+at the same solution everyone gets it now we are done with the proof 
+so what we have proved is under these specific conditions that the encoder of a linear 
+auto encoder is linear auto encoder is equal to pca if we use a linear decoder if we use 
+a squared error loss function and if we normalize the inputs to this and  you understand 
+why each of these steps was important why was the last step important 
+student 
+only  then  we  would  have  got  the  co  variance  matrix  why  was  a  step  before  that 
+important because only if it was the squared error loss we would have got that frobenius 
+norm objective function right and why was the linear decoder important again the same 
+thing because x minus h w we wanted it to be linear right is it fine 
+so  you  see  why  all  these  assumptions  were  important  and  under  these  conditions  we 
+have proved that auto encoders e equivalent to pca 

@@ -1,0 +1,57 @@
+so lot of fields have adopted deep learning now and lot of state of the art ai systems are 
+based on deep neural networks but now what is needed is after all this madness were 
+deep learning has taken over a lot of research areas can we now bring in some sanity to 
+the proceeding so this is really a need for sanity 
+and why i say that is that because there is this paradox of deep learning so there is this 
+interesting question that why does deep learning works so well despite having a high 
+capacity 
+so the deep neural networks have a very high capacity which means that susceptible to 
+over fitting so most of you would have done some course on machine learning  so 
+there you know that over fitting is bad because you are just memorizing the training data 
+and then you might not be able to do so well and at tested and over fitting happens when 
+your   model   has   a  high   capacity  so  even   though   deep   neural   networks   have  high 
+capacity why are they doing so well we will focus on this high capacity but when we 
+talk about the universal approximation theorem and give some arguments for why deep 
+neural networks have such a high capacity 
+the other thing is they have this numerical instability right so we spoke about these 
+vanishing and exploding gradients  and again we will talk about  this later on in the 
+course so despite this training difficulties why is it that deep neural networks performs 
+so well and of course they have this sharp minima which is again it could lead to over 
+fitting so if you look at there is an  optimization problem it is not a  neat convex 
+optimization problem so it is a non convex optimization problem so why does it still 
+do so well 
+so it is also not very robust so here is an example on the right hand side the figure that 
+you show so the first figure is actually of a panda and the machine is able to detect this 
+panda with some fifty-seven percent confidence right we have trained a machine for a lot of 
+animal images we have shown it a lot of animal images at test time we show at this 
+image the first image that you see on the right hand side and is able to classify this is a 
+panda with fifty-seven percent confidence but now what i do is i add some very random noise 
+so that second image that you see with some very random pixels if i add it to this image 
+i will get a new image 
+so every pixel in this image is added to this new noise image and i get the image which 
+is see on the third the third image that you see right to you and me or to any average 
+human this still looks like a panda there is hardly any difference between this image 
+and the original image but now if you pass this to the machine all of a sudden instead of 
+recognizing this is a panda it starts to recognize it as a gibbon and that too with ninety-nine 
+percent confidence so why is it that they are not very robust and despite this not being 
+very robust why are deep neural networks  so  successful so  people are interested in 
+these questions and people have started asking these questions 
+there are no clear answers yet but slowly and steadily there is an increasing emphasis 
+on explainability and theoretical justifications so it is not enough to say that your deep 
+neural network works and gives you ninety-nine percent accuracy  it is  also good to have an 
+explanation for why that happens is it that some components of the networks are really 
+able to discriminate between certain patterns and so on so what is going on inside the 
+network which is actually making it work so well right and hopefully this will bring in 
+some sanity to the proceedings 
+so instead of just saying that i apply deep learning to problem x and got  ninety percent 
+success we will also make some kind of more sane arguments just to why this works and 
+what is the further promise of this and thinks like that so  that is roughly a  quick 
+historical recap of where deep learning started and where it is today starting all the way 
+back from advances in biology in one thousand, eight hundred and seventy-one to recent advances till two thousand and seventeen and so on deep 
+learning right and here are few url 
+so you could take a look at this for a lot of interesting applications of recurrent neural 
+networks 
+bunch of startups which have come up in this space is working on very varied and 
+interesting problems and here are all the references that i have used for this particular 
+presentation 
+so that is where we end lecture one and i will see you again soon for lecture two 

@@ -1,0 +1,435 @@
+gradient descent with adaptive learning rate 
+in  this  module  we  look  at  gradient  descent  with  adaptive  learning  rate  so  first  we 
+will see motivation or intuition for why we need this and once you get the motivation i 
+believe the rest should be straightforward 
+so  far  what  we  have  been  doing  is  please  pay  attention  on  this  slide  i  need  to  define 
+some notations and you should not get confused with that so far we have been dealing 
+with  the  situation  where  we  had  just  one  feature  which  was  x  and  one  weight 
+corresponding  to  it  which  was  w  and  one  bias  which  corresponded  always  on  input 
+right now we are going to look at the situation where we have more than one inputs 
+that means earlier we were basing our predictions only based on the director and now 
+we are the director actor genre imdb ratings and so on 
+so here x one x two x three x  four these are four different features or  four different  inputs that  i 
+have  and  this  is  not  x  square  just  i  know  it  is  obvious  but  i  am  just  making  it  clear 
+right so this is x one x two x three x four ok it is not probably the best choice of notation but i 
+will just stick to that so now each of these has a corresponding w one w two w three w four ok and 
+this is how your decision looks like it is the dot product between the weight vector and 
+the input vector ok this is how i am going to decide and that is a single sigmoid neuron 
+again 
+now given a single point xy do i need to again go through this computation sorry w p 
+oh sorry ok i will just erase this so this w is actually the vector w so it includes w one 
+w two w three w four and i am trying to take the derivative with one element of that vector do i 
+need  to  show  you  how  to  compute  this  have  you  seen  this  before  can  you  tell  me  i 
+will show you the derivative with respect to w one can you tell me it will be a product of 
+some terms can you tell me what is the last term going to be 
+everyone  gets  this  you  remember  this  form  so  only  thing  which  is  changing  is  this 
+guy right so this part is exactly what we have derived and when we had one input we 
+just call it x and now we have multiple inputs so it will depend on that particular input 
+right which ever w one corresponds to 
+now make an interesting observation there so sorry before that yeah this is obvious if 
+there are n points we will just take the sum of the gradients with respect to the n points 
+ok now what happens if the feature x two is sparse what do i mean by that it is mostly 
+zero ok what does that mean so i am looking at lot of movie data ok amir khan acts in 
+a very few movies so if i have a feature which says actor amir khan then that is going 
+to be zero for most of the movies in my data scene right that is what i mean by sparse 
+so if  i have  ten thousand movies then probably only  fifty of them would have this feature  as 
+one ok does that make sense so it is going to be very sparse now if the feature is 
+sparse why do we care about it what will happen what do we really care about when 
+we are talking about optimization in this course the gradients right that decides how 
+well  we  move  in  the  plane  that  we  are  considering  w  b  plane  or  the  other  in  the  end 
+dimensional region that we care about 
+so now if x two is sparse what would happen to this it will be zero lot of times because x two 
+is  zero  lot  of  times  right  so  now  just  take  a  minute  to  understand  this  right  so  now 
+remember let us talk about stochastic gradient descent or mini batch gradient descent or 
+even  batch  descent  you  are  going  over  all  the  ten thousand  points  that  you  have  you  are 
+computing the gradient with respect to all the parameters 
+one  of  those  parameters  happens  to  be  w  two  right  you  have  gone  over  ten thousand  points 
+but in how many of those you will actually get the gradient for this only in the fifteen which 
+x  two  was  present  right  everywhere  else  the  gradient  would  be  zero  so  that  means  your 
+sum of the gradients overall the endpoints is going to be small or big 
+student small 
+small for this particular feature or for this particular weight it is going to be small right 
+because you do not have enough samples where you are seeing this so now what would 
+happen  to  the  update  you  started  with  a  random  value  for  w  two  after  one  epoch  or 
+making  one  entire  pass  of  the  data  what  would  happen  to  the  updates  for  w  two  very 
+small  very  few  updates  compare  this  to  a  feature  which  is  dense  do  you  get  a  lot  of 
+updates so you see there is something unfair happening here if a feature is sparse it is 
+not getting updated enough 
+now  that  was  ok  in  one  situation  if  this  feature  was  not  really  important  but  now 
+consider the exact example which i gave you which is this an amir khan movie or not 
+but  suppose  i  am  doing  a  classification  whether  this  movie  is  going  to  be  hit  or  not  i 
+would believe this feature is very important because almost always when he is the actor 
+the movie is a hit right so you really cannot ignore this feature you want to learn the 
+parameters  correctly  for  this  feature  do  you  get  the  setup  right  there  could  be  cases 
+where your feature is very sparse but at the day at the same time very predictive of the 
+output that you are trying to learn right and in this case the output is whether the movie 
+would be a hit or not 
+the other example could be is christopher nolan the director so yes probably directed 
+less  than  ten  movies  but  all  of  them  have  been  at  some  point  in  the  imdb  top  two hundred and fifty  or 
+something  right  so  that  is  a  very  important  feature  but  you  will  not  get  it  very 
+frequently in  your data  right  so  you  cannot really ignore these  features that  means 
+you  still  want  to  learn  these  features  properly  so  you  have  sparse  features  you  have 
+dense features we understand that for the sparse features the updates would be slower 
+and  for  the  dense  features  the  update  would  be  faster  the  sparse  would  be  zero  in  most 
+cases no no so you will do this zero mean thing 
+no but if it is a same value and you are going to zero mean the data right so the value 
+even if it is one it is  going to  be very close to  zero  right  so  you always assume  zero means 
+otherwise all this does not make sense right because if your features are not in the same 
+range  then  anyways  you  are  in  trouble  right  fine so  this  is  what  i  was  trying  to  say 
+that the gradient with respect to w t is going to be zero for most inputs and hence w t will 
+not  get  enough  updates  and  as  i  said  if  this  is  an  important  feature  we  cannot  really 
+ignore it we have to make sure that it learns better 
+so what is the case that i am making for what do we actually need can you relate it to 
+the discussion on learning rate that we have been having so if the feature is sparse you 
+know it is going to  get very fewer updates so  can we change its learning rate so that 
+feature  gets  updates  a  bit  faster  as  compared  to  the  other  features  so  you  get  the 
+motivation right how to do this is a separate story but at least we need to do this 
+so  the  intuition  is  decay  the  learning  rate  for  parameters  in  proportion  to  their  update 
+history  so  you  have  been  recording  the  update  history  you  have  been  looking  at  the 
+parameter  you  know  all  the  gradient  w  two  that  you  had  calculated  so  far  right  how 
+many times you had computed the gradients and what those values were actually now for 
+these sparse features those are going to be zero 
+so your cumulated history is going to be small right for a dense feature it is going to 
+be high so why not make the learning rate inversely proportional to this history that 
+means if the feature has been updated fewer times give it a larger learning rate if it is 
+not updated if it is updated many times give it to a smaller learning rate can you give 
+me a mathematical formula for doing this this is the intuition just think about it for a 
+minute learning rate inversely proportional to update history ok good how many of you 
+get that but most of you will get it once i show you the answer 
+this  is  my  gradient  which  i  had  computed  so  far  i  mean  at  this  time  step  i  will  keep 
+accumulating it in  a history vector so at time step zero  i will take the magnitude of this 
+again i am taking the magnitude right because it does not matter whether you made an 
+update  in  the  positive  direction  or  the  negative  direction  you  just  matters  that  whether 
+how much by how much it move so i will just square this quantity so that i can get rid 
+of the sign so  i  am  taking the magnitudes and  i  am  storing all that so at  time step t 
+what would vt contain it is grad w zero square plus w one square grad w one square and so on 
+up till time step t 
+now this was my if i ignore this quantity this was my normal gradient descent update 
+rule  now  do  you  see  what  i  have  done  i  have  divided  the  learning  rate  by  whatever 
+history i had accumulated so for the dense features what would happen is the learning 
+rate will increase or decrease with time the learning rate will decrease right and for the 
+sparse  features  relatively  less  in  fact  if  you  have  written  gotten  zero  updates  so  far  so 
+when  you  have  to  update  the  first  few  times  you  will  have  a  very  high  learning  rate 
+does that make sense right because this quantity would be zero so our eta would actually 
+be very large so you see how that intuition got converted into some reasonable formula 
+now  can  you  tell  me  a  way  of  actually  realising  this  i  want  to  show  you  that  what 
+happens when  you have sparse data and i want to do this with the toy example that we 
+had where we had only one feature and other feature was always on right so how do i 
+create  this  sparse  data  so  you  should  think  about  these  because  these  are  things  you 
+will  have  to  do  when  you  are  practising  machine  learning  and  if  you  are  working  with 
+the  problem  and  you  want  to  create  some  simulated  data  so  that  you  can  verify  some 
+hypothesis that you have so how would you do this 
+see i am going to create thousand data points right which is x y points and of course i 
+have this x zero which is always on right so x zero is always on i cannot make that sparse 
+what about the other feature if i am creating thousand data points what should i ensure 
+is that eighty percent of them or some ninety percent of them is always zero right just as the amir 
+khan case and most of the data it is going to be zero so what we will do is as i said we just 
+have two parameters w and b b cannot make sparse is always going to be on so what 
+we will do is we will make x sparse we just create random x y pairs and then for eighty 
+percent  of  those  we  will  set  x  to  zero  right  so  now  this  x  feature  is  going  to  be  very 
+sparse 
+so now i have created some data which is sparse one of the features is sparse and now 
+i  want  to  see  what  happens  when  i  run  gradient  descent  momentum  and  nesterov 
+accelerated gradient descent and how does the algorithm behave and now if i apply this 
+algorithm  which  i  did  not  name  it  is  called  adagrad  ok  this  algorithm  is  called 
+adagrad if i apply this algorithm then what how does the situation change 
+so this is what gradient descent  momentum and  nag do now at  least  the difference 
+between momentum and nag should be clear nag blue curve is inside the red curve 
+right so oscillations are slightly smaller this is how they behave 
+now  there  is  something  very  interesting  that  these  algorithms  are  doing  for  this 
+particular  data  set  that  i  have  created  can  you  spot  it  what  is  the  interesting  thing 
+happening  here  i  want  you  to  take  some  time  and  think  about  and  relate  it  to  the 
+discussion that we just had how many of you see what is happening here very few i will 
+give  a  hint  ok  it  is  almost  as  if  these  algorithms  went  to  a  school  where  they  did  not 
+teach  pythagoras  theorem  now  related  to  the  discussion  that  we  just  had  what  is 
+happening initially so initially what is happening is you started from here ok and this is 
+the w b planes so you have w on the horizontal axis and b on the vertical axis 
+what is happening to all your updates initially where are you moving you are moving 
+along the b direction are you making any movements along the w direction no why 
+w was sparse its gradients are mostly zero it  was not being able to make any updates in 
+the w direction or it was able to do make updates in the b direction it did as much as it 
+could do after reaching here it realizes that there is no point in going to be further right 
+it actually took uturn because it realise that there is nothing  i cannot really go ahead i 
+have to now start working in a direction of w 
+so now in practice although in this toy example it does not it still converges fast but in 
+practice what will happen is  you have just moved in one direction reached a point and 
+now  from  there  again  you  are  going  to  take  right  turn  and  reach  to  your  destination 
+right so you are taking you are doing something which is not fast this is not how you 
+would  go  from  this  point  to  this  point  there  has  to  be  a  better  way  right  and  this  is 
+happening because w is not getting updated frequently all the updates are initially done 
+for b 
+now when it is no longer possible to change b because you reached the optimum value 
+for b then only you start changing w and that to very slowly because it will have to wait 
+for  many  updates  to  happen  for  that  to  happen  how  many  of  you  get  this  so  this  is 
+exactly what is written on the slides because in our data the feature corresponding to w is 
+sparse and hence w undergoes very few updates and b is very dense and it undergoes a 
+lot of a updates 
+now  such  sparsity  is  very  common  in  large  neural  networks  which  have  thousands  of 
+features  right  so  you  can  imagine  this  now  if  i  have  thousands  of  features  now 
+suppose  i  am  doing  credit  card  fraud  detection  ok  now  say  one  of  my  features  is 
+corresponding to some education that the person had and suppose he has done some very 
+less sort after degree or less sort after curriculum 
+so that feature is going to be sparse where most of the cases but i cannot ignore it may 
+be  this  is  the  most  predictive  feature  that  i  might  have  right  so  you  could  think  of 
+various cases where you have thousands of features out of which many are going to be 
+off for a given example right everyone sees that this is the real world scenario where 
+lot  of  your  features  are  going  to  be  sparse  and  in  many  cases  you  cannot  ignore  the 
+sparse features ok fine now let see what adagrad does any guesses 
+so i am running this we should start seeing something a green curve starting from here 
+do you see what is happening expected now try to guess if you are going to run into a 
+problem  i  have  deliberately  halted  the  algorithm  i  just  want  you  to  think  if  you  are 
+going  to  run  into  a  problem  ok  all  of  you  think  you  have  something  which  makes 
+sense so now i have run it for in this case again this is the toy example hence you do 
+not see a lot of difference between these algorithms in terms of number of steps taken to 
+converge  but  in  real  world  application  it  would  be  very  different  but  now  what  has 
+happened is i have run the algorithm for as much i can and i am then stuck here i am not 
+being able to move forward why is this happening 
+well i am the histories accumulating it is growing now what am i doing to the learning 
+rate i am just killing it right it is eta by a very large constant now that is going to be 
+very small so no matter how big my gradient is it is going to get multiplied by a very 
+small learning rate and i cannot just move any forward anymore right so see that will 
+happen that is why in this case this is some point here which i do not want to go over 
+now and it is this 
+in fact i do not have an explanation for that but this one observation which people have 
+made  that  remember  we  have  the  square  root  in  the  denominator  if  you  remove  the 
+square root in principle you are still doing the same thing right you are still making it 
+inversely  proportional  to  a  cumulated  history  but  it  does  not  work  well  when  you  do 
+that that i do not know why it happens and i just read these comments at several places 
+that it does not work when you remove the square root from the denominator but that is 
+not important for this discussion that is just point for reference later on 
+so  right  now  what  i  am  trying  to  say  is  that  it  did  the  right  thing  it  started  making 
+updates  for  w  also  and  started  making  larger  updates  hence  we  see  this  simultaneous 
+moment in both w and b direction but the flip side is over a period of time the effective 
+learning  rate  for  b  will  decrease  so  much  that  we  no  longer  be  able  to  move  in  the 
+vertical  direction right  and if  i am  not  being able to  move in the vertical  direction we 
+will  not  reach  the  minima  in  this  particular  example  not  always  but  in  this  particular 
+example  you  need  to  move  further  in  the  direction  of  b  but  a  learning  rate  is  not 
+allowing you to do that so that is what is happening 
+so  now  can  you  avoid  this  yes  how  multiply  by  so  first  divide  it  so  that  the 
+decreases then multiply it so that does not decrease all of these are interesting ideas i 
+am not i mean it is very hard to say upfront whether this is wrong or right but yeah these 
+are  you  get  the  idea  basically  something  is  happening  which  is  you  are  aggressively 
+killing the learning rate 
+now i just want to make sure that you are not so aggressive so what happens because 
+of the aggressive killing is  the frequent  parameters they start  receiving  fewer updates 
+now this is what rmsprop does i want  you to stare at this for a minute assume that 
+beta is going to be something which is greater than ninety or ninety-five or something and try to 
+make sense of what is happening try to imagine what is vt is going to look like in terms 
+of grad w zero grad w one and so on to start from v one and see what happens what was v one 
+earlier and what it is going to be now ok but it still grows my magnitude when i am still 
+adding stuff so how does it help me in not blowing of the denominators 
+so yeah i think you most of you get so again this is the trick is basically you are using 
+this  exponentially  exponential  moving  average  so  even  at  the  first  step  earlier  i  was 
+doing grad w t square now actually doing five into grad w t square oh sorry grad w one 
+square right so that is what my v one is going to be now what is my v two going to be it 
+is  going  to  be  ninety-five  into  five  grad  w  one  square  plus  grad  w  two  square  right  so  this 
+quantity  is  even  shrinking  further  and  at  each  step  this  is  going  to  keep  a  five  ok  and 
+you  see  now  at  each  step  this  is  going  to  get  multiplied  by  this  quantity  and  shrink 
+further 
+so  now  i  am  not  aggressively  growing  the  denominator  i  am  not  considering  the  full 
+gradient  but  only  a  fraction  of  it  and  in  fact  a  very  small  multiple  of  it  so  i  am  still 
+accumulating the history but i am not being very aggressive while doing that right so 
+you understand this everyone gets this 
+so now let us see if we run what would happen any guesses ok so initially now this 
+is i think a brown curve it is already there but you can see it so i will keep running it 
+and  at  some  point  it  will  diverge  from  the  green  curve  yeah  do  you  see  that  now  i 
+have reached its destination right so at the point where the b learning rate the learning 
+rate  for  b  was  getting  killed  in  this  case  that  does  not  happen  because  you  have 
+prevented  the  denominator  from  growing  very  large  actually  multiplied  by  its  small 
+values so that it does not grow very fast 
+so adagrad  got stuck when it was  close to  convergence because the learning rate was 
+killed  and  it  was  no  longer  able  to  move  in  a  direction  of  b  but  for  rmsprop  it 
+overcomes  this  problem  by  not  growing  the  denominator  very  aggressively  ok  now 
+can  you think of any  further modifications there is  everything that  you  learned so  far 
+and my everything yeah 
+yeah i am not very sure why that  i agree that i  am also bit surprised that it completely 
+overlaps  with  it  i  checked  it  and  that  is  how  it  turns  out  to  be  and  guessing  it  is  an 
+artifact of the artificial data that i have created so it is trying to say is actually making 
+sense  that  it  should  not  overlap  so  much  right  initially  it  should  slightly  be  biased 
+towards b and then probably that is what you are trying to say right but i told it just an 
+artifact of this data that i have but what matters is from as going to say illusion but from 
+the illustration is that it actually does not kill the learning rate 
+what  is  the  one  idea  that  now  think  of  everything  that  you  learned  in  starting  from 
+gradient descent then you tried to improve it using something then you tried to further 
+improve  it  and  so  on  and  now  we  have  taken  a  slide  d  two  from  there  you  are  now 
+focusing on the learning rates but  there were other things  which  you are doing  earlier 
+can you bring those back add momentum how many of you say add momentum as if i 
+can just added you are right actually 
+so let us see what we can do so it does everything that rmsprop does that means it 
+tries  to  make  the  learning  rate  inversely  proportional  to  a  sane  cumulated  history  by 
+sane  mean  it  does  not  allow  the  history  to  blow  up  and  it  also  will  use  the  cumulative 
+history  of  the  gradients  so  let  us  see  the  update  tool  for  adam  so  what  is  this  term 
+doing  actually  it  is  taking  a  moving  average  of  there  is  the  same  as  the  momentum 
+base role right just taking a moving average of your gradients ok the same analogy 
+that i am going to phoenix market city i am just taking all my history into account ok 
+and  vt  is  again  a  cumulative  history  this  is  the  same  as  what  was  happening  in 
+rmsprop right where you get lost 
+now what would be the next step be can you give me the final update rule at least 
+think about it mt into vt no ok just try to think about it and it is very hard to say it out 
+there are too many grads and suffixes and so on so just think about what you did in the 
+momentum case ok now there is one more step which i am going to ignore i will just 
+say what that step is and then i will come back to that later on 
+so this is something known as bias correction ok just ignore it for the time being i will 
+come back to this discussion just for the time being just assume that i am taking mt and 
+dividing it by some quantity right so for all practical purposes i am just using mt just 
+dividing it by a quantity ok just for now that should suffice and then my final update 
+rule is going to be this 
+so  let  me  go  over  this  what  did  you  expect  here  in  a  normal  gradient  descent  they 
+should  have  been  grad  w  t  that  means  the  derivative  with  respect  to  current  w  ok 
+instead of that  i am  using a cumulated history  instead of using just this quantity  i  am 
+using a cumulated history does it make sense this is same as momentum base gradient 
+descent how many of you get that ok and now this quantity there is nothing new this 
+is the same as what rmsprop suggested that you divide the learning rate by a cumulated 
+history  of  gradients  right  so  just  a  combination  of  these  two  one  is  take  care  of  the 
+learning rate and the other is use a cumulative history does it make sense now ok fine 
+now this part is something that  i need to tell  you about so  i will tell it to  you after  i 
+run the algorithm and then i will come back to that but is the update rule clear that it is 
+a combination of momentum plus killing the learning rate ok fine 
+it is a similar set of equations for bt 
+now  let  us  see  what  happens  to  this  algorithm  is  actually  call  at  adam  it  stands  for 
+adaptive moments right yeah what is can you tell me why that name 
+why moments 
+student sir mean is 
+good where is the mean here this is a mean this is a moving exponentially weighted 
+average  right  this  is  an  exponentially  weighted  mean  what  about  this  what  is  this 
+quantity  if  you  take  the  average  of  this  is  the  second  moment  right  exponentially 
+weighted second moment right so using the first moment and the second moment we 
+come up with an adaptive learning rate 
+so now i will run this algorithm are you able to see this see a coloured curve ok so 
+it is here you see that now ok do you see what happen do you see this curve everyone 
+sees  that  ok  so  what  is  happening  it  is  taking  uturns  right  so  again  whatever 
+happens because of momentum it is happening in this case also and then finally it will 
+converge again let me be clear that in this case now it should be very clear we need to 
+change  who  is  ta  for  the  slide  so  this  colour  needs  to  be  changed  or  it  should  be 
+bright  right  from  the  first  so  what  is  happening  is  it  is  getting  overlaid  and  then  it 
+becomes bright when we need to have a brighter colour right from the beginning ok 
+so this again in this toy example right you do not really see the speed as such because 
+all of them are converging  you know almost the same number of steps but this again  i 
+repeat  for the toy example but  at  least  you see that  the behaviour is  very  different  and 
+behaviour  is  consistent  with  whatever  you  have  put  into  the  update  rule  right  in  one 
+case the learning rate gets killed in the second case it does not decay and in third case 
+when you using this moments sorry this momentum term you again have this behaviour 
+similar to the momentum gradient descent where  you actually overshoot and then  you 
+come back ok so is that clear all these algorithms ok now here is the million dollar 
+question 
+which of these two you use in practice so what are the options that you have for your 
+back propagation assignment even if you have not read the assignment you should just 
+tell me based on whatever you have learned you have gradient descent 
+student momentum 
+momentum 
+nag rmsprop 
+student adagrad 
+adagrad adam ok so which of these would you choose and if there is one or which is 
+called eve but it did not really gain much momentum but adam so in practice adam 
+seems  to  be  more  or  less  the  default  choice  i  should  tell  you  that  recently  there  was  a 
+paper or called couple of papers which actually show that there is a slight error i mean 
+there  is  you  could  showcase  where  adam  will  not  actually  converge  as  expected  with 
+but still then after that as is the case in whole of deep learning resources that one person 
+says  this  work  and  immediately  the  next  is  someone  else  this  does  not  work  or  vice 
+versa right 
+so someone show that this does not work adam does not work in some cases but then 
+someone else did detailed study showing that in most practical applications ok you have 
+taken a toy data set  where  you can show something under some conditions adam  will 
+not converge but if i look at real world data sets like mnist image data or something 
+those conditions do not hold there so adam really works well so in practice adam is 
+more  or  less  the  standard  choice  nowadays  at  least  all  the  image  classification  work 
+which deals  with convolutional neural networks and convolutional neural networks and 
+so on that uses adam as the optimization algorithm 
+we  have  used  it  largely  for  a  lot  of  sequence  to  sequenced  learning  problems  and  it 
+works well although it is supposed to be robust to the initial learning rate right because 
+you are tampering with the learning rate as you go along right you are not sticking to 
+eta  but  you  are  conveniently  blowing  it  up  or  shrinking  it  based  on  your  requirement 
+so  it  should  not  be  sensitive  to  the  initial  learning  rate  but  we  have  observed  that  at 
+least  for  the  sequence  generation  problems  if  you  use  one  of  these  learning  rates  as  a 
+starting  point  they  work  best  of  course  of  course  these  are  heuristic  right  we  also 
+depends on how much data you have and so on 
+if you are going to train but only thousand samples and first of all of course you should 
+question why are you using deep learning but you have gone pass that question already 
+has everyone else has then you are still be using a deep neural network and in that case 
+may be these learning rates are going to be very small but in general for a large number 
+of  data  sets  out  there  which  lot  of  academic  research  happens  which  are  of  reasonable 
+size these learning rates happen to be well in practice 
+now having said that many papers report that sgd with momentum either the nesterov 
+momentum  or  the  vanilla  momentum  with  a  simple  annealing  learning  rate  we 
+remember we did this learning rate decay either a constant decay or that heuristic decay 
+that after you look at the validation loss and then decide whether to decay or not that 
+also seems to work at par with adam right so my advice would be that if you really 
+know what you are doing with sgd and momentum right that means if you really know 
+how to look at the loss how to track it how to adjust the learning rates and so on 
+with a little bit of manual tampering it should work as well as adam there are people 
+which show that it works well as  adam but if you are just a practitioner who does not 
+really  want  to  bother  too  much  about  setting  the  learning  rate  setting  the  momentum 
+setting the schedules on both of them remember for momentum also we had a schedule 
+and was just given by one of these papers and it might differ for  your application you 
+might  want  to  tweak  that  a  bit  so  if  you  are  not  really  bothered  about  doing  all  these 
+things  then  adam  would  just  be  over  all  the  best  choice  right  with  very  minimum 
+tempering of the initial learning rate 
+as  i  said  some  recent  work  suggested  there  is  a  problem  with  adam  and  we  will  not 
+converge in some cases but then it still i mean i would say that juries not out on that yet 
+because  there  is  of  course  theoretical  angle  to  it  and  also  the  practical  angle  again 
+practice  has  been  used  widely  for  the  last  three  to  four  years  at  least  and  it  works  well  in  a 
+large number of applications right so that is why adam would typically be the overall 
+best choice 
+now there is this one thing which i need to do which is i need to tell you why do we use 
+this  bias  correction so  now  what  do  you  actually  want  to  you  are  taking  a  mean  ok 
+you do not want to rely on the current estimate of the gradient but you want to take an 
+exponentially moving average of the gradients 
+now what would you actually would be doing all this what is the intuition behind this 
+since  you  are  talking  about  moments  and  so  on  can  you  think  in  terms  of  probability 
+distributions so let me just try to say this we write that your gradients your values of 
+grad wt right and  i  will just  i think  alternately  use  gt  instead of  grad wt just  needs to 
+gradient in that form it actually comes from some distribution depending on the point at 
+which you are right the gradient would change but it comes from a certain distribution 
+and now what you actually want at any time step when you are making this update this 
+particular update ok is it clear yeah when you are making this update what would you 
+actually want it should not move too much away from sorry 
+so  now  your  gradients  how  you  are  computing  say  if  you  are  doing  the  stochastic 
+version  you are computing it for every point that  you have right with respect  to  that 
+point  you  would  have  some  loss  function  and  some  derivative  with  respect  to  your 
+parameters if you move on to different point you will have some different parameters 
+so there is some randomness in this ok so i am saying that these gradients would be 
+treated as random variables which can take on values according to a certain distribution 
+and  now  what  do  i  mean  so  what  would  i  actually  want  when  i  am  making  an 
+update  so  i  have  to  one  basic  choices  i  could  have  just  use  grad  wt  which  is  the 
+derivative with respect to the current time step add the current time step ok instead of 
+that i know why i am not happy with that because it has this problem that it could pull 
+me to the extreme so at this point is actually saying change it change your w value in a 
+particular way  which is  more suited to  me some other point would say something else 
+so what we want is that whatever update we make should be very close to the dash of 
+the distribution mean of the distribution right and instead of computing the mean we are 
+computing a moving average and exponentially moving average 
+so  now  what  do  we  actually  want  to  say  i  said  that  gt  is  the  random  variable  for 
+denoting the gradient what do i actually want i want the expected value of mt should 
+be equal to what the true expected value of gt this is what i want because i want to i do 
+not  want  my  updates  to  move  in  the  extreme  it  should  be  closer  to  the  average  to  the 
+mean of the distribution do you agree that this is my wish list this is what something 
+that  i  should  desire  for  ok  now  let  see  what  is  mt  actually  if  i  want  to  write  it  as  a 
+formula 
+so i have mt is equal to one minus beta i will call this as gt right so remember the gt is 
+grad of w t ok so now let us try to write formula for this so m zero i will set it to zero so 
+m one is going to be one minus beta in to g1 ok m2 is going to be beta into one minus beta into 
+g one plus one minus beta into g two and m three is going to be beta into one minus beta square g one 
+plus beta into one minus 
+student beta square 
+sorry beta square 
+student minus beta 
+minus beta wait is the first term correct 
+student yes 
+no beta ok so wait what am i oh beta is getting multiplied to g two plus one minus beta 
+into g three so what is the general formula going to be it is mt is equal to so one minus beta 
+can come out ok summation i is equal to one to t one minus beta 
+student beta square 
+beta raise to t minus i and gi right ok so this is what my mt is ok now let me take the 
+expectation of this this fine now ok this is b one minus beta now this is going to be is 
+that fine so what is this this is an ap gp what is the sum going to be 
+so it is going to be one over one minus oh it is actually sorry one minus beta raise to t over one 
+minus beta is that fine so what will happen is this will get cancelled and what you are 
+left with this one minus beta raise to t into e of gt ok so what is the relation that you have 
+e of mt ok e of mt is equal to one minus beta raise to t into e of gt what did you actually 
+want 
+student e of gt 
+right so now how will you ensure that divide by divide mt by one minus beta raise to t and 
+that exactly the bias correction that we have done ok sorry about this messy derivation 
+but  i  guess  most  of  you  get  it  if  not  we  will  just  type  it  properly  and  upload  it  in  the 
+slides how many of you got this most of you got fine so that is the similar derivation 
+for vt also fine so that is why we need the bias correction 

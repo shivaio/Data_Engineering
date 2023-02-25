@@ -1,0 +1,196 @@
+a typical supervised machine learning setup 
+we will start module two which brings us to a typical supervised machine learning setup 
+this is a very important module please pay attention 
+so now we have a sigmoid neuron we have taken care of the fact that the perceptron was 
+a very harsh function so we have a smooth function so things are fine now what next 
+where do we go from here what is my next topic going to be yes a lot of you are 
+giving the right answers we need to learn these weights it does not help just to define 
+the function this function depends on certain weights and now i need to give you an 
+algorithm which will help you to learn these weights 
+now remember when i talked about perceptrons before giving you an algorithm what did 
+i revisit what did i talk about the error surfaces and then i had motivated from there 
+that our goal is to find a set of weights which give us close to give us zero error in that case 
+or in general’s speaking generally they should give us a minimum error they should 
+help us to minimize the error rate so i need to set up that similar story here so we will 
+again revisit the concept of error 
+so now in the case of perceptron i had shown you this figure which they were this data is 
+not linearly separable which is obvious and i told you that perceptron cannot handle this 
+data but what do i mean by it cannot handle this data it cannot give zero error but what 
+would happen if i run the perceptron algorithm on this take a guess what does the 
+perceptron algorithm do 
+fine and i could convergences my condition i could make that condition a bit loose 
+what is a valid convergence condition that you would lose here use here till almost all 
+my points are separated properly so instead of aiming for one hundred percent separation i 
+could have a threshold which says as long as ninety percent of the points are separated i am 
+fine with it that looks like a reasonable thing to do 
+so now if i run the perceptron algorithm with that condition what do you think will i get 
+as a decision boundary everyone has a picture in mind ok let us see does this match 
+what you had in mind  roughly of course there many  things possible  but it will 
+basically pass through this now what is happening here what is the problem there 
+are three blue points which are wrongly classified and three red points which are wrongly 
+classified 
+but in most real world applications we will find that this line is not too bad you could 
+live with this error this is probably three out of thirty on both sides which is roughly ten 
+percent error unless you are using it when some mission critical applications   or in 
+health care where it is a life and death situation or something in most cases you could 
+live with this right so if you are trying to predict whether people will vote for a 
+particular party if you make this kind of error it would be largely ok unless it is a very 
+close election but largely it would be ok 
+so we could live with this kind of errors in most cases so from now on we are not 
+going to be too optimistic and if you are going to say that there would be some error but 
+my job is to find the weights such that my error is minimizedi want the minimum 
+possible error that i could get is that fine so again whatever weights we want to learn 
+we are going to be driven by some error function and we would want to minimize that 
+error function 
+so   this   brings   us   to   a   typical   machine   learning   setup   which   has   the   following 
+components so this perhaps is the most important slide in the course and i will say this 
+at least for one hundred other slides in the course but at least for now this is the most important 
+so you are given some data xi yi and you are given n such elements right so let me 
+just elaborate on this and give me i will give you some instances of this let me give 
+you some instances of this right so one thing we say i already told you was this so this 
+is my x and this is my y so one example which i gave was about movies so this was 
+genre actor and critics rating and so on this is one instantiation of this problem i could 
+also give you another instantiation which was i just told you oil right so this is how 
+much oil can i get and here my factors were salinity density and so on there were 
+many other factors 
+so this was my x again x belongs to rn where n is some number integer and another 
+example could be say fraud detection so i have a customer i am a bank i have a 
+customer who has bought some credit card and i want to predict whether he or she 
+would commit a fraud and i would look at factors like what is his occupation maybe 
+salary maybe family size and so on there could be various factors which i could look at 
+so here again this becomes an x ok and you could think of various such examples 
+right where you are given an x and you are given a y ok so this is the data that you 
+have 
+now what is machine learning where does machine learning fit into this so we know 
+that there is some relation which exists between y and x in each of these cases all of us 
+are convinced that there is some relation so whether a person would commit a fraud 
+would depend on these factors it is reasonable to assume that it is not a very wild 
+assumption whether you would find oil at a location would depend on some of these 
+factors and it is related and similarly for the movie case 
+so there exists some true relation between x and y such that if i plug this value of x into 
+the relation it would give me the value of y there exist a true relation this true relation 
+could  be governed  by various things right it could  be governed  by physical  laws 
+example in the oil mining case it could be even governed by biological laws again the 
+marine life in that location and so on it could be governed by economic law’s it could 
+be covered by psychology right we do not know why a person cheats what is his 
+function that he is using when he cheats and so on right so these could depend on 
+various factors 
+but we all agree that some function exists hence we get these values for this particular 
+input for every input we get a certain value so there is some function which takes us 
+from the input to the output we do not know what this function is we never know in 
+practice it is a very very complex function is all that we know we do not know this exact 
+function if you knew this exact function then there is no problem to solve we just use 
+that function and you can predict how much oil and all of us can become billionaires 
+so that is not the case we do not know what this function is so then what do we do in 
+machine learn we make an assumption ok we make an assumption that there is some 
+function which takes x to y and this function is governed by some parameters and this 
+is our approximation of how the real world works and now under this assumption we 
+want to predict the parameters of this model given the data 
+now let us take a very simple case where we could assume that y is equal to wx plus b i 
+am taking this in the scalar single dimensional case now how would you estimate the 
+values of w and b oh come on if i give you two data points you can estimate the value or 
+should i write it that would jog your memory right this is how we all learn right so m 
+and c you can estimate if i give you two data points so that is the simplest case now we 
+will   make   similar   assumptions   but   more   complex   functions   and   just   as   we   could 
+estimate m and c from the data we would expect to estimate w's also from the data so 
+that is what the machine learning setup is so let us see 
+so the model when we talk about a machine learning model it is our approximation of 
+the relation between x and y and we are free to make any such approximation so i 
+could say that this is what i think is the relation between y and x and which is governed 
+by some parameters w do you know what is this function have you seen this before 
+no not sigmoid 
+which model is this logistic regression ok but i could also have made a different 
+assumption i could have made this assumption what do i get linear regression ok 
+please note that this error on the slide ok and i could make some other assumption i 
+could   assume  that  y   is  actually   a  quadratic   function   of  x   i  am  free  to   make   any 
+assumptions the only thing i need to ensure is there is some parameter involved what is 
+wrong with making this assumption if this is valid is this also valid if not why there 
+are no parameters 
+so no not for any x we will get the we will it will depend still depend on the value of x 
+if i plug in different values of x i will still get a different output there is nothing to 
+learn what do i do with all the data that i have there is absolutely nothing i can use it 
+to learn i have just said that y is equal to one over one plus e raised to minus x i can ignore 
+all the data that you had given me whenever you give me a new x i will just plug it into 
+this formula and tell you the answer and that is bound to be wrong because i have not 
+adjusted this formula 
+now once i put in the w's it gives me this degree of freedom where i can now adjust the 
+formula i can learn the w's in such a way that my predicted y’s are very close to the 
+actual y’s so that is why we need always need a parametric form of course there is 
+nonparametric   learning   also   but  i   am   just  saying   in   this   supervised   setup   we  are 
+thinking of models whether you have parameters so you have the data you have the 
+model the model always has some parameters 
+in all of the above cases w is a parameter right either the small w which is a vector or 
+the capital w which is a matrix right so notice that this is a matrix this is one cross n n 
+cross n and n cross one 
+now how do we learn these parameters that is the question that we need to answer 
+how do we learn these parameters we are convinced about two things that we never know 
+the true function so we come up with an approximate function and we have to insert 
+some parameters in that function so far good now i have to be able to learn these 
+parameters 
+now for learning these parameters we have something known as an learning algorithm 
+so did you see any learning algorithm so far perceptron learning algorithm right so 
+you already saw the perceptron learning algorithm and it was able to learn the weights 
+for a perceptron 
+there are various such algorithms today we are going to learn one such algorithm which 
+is gradient descent 
+now any kind of learning what is it driven by learning is driven by errors objective 
+function and so the analogy which i like to give is suppose you are trying to learn 
+trigonometry you have a chapter that is your training data the chapter has a lot of 
+formulae that is your training data now what is your objective there are two objectives 
+actually i will tell you the easy objective the training time objective is that once you read 
+to the chapter a few times at least whatever formulae are given in the chapter you 
+should be able to produce the correct output for that so if i ask you what is sine square 
+theta plus cos square theta you should be able to answers them and you should be able 
+to give me the correct answer 
+so in other words you are trying to minimize the error on the training data whatever 
+training data you have which is the chapter content you want to make zero errors in 
+anything which is given in the chapter that is your training error of course there is also 
+something as known as a test error because after you have learned the chapter i will 
+give you an independent set of exercises which might contain questions which are not 
+seen in the textbook earlier so you would have seen sin square theta plus cos square 
+theta 
+but now i could ask you some other formula which you should be able to give me 
+answers if you have learned properly right so now right now we are just talking about 
+the training error that means getting all the formula in the chapter correctly and our 
+chapter is actually the training data which is given to you this is what we are reading 
+so this always going to be driven by an objective function and our goal is just as we 
+wanted to minimize the errors that we make on the formula given in the chapter 
+we want to minimize the errors on the training data is this set up absolutely clear to 
+everyone anyone who does not understand this has any doubts so this is something 
+this is the same framework that we will use again in lecture eighteen nineteen twenty and so on to 
+explain some more complex models so you have to absolutely make sure that you 
+understand this it is not very difficult but just make sure you understand this fine so 
+let us concrete at this a bit more 
+and we will consider our movie example and try to fit that into this framework so what 
+is our training data there they are given movie comma like dislike and when i say 
+movie i am just using a shortcut it is actually all the details of the movie genre actor 
+director critics rating and so on that is our input and our output is the like dislike value 
+what is a model that i chose what is a model that i chose i do not know what is my 
+true relation between when i like a movie or not but i made this approximation that this 
+is how y depends on x and i made sure i introduced some parameters there i could have 
+chosen some other functions also but i chose this now the parameter is w this should be 
+bold w the learning algorithm that we are going to use is gradient descent which we will 
+be seeing soon 
+and what is an objective function here can you tell me a formula so we have been 
+talking about it in terms of english that i should be able to get predictions which are as 
+close to the true prediction can you put it into a formula y i minus 
+y i hat where hat is the prediction this is the prediction so that is y i minus y i hat that 
+should be minimized is that fine whole square of that so why do you square it so 
+that is correct 
+so for all the training points n training points i want to minimize the square difference 
+between y i the true prediction and the prediction sorry the true value and the predicted 
+value is that fine and why do i use squares differentiable is one the other thing 
+the positive errors and the negative errors should not cancel so it would be happen that 
+on some movies i make a positive error of five right that means the actual label should 
+have been five and i gave one on some movies i make a negative error of five and these 
+would cancel each other and i will get the false impression that i am making zero errors 
+but once i square the values the negative values also become positive  so this cannot 
+happen right so that is why we always use the squared error function and also this is 
+differentiable which is more important 
+now the learning algorithm should try to minimize this particular quantity ok so this 
+is a typical machine learning setup almost any supervised learning problem that you see 
+you could cast it in this framework change the y hat function appropriately change the 
+parameters appropriately maybe use a different learning algorithm depending on the 
+problem that you are trying to tackle and you should be able to fit it into the same thing 
+is that fine ok at least for this course everything that we do we will largely be able to 
+fit it into this framework 

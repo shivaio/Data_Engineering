@@ -1,0 +1,128 @@
+nesterov accelerated gradient descent 
+let us look at nesterov accelerated gradient descent 
+so now we know that momentum based gradient descent is good at these gentle regions 
+it  moves  really  fast  but  we  do  not  still  do  not  like  it  because  it  has  this  problem  of 
+oscillations it has this problem that it overshoots its objective its goal and then it has to 
+take  a  lot  of  u  turns  so  can  we  do  something  about  reducing  this  oscillation  so  the 
+answer is always yes so let us look at nesterov accelerated gradient descent 
+so the idea here is very simple look before  you leap ok now remember that this was 
+the update rule for momentum based gradient descent ok and i will write it down again 
+wt plus one is equal to wt minus gamma into update t minus one minus eta into the gradient at 
+the current point 
+so you see that actually i am taking two steps one is this step and then one more step 
+and i could just this is one way of visualizing right that i move according to the history 
+and then i move a bit more according to the current gradient so everyone sees that there 
+is a two step movement happening here 
+now can  you think what  could  have been done  look  before  you leap so  we will see 
+what we can do 
+so we know that we are going to  move  at  least by this one  and that is fixed  we know 
+that  our  history  is  telling  us  to  move  at  least  by  this  one  and  then  we  will  move  a  bit 
+more by the gradient 
+so  now  can  you  think  about  it  i  am  at  least  going  to  move  this  much  what  if  i  had 
+some  way  of  looking  ahead  and  then  do  something  at  that  point  this  is  what  you  are 
+saying  of  course  i  can  verify  it  but  i  am  sure  it  will  become  clear  once  i  show  the 
+equations but i just want you to think about it a bit wait it is very simple it will become 
+absolutely clear once i show you the answer but just think about it a bit 
+so here is the answer it why not compute the gradients add this look ahead point right 
+so  you  are  again  adding  it  in  two  steps  minus  the  history  and  then  minus  the  current 
+gradient so take this value call it the look ahead point i know that i am going to move 
+by this much so let me not compute the gradients at the current point let me move by 
+this much then compute the gradients and see what happens at that point 
+so this is the equation right that first i move by that one step i had to make a two step 
+movement so i will move by that one step right then i will compute the gradient at that 
+position not at my current position right this was earlier gradient at point t now i have 
+already moved a bit so i can compute the gradient there and then move in the direction 
+of that gradient 
+so you understood this that there is a two step movement right wt minus history minus 
+the  current  gradient  gradient  computed  at  time  step  t  ok  now  you  know  that  you  are 
+already  going  to  move  by  the  history  right  so  why  not  just  move  there  and  then 
+compute  a  gradient  at  that  point  you  are  anyways  made  some  movement  you  compute 
+the gradient at that point and then decide which is the direction to move in right 
+so that is what this look ahead value is i know it is still not clear to many of you and i 
+am very confident it will become clear in the next five minutes we will show you one more 
+visualization for this but this stay with stay with me for a while as long as you get the 
+intuition i am fine i will move ahead and then i will explain it again in a different way 
+this is fine ah that should become clear good that you asked that question ok so ask me 
+again on the blank slide that i have and then i it should be complete 
+so for right now let me just show you what will happen with the code and then i will 
+again explain it with a different way 
+so this is what momentum based gradient descent it ok now let us see what nested or 
+accelerated gradient descent will do again the code is simple you can just read it up and 
+i  have  started  executing  you  see  this  blue  curve  coming  over  there  fine  ok  and  now  i 
+keep running this now what will happen you see that all the u turns of the blue curve 
+are inside the u turns of the red curve 
+so the objective is being achieved at least empirically i have showed you that right its 
+taking shorter u turns what is probably not clear to all of you is why is this happening 
+is it clear to everyone why is this happening can everyone visualize that ok so let us 
+see why this is happening i will give you an alternate explanation for this 
+so suppose this is my error surface right on a two by and i have a single variable with 
+respect to which i am trying to optimize so this is my w i started off with some initial 
+value w naught 
+now what is the gradient at this point positive negative negative right because when i 
+am going to increase w the function is actually going to decrease right so right so the 
+slope  is  negative  so  where  will  i  move  this  is  the  number  line  right  so  this  line  is 
+actually the number line because it is a single variable so where will i move positive 
+side of the number line or the negative side of the number positive side the derivative 
+is negative i am going to move in the direction opposite to the derivative so i am going 
+to  move in the positive direction right so  i will end up somewhere here  is  that clear 
+fine with everyone 
+so  now  i  am  somewhere  here  what  is  the  derivative  at  this  point  now  what  is  the 
+derivative  here  positive  negative  negative  right  when  i  am  increasing  w  my  loss 
+function  is  decreasing  so  my  dl  by  dw  is  going  to  be  negative  this  is  positive  this  is 
+negative so again i will move in this direction 
+so  what  is  happening  a  lot  of  negative  updates  are  getting  sorry  a  lot  of  positive 
+updates are getting accumulated and now because of my momentum i am not going to 
+move only by this derivative i am also going to move by the history right so i will end 
+up somewhere further 
+so now at this point what is the derivative again negative when i am increasing w the 
+function  is  decreasing  so  what  is  my  update  positive  or  negative  positive  so  now 
+you  see  that  a  lot  of  positive  updates  are  getting  accumulated  right  my  momentum  is 
+building up so now what will happen now if i just move further then again i will get 
+a  let  me  just  put  it  here  right  so  i  am  again  moving  largely  in  the  positive  direction 
+because this guy is  also  positive all my history  was also positive so i have moved in 
+the positive direction 
+now what will happen at this point what is the derivative here no it is still its negative 
+sorry so again i am going to move in the positive side of the number line ok now at 
+this point i want you break down the movement into two points one is what my history 
+was telling me which was all these positive updates but of course i will not make such 
+a  large  update  because  i  am  waiting  them  exponentially  right  so  but  its  telling  me  to 
+move in the positive direction ok and i know that the gradient at this point is negative 
+but  i  want  you  to  ignore  that  for  now  i  just  want  you  to  focus  on  the  history  if  i  just 
+move according to the history where will i end up i will end up somewhere here right 
+because the history is very positive so i will keep moving in the positive direction and 
+this is my w look ahead 
+now what will happen if i compute the gradient here 
+student positive 
+the gradient is 
+student positive 
+positive so where will i move 
+student negative 
+negative so you see now why momentum works because you are able to look ahead to 
+this  point  instead  of  what  should  i  have  actually  done  is  i  should  have  looked  at  the 
+gradient  at  this  point  the  history  is  positive  the  gradient  is  also  telling  me  to  move 
+positive  so  i  would  have  moved  a  large  positive  and  i  would  have  ended  somewhere 
+here instead i just moved by the history i checked where i end up i end up here 
+now let me see whether what is the gradient at this point have i already overshoot my 
+overshot  my  objective  when  would  i  overshot  my  objective  it  has  the  sign  of  the 
+gradient  changes  right  it  became  from  negative  to  positive  and  now  since  its  positive 
+because as  i am  increasing  w the loss is  also  increasing so now  where will  i move 
+negative 
+so now what is the second step actually its again bringing me close to here so instead 
+of  taking  this  large  u  turn  i  end  up  taking  this  small  u  turn  is  this  clear  to  everyone 
+now how many if you still do not get it how many if you get it now good sure ok so 
+this is what and now we can relate it to what was happening on the figure 
+so  let  us  go  back  right  so  you  saw  that  i  was  making  these  smaller  u  turns  because 
+when  i  was  at  this  point  right  i  already  moved  by  the  history  i  knew  i  would  land  up 
+somewhere here where i would need to  go back right so i already accounted for that 
+and made a very small movement is this clear everyone gets this how the nesterov of 
+accelerated gradient descent works sure raise your hands 
+so  looking  ahead  helps  nag  in  correcting  its  course  quicker  than  momentum  based 
+gradient  descent  right  so  it  is  already  looking  ahead  where  do  i  land  up  and  already 
+making a correction if required if not required it will again move in the right direction 
+right so the update is this guy plus the gradient and my update happens on the original 
+value not on the look ahead value 
+so  her  confusion  was  perhaps  that  i  am  doing  w  look  ahead  minus  update  where  this 
+update again  has this quantity  you know that is what  your  confusion was but  i am  not 
+doing w look ahead i am using wt there everyone gets this so that is where ah now it 
+is clear that why the oscillations are smaller in the case of nag and it is able to correcting 
+its course quicker 

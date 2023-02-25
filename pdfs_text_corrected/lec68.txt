@@ -1,0 +1,214 @@
+dropout 
+so in this module we will look at dropout now 
+so  the  intuition  that  we  have  developed  in  the  previous  module  which  was  about 
+ensemble  methods  is  what  that  is  that  ensemble  makes  sense  in  most  cases  because 
+you  do  not  expect  the  errors  of  these  k  models  that  you  are  using  to  be  perfectly 
+correlated and we saw that whenever they are not perfectly correlated you are going to 
+get some advantage 
+now  how  do  you  do  this  in  the  context  of  neural  networks  so  remember  what  was 
+bagging multiple instances of the same network trained on different subsets of the data 
+what  is  the  problem  with  this  in  the  context  of  neural  networks  each  of  these  neural 
+networks is very complex training each of these is going to take time and i going to train 
+k of them is that fine right 
+so you decide ok sorry so one option that you have is you train several different neural 
+networks having different architectures right but this is going to be expensive because 
+you  have  to  train  k  of  them  the  other  option  that  you  have  is  you  train  the  same 
+network but on different subsets of the data this is also going to be expensive 
+so  whatever  ensambling  sampling  techniques  you  can  think  if  in  the  think  of  in  the 
+context  of  neural  networks  which  are  essentially  these  two  techniques  different 
+architectures and take an ensemble or train the same architecture on different subsets of 
+the data both of them are going to be expensive right 
+so now how do you go about it and it is not just training time expensive it even if we 
+manage to train it at test time again when you are given a test instance you have to pass 
+it  through  all  of  these  complex  neural  networks  each  of  which  is  going  to  take  some 
+computation and then take the ensemble of the outputs right so even at test time it is 
+expensive it is not just that that training time it is expense 
+so  now  dropout  is  a technique  which  addresses  both  these  issues  which  issues  train 
+time  computation  as  well  as  test  time  computation  so  it  effectively  allows  training 
+several neural network architectures without any significant computational overhead so 
+we will see how that works and it just not training time as  i said it also allows us to do 
+this quickly at test time 
+so again let us see so again here ok i will get to it when i know so drop out actually 
+refers to dropping out units from the neural network 
+so  this  is  my  original  neural  network  and  i  am  just  talking  about  one  neural  network 
+forget about ensembles just one neural network is what  i have now what dropout says 
+this  you  dropout  some  units  from  this  neural  network  that  means  dropout  some 
+neurons and when i dropout some neurons i am also going to drop out the incoming and 
+the outgoing edges otherwise where are they headed right so i am just dropping out 
+so basically what is effectively happening here i am getting a new network architecture 
+right at least that is clear that is what dropout effectively does but i have already made 
+a case that i do not want so many architectures that because it is a headache to train all 
+of them and again a test time i have to pass it through all of them right 
+so i need to still fill that gap but drop out says that drop some units and you will get a 
+new architecture but how does that simplify life we will see that and now each node is 
+actually  retained  with  a  fixed  probability  for  the  hidden  nodes  and  even  further  input 
+nodes 
+so then we were not wrong in actually dropping out the visible node because you can 
+do dropout at the visible nodes also ok anyways yeah so for the hidden units you would 
+drop  them  with  a  probability  fifty  percent  and  the  input  units  you  will  drop  them  with  a 
+probability of twenty percent typically it again is some hyper parameter that you will have to 
+tune but typically this is what you will do and i hope you see that dropping nodes from 
+the hidden unit from the input unit is same as corrupting the input data right it is same 
+as adding noise to the input data is that fine 
+so this is the idea now let us see how to actually implement this idea okso suppose a 
+neural network has n nodes using the dropout idea each node can be retained or dropped 
+an example in the above case i have dropped some five nodes to get a thinned network 
+so if there are n nodes what are the total number of thin networks that i can get from it 
+and so that means  i can get two raise to n different neural networks am i happy about 
+this or sad about this sad there is just too many neural networks how can i train them 
+actually right 
+so how do i do this i am just creating a lot of suspense without giving you the answer 
+ok  so  first  trick  is  share  the  weights  across  all  these  networks  ok  we will  see  what 
+that means and the second trick is sample a different network for each training instance 
+ok none of which is clear at this point i can see i can read your faces i am good at it ok 
+so let us see how to do that 
+so  we  initialize  all  the  parameters  of  the  network  randomly  or  whatever  may  be  used 
+and  start  training  when  i  start  training  i  will  pick  up  the  first  training  instance  or  the 
+mini batch or whatever i am doing we apply dropout resulting in this network 
+what  will  i  do  and  they  forward  prop  forward  propagation  right  ok  now  ok  we 
+compute the loss and back propagate how some weights are missing right how do i do 
+back  propagation  now  i  have  deliberately  dropped  up  some  of  these  connections  they 
+did  not  participate  in  the  forward  propagation  this  back  propagate  which  are  the 
+parameters which will update now only the ones which actually participated right 
+so i will just do back propagation just look at the red arrows i will just do it over the 
+paths which are actually present in my network fair enough right that is what you meant 
+by normally  ok that is normal ok so  i  will just do it over the weights  which actually 
+participated that is fair enough that is the only thing you could obviously do 
+now  i  take  the  second  instance  again  i  apply  dropout  and  quite  naturally  i  will  get  a 
+different thinned network as you see the figure three in this slide ok what would i will do 
+now 
+student forward propagation 
+forward propagation then compute the loss back propagate to compute the loss ok and 
+then 
+student back propagate 
+back propagate again back propagate only to the 
+student active nodes 
+active nodes so these other nodes which will get activated so what is happening here 
+is now trying to relate it to what we were doing in bagging right where we are trying to 
+train these different networks on different subsets of the training data right do you see 
+something similar happening here there are many such thin networks each time i am 
+sampling a different network and updating it right 
+so it is equivalent to training these large number of networks on different subsets of the 
+data  right  but  then  the  problem  is  that  some  of  these  networks  may  never  even  get 
+sampled there are two raised to n of those my amount of data is definitely to be less than 
+two raised to n 
+so some of these networks might just not even get sampled then what is happening 
+or they would  get  sampled very  rarely right for example  what  is the probability that 
+again i will end up with the same network we are computing it good it is very less ok 
+i am fine with that at seven hundred and thirty right 
+so  it  is  a  very  less  right  so  it  is  quite  likely  that  this  network  will  never  be  sampled 
+again  that  means  for  that  network  the  parameters  are  getting  updated  very  few  times 
+am  i  fine  with  it  yes  i  am  why  because  the  same  weights  will  get  updated  for  a 
+different network i am just using the same weight matrix throughout remember that my 
+w matrix or w one w two is the same throughout 
+it  is  just  that  at  different  depth  subsets  different  instances  i  am  just  touching  some 
+portions  of  this  w  one  and  i  am  not  touching  the  other  portions  of  w  one  so  now  what 
+would happen so i have shown you two training instances right what would happen to the 
+weights  which were active for the first  training instance  as well  as the second training 
+instance it will get updated twice and which are active only once 
+student 
+only  once  right  so  over  a  period  of  time  many  of  these  weights  are  shared  across  all 
+these  networks  that  i  am  sampling  right  so  even  though  a  particular  network  is 
+sampled  only  a  few  times  its  weights  will  get  updated  many  times  via  these  other 
+networks which are similar to it do you get that how many of you get this ok good 
+so what is happening i will just repeat that i have just one weight matrix i am sampling 
+a thinned out network which only uses some of these weights 
+so for that training instance i will update those weights now i know that the likelihood 
+of  the  same  network  getting  sampled  again  is  very  less  but  i  do  not  care  about  it 
+because  i  could  sample  a  different  network  but  i  am  sure  that  some  of  these  weights 
+will again repeat in that right and in that i told they will get updated so even though 
+each  of  these  networks  is  seemingly  getting  very  few  updates  overall  all  the  weights 
+shared by these networks are getting updated as much as they should be is that fine 
+everyone gets this idea ok fine and while i am also taking care that similar things like 
+early  stopping  or  weight  regularization  l2  regularization  where  i  am  not  allowing  a 
+single weight to continuously grow or something otherwise because these weights will 
+be off for some networks is that fine you see the connection between early stopping l 
+two regularization and this is that ok 
+and so each thinned network gets trained rarely or sometimes even never but i am not 
+worried about it because it is weights will get updated through some of these other thin 
+networks 
+this is all finite training time at training time what is happening is this is one of these 
+blue  guys  introduce  on  with  the  probability  p  that  means  the  weights  going  out  of  it 
+who are available with a probability p right and other times they were not available 
+now what do i do it test time i cannot let me finish this ok i cannot take an ensemble 
+of d ok the answer would have been that at test time instantiate all these two raised to n 
+networks pass the training passed the test example through all of them and then take an 
+ensemble right but  of course that is probablitivly expensive so what  will  i do at  test 
+time what is the simple trick that i will do so he says that just use this network 
+and just use the final net matrix that you had no but then you have guessing out of the two 
+raised  in  the  sample  some  small  number  of  those  and  do  it  actually  dropout  uses 
+something very simple than this what it says is that each of my nodes was present only 
+p fraction of the times in the training data ok that means one way of looking at it is that 
+so  imagine  that  you  could  think  of  this  as  the  analogy  is  that  all  these  nodes  are 
+participating in a discussion right where they trying to see how to do this job properly 
+but with probability p they all sleep off right 
+so at the end of the meeting you will trust each of them only with probability p so that 
+is the simple trick with dropout uses it says that just scale their weights by p because 
+that is how much i trust this node it only participated in p faction of the decisions so 
+that is the confidence that i have in it 
+so if it is saying that with w1 weight do this i will only do it with p into w one weight 
+does  that  make  sense  ok  and  there  is  again  a  squared  egg  with  vacuum  kind  of 
+explanation for this ok which was there in the quiz last year which is very convoluted 
+it  does  not  really  give  you  the  true  picture  because  you  can  derive  some  math  and  so 
+that this is mathematically proper but that again works in very specific conditions but at 
+least if you get the intuition that is fine that what we are saying is that these nodes will 
+leave an active a few number of times so i will only trust them that much and i will just 
+scale their weights by that factor 
+so at  test time  i will just pass  my test  instance  through one network which is  the full 
+network  with  the  weights  scaled  according  to  the  rule  which  i  just  said  that  is  exactly 
+what dropout does 
+so  what  dropout  actually  does  is  we  will  apply  some  kind  of  masking  noise  to  the 
+hidden units right since the same as seeing that you are computing the hidden unit but 
+then you are masking it off ok 
+so what  is the effect  of this i will  give  you the answer and  i like  i like  you to  think 
+about  it  the  answer  is  that  it  prevents  the  neurons  from  becoming  lazy  what  do  lazy 
+people do they depend on others yeah actually yeah they depend on others now so let 
+me answer that give the answer for this and then tell me whether that is still contradict 
+ok 
+so let us see right consider this layer of neurons all of these are collectively responsible 
+for  what  happens  to  this  guy  right  now  you  see  what  i  mean  by  neurons  becoming 
+lazy i could just see ok i will not give my input these other neurons will take care of it 
+they will adjust their weights 
+so  that  they  eventually  it  will  fire  or  not  fire  or  whatever  right  you  see  that  could 
+happen but now these neurons cannot rely on their neighbors because they do not know 
+when their neighbors are going to ditch them right they will suddenly drop off ok and 
+now i was waiting for my neighbor to actually do something and he is not going to do it 
+so i have to be alert always do you get the analogy 
+so  these  guys  are  collectively  responsible  for  something  and  they  know  that  some 
+people  in  the  collection  are  going  to  betray  them  so  each  of  them  has  to  be  more 
+careful  so  the  more  technical  term  for  this  is  that  does  not  allow  the  neurons  to  co 
+adapted 
+so it does not allow them to get into this mutual agreement that you take care of certain 
+things  i  will  take  care  of  certain  things  and  together  we  will  do  the  job  right  you  do 
+question one i will do question two i am ok it does not allow them to do this 
+so let us just concretize that intuition a bit for so essentially a hidden unit cannot rely 
+too  much  on  other  units  as  they  may  get  dropped  out  at  any  time  each  hidden  neuron 
+has to learn to be more robust right it has to do the job as if it is the only guy responsible 
+for the job ok and let us consider one of these neurons h i 
+and let us see that a h i learns to detect faces sorry it learns to detect a nose so i am 
+trying to do face detection whether an image is about a face or not and h i is the feature 
+which  fires  if  there  is  a  face  somewhere  if  there  is  a  nose  somewhere  in  the  image  is 
+that fine 
+now  if  all  these  guys  start  acting  lazily  ok  this  guy  is  going  to  detect  a  nose  that 
+means definitely face will be there so i do not need to do anything right what would 
+happen  now  suddenly  this  guy  is  going  to  go  away  dropped  out  so  then  these  other 
+guys need to do one of two things either add redundancy that means one of them should 
+also  take  responsibility  for  detecting  a  nose  or  do  it  in  a  different  way  take 
+responsibility for detecting the lips or the eyes or some other part do you get that right 
+because you know that i cannot co adopted with my other neurons i cannot say that ok 
+in these front facing faces you just detect the nose and will be done and we will all keep 
+quiet right 
+i  do  not  know  whether  you  will  do  your  job  properly  so  i  will  have  to  add  more 
+redundancy you detect a nose i will also detect a nose or you detect a nose and  i will 
+detect  something  else  which  helps  detecting  the  feature  right  so  that  is  why  these 
+networks become more and more robust as you add this dropouts 
+so that is all that i had to say i still do not know whether i have answered your question 
+or not all of them try to detect nose see as long as that helps reducing the final loss it is 
+fine it is just the case that you would have some training images where the nose is not 
+visible maybe that person is drinking something right 
+so for at least for those training instances someone else has to take care that you detect 
+from the other images right otherwise a loss would not be zero for that training instance 
+so as long as you have some training instances see if all your training instances can be 
+detected just by detecting the nose then there is nothing wrong in all of them trying to 
+detect the nose so if the training it is like that it will happen but the hope is the training 
+data is not like that right is that fine so we will end here 

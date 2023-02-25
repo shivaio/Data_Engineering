@@ -1,0 +1,128 @@
+perceptron 
+now let us go to the next module which is perceptron 
+so far the story has been about boolean input but are all problems that we deal with we 
+are only dealing with do we always only deal with boolean inputs so yeah so what 
+we spoke about is boolean functions now consider this example this worked fine for a 
+movie example where we had these as actor so much and his director and so on but now 
+consider the example where you are trying to decide you are in oil mining company and 
+you are trying to decide whether you should mine or drill at a particular station or not 
+now this could depend on various factors like what is the pressure on the surface on the 
+ocean surface at that point what is the salinity of the water at that point what is the 
+aquatic marina  aquatic  life at that point and so on so these are not really boolean 
+function the salinity is a real number density would be a real number pressure would 
+be a real number and so on right and this is a very valid decision problem companies 
+would be interested in doing this so in such cases our inputs are going to be real but so 
+far mcculloch pitts neuron only deals with boolean inputs so we still need to take care 
+of that limitation 
+now how did we decide the threshold in all these cases i just asked you you computed 
+it and you told me right but that is not going to work out i mean it does not scale to 
+larger problems where you have many more dimensions and the inputs are not boolean 
+and so on so we need a way of learning this threshold 
+now again returning to the movie example maybe for me the actor is the only thing that 
+matters and all the other inputs are not so important then what do i need actually i 
+need some way of weighing these inputs i should be able to say that this input is more 
+important than the others now i am treating all of them equal i am just taking a simple 
+sum 
+if that sum causes a threshold i am fine otherwise i am not fine but maybe i want to 
+raise the weight for some of these inputs or lower the weight for some of these inputs 
+so whether it is raining outside or not maybe does not matter i have a car i could go or 
+i could wear a jacket or an umbrella or something so that input is probably not so 
+important 
+and what about functions which are not linearly separable we have just been dealing 
+with the goody stuff which is all linearly separable  but  we will see that even in the 
+restricted boolean case there could be some functions which are not linearly separable 
+and if that is the case how do we deal with it so these are some questions that we need 
+to answer 
+so first we will start with perceptron which tries to fix some of these things and then we 
+will move forward from there so as we had discussed in the history lecture that this was 
+proposed in one thousand, nine hundred and fifty-eight by frank rosenblatt and this is what the perceptron looks like do you 
+see   any   difference   with   the  mcculloch   pitts   neuron   weights   you   have   a   weight 
+associated with each of the input otherwise everything seems 
+so this is a more general computational model than the mcculloch pitts neuron  the 
+other interesting thing is that of course we have introduced these weights and you also 
+have a mechanism for learning these weights so remember in the earlier case our only 
+parameter   was   theta   which   we   are   kind   of   hand   setting   right  but  now   with   the 
+perceptron we will have a learning algorithm which will not just help us learn theta but 
+also these weights for the inputs 
+how do i know that actor is what matters or director is what matters given a lot of past 
+viewing experience past given a lot of data about the movies which i have watched in 
+the past how do i know which are the weights to assign this so we will see an 
+algorithm which will help us do that and the inputs are no longer limited to be boolean 
+values they can be real values also so that is the classical perceptron but what i am 
+talking about here and the rest of the lecture is the refined version which was proposed 
+by   minsky   and   papert   which   is   known   as   the   perceptron   model   so   when   i   say 
+perceptron i am referring to this model so this diagram also corresponds to that 
+so now let us see what the perceptron does  this is how it operates  it will give an 
+output of one if the weighted sum of the inputs is greater than a threshold so remember 
+that in the mp neuron we did not have these weights but now we have these weighted 
+sum of the inputs and the output is going to be zero  if this weighted sum is less than 
+threshold not very different from the mp neuron 
+now i am just going to do some trickery and try to get it to a better notation or a better 
+form so is this i have just taken the theta on this side now is this notice this here the 
+indices were one to n now i have made it zero to n and the theta is suddenly disappeared so 
+what has happened 
+student w zero is 
+minus theta right and x0 is one does anyone not get this right if i just start it from one to n 
+then it would be summation i equal to one to n wi xi plus w0 x0 but i am just saying w0 is 
+equal to minus theta and x0 is equal to one which exactly gives me back this right so 
+very simple x0 equal to one and w0 is equal to minus theta  so  in effect what i am 
+assuming is that instead of having this threshold as a separate quantity i just think that 
+that is one of my inputs which is always on and the weight of that input is minus theta 
+so now the job of all these other inputs and their weights is to make sure that their sum 
+is greater than this input which we have does not make sense so this is how this is the 
+more accepted convention for writing the perceptron equation so it fires when this 
+summation is greater than equal to zero otherwise it does not fire 
+now let me ask a few questions so why are we trying to implement boolean functions 
+i have already answered this but i will keep repeating this question so that it really gets 
+drill in  why do we need weights again we briefly touched upon that and why is w 
+naught which is negative of theta often called the bias 
+so again let us return back to the task of predicting whether you would like to watch a 
+movie or not and suppose we base our decisions on three simple inputs actor genre and 
+director  now based on our past viewing experience we may give a high weight to 
+nolan as compared to the other inputs so what does that mean it means that as long as 
+the director is christopher nolan i am going to watch this movie irrespective of who the 
+actor is or what the genre of the movie so that is exactly what we want and that is the 
+reason why we want these weights 
+now w0 is often called the bias as it represents the prior so now  let me ask a very 
+simple question suppose you are a movie buff what would theta be zero i mean you 
+will watch any movie irrespective of who the actor director and genre now suppose 
+you are a very niche movie watcher who only watches those movies which are which the 
+genre is thriller the director was christopher nolan and the actor was damon then what 
+would your threshold be three 
+high in this case  i  always ask this question do you know of any such movie always 
+takes a while interstellar so the weights and the bias will depend on the data which in 
+this case is the viewer history so that is the whole setup that is why you want these 
+weights and that is why you want these biases and that is why we want to learn them 
+now before we see whether or how we can learn these weights and biases one question 
+that we need to ask is what kind of functions can be implemented using the perceptron 
+and are these function any different from the mcculloch pitts neuron so before i go to 
+the next slide any guesses  i  am hearing some interesting answers which are at least 
+partly correct 
+so this is what a mcculloch pitts neuron looks like and this is what a perceptron looks 
+like the only difference is this red part which is weights which has added so it is again 
+clear that what the perceptron also does  is it  divides the input space into two halves 
+where all the points for which the output has to be one would lie on one side of this 
+plane and all the points where which the output should be zero would lie on the other side of 
+this plane so it is not doing anything different from what the perceptron was doing so 
+then what is the difference 
+you have these weights and you have a mechanism for learning these weights as well as 
+a threshold we are not going to hand code them so we will first revisit some boolean 
+functions and then see the perceptron learning algorithm 
+so now let us see what does the first condition this condition if i actually expand it out 
+then this is what it turns out to be and what is that condition telling me actually w naught 
+should be less than zero clear so now based on these what do you have here actually 
+what is this a system of linear inequalities right and you know you could solve this 
+you have algorithms for solving this not always but you could find some solution and 
+one possible solution which i have given you here is w0 is equal to minus one w1 equal to 
+eleven and w2 equal to eleven 
+so just let us just draw that line so what is the line it is eleven x1 plus eleven x2 is equal to 
+one that is the line and this is the line and you see it satisfies the conditions that i have is 
+this the only solution possible no right i could have this also as a valid line if i could 
+draw properly right all of these are valid solutions so which result in different w1 w 
+naught and w 0s so all of these are possible solutions 
+in fact i have been telling  you that you had to set the threshold by hand for the 
+mcculloch pitts neuron  but  that is not true because you could have written similar 
+equations there and then decided what the value of theta should be so you could try 
+this out for the mcculloch pitts neuron also you will get a similar set of conditions or i 
+mean similar set of inequalities and you can just say what is the value of theta that you 
+could set to solve that 

@@ -1,0 +1,146 @@
+tips for adjusting learning rate and momentum 
+tips for adjusting the learning rate and the momentum 
+so before moving on to these slightly advanced optimization algorithms we will revisit 
+the problem of learning rate in gradient descent 
+so  one  could  have  argued  that  we  could  have  solved  this  problem  of  this  slow 
+movement  on  the  gentle  slope  by  increasing  the  learning  rate  remember  that  we  have 
+this eta and we deliberately chose to be conservative that we will take a small value for 
+the eta but what if i just blow up the eta i could just take a very large eta what would 
+happen it will overshoot right 
+so what will happen is i will see what happens when i take eta equal to ten ok so so i 
+will see what happens when i take eta equal to ten 
+so  this  is  step1  step  two  step  three  its  moving  very  fast  on  the  regions  where  the  slope  is 
+gentle  but  it  also  moves  very  fast  much  faster  on  the  regions  where  the  slope  was 
+already steep 
+so when the gradient was actually high you ended up blowing it further by multiplying 
+it  with  the  eta  which  is ten  so  it  is  again  going  to  have  this  effect  that  you  will  move 
+much faster in the steeper regions and again you will see these oscillations because you 
+will  overshoot  your  objective  does  that  make  sense  right  so  it  is  not  that  you  can 
+always choose a high eta and get away with it 
+so what do you actually want what is your wish list regulate theta you want a adaptive 
+eta  right  that  it  somehow  figures  out  that  i  am  on  a  gentle  slope  so  i  should  move 
+slowly i should move fast and i am now on a very fast loop so i should move slow so 
+this  having  this  one  eta  is  not  working  for  every  point  on  the  error  surface  right  for 
+everywhere on the error surface is that clear ok so ok so we will see such algorithms 
+soon where we try to adjust this learning rate 
+now here  are some tips for the learning rate so  how do  you if  you are just going to 
+deal  with  this  gradient descent  or nag or momentum how do  you adjust  these learning 
+rate so how do you fix a learning rate so a learning rate is typically something known 
+as  a  hyper  parameter  so  why  is  it  called  a  hyper  parameter  so  what  are  your 
+parameters 
+student which i learned 
+which i learned using the objective function eta is not a part of the objective function 
+you are not computing radians with the respective to it is a hyper parameter so you will 
+try to tune this hyper parameter so what you will do is in practice you could try these 
+different  values  on  a  log  scale  next  what  will  you  do  run  this  all  these  for  a  few 
+epochs note down the dash just note down the loss function 
+so run all of these with different learning rates for say five epochs you will get some loss 
+right now which one will you pick the one which led to the maximum decrease in the 
+loss  i  will  keep  that  learning  rate  and  now  what  you  will  do  you  just  stick  to  that  i 
+started off with a dash scale 
+student log scale 
+log scale now what will you do ok so now run it for a few epochs figure out which of 
+these learning rates on the log scale works well now do a finer search around the best 
+learning  rate  that  you  discovered  right  so  say  one  was  the  best  on  the  log  scale  so 
+now look at two three four five look at values around it and see which one works better 
+so this is how you will tune the hyper parameters otherwise there is a very wide range 
+right if you put tune from one to one there are just too many values to consider so 
+we will have to do this log scale and then a linear scale will that make sense 
+these are just heuristics there is  no guarantee that will always work or which of these 
+are  clear  winner  strategy  but  you  have  to  try  this  so  tuning  a  learning  rate  is  an 
+important  part  when  you  are  working  in  deep  learning  so  at  least  when  you  are 
+working with gradient descent or nag or momentum based gradient descent 
+now  here  some  tips  for  annealing  the  learning  rate  so  there  is  something  known  as 
+step decay so what you can do is halve the learning rate after every five epochs can you 
+tell me the intuition for this what do you expect after five epochs that you have moved 
+enough and now you are closer somewhere to the solution so if i closer to the solution 
+if i closer to phoenix market city you want to move fast or slow 
+student slow 
+what will you do 
+student 
+decrease the learning rate right so after every five now this is again what is so sacrosanct 
+about  five  it  is just  a magic  memory  so  this  is  again  hyper  parameter  so  you  could  fix 
+some  number  of  epoch  and  after  these  i  will  just  halve  the  learning  rate  ok  now  this 
+second one is what my favourite is and i typically use this what i do is i compute the 
+loss after epoch t i run epoch t plus one i compute the loss again if the loss has increased 
+what  will i do i will  just throw away all the updates that  i have made in this epoch i 
+will decrease the learning rate and again learn again start this epoch what do i mean by 
+throw away all the updates 
+student 
+so after epoch t i will save my model i will save all the w values that i have computed 
+and  i  will  let  it  run  for  one  more  epoch  after  this  epoch  if  my  loss  function  actually 
+increases i reload this model which i had saved half the learning rate and then run this 
+epoch again does that make sense so i have run till epoch t i have some values of w’s 
+and b’s i will save this values i will just save it as a numpy array 
+now i will with the same learning rate that i have been using so far i will run the epoch t 
+plus one ok and i  get  some new values of w comma b right  i will plug this  into the loss 
+function i will plug this into the loss function i will get two loss values if this loss value 
+is greater than what i was at the previous time step that means things did not work out 
+well in this particular epoch 
+so i will throw away all these updates i will just reload the model which i had saved i 
+will just start from where i was at epoch t i will decrease the learning rate i will make it 
+half and run this epoch again right and hopefully now i should do better because there is 
+something  i  am  just  making  a  hypothesis  that  the  reason  i  did  not  get  to  a  better  loss 
+function was because my learning rate was not adapting to it 
+so i will just halve the learning rate because this solution was good this was a low loss 
+function i just want to be something around it i do not want to make any drastic steps 
+so i will just half the learning rate from there so then you not see this drastic change 
+that  your  loss  function  should  not  improve  so  first  of  all  local  minima  is  known 
+problem in deep neural networks 
+so what  happens is  that in  deep neural  networks  you  do not have something which is 
+like a neat convex function as your loss function right it is a non convex function which 
+means  there  is  no  one  unique  minima  there  could  be  several  minima  and  there  are 
+several  analysis  which  show  that  a  lot  of  these  minima  are  equivalent  so  in  practice 
+these are the things that you do either once you reach a minima you just stay there the 
+second  thing  that  you  could  do  is  you  have  trained  your  algorithm  trained  your 
+parameters for say one hundred epochs and you have stopped now 
+now  again  go  back  and  start  with  a  different  initialization  you  started  with  some  w 
+naught  b  naught  and  you  have  reached  to  some  solution  keep  this  solution  now  start 
+with a different initialization that means if you look at your wb plane you have started 
+from some other point that means you started from some other error location right and 
+run this algorithm again and see if you reach a different minima 
+so the only thing you the way you counter this is you just try different stochastic things 
+right should try to start  with ten different initializations every time reach a minima and 
+then at the end select the lowest possible of these did this make sense to most of you 
+how many of you got this oh cool i thought i was just rambling but yeah fine does that 
+make sense to you at least ok does it fine 
+yes a local minima is a severe problem in lot of deep learning optimization and typically 
+people get  away by that by just picking up one of these minimum fine now  the other 
+thing  is  you  could  use  exponential  decay  where  with  each  time  step  you  just  keep 
+decreasing your learning rate and if this case two that means at every time step you are 
+halving the learning rate so you just get with something like this 
+but the reason i do not like this is that you have one hyper parameter which is eta which 
+you  are  trying  to  tune  and  now  to  tackle  that  problem  you  have  introduced  one  more 
+parameter  which  is  k  hyper  parameter  which  is  k  so  it  becomes  harder  to  tune  that 
+now and there is a similar thing which is one by t d k where you try to use this formula to 
+decay  or  learning  rate  so  both  of  these  i  typically  do  not  use  in  practice  i  use  the 
+second one i prefer the second one 
+now tips for the momentum can  you make sense of this  you just stare  at  it it looking 
+just come back ok let us see what happens at t equal to zero this becomes zero 
+student log one 
+log one is zero this is two raise to minus one minus zero which is just two raise to minus one which is five 
+so what is your mu t at t equal to five does that make sense is it fine with everyone or 
+is it confusing no ok mu max is typically this let us assume mu max 
+now what happens at time step two hundred and fifty this is two hundred and fifty by two hundred and fifty so this becomes one one plus one is two 
+the best thing that you learn in this course log of two is one so this become two raise to 
+student two raise to minus two 
+minus two which is twenty-five so what is this 
+student seventy-five 
+seventy-five let us do one more i had t equal to seven hundred and fifty one minus one by eight so that is what is going to be 
+right ok so then what is happening as my time steps are increasing what is happening 
+to  what  is  happening  i  am  having  more  and  more  faith  in  the  history  or  the  current 
+gradient what  am  i increasing actually  i  have  made a mistake  actually this is  mu  is 
+gamma there is not we did not use mu anyway what you guys just went along so this is 
+gamma actually right that was a momentum term that we had so as a number of time 
+steps  is  increasing  my  gamma  is  increasing  that  means  i  am  having  more  and  more 
+faith in my 
+student 
+no history learning rate is eta momentum is gamma so its gamma into update t minus 
+one and eta into gradient at the current time step right and here gamma is actually equal to 
+mu is there any more confusion that i can add so when i say gamma i mean mu and so 
+that is how it is so as i am increasing the number of time steps i have more and more 
+faith  in  the  history  that  means  i  do  not  want  to  now  get  distracted  by  this  one  update 
+which i am making right i want to go by the history and i am not increasing this gamma 
+or mu indefinitely i am capping it by a max right max i will have this much faith which 
+is nine hundred and ninety-nine in the history does that make sense this is again just a heuristic do not worry 
+too much about it so that is how it is 

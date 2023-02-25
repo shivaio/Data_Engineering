@@ -1,0 +1,73 @@
+so now so far what we have done is we have seen the influence of neurons on the or 
+what  image  patches  cause  a  neuron  to  fire  then  we  have  visualized  the  weights  so 
+neurons  have  been  visualized  weights  have  been  visualized  then  we  have  done  some 
+occlusion  experiments  on  the  input  image  now  we  will  take  this  further  and  we  are 
+interested  in  seeing  that  what  pixels  in  the  image  actually  help  in  the  output  or  in  any 
+neuron in the intermediate layers and we will find out some principal way of finding this 
+influence  right  and  we  are  going to  use  back  propagation  that  means  we  are  going to 
+use gradients ok 
+so we can think of an image as an m cross n inputs going from x0 x1 all the way up to x 
+m 
+n nothing great about that and we are interested in finding the influence of each of 
+these  inputs  on  a  given  neuron  ok  now  what  is  one  way  of  computing  influence  that 
+you  have  learned  in  this  course  what  is  the  hero  of  this  course  gradients  right  so 
+gradients tell you the influence so now can you tell me if i want to compute what is the 
+influence of this neuron or this input on this neuron what would you do 
+ 
+student 
+hj/ xi but can you compute that how will you compute that how do you compute the 
+gradient with respect to the input we have always stopped at the last hidden layer and 
+the weights before that so how will we do that how will you do this ok this is a trick 
+question just a hint is there a restriction on the chain rule or can you do it you can just 
+keep  adding  links  to  the  chain  right  so  what  is  so  difficult  about  that  you  already 
+know how to compute the gradients till this point and in fact you will also know how to 
+compute the gradients till this point 
+and what is stopping you from doing it up to this point what if i just call this h instead 
+of x then you would not have a problem right and actually we call it h right we call it 
+h0 we can do it right it is straightforward so let us see 
+ 
+if i want to compute  hj/ xi i can see that if the if  hj/ xi is zero that means this pixel 
+has zero input on the neuron if it is large then it has a high influence if it is small then it 
+has  a  low  influence  so  this  is  how  i  will  see  whether  a  pixel  has  an  influence  of  the 
+certain  neurons  in  the  in  some  of  the  hidden  layers  and  this  is  not  restricted  to 
+convolutional  neural  networks  as  you  can  see  i  am  just  actually  treating  it  like  a  feed 
+forward neural network with parse connections ok 
+so we could just compute these partial derivatives and visualize this gradient itself as an 
+image so what do i mean by that is  i am going to compute  hi/ x0  hi/ x1 all the 
+way up to  hi/ x  mn right so i am going to compute this m cross n entities and i can 
+just  visualize  this  as  an  image  now  what  do  you  expect  this  image  to  look  like  if  zero 
+represents  gray  colour what  do  you expect  this image to  largely look  like what  would 
+you  actually  hope  for  this  image  should  be  largely  gray  because  most  of  the  input 
+pixels should not be influencing a given pixel in the hidden layer right that pixel should 
+influence by only a small number of pixels 
+so that we can say that this is the patch which causes it to fire and not that every pixel 
+in the input is causing it to fire because that is meaningless so that does not that is not 
+something that we care  about  how many if  you get  this please raise  your hands so  i 
+will  just  repeat  it  if  a  pixel  fires  for  every  pixel  if  a  neuron  in  the  hidden  layer  is 
+influenced by all the pixels in the input that means it is not really discriminating it is 
+ 
+not really specialized right we want neurons which fire only for certain patches in the 
+input so that we know that this neuron is responsible for this kind of a pattern ok 
+so  if  i  plot  this  as  a  image  i  would  want  most  of  these  entries  to  be  close  to  zero  right 
+because i want the influence to be zero ok 
+now the question is how do we compute these gradients so we will just treat them as a 
+free forward neural network we already know how to do back propagation across these 
+roots and we just need to add one more term to the chain right so i will just show you 
+what we will do here so i am interested in  h32/ x2 so i will observe that there are four 
+paths which go from h32 to x2 or rather from x2 to h32 so i will just sum up the gradients 
+along these four paths right and if i solve it i will just be left with this ok so that is how i 
+will visualize so this is very simple we have done a lot of gradients in class so you can 
+just go back and check this and it should work out well ok 
+so you can just see this and this way we can just compute the gradients for all the input 
+pixels 
+ 
+and now i am going to plot it as a image and this is what my image looks like do you 
+see what  is  happening  here  its  all very murky right  most of it is  great  that  is  fine  we 
+expected  it  but  there  is  nothing  really  standing  out  right  even  in  this  patch  where  you 
+have some non gray pixels it is almost like the entire cat region is appearing as non gray 
+the  influences  are  not  coming  out  to  be  very  sharp  we  would  have  wanted  something 
+like  only  the  eye  pixels  cause  some  neuron  to  fire  or  only  the  ear  pixels  cause  some 
+neuron  to  fire  and  that  is  not  really  happening  ok  so  it  does  not  produce  very  sharp 
+influences so someone proposed something known as guided back propagation which 
+we are going to see next and that helps you to better understand the influence of the input 
+pixels 

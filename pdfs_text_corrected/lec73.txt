@@ -1,0 +1,193 @@
+batch normalization 
+now we will end with something known as batch normalization which is again almost 
+a defacto standard at least in convolutional neural networks so if you are dealing with 
+convolutional neural networks you will use something known as batch normalization 
+so let us see what it is so this is again something which is some method which allows 
+us to be less careful about initialization so let us see why that happens 
+so to understand the intuition behind this let us consider a deep neural network ok and 
+let us focus on the last two layers h four and h three now typically will use some minibatch 
+algorithm  for  training  right  so  we  will  use  minibatch  version  of  gradient  descent  or 
+minibatch version of adam or any of these algorithms right 
+now what would happen if there is a constant change in the distribution of h three no just 
+think  about  the  question  that  i  am  trying  to  ask  you  so  as  far  as  these  two  layers  are 
+concerned h three is the input and h four is the output it does not matter what has happened so 
+far  or  in  particular  does  not  matter  what  x  was  whether  it  came  from  a  normal 
+distribution or whatever distribution right 
+at this point my input is h three and my output is h four now i am training it in mini batches 
+what if across batches my distribution of h three looks very different what would happen is 
+it a good thing or a bad thing it is a bad thing right so if you have training data right 
+just  think  of  this  as  i  said  just  focus  on  this  layer  if  you  have  an  input  which  is  not 
+following  a  fixed  distribution  is  constantly  changing  during  your  training  then  that  is 
+always a bad thing right because you try to adjust to one distribution and now again the 
+distribution  is  completely  changing  so  that  always  makes  our  training  very  very 
+difficult right so if you have a very fluctuant distribution then a training is going to be 
+hard ok so that is the intuition that i want to build 
+so now this could actually happen so it would help if the pre activations at every layer 
+are you need gaussians because for the input we made a case that will make the input as 
+unit gaussian right 
+so that things are very nice they are all coming all the inputs are coming from the same 
+distribution but we now realize that at every layer we have an input right it is not that the 
+original input the only input even h three is an input even h four is an input and so on so why 
+not ensure that at every layer your inputs or your h one h two h three also is something which 
+looks  like  a  gaussian  distribution  which  comes  from  a  gaussian  distribution  why  not 
+ensure that that is the basic idea behind batch normalization and how do you do that is 
+the  following  that  you  had  computed  this  s  i  k  just  as  we  had  done  in  the  derivation 
+earlier right so s i k is one of these guys 
+now  if  you  do  this  what  are  you  actually  doing  you  just  normalizing  it  right  you  are 
+subtracting the mean and dividing by the variance so that means you are making it zero 
+mean unit variance and that is the intuition which  i was trying to  build that  why not  at 
+every layer have this good distribution which is zero mean unit variance by even if you 
+are feeding it multiple batches for that batch you will ensure that by this subtraction and 
+division or the normalization process the data will become unit variance and zero mean 
+ok so now at every batch the data is coming from the same distribution even if it was 
+originally  from  a  distant  different  distribution  but  how  do  we  compute  this  mean  and 
+variance 
+so did you understand the question that i am asking i am focusing on this s i k i want to 
+subtract  the  mean  of  that  s  i  k  how  do  i  do  that  so  the  name  gives  it  away  batch 
+normalization it cannot be more explicit than that so compute the mean for the current 
+batch and the variance for the current batch and normalize your inputs or normalize the s 
+i k according to that you get this so now end up with a situation where all your inputs at 
+every layer  across different  minibatches seem  to  come from  the same distribution is  it 
+fine the current batch so you take the average value from the current batch 
+so then it will become zero mean for that batch and unit variance for that batch and this 
+you are ensuring for every batch so every independently every batch you are ensuring 
+that it comes from a zero mean unit variance distribution right so overall the effect is 
+that all the batches are coming from the same distribution no so at validation time you 
+will compute the mean and variance from your entire data entire training data once after 
+the training is done right 
+so now we will computed from a minibatch and this is ensure that across minibatches 
+now your input always comes from a zero mean unit variance distribution across all the 
+layers 
+this is what a deep network will look like with  batch normalization right so what will 
+happen  is  you  passed  an  input  you  computed  this  tan  h  then  you  will  have  this  batch 
+normalization layer watch is what is the operation that the batch normalization is going 
+to do this is the operation that it is going to talk ok everyone gets that and now it gives 
+me a unit normalized distribution sorry it gives me a input coming from a zero mean unit 
+variance  distribution  and  then  i  pass  it  to  the  next  layer  again  at  a  batch  normalization 
+layer 
+so after every layer you will actually add a batch normalization here now my question 
+is is this legal what is legal in this course anything that is differentiable right so you 
+have  to  make  sure  that  if  we  have  added  this  operation  it  should  be  a  differentiable 
+operation  so  that  you  can  come  so  now  the  gradients  have  to  flow  all  the  way  here 
+right  so  that  means  i  should  be  able  to  compute  the  gradients  with  respect  to  this  so 
+now  this  is  one  of  my  a  i  and  i  should  be  able  to  compute  dou  a  i  with  respect  to 
+something or rather the loss dou of the loss function with respect to a i by turns out that 
+the operation that you have done is actually differentiable 
+you can actually work that out and it is not important i am not going to derive it because 
+it is just yet another derivative that you will take but it is a you should get the intuition 
+from  here  right  what  you  are  doing  is  this  simple  operation  and  this  just  looks 
+differentiable right 
+so  the  operation  that  you  are  doing  is  differentiable  so  that  is  why  you  can  add  these 
+batch normalization layers and you can back propagate through this layer but now what 
+is  the  catch  here  it  somehow  ties  to  the  question  that  he  was  trying  to  ask  you  are 
+actually enforcing that all your are zero mean and unit variance right so this is again 
+some sort of a constraint that you are enforcing right what if that is not the best situation 
+in which the network can learn what if to distinguish between some classes it was ok if 
+the  distribution  was  not  same  across  all  the  batches  they  get  this  they  are  enforcing  a 
+certain  consider they  are enforcing  a certain  condition  on all the layers and all of them 
+have to be zero mean and unit variance but that may not always be good 
+so they do something which is counterproductive let us see what that is why not let the 
+network decide what is best for it so after the batch normalization layer so this is what a 
+normalized s i k was after you have done that you compute a y k and this is not the final 
+output this is  the output at  the  k’th layer this is  equal  to  this why do they  do this and 
+remember that gamma and beta are going to be learnable parameters what are you doing 
+actually you are again scaling it and shifting it this is the same as adjusting the variance 
+and the mean right 
+so now what happens if the network learns the following you get back the s i k so you 
+had taken s i k and you had normalized it but now if you allow these gammas and betas 
+to be there in the network then the network can decide that maybe at this layer i do not 
+want this normalization i just want to stick to whatever output i was getting 
+so  it  could  learn  the  gammas  and  betas  in  this  way  and  ensure  that  you  get  back  the 
+unnormalized s how many of you get this fine lot of you do not seem to get this but i 
+am pretty sure if you go back and look at it you will get it right so what is happening 
+here is  that is why  i said it is  counterproductive  that  you first  forced it to make  at unit 
+mean and zero variance and now  you added no zero mean  and unit variance and now  you 
+added this operation which is again a scaling and shifting operation so remember that 
+when  you  make  the  data  zero  mean  and  unit  variance  that  is  exactly  what  you  do  you 
+shift it so that it become zero mean and you scale it so that it becomes unit variance 
+so you are again introducing parameters which again introduce the same flexibility that 
+you could learn gamma and beta in such a way that you could get back the original data 
+which was not normalized ok so if the network wants to learn that and if the network 
+fees that is the right thing to do then it has the flexibility to learn those parameters and 
+you can recover si 
+i think the rationale is that your first making is something which is more standard right 
+and then from there trying to learn it instead of just trying to let it learn in the way do 
+you get the difference between the two the first bringing it to all of these things to some 
+standard value which is between i mean which is the normal distribution and then from 
+there allowing it to learn wherever it has to learn right that is the idea but it could be the 
+case that the other thing also works here 
+so  now  what  we  will  do  is  we  will  compare  the  performance  with  and  without  batch 
+normalization on mnist data using two layers 
+so here in this figure what i am going to draw is the validation loss am i no the training 
+loss as i keep increasing the number of epochs and here i am showing you the histogram 
+of  the  activation  functions  at  layer  one  so  i  have  trained  a  deep  feed  forward  neural 
+network  and  i  am  showing  you  what  do  the  activations  look  like  at  layer  one  with  and 
+without  batch  normalization  so  remember  that  we  started  with  this  intuition  that 
+without batch normalization there would be this constant fluctuation and the data would 
+seem to come from different distribution at every training instance 
+whereas with batch normalization you are ensuring at your data comes from zero mean 
+unit variance distribution right and so that is one thing which i want to see another thing 
+i want to see is that how does it affect training right so that is the animation that i am 
+going to show you so focus on all these three things i do not know how you will do it but 
+focus on this focus on this and focus on this with two eyes 
+so let us see to see what happened right so this so now look at the focus on the leftmost 
+figure  so  that  does  not  seem  to  change  much  with  respect  to  it  is  mean  and  variance 
+right  but  if  you  look  at  the  middle  figure  that  is  constantly  changing  it  is  mean  and 
+variance right and you see the effect on the training loss that the first one which was 
+with  batch  normalization  that  converges  faster  as  compared  to  the  second  one  right 
+again an empirical result i am not really proving that this will always happen this is what 
+empirically we observed 
+so this was the story that  we covered from  one thousand, nine hundred and eighty-six to two thousand and six where back propagation was 
+already it was already discovered but was not working well and there was this spark in 
+two thousand and six  that  showed  that  we  could  do  some  things  to  make  training  really  work  for  deep 
+neural  networks  but  maybe  that  something  is  not  sacrosanct  we  could  try  different 
+things  what  we  tried  at  that  time  was  unsupervised  free  training  which  is  almost 
+nonexistent now 
+but  that  lead  that  led  to  these  thoughts  that  maybe  this  is  because  of  optimization 
+generalization regularization activation functions and so on right so there was a lot of 
+research in  these different  areas and that led to a lot of developments  which was better 
+optimization  algorithms  better  regularization  better  activation  functions  better 
+initializations and batch normalization right 
+so these a few concepts that  you have seen in the past  few lectures one being dropout 
+and  the  other  being  weight  initialization  using  this  xavier  initialization  or  he 
+initialization and this batch normalization right this is something which is all prevalent 
+right so this is something that  you will see in all deep neural networks that  get trained 
+definitely  in  convolutional  neural  networks  and  more  often  than  not  even  in  recurrent 
+neural networks so these are the two most popular types of neural networks so in both 
+of these you will see that these ideas are regularly applied and they always lead to more 
+stable training or better generalization 
+so now this was all which happened till two thousand and sixteen or seventeen what has happened still since then 
+so  there  is  still  continuous  research  in  designing  better  optimization  methods  so  as  i 
+said after adam there was this eve which did not become very popular but there is still 
+people  looking  at  better  optimization  methods  and  there  is  something  which  has  been 
+developed on adam and came out in december last year 
+now  people  have  also  started  looking  at  data  driven  initialization  methods  right  so 
+instead  of  having  this  fixed  initialization  which  is  drawn  from  a  unit  or  just  which  is 
+drawn from a normal distribution and then just divided by the square root of n why not 
+think of data driven initialization methods that so there are some works on that again not 
+very popular because most of the shelf things that you will try will not really do any data 
+driven initialization 
+but if you really think that  you are stuck at some point then you could look at some of 
+these works and see how they try to come up with initializations based on the data that 
+you are dealing with and now after batch normalization there have been some other types 
+of  normalizations  which  have  been  proposed  which  seem  to  work  better  than  batch 
+normalization but largely the stable configuration which has kind of prevalent is adam 
+in  terms  of  optimization  xavier  or  he  initialization  in  terms  of  initialization  relu  in 
+terms  of  activation  functions  what  else  is  there  batch  normalization  in  terms  of  again 
+regularization plus initialization and dropouts in terms of regularization right 
+so these are roughly the key terms that you will almost see in all the deeply living deep 
+neural  network  people  that  you  see  right  you  will  always  see  when  they  describe  the 
+hyper parameters they will say that this is how we initialized is this is the drop out that 
+we use this is the batch normalization and the training algorithm more often than not is 
+going to be adam 
+so they have seen some very crucial elements of training deep neural networks over the 
+past two to three lectures right and now we will build on these and we will assume that this is 
+what you are going to do so now when i talk about neural networks like convolutional 
+neural  networks  and  so  on  i  not  go  back  and  tell  you  use  adam  or  use  batch 
+normalization or assume that you already know these things and you will try to train your 
+networks using these tricks that we have your learned 
+the last couple of lectures have been about tips and tricks for deep neural networks and 
+from  here on in  the next  lecture will move on to what  word2vec because that is what 
+you need for your assignment so in the next lecture we will do a word representations 
+so  that  is  essentially  seeing  an  application  of  feed  forward  neural  networks  and  from 
+there on we will move on to convolutional neural network 

@@ -1,0 +1,75 @@
+dataset augmentation 
+so  how  with  that  heavy  math  i  will  just  interline  with  this  something  very  simple 
+which is something known as dataset augmentation 
+so what is dataset augmentation mean so you always given some training data so in 
+the case of mnist you had this training data where you are given these digits images 
+of digits and  you wanted to train some classifier so in dataset augmentation what we 
+do  is  so  now  we  have  what  is  happening  here  right  conceptual  is  that  there  some 
+seeing  some  training  data  and  try  to  build  a  classifier  and  what  you  doing  actually  is 
+minimizing the empirical train error 
+that  mean it will ensure that whatever  you have seen in  training is  going to look  it  is 
+going to be perfectly classified whatever we have seen in training that is going to look 
+very  good  it  is  going  to  be  the  training  error  on  that  is  the  error  of  those  training 
+examples it is going to be very easy 
+now my question is this if a training time you are seeing all this 2's which are roughly 
+vertically drawn  right and a test time  you see  at  two which is  written like this which is 
+slightly  tilted  what  would  happen  it  will  not  be  able  to  do  a  good  job  on  that  that 
+means  your  model  is  not  think  of  terms  that  you  have  used  in  this  lecture  not 
+generalizing 
+can  you  think  of  a  simple  trick  based  on  your  domain  knowledge  of  how  people  right 
+digits to kind of overcome overcome this problem you get the question right i am telling 
+you that it is possible that someone writes to in a very tilted manner can you prepare for 
+eventuality  eventuality  the  title  of  this  module  was  dataset  augmentation  so  what 
+would happen is are given some training data 
+you can always generate for training data from that see here is another training instant 
+that i have created i have just rotate it to two by some random angle i took this image i 
+just rotate it and this is a simple operation that all pixels are moving by a certain angle i 
+could have rotate it more i could have shifted it vertically that means in all my image 
+the two was actually exactly at the centre i just shifted at a bit vertically 
+so  i am so  think that you are reading one of those  kyc  forms  or bank forms most 
+people would write at the center of the block provided but some people could write to 
+the extreme right or extreme left right so you are preparing for that they saying that ok 
+all my data the digits are well written at the centre but let me just shift them bit so that 
+i can also deal with people who write it at the corner 
+left  align  or  right  align  instead  of  center  align  i  could  have  even  shift  it  horizontally 
+most people would write at the center but some people would write at the top or at the 
+bottom i could blur the image but someone has taken a photo and send it to me and the 
+photo  is  not  very  clear or  i  could  just change some pixels randomly  right  i could  add 
+noise all of this is  dataset  augmentation with  the hope that  i  am  capturing with  these 
+variations i am capturing enough variations in the data 
+so  that  i  have  a  better  chance  of  doing  something  better  on  the  test  data  is  that  fine 
+this is all still training data mind you i am still going to compute the empherical train 
+error  it  is  just  that  now  i  have  blown  up  my  data  but  much  more  than  what  i  had 
+initially  do  you  all  see  by  doing  this  you  could  have  done  better  on  the  mnist 
+assignment you could have done better again i am not asking you to do this 
+so now i will do this then i will have supervised data because i know that by this small 
+variations  the  label  is  not  going  to  change  and  what  am  i  using  there  i  am  using  my 
+domain  knowledge  right  i  cannot  do  this  always  right  i  hope  you  appreciated  that 
+suppose that changes the domain a bit and i am given images of defects of motor parts 
+right where i have taken a image and there is a black spot somewhere which indicates 
+defect i cannot go about doing the same thing there i cannot change some other pixels it 
+will just means that the defects is at a different location right but in many cases you can 
+do that 
+so  if  you  are  given  picture  because  of  dogs  and  cats  because  the  entire  world  case 
+about classifying cats and dogs then you could do some rotations you could blur them a 
+bit  you  could  occlude  certain  questions  of  the  picture  and  so  on  and  still  generate 
+training data right and what you are trying to do is trying to take care of cases that you 
+would  end  up  dealing  at  test    right  is  that  clear  ok  and  please  be 
+aware that we are exploiting some domain knowledge here 
+typically  more  data  is  better  learning  works  well  for  image  classification  in  object 
+recognition these are the task where this is already been tried out and they have shown 
+to  work very  well in  these tasks also  shown to work well for speech where the people 
+have some speech training data they try to augment it for some task it may not be very 
+easy to generate such data right 
+so  you  could  think  of  various  nlp  applications  whereas  given  you  a  data  document 
+right because always do what joe does in that friends episode do you remember what i 
+am talking you see what i am talking about see you wants to write a recommendation 
+letter for monika and chandler ok and he has a letter written any replaces every word 
+by  it's  best  synonyms  from  the  thesaurus    right  that  says  a  way  of 
+generating noisy data and in that case it was actually noisy right so you could think of 
+doing here but as happened in that case it will not result in very good transformation 
+next for example i remember something right they are very warm hearted people got 
+translated  as  they  have  some  warm  cardiograph  or  something  like  that  which  do  not 
+make  sense  so  it  is  not  very  easy  in  almost  all  application  should  do  it  but  in  some 
+applications typically in vision application this is easy to do and  you would gain  a lot 
+by doing this right 

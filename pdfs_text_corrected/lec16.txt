@@ -1,0 +1,67 @@
+linearly separable boolean functions 
+so in this module we look at linearly separable boolean functions again and we will 
+try to make some more statements about them 
+so what do we have do so the guiding question that we have is what do we do about 
+functions which are not linearly separable and let us see one such very simple function 
+can you guess what function i am going to talk about all of you are paying attention in 
+the first lecture 
+so here is the xor function now these are the set of inequalities that result from xor 
+function i hope right now let us see the first condition implies that w naught should be 
+less than zero second condition implies this third condition implies this fourth condition 
+implies this just looking at this can you tell me can you find a configuration for w 
+naught w1 w2 such that these inequalities can be satisfied together no right because two 
+and three want it to be greater than minus one minus w naught and when you take an addition 
+of that it has to be less than minus one 
+so that is not going to happen so you see a contradiction so this is a simple boolean 
+function which the perceptron cannot handle because it is not linearly separable it is not 
+linearly separable there does not exist a line if there does not exist a line you cannot 
+find the line in fact you can look at it visually 
+so these are the red points for which the output should be zero or one and the blue points are 
+the points for which the output should be zero if we need to change this i think we were 
+using blue as positive and red as negative and you cannot just draw a line there is no 
+way you can draw a line such that the blue points lie on one side and the red points lie on 
+the other side so it is a simple two input function so it is not that i have taken a very 
+contrived example 
+most real world data is not linearly separable and it always contains some outliers right 
+so here maybe you have some data where you are trying to say that people which live in 
+this part of the world belong to a certain or maybe people who live or work here have a 
+certain qualification people who work in this company may have a certain different 
+qualification and there might be some outliers right it is not that is always going be 
+very clean so now what do i mean and it is not necessary that the points will only be 
+outliers 
+in fact there could be a clear case where there are no outliers but still you cannot find a 
+line such that you separate the positive from the negative can you think of such an 
+example good right this is clear data there is no outliers here as well i mean it is just 
+saying that everyone who lies within this boundary has a certain characteristic and 
+outside that boundary people have a different characteristic right and there is no outlier 
+here but you cannot separate this data with a line so all functions that you deal with 
+will not go or are not going to be linearly separable 
+so we have to work around those right and while a single perceptron cannot deal with 
+this we will show that a network of perceptron’s can indeed deal with such data so that 
+is where we are headed 
+so before going there we will discuss some more boolean functions in more detail and 
+i will try to see what kind of nonlinearly separable boolean functions are there 
+so first of all how many boolean functions can you design from two inputs how many 
+can you design sixteen looks like a good number from three inputs two hundred and fifty-six how many if you 
+understand this let us see so let us begin with some easy ones that you already know 
+right so these are two inputs x1 x2 what is this function always off the other 
+extreme is always on and i have already given you the answer f sixteen 
+so then you have the and function and or function then some other functions right 
+so why did you reach sixteen actually because with two inputs we will have these four 
+values to take care of and each of these are again binary so you actually have two raise to 
+two raise to n right so for three inputs two raise to two raise to three would be two hundred and fifty-six now that is 
+the easy part of these how many are linearly separable i will have to do any actually 
+stare it in and seriously try to find the answer when you cannot really do that 
+so turns out all of them except xor and in not of xor ok so for the two input cases 
+there   are   two   functions   which   are   not   linearly   separable   for   n   inputs   how   many 
+functions would be not linearly separable it is an arbitrary n is not the answer you are 
+not going to disappoint me not n ok but what is the answer so for n inputs we will 
+have two raise two n functions of these we do not know how many are going to be not 
+linearly separable that is not a solved problem although i encourage you to go and find 
+the answer 
+i am looking for a good will hunting kind of a moment but all it suffices to know is that 
+there exists some which are not linearly separable and that everyone agrees that there 
+exists some right and as n grows probably that number will increase and so on but it is 
+not known exactly you cannot write it as a function so what we have done so far is 
+looked at boolean functions how many boolean functions can exist and of that we just 
+have concluded that there would be some which are not linearly separable 

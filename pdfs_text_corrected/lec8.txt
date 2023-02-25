@@ -1,0 +1,58 @@
+so this was all happening where deep learning now started showing a lot of promise in a 
+lot of fields nlp vision speech and again this deep reinforcement learning and so on 
+which led to this complete madness starting from two thousand and thirteen 
+well almost for every application the traditional methods were then overwritten or kind 
+of beaten by deep neural network based system so something like language modelling 
+which has been around since probably 1950s or so 
+now the reining algorithm or the better algorithm for language modelling  is now 
+something which is based on deep neural networks 
+then similarly for speech recognition lot of work a lot of probabilistic lot of work 
+based on probabilistic models was done in this or in the speech area or the speech 
+literature for the past thirty forty years and now all of that has been overcome by deep neural 
+network based solutions 
+same for machine translation a lot of interest in this field a lot of companies now have 
+their machine translation systems based on deep neural networks as opposed to the 
+earlier phrase based statistical machine translations or the probabilistic models which 
+were used earlier 
+similarly for conversation modelling dialogue a lot of new work started in dialogue post 
+a deep learning era where people now realize that if you have a lot of sequences of 
+conversations you could actually try to train a deep neural network to learn from this 
+sequence and have conversations with humans of course you are nowhere close to 
+human level conversations we are very very far off from them but in limited domains 
+these bots are showing some success now 
+same for question answering where you are given a question and you want to answer it 
+either from a knowledge graph or from a document or from a image and so on 
+and in the field of computer vision things like object detection most of the reigning 
+systems   or   the   best   performing   systems   nowadays   are   deep   neural   network   based 
+systems a lot of advances are being made on these systems over in the last few years 
+same for visual tracking where you want to track the same person in a video or image 
+captioning where you want to generate captions for images for example people upload 
+a lot of images on facebook 
+and if you want to automatically caption them or imagine you are on a reselling site 
+right something like olx where you upload your furniture and you do not provide a 
+description from that but can the machine already automatically generate a description 
+for it so it is easier for the human to read what that product is and so on 
+so similarly video captioning i given a video anyone to caption the main activity which 
+is happening in that video all of these problems are being solved using deep learning 
+based solutions using a combination  of something known as feed forward neural 
+networks or convolutional neural networks or recurrent neural networks and so on 
+visual question answering you are given an image and a question and you want to 
+answer that question 
+video question answering answering questions from videos 
+video summarizations if you are given a large video and you want to generate a trailer a 
+sort of a trailer for that video contains which kind is the most important frame for that 
+video even these systems are based on deep learning 
+then this was all about classification recognition and so on  but  now people started 
+getting more ambitious that can we humans are very good at creativity so can we use 
+machines to be creative right to generate images  so now  if i have seen a lot of 
+celebrity faces  can i generate new celebrity faces or if i have seen a lot of bedroom 
+images 
+and i am if a fireman architect now can i generate new bedroom images can i can we 
+train a machine to generate new bed bedroom images so a lot of phenomenal progress 
+or work has happened in this field in the last four five years starting with things like 
+generative adversarial networks variational autoencoders and so on 
+and   people   are   now   starting   to   seriously   invest   into   creativity   that   how   to   make 
+machines creative again we are far off from where the desired output but there is still 
+significant progress happening in this field generating audio 
+so that was about generating images you can generate music also 
+and this is again about generating images and so on 

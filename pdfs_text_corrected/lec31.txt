@@ -1,0 +1,15 @@
+derivative of the activation function 
+we have that activation function and we were taking the derivative of the activation with 
+respect to pre activation and i just pushed it under the rug by saying we will write it as 
+g dash so i need to show you what g dash is 
+what  how  to  compute  g  dash  so  this  is  suppose  g  is  the  logistic  function  ok  so  that 
+means what is z actually it is one of those a’s right so this is the activation that you 
+are going to feed it right and then you are taking the element wise sorry z is actually the 
+pre activation that you feed it and then g is the activation function so i will do element 
+wise activation function now what is the derivative of this so i will just i will not do 
+this derivation 
+it is there and you end up with a very neat formula which is g of z into one minus g of z 
+so now that bit is also taken care of is there any more spoon feeding that i can do you 
+are ready for the assignment now i will do one more bit you will also have used a tanh 
+function so this is the derivative of the tanh function it again boils down to a very neat 
+formula which is one minus g of zd whole square so we will end this lecture 

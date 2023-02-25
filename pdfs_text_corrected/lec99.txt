@@ -1,0 +1,84 @@
+the next thing that we will see is how do you create images from embedding so let me 
+see what that means 
+so remember that each of these things can be thought of as an embedding of the image 
+right because you had this original image which was two hundred and twenty-seven two hundred and twenty-seven dimensional and now you 
+have a four thousand and ninety-six representation for that or a two hundred and fifty-six 
+seven 
+seven representation for that so you could 
+just flatten it as an out as a vector and you could treat that as a embedding for the original 
+image right 
+now for any kind of embedding or hidden representation what do we always want from 
+that  representation  think  auto  encoders  it  should  capture  all  the  important 
+characteristics of the original image and in particular i should be able to dash the original 
+image from it 
+student 
+ 
+we construct the original image from it right so thats what i would want from a good 
+embedding  so  let  us  see  if  we  can  do  this  right  so  find  an  image  this  is  the 
+optimization problem  that  i  am  interested in  find an image such that its  embedding a 
+similar  to  a  given  embedding  what  do  i  mean  by  that  is  suppose  i  take  a  monkey 
+image and pass it through all these layers and compute all these embeddings right 
+now again i start with a blank image and my optimization problem is such that for this 
+blank image i want to modify it so again this blank image is my parameter matrix and i 
+want  to  modify  it  such  that  the  embedding  that  it  produces  should  be  similar  to  the 
+embeddings that the monkey image produced so how can you set this as a optimization 
+problem what would your loss function be so lets call the original monkey images i1 
+and let us call this as embedding of i1 
+now can you tell me what the objective function would be for the new image that you 
+are trying to create this entry the first entry in its output that let me call that e i two ok so 
+e i two one and ei one one that means the first dimension of the embedding they should both be 
+student very 
+very close so in such cases what is the error function that we will choose 
+student 
+right  so  you  have  to  get  comfortable  with  designing  these  loss 
+functions right so you have seen you have seen this loss function before we just have to 
+be able to related to the problem that you are trying to work on 
+so let phi zero be the embedding of the image of interest let x be a random image and we 
+will report the repeat this forward pass using x and compute phi of x right that means 
+were computing the embedding of this random image that we have started with then we 
+compute this loss function and add appropriate regularization for that and that propagate 
+and update what what will you update 
+student 
+image  right  you  will  update  your  x  matrix  right  and  you  will  keep  doing  this  till 
+convergence 
+and let us see what happens so its suppose so now what i am trying to do is this is my 
+original  image  and  i  have  the  convolution  one  embedding  of  it  so  in  this  i  am  using 
+convolution  one  as  the  embedding  and  then  i  am  trying  to  solve  this  optimization 
+problem to recreate x such that its very close to the original image 
+so let us see what are the different outputs that i get so this is the original image and 
+on the right hand side you have the reconstructed image such that the conv one embedding 
+of  both  the  images  is  the  same  so  you  can  see  that  when  i  am  trying  to  do  a 
+reconstruction from the conv one layer i get almost the same image back now if i keep 
+doing it from different layers what do you expect it to be if i do it from conv two conv three 
+conv four and so on 
+student 
+it  wont be so accurate right  so let us see what  happens if  i try to reconstruct  it from 
+conv two 
+ah relu one 
+max pooling 
+norm one 
+conv two 
+relu two i am keep i am going deeper and deeper into the network so what i am trying to 
+do  here  is  remember  that  i  have  different  choices  for  these  embeddings  so  the  first 
+thing which i showed you was when i was trying to the first thing was when i was trying 
+to  set  my  objective function such that  i  am  trying to  map this embedding the second 
+image  that  i  showed  you  was  when  i  was  trying  to  map  this  embedding  and  the  last 
+image  that  i  will  show  is  when  i  was  trying  to  map  these  to  embedding  so  my 
+objective function was to create an image such that this embedding of the created image 
+is  the same  as this embedding of the original monkey image  right  so thats  what  i  am 
+progressively trying to do 
+as you can see as i keep going ahead i get more and more abstracter reconstructions and 
+i dont really get the monkey back 
+and once i go to the last fc six or f seven layers i get very weird looking reconstructions 
+and  thats  expected  right  because  by  that  layer  they  have  completely  abstracted  it  out 
+right you have just probably captured there is something like a nose something like eyes 
+or some for here and there but you have loss the entire shape and other characteristics of 
+the original image right from the deeper layer the construction would not be that good 
+and thats kind of expected right 
+in spite of having the maximum no you could right a maximal operation is just another 
+embedding which is that the compression there is much more because you have ignored 
+the four entries and just taken the max value so it becomes harder and harder to do that 
+but  mean  you  i  wouldnt  call  this  as  a  reconstruction  right  what  you  see  here  is  not 
+except  for  the  conv  one  and  conv  two  layers  the  rest  of  the  things  were  not  really  such 
+accurate  reconstruction  so  just  says  that  you  are  losing  a  lot  of  information  in  that 
+abstraction or maybe not i will do it next time 

@@ -1,0 +1,15 @@
+parameter sharing and tying 
+the  next  thing  that  i would  like  to  talk  about  and  this  quickly go  over  this  parameter 
+sharing and tying 
+ 
+so  parameter  sharing  and  tying  i  will  just  quickly  go  on  this  because  for  the  sake  of 
+completeness it is there in this lecture but it should it would really make sense when i 
+do convolutional neural networks so for the time being just take my word for it that in 
+convolutional  neural  networks  you  do  a  lot  of  parameter  sharing  where  as  the  other 
+place that you have seen parameter tying so that is again something that i am not going 
+to talk about 
+so  this  is  typically  used  in  auto  encoders  where  the  encoder  and  decoder  weights  are 
+shared  and  that  effectively  reduces  the  number  of  parameters  in  the  model  which 
+effectively  reduces  the  complexity  on  the  model  if  the  complexity  of  the  model  goes 
+down  omega  theta  goes  down  because  that  is  what  which  wise  man  told  us  that  time 
+steins lemma 

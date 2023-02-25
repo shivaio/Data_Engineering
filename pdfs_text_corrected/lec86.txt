@@ -1,0 +1,261 @@
+so  why  let  us  start  so  far  in  the  course  we  have  looked  at  feed  forward  neural 
+networks  we  have  seen  how  to  train  them  and  we  have  seen  two  special  cases  of  feed 
+forward  neural  networks  one  was  the  auto  encoders  for  learning  representations  or 
+learning latent representations of inputs and the other thing that we had seen was how to 
+use a feed forward neural network to learn word representations where we saw this word 
+to wake algorithm and it is different variants it was continuous bag of words skip gram 
+model  graph  and  so  on  so  those  are  all  since  some  since  applications  of  the  feed 
+forward neural network 
+and  now  we  will  move  on  from  there  though  we  will  look  at  different  type  of  neural 
+network  today  which  is  convolutional  neural  networks  and  we  look  at  some  specific 
+architectures which have become popular over the past few years ok 
+so  with  that  i  will  start  this  lecture  on  convolutional  neural  networks  so  in  the  first 
+module we will look at the convolution operation ok 
+so  let  us  see  so  suppose  we  are  tracking  the  position  of  an  aeroplane  using  a  laser 
+sensor at discrete time intervals right so you have this ok so you have this aeroplane 
+suppose  it  is  going  from  say  chennai  to  delhi  and  at  discrete  time  intervals  you  are 
+seeing the tracking the position of the aeroplane right how far it is from chennai at this 
+point right may be it is fifty kilometers one hundred kilometers and so on 
+and  now  your  laser  you  think  that  it  might  be  noisy  it  might  not  be  giving  you  very 
+accurate measurements  so  you would be taking these measurements  and say intervals 
+of course it is not in practice you would not do that but just indulge me for the purpose 
+of illustration that say you are taking these measurements every five seconds or ten seconds 
+or something like that 
+now since your sensor is noisy instead of relying on a single measurement you would 
+probably want to take the average of the past few measurements that you have taken so 
+that would give you a more accurate representation of what the current position is does 
+that make sense like you are taking multiple measurements and taking averages of those 
+right  and  of  course  more  recent  measurements  are  more  important  as  compared  to  the 
+previous  measurements  right  so  this  is  suppose  at  time  step  t  say  this  was  t  minus  five 
+seconds and this was t minus five minutes suppose 
+so  obviously  you  would  not  want  to  take  give  a  very  large  weightage  to  the 
+measurement that  you are taken t  five minutes back right because the plane would have 
+moved by a lot by that time so it rely more on the recent measurements and less on the 
+previous measurements right so now the mathematical way of lighting this is that you 
+know the positions or the readings that  you have taken at time steps one two three up to time 
+step t you are interested in the revise estimation of this measurement right so you have 
+taken some measurement at time step t and you want a revised measurement of that and 
+the way you are going to compute that is you are going to take a weighted average so 
+w is the weight of all the previous measurements that you have taken right 
+ 
+so the measurement that you take a t  one t  two t  three all the way up to t minus infinity and 
+for each of them would have a weight associated with this 
+so  this  operation  right  this  thing  you  can  write  it  as  the  following  operation  that  you 
+have a vector of measurements or an array of measurements which is x and you have an 
+array of weights associated with these measurements the farther the measurement from 
+the current time step hopefully smaller is the weight assigned to that and this operation is 
+known as the convolution operation right 
+so  you  have  x  which  is  the  input  w  is  known  as  the  filter  and  the  operation  that  is 
+defined as this equation is known as a convolution operation right 
+look  but  of  course  in  practice  you  would  not  do  this  from  infinity  right  you  would 
+probably keep a window you will say i will rely on the previous six measurements that 
+means whatever i took at t  one second t  two second up to t  six seconds right beyond that 
+it  does  not  really  make  sense  so  let  us  see  how  this  computation  happens  so  this  is 
+weight  array  so  now  what  would  be  the  dimension  of  this  weight  array  how  many 
+entries would it have 
+student seven 
+seven right zero to six so seven entries ok and this is what my situation looks like right so this is 
+the x the measurements which  i have taken using the laser ok so  i  have taken some 
+measurements now i am at a particular time step and i want to make a revised estimate 
+so i have this xt and from that i want to compute st and the way i am going to do that is 
+by  taking  a  weighted  average  of  all  these  previous  measurements  is  the  setup  clear  to 
+everyone ok 
+and now this is what my formula is going to be so the revised estimate of s6 is going to 
+be whatever was x6 into w0 that means the weight assigned to the current time step x5 
+into w minus one that means weight assigned to the time step   one x4 into  two and so on 
+so you get this ok so i have these seven weights and i will multiply with them with the seven 
+previous readings one is to one multiplication and i will get the weighted average and using 
+that i get a revised estimate 
+ 
+now i want to get a revised estimate for the next entry how will i get it i will just slide 
+this weight matrix right 
+so  i  will  just  slide  it  by  one  i  will  again  do  the  same  computation  and  get  the  revised 
+measurements again for the next entry i will slide it by one slide it by one slide it by one and 
+i  will  keep  getting  these  entries  ok  so  everyone  gets  the  setup  how  do  you  do  the 
+convolution operation it is basically a weighted average of the previous entries fine 
+so here the input as well as the kernel is kind of one dimensional right you so you have it 
+is so you do not have a 2d input here you just have a single dimensional input here 
+can you use a convolution operation on a 2d input also do you know of any 2d inputs 
+images right so we can think of images as 2d inputs now again i am trying to do the 
+same thing the setup is the same the story just changes from laser to a camera now so 
+i have taken an image maybe the image was captured and i am not very confident about 
+all the pixels that i have captured ok 
+so now for any given pixel i want to reestimate it using it is neighborhood that is what 
+i want to do ok so this is the pixel i am going to look at some neighborhood around it 
+right so every cell here is one pixel just assume that every cell here is one pixel so now i 
+am going to reestimate this pixel by taking a weighted average of all its neighborhoods 
+right so now can you tell me what is my filter going to look like in this particular case 
+my  filter  would  be  just  three three  right  so  whatever  neighbors  i  want  to  average  on  for 
+every neighbor i want a weight so if i am going to average on a neighborhood of three  three 
+ 
+then for each of these i will want a weight so my filter would also be of size three  three how 
+many of you get this ok 
+so  we  now  like  to  use  a  2d  filter  which  would  be  m  cross  n  ok  and  in  general  it 
+would  be  m  m  so  it  would  always  be  a  square  filter  but  i  am  just  taking  the  case 
+now  what  this  nasty  looking  formula  is  doing  right  so  i  have  a  particular  pixel  so 
+this is an image so i will refer to this pixel as i ij right so it is the ith ijth entry in the 
+image i want a revised estimate for that i want an sij for that 
+so the way i am going to do that is i am going to look at m rows and n columns before it 
+right  so  i  am  going  to  look  at  this  neighborhood  of  m  cross  n  ok  and  for  each  of 
+these i would have a weight associated with it so if i am looking at say for example 
+this was four  four this pixel was four four then i will look at four – one four  one so that would be i three three 
+so  i  will  look  at  that  neighbor  and  with  that  neighbor  i  would  have  some  weight 
+associated do you get that how this formula expands 
+so this formula would have m cross n terms for every term  you would have a have a 
+weight  and  that  weight  you  can  just  represented  as  this  filter  matrix  so  you  get  this 
+what this formula is doing it looks a bit nasty but it is just the weighted average of all 
+the neighborhood that you have and the neighborhood is a two dimensional neighborhood 
+in this case how many if you get this properly ok 
+now this in this formula actually i am looking at minus a and minus b that means i am 
+looking  at  previous  neighbors  right  now  you  should  have  these  questions  right  why 
+previous  neighbors  why  not  future  neighbors  so  why  am  i  not  looking  at  this 
+neighborhood 
+ 
+so  there  is  no  correct  answer  here  different  convolution  operations  i  mean  different 
+packages  use  different  convolution  operations  but  the  most  standard  one  i  believe  is 
+when you look at the next neighborhood right that means you at this pixel and you will 
+look at this neighborhood the neighborhood after it right not the before it ok 
+and  in  fact  so  this  is  the  formula  that  i  am  going  to  look  at  plus  j  and  plus  p  that 
+means i am looking at pixels in the rows after this and in the columns after this pixel all 
+of  you  get  this  instead  of  before  now  what  is  even  more  natural  to  do  the  names 
+surrounding thing right so i will have this pixel and i will look at it is such a way that 
+this  pixel  is  the  center  of  the  neighborhood  right  so  that  is  what  i  am  going  to  go 
+towards  after  a  couple  of  slides  and  that  is  what  i  will  use  for  all  my  convolution 
+operations  but  in  terms  of  textbook  definitions  these  are  the  definitions  that  you  will 
+find in textbooks ok 
+so let us let us apply this to a toy example so i have this input which is two dimensional 
+input i have a kernel which is a two two kernel so my m is equal to n is equal to two so i 
+am going to place this kernel at this location ok and then what will i get as the output 
+a into w plus b into x plus e into y plus f into z right and i will keep sliding this to get the 
+other entries do you observe something about the input and the output 
+student 
+ 
+size the output size has reduced why we will get back to this 
+so right now i just you to notice it is obvious nothing great about it but i will just get 
+back to it more formally later on 
+so  for  the  rest  of  the  discussion  we  will  use  the  following  formula  for  convolution 
+which  is  the  centered  formula  right  so 
+to 
+that  means  i  will  be  looking  at  a 
+neighborhood which is  centered on the pixel  of  interest  that is  why this 
+to  + 
+is 
+that fine ok 
+2m2n2m2m 
+so this is how i am going to look at it so this is how i will place if this is the pixel of 
+interest which i want to re estimate i will replace the kernel such that it this pixel lies at 
+the center of the kernel ok 
+so we will be looking at both preceding and succeeding neighbors ok 
+so let us see some examples of 2d convolutions applied to images 
+so this is an image i decide to apply the following convolution operation to edge ok tell 
+me what the resulting image would be 
+student blurred 
+blurred why blurred 
+student we are taking average 
+we  are  taking  the  average  right  so  it  would  be  blurred  you  get  the  intuition  so  this 
+kernel basically  i have fitted at every pixel and i have computed the average around it 
+and place at pixel by that average value and when we are going to take average things are 
+going to get blurred right because all the sharpness is gone ok 
+now let us look at this kernel what will this do sharpen why because one was blurred 
+the other has to be sharpened what is happening here 
+student 
+it  is  subtracting  the  neighbor’s  right  so  you  are  taking  five  times  the  current  pixel  and 
+subtracting the neighbors from it right so if the neighbors are similar those would get 
+subtracted and this would stand out really right does that make sense 
+this will result in a but this in my on my laptop this looks like a sharpened image i do 
+not  know why it is  looking like this here ok it is a sharpened image just trust  me  you 
+can so actually are common right so people who have used adobe or any of these photo 
+shopping  software’s  right  so  you  have  this  click  button  and  where  you  say  take  an 
+image sharpen and blur it so this is exactly what the tool is doing in the background it 
+is applying this convolution operation throughout the image 
+so when you say blur it is basically placing that convolution operation throughout the 
+image  and  computing  the  blurred  image  and  same  for  sharpening  and  all  these  other 
+spatial effects that you have most of them come out of some convolution operation ok 
+so for example the next one what would this do 
+student 
+so i will give you a hint when will this result in a zero output 
+student 
+when all the neighbors are the same as this right so then when will it result in a nonzero 
+output 
+student 
+when there is a difference when there is a difference so looking at this image tell me 
+one place where you know that it will result in nonzero output 
+student 
+all  the  boundaries  right  so  this  is  basically  an  edge  detector  in  the  slides  it  appears 
+properly  ok  so  this  is  basically  an  edge  detector  and  you  get  the  intuition  that  these 
+boundaries whether neighbors are not the same as the current pixel you will not get a zero 
+value in this case when all the neighbors are the same as the current pixel so you are 
+taking  the  sum  of  the  eight  neighbors  and  subtracting  the  current  value  eight  times  so  that 
+would be zero right ok 
+so enough of examples so now we will see a working example of a 2d convolution so 
+i just want to drill this idea of what happens when you do a 2d convolution 
+so what we are going to do is we have this three three kernel and assume that everything here 
+is  a  pixel  ok  everything  here  is  a  pixel  so  i  am  going  to  slide  this  three  cross  three  kernel 
+across this filter now when i place the filter once on the image how many outputs do i 
+get 
+student one 
+one  output  so  if  i  keep  sliding  it  across  the  image  i  will  keep  getting  one  one  pixel  in  the 
+output ok so what the resulting thing that i get is known as a feature map ok because it 
+is the original input that we have taken for every pixel you have tried to approximate it 
+or  whatever  filter  weights  you  have  applied  and  it  necessarily  does  not  mean  that  you 
+are  taking  an  average  it  could  be  some  weird  average  of  your  neighborhood  right  so 
+you have extracted some features from there 
+so for example in the edge detector case you could think of it that you have extracted 
+the feature that this pixel does not lie at a boundary right that is why you get the black 
+pixel do you get that you see this way of interpreting a convolution operation that you 
+are trying to extract some features from that neighborhood 
+so  in  this  earlier  example  whenever  you  got  a  black  you  are  basically  extracting  the 
+feature that this pixel does not lay at a boundary is that ok fine so now you could get 
+one  such  feature  map  by  using  a  single  three  cross  three  convolution  operation  ok  if  i  use 
+multiple  such  convolution  operations  what  would  happen  i  will  get  multiple  feature 
+maps ok so let us try to understand this what is the dimension of my original image m 
+cross n into three why is it into three 
+student rgb channels 
+rgb channels  ok rgb is  what  we will have right so we will have this three m n so 
+we will return back to this idea and from now this one image by using a single kernel so 
+this in fact in for this figure right i am assuming that the input is one cross m cross and i 
+am not assuming there are three channels although it is a colored image but just bear with 
+me so it is a one cross m cross an image and when i apply a filter i get a one feature map if 
+i  apply  k  such  filters  i  will  get  k  feature  maps  so  one  feature  map  could  be  for  the 
+blurring one one could be the sharpening one one could be the edge detector and so on 
+right there are various such filters that you could apply 
+ 
+now in the 1d case we slide a one dimensional filter over a one dimensional input in the 
+2d case we slide a two dimensional filter on a two dimensional input what would happen in 
+the 3d case 
+so now we are going to this rgb images right so we will have three cross m cross  n as 
+the input what would happen in the 3g 3d case not 3g 
+so what would a 3d filter look like 
+student box 
+look like a cuboid a box basically and we will call it a volume why volume because it 
+has a width it has a height and it will have a depth so this is what a three d filter would 
+look like i will assume that it is depth is the same as the depth of your input what is the 
+depth of your input in this case 
+student three 
+three so i will assume that the depth of the filter is the same as a depth of the input and the 
+width and height could be three  three five  five seven  seven anything right so we will get into that in 
+more  details  later  on  so  once  again  we  slide  this  volume  across  the  entire  image  ok 
+what is the output going to be 2d or 3d 
+student 2d 
+why  so  when  i  was  1d  i  was  getting  1d  output  when  i  was  2d  i  was  getting  2d 
+output 3d again 2d output why because i have assumed that no not width 
+student 
+ 
+the depth of the filter is the same as the depth of the input so now you just imagine this 
+if  you  can  suppose  the  filter  was  of  depth  two  instead  of  three  then  i  would  slide  it 
+horizontally  first  vertically  and  then  across  the  depth  also  so  then  what  would  be 
+output be in that case 
+student three dimensional 
+three dimensional and it would have depth of two 
+student two 
+everyone gets that right but for this lecture i am always going to assume that the depth 
+of the filter is equal to the depth of the input always right and that is how it is for all the 
+convolution neural networks that we will see the depth of the input is going to be equal 
+to the depth of the filter the rather the depth of the filter is going to be equal to the depth 
+of  the  input  so  whenever  i  apply  a  3d  filter  i  am  actually  doing  a  2d  convolution 
+because  i  am  moving  only  along  the  width  and the  height  i  am  not  moving  along  the 
+depth  so  the  output  is  going  to  be  2d  so  now  can  i  have  multiple  such  filters  yes 
+each filter will give me a 2d output if i have k such filters i will have a 
+student 
+k  2d output right k 2d outputs fine 
+ 

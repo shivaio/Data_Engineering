@@ -1,0 +1,18 @@
+a  quick  summary  we  have  seen  three  different  interpretations  of  pca  and  eigenvectors 
+played a very crucial role in that and the other thing which played a crucial role was the 
+covariance matrix of the original data and with these three different interpretations what 
+we realize is that the solution that we get or the transform data that we get projecting the 
+original data on to the on to a basis consisting of eigenvectors ensures that there is high 
+variance across the new dimensions 
+and we can ignore of the bottom  top n sorry bottom n minus k dimensions along  with 
+these variance is not high this also ensures that the error in reconstructing the data by 
+ignoring  this  dimensions  is  minimized  right  it  is  a  lowest  possible  error  and  it  also 
+ensures that the covariance between your retained dimensions is  zero because we are able 
+to diagonalize the covariance matrix of the transformed data so that is what we had 
+so now if you think of it right just to connect it two things that we need later on for auto 
+encoder right we are trying to learn a new representation for the data right and we are 
+trying  to  also  compress  the  data  and  we  want  this  compression  to  be  such  that  it  is  as 
+lossless as possible right we are going from n dimensions to k dimensions and still we 
+want  to  retain  the  essence  of  the  data  and  do  not  want  to  lose  out  much  of  the 
+information in the data ok so that is essentially what pca is doing now let us see this 
+in practice 

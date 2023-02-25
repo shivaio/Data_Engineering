@@ -1,0 +1,440 @@
+continuous bag of words model 
+so  from  here  on  so  none  of  this  that  we  covered  had  anything  to  do  with  neural 
+networks  say  but  it  was  important  to  understand  the  context  and  i will  tell  you  why  it 
+was important  to  go over the traditional way  of learning word representations  and then 
+we  will  see  how  it  ties  to  the  modern  way  or  the  neural  network  way  of  learning 
+representations 
+so  we  will  start  with  the  first  neural  network  based  model  for  learning  word 
+representation which is known as the continuous bag of words model 
+so just to set the context the methods that we have seen so far are known as count based 
+models  because  they  rely  on  these  co  occurrence  counts  for  learning  representations  of 
+words and the methods that we are going to see now are called prediction based models 
+and  it  will  become  clear  shortly  why  the  term  prediction  and  how  they  learn  the  word 
+representations 
+so in a way in the original thing there was no learning involved of course you can say 
+that you were trying to learn these eigenvectors and eigenvalues and so on but it was not 
+in the same way as it be as we have been learning parameters of a neural network and so 
+on right it was not in the same spirit but now once i do these second type of models this 
+distinction would become very clear one why is there a learning involved and why they 
+are prediction based models 
+so the story is we are going to look at continuous bag of words model then something 
+known  as  skip  gram  so  this  is  the  famous  word2vec  model  which  you  guys  have 
+already started looking at then we look at glove word embeddings which is some kind 
+of a hybrid between the count based models and the prediction based models and then 
+we  see  how  to  evaluate  word  embeddings  and  then  end  with  this  depressing  note  that 
+good old svd is just fine right  so all the progress that has happened in the past fifty-six 
+years you could just use svd and still go by but if you do that you will probably not get 
+a job right you have to learn these things 
+so now let us start with the continuous bag of words model so consider this task and 
+just bear me for a few slides that when why this is connected to our problem and all that 
+so  i  am  going  to  consider  ka  task  we  are  here  to  predict  the  n’th  word  given  the 
+previous n minus one words right  as this is something that you do regularly sometimes 
+even in the class when you are whatsapping or smsing so this is what you do right you 
+start  typing  he  sat  on  a  and  you  get  this  prompt  that  the  next  word  should  be  chair  or 
+something like that right 
+now you can think of this as a classification problem tell me why you can think of this 
+as a classification problem can you tell me what is so remember that we have always 
+thought  of  this  that  there  is  always  a  y  there  is  always  an  x  and  then  we  are  trying  to 
+learn this relation from x to y so given this example can you tell me what is x here and 
+what is y here 
+student 
+everyone is  clear about  that right  so this is x and this is  y now  i made a statement 
+that  i  could  think  of  this  as  a  classification  problem  right    so  the  minute  i  say 
+classification what is the y that comes to your mind or dash hot by 
+student 
+y  not  i  anything  else  would  have  been  inappropriate  but  so  one  hot  y  is  what  you 
+would expect there right and now what is the size of this one hot vector 
+student size of 
+size of the vocabulary so we are trying to predict one of the words in the vocabulary 
+so you see why this is a multi class classification problem you see that there are many 
+classes and you want to select one of these class now the moment i say classification i 
+give you an x and y i will start asking me who will give me the training data for this so 
+can you think of training data for this any corpus similar to the one that you are creating 
+right 
+in specific what you will do is suppose you have framed it as the following problem that 
+you are given for words and you want to predict the fifth word so in general i have call 
+it as that you are given n minus one words and you want to predict the n’th word the n that 
+i am considering here is four 
+now what is going to be the training data for this if you take any corpus that you have 
+built anything right consider all five word windows from there do not get too engrossed 
+in the story so there are four the first four words you can treat as x and the fifth word 
+would be your y  so you can construct many such x comma y pairs from the raw corpus 
+that  you  are  creating  any  five  word  window  and  you  can  keep  sliding  this  window  right 
+what i mean by that this is your first training instance x comma y this could be your 
+second training instance so this could be these overlapping training instances you keep 
+sliding this window and you will get many training instances ok you see that 
+so this task the advantage is that given the size of the web and so on at least for popular 
+languages the training data almost comes for free right  compare this to mnist or any 
+other task where you have to actually acquire these labels that this is an apple this is a 
+banana and so on here  you get  the training data  for free just need to  scrape it from  the 
+web  know  no  window  size  is  something  that  you  will  set  right  whether  you  want  to 
+learn four word windows or what do you mean we do not know the window size no 
+so this again there is a lot of existing literature in the traditional nlp where various and 
+lot of work has been done to figure out what is the right n so in most nlp task right if 
+you want to predict the next word a three word window is enough actually if you know 
+the  last  three  words  and  you  can  try  this  as  a  mental  exercise  right  if  you  know  three 
+words  you  do  not  really  need  to  know  the  words  before  that  so  this  is  the  mark  of 
+assumption with where this is a trigram dependency in the words right 
+so  this  n  is  not  really  so  difficult  and  in  the  default  tool  that  you  guys  would  try 
+probably they take the value of n is seven that is an overkill but that is again it comes from a 
+lot  of  existing  literature  in  nlp  right  this  is  not  a  this  task  is  not  deep  learning  broad 
+right this task is a simple language modeling task which has existed for many years right 
+from probably 1950s or 60s or something 
+so this is all n word windows in your corpus as i said training data comes for free and 
+for ease of illustration we will now focus on the case when n is equal to two that means i 
+am given one word and i want to predict the next word 
+and we will see how to model this using a neural network so these are the two questions 
+which i need to tell you how to model this task and what is the connection between this 
+task  and  our  original  task  of  learning  word  representations  these  are  the  two  things  that  i 
+am going to answer 
+so we will model this problem using a feed forward neural network what is the input 
+one wordok so say the word is sat i am going to represent it using a one hot vector ok 
+and  what  is  the  output  i  want  to  predict  a  distribution  over  all  the  words  in  the 
+vocabulary  and  i  want  to  predict  i  want  to  pick  the  word  which  has  the  maximum 
+probability  that  is  how  you  did  so  for  example  in  the  case  when  you  had  this 
+classification problem of banana apple orange mango you predicted a distribution over 
+these four classes and then picked the one which had the highest probability exact same idea 
+here it just that instead of four classes now you have v classes and your v is very large ok 
+it is trying to learn a distribution over there 
+and you know that in this case or the example that you are considering on is the actual 
+next word so you type sat and the next word is on and probably leading to sat on the 
+chair  or  something  like  that  so  this  is  what  you  would  want  to  maximize  ok  i  have 
+given you the input i have given you the output give me a neural network to model this 
+there are lot of hints in the diagram itself right you see some space between the input and 
+the output 
+so what will you put in the middle layer we will put a middle layer there right  is this 
+an ok way of modeling this task i have an input i want to predict an output so i just use 
+a  regular  feed  forward  neural  network  and  let  us  analyze  these  parameters  a  bit  more 
+carefully right  so i am something known as w context i have something known as w 
+word  i  am  already  using  some  notations  from  the  svd  lecture  there  at  the  end  we 
+ended  with  w  word  and  w  context  right  it  is  not  clear  why  i  am  using  the  same 
+notations but it will become clear in some time but let us look at their dimensions 
+so we have this one hot vector i have a parameter w context which i am going to learn 
+right and its size is k cross v so what does that mean this matrix is going to multiply 
+by the vector and give me a k dimensional output right is that clear so i have this is of 
+size v because always keep surprising me i do not know why you cannot do this r this is 
+a v dimensional vector you multiply it by a k cross v vector so you do w into x so 
+you will get a k dimensional vector so this is k dimensional you have a k dimensional 
+hidden representation 
+and from there now having captured this hidden representation you are trying to predict 
+which is the next possible class this is the same as any other thing right if you had done 
+the image classification or the mnist digit classification you had this seven hundred and eighty-four dimensional 
+input  vector  you  pass  it  through  a  hidden  layer  and  then  you  predicted  one  of  the  ten 
+classes there is nothing magic here it is the same thing that you have done seen before 
+how many if you get this and what are the parameters w context and w word ok and 
+we are going to focus on these parameters and understand what they actually mean 
+so what is the product w context into x given that x is a one hot vector so i will tell 
+you this suppose the i’th entry is hot here how many if you say it is the i’th column of w 
+context  so  it  is  simply  the  i’th  column  of  w  context  why  because  you  have  this  w 
+context matrix you take a one hot vector which has the second entry as hot if you do this 
+multiplication you basically get the second column of w and you can just see it everyone 
+gets this now how many if you get this now 
+so if you have a one hot vector if its i’th entry is on u multiply it by a matrix you will 
+get the i’th column of the matrix ok so if the i’th word is present in the input then the 
+i’th element of the one hot vector is on and the i’th column of w context can be would be 
+selected so then can what can you tell me about the i’th column of w context you see 
+there is this one to one correspondence between words in your vocabulary and columns 
+of the w context matrix how many columns has w context have v columns how many 
+words  are  there  in  your  vocabulary  v  any  one  word  is  on  only  one  column  will  get 
+selected and that is a unique column it is not going to change right  so there is a one to 
+one mapping between the columns of w context and the words in your vocabulary that 
+means the columns of w context are the are the vector representations 
+do you know these vector representations no these are parameters of your network so 
+they  will  they  will  be  learned  how  we  will  see  ok  so  you  see  the  intuition  for  w 
+context  setting  it  up  this  way  so  now  i  have  set  up  the  problem  in  a  way  that  by 
+parameter  matrix  directly  gives  me  the  word  representations  ok  but  any  kind  of 
+learning has to be driven by some objective so what is that objective it is already clear 
+to a lot of you but we will just do that in a bit more detail so this is exactly what i have 
+just said 
+now how do you obtain p on given sat no no so for a given training instance so when 
+you so you could so i will so for a given training instance  you said that  your corpus 
+has  been  divided  into  those  training  windows  right    so  it  is  possible  that  engineer 
+sometimes the word does not and is not the next word but for this training instance what 
+is it so that is what you have to predict right is that fine 
+and at test time so you are saying that what you are saying is more practical that when i 
+have typed sat in the whatsapp message i do not want on as the always the answer so 
+we  get  these  five  options  right  three  to  five  options  so  what  could  be  that  you  have  this 
+probability distribution pick the top five from there and show it as options so is that fine 
+so we  are done with  this now how do  you compute  p on  given sat what  is  the actual 
+operation happening there what is the appropriate output function this is a multi class 
+classification problem softmax 
+this is what softmax looks like so the property if suppose on is the i th word in your 
+vocabulary  then  i  am  saying  that  the  probability  of  on  given  sat  is  going  to  be  this 
+quantity how many of you agree with that i mean those who agree is fine i am asking 
+why the others do not agree what is not clear about this i do not know how to explain 
+this i mean it is just so plain obvious what is the softmax function first of all you will 
+do this aggregation so you will do this w word into h that is fine right  so for you will 
+compute this vector consisting of w word into h fine what is the dimension of that what 
+is  the  dimension  of  that  mod  this  is  k  dimensional  this  is  v  cross  k  or  k  cross  v 
+depending on how you multiply it so what is the output going to be v so you have v 
+entries 
+these are dash entries the options are normalized unnormalized unnormalized now what 
+does softmax do 
+student normalization 
+normalization  that  is  exactly  what  this  formula  is  doing  right    you  want  for  the  i  th 
+word you see what was the end this product right this gave you a v dimensional vector 
+you  look  at  the  i’th  entry  there  right  that  is  what  you  are  doing  here  raise  it  to  an 
+exponent and divided by the summation of all these entries come on guys this is highly 
+disappointing  i  cannot  teach  softmax  i  had  in  the  tenth  lecture  eleventh  lecture  of  the 
+course right what is wrong how many if you get this now just have to ask of it tangle 
+you 
+so  you  see  this  right  this  is  what  is  happening  here  so  you  get  this  v  dimensional 
+vector  and  you  just  con  converting  into  a  probability  distribution  using  the  softmax 
+function so now this value how did he compute this value actually you computed this 
+product  which  is  w  word  into  h  and  then  you  took  the  i’th  entry  of  that  and  then  this 
+some transformation on that the softmax transformation you see that 
+so now i can say that p on given sat is actually proportional to the dot product between 
+the j’th column of w context and i’th column of w word why am i saying that 
+so remember that this was the i’th word in your vocabulary and on was the j’th word in 
+your  vocabulary  so  can  you  explain  the  meaning  of  this  sentence  to  me  first  let  us 
+look at the first part what is h it is a j’th column of w context oh sorry this should be i 
+this should be j so this you already saw that h is the jet column of w context because i 
+am multiplying a one hot vector with the matrix is that fine and what is the i’th column 
+of  w  word  so  why  what  is  this  product  actually  equal  to  if  i  say  w  word  into  h  w 
+word into h that is a vector and then i am taking the i’th entry of that so i am saying 
+that is the same as taking the i’th column of w word and multiplying it by h how many 
+if you get this is basically in your algebra right 
+now these four different ways of multiplying matrices i am just using one of those right 
+so  if  i  multiply  a  matrix  with  a  vector  and  then  take  the  i’th  entry  of  that  that  is  the 
+same as multiplying the i’th column of the matrix with the vector ok just go back and 
+verify  this  just  take  my  word  for  it  for  now  so  now  what  is  happening  is  that  it  is 
+proportional to the product between the j’th column of w context and the i’th column of 
+w word is that clear now everyone gets this 
+so p word equal to i given sat does depends on the i’th column of w word ok 
+so  now  what  can  you  say  so  earlier  we  saw  that  the  i’th  column  of  w  context 
+corresponds  to  a  particular  word  now  what  can  you  say  about  the  i’th  column  of  w 
+word it also corresponds to a particular word so now why these two correspondences i 
+already had a correspondence between w context and every word in my vocabulary now 
+i  am  saying  that  there  is  also  correspondence  between  w  word  and  every  word  in  my 
+vocabulary how many of you first of all are comfortable with the sentence that every 
+column of w word has a correspondence with some word in the vocabulary 
+the second sentences every column of w context has a correspondence with some word 
+in the vocabulary do you all of you agree with both these statements okay that is what 
+we  have  try  to  prove  so  far  so  now  for  every  word  that  means  i  have  two  columns 
+waiting for it how do i deal with this situation have you ever dealt with it before the 
+same thing happened in svd also right  svd also gave you this u sigma which was w 
+word  and  then  v  which  was  w  context  so  you  can  always  learn  two  different 
+representations  for  the  words  one  is  when  the  word  appears  as  a  context  word  and  the 
+other is when the word appears as the target would you get that you see why we have two 
+different representations fine 
+and as i said hope you see the analogy with svd right you already saw there that there 
+were these two representation now given all this set up and please do not disappoint me 
+can  you learn these parameters with  some tweaks to  the code that  you have written for 
+mnist can you use the same code to learn these parameters how many if you say yes 
+so  what  is  the  tweaks  what  are  the  tweaks  the  input  changes  instead  of  the  image 
+input you have this v dimensional input what else changes 
+student output 
+the output changes instead of a ten dimensional output you have a v dimensional output 
+all of you are absolutely clear about this and what is the training algorithm 
+student 
+back propagation what is the loss function cross entropy good fine 
+so  for  some  i  will  do  some  more  stuff  on  this  because  there  is  some  in  interesting 
+interpretations of the gradient descent update rule here so i will refer to the word sat by 
+the  index  c  and  the  word  on  by  the  index  w  ok  and  you  already  saw  that  the 
+appropriate  loss  output  function  is  softmax  the  appropriate  loss  function  is  cross 
+entropy so let me just look at this right  so w was the index of the output word so 
+my cross entropy formula would just boil down to this everyone is fine with this ok i 
+will just try to maximize the w th entry in my y hat how many of you are fine with this 
+okay and that is nothing but the probability of the word given the context 
+now remember that h is equal to w context into x c i am going to call that as u c so u 
+c  is  the  dash  of  the  word  sat  title  of  the  lecture  it  is  a  vectorial  representation  of  the 
+word sat everyone is fine with that because that is exactly what this product is going to 
+do and now my y hat w is equal to this because i already said it is the product of the c’th 
+column of w context and the w’th column of w word 
+so now  i have  a formula for  y hat w what  is  the training  algorithm that  you will use 
+gradient descent with back propagation now let us consider one such input output pair 
+and see the update rule for v w 
+so my loss function is this this is actually this quantity ok now i can just rewrite it as 
+this i have just expanded the log so the log of a by b is log a minus b ok now i want this 
+quantity because this is the parameter of the network right v w is one of the columns of 
+w context or is it w word w word v w is one of the columns of w word and i want to 
+learn i want to learn it what are the what are these column entries so that means i am 
+interested in this particular gradient 
+so i will start taking this so what is it going to be so only u c will remain here of all 
+these  summation  terms  only  one  of  them  would  remain  and  then  you  can  derive  de 
+derivative  right    so  this  is  what  it  is  going  to  look  like  what  is  this  quantity  the 
+softmax function so this is what i get 
+so now my gradient update rule is going to look like everyone is fine with this i have 
+derived  this  formula  and  i  have  just  substituted  that  here  and  this  negative  and  this 
+negative ok so now let us look at this update rule 
+so  this  update  rule  has  a  very  nice  interpretation  which  allows  us  to  understand  what 
+does the continuous bag of words model actually learn now suppose y hat w tends to one 
+what would that mean your prediction is very correct right you are almost predicting it 
+has probability  as  1ok what  would happen to  the update in  that case there  will be no 
+updated  if  it  is  one  there  will  be  no  update  if  it  is  close  to  one  there  is  going  to  be  very 
+minimalistic update that means you have already learned the v w well enough ok 
+on the other hand if i am very bad if y hat w is close to zero what would happen just tell 
+me the case when y hat w is actually zero what is the update rule have you seen something 
+similar  ever  before  have  you  seen  something  similar  before  where  did  you  see  this 
+update rule perceptron what happened when you did this w and x came closer to each 
+other the angle between them actually decreased so the same thing is happening here 
+so what you are trying to do is you are trying to make your word representation closer 
+to  the  context  representation  is  that  clear  how  many  if  you  get  this  it  straight  away 
+follows  from  the  update  rule  right  because  you  are  adding  a  fraction  of  your  context 
+vector to your word vector and we know that when we add two vectors they come close to 
+each other the cosine between them decreases that is what we proved in  the word  to it 
+lecture in the perceptron lecture right 
+so you can go back and refer to this slide on lecture two now so the training objective is 
+essentially  ensuring  that  the  cosine  similarity  between  v  w  and  context  word  is 
+maximized between the word and the context word is maximized 
+now what is the result of this now i want you to think go back with a starting example 
+where  we  said  that  we  want  to  learn  representations  such  that  cat  and  dog  are  close  to 
+each other but cat and truck are not close to each other 
+i want  you to think whatever  you see on this slide the conclusions that  you drew from 
+this slide how do they help you to relate back to that initial goal ok so now let us let 
+me give you the intuition right  so what happens to the representations of two words w 
+and w prime which tend to appear in the same context c so say dog eats cat eats right 
+so  dog  and  cat  are  two  words  which  appear  with  the  same  context  eats  so  what  will 
+happen to the representation of dog it will come close to eats what will happen to the 
+representation  of  cat  come  close  to  eats  not  only  that  dog  will  also  go  close  to  pet 
+animal  sleeps  right  and  so  on  and  cat  will  also  go  close  to  these  so  transitively  what 
+will  happen  dog  is  going  close  to  a  certain  point  or  certain  sets  of  points  cat  is  also 
+coming  close  to  the  same  set  of  points  so  transitively  dog  and  cat  will  come  close  to 
+each other you get this intuition 
+anyone  sees  a  problem  with  this  no  so  known  objective  and  i  said  that  dog  comes 
+close to eats is that what he wanted i mean why should dog be close to eats that means 
+if i find the nearest neighbors of dog i will get words like eats sleeps barks and so on is 
+that what i wanted so that is exactly what is happening and based on that i convinced 
+you that dog and cat will come close to each other but there is a subtle gap here i want 
+you  to  close  that  gap  how  many  matrices  do  we  have  two  that  is  enough  hint  we  are 
+going to either take columns of this matrix as the representations or the columns of this 
+matrix as the representation not mixed 
+so now can you tell me so dog here will come close to eats sleeps barks here word 
+will come close to context word right cat here will come close to eat sleeps and so on 
+right  so transitively dog and cat will come close to here and this is the representation 
+that  you care  about  not  representations across these two matrices ah so  what  i said  is 
+that  the  training  rule  ensures  that  the  words  representation  comes  close  to  the  context 
+words representation ok that is what we saw with the training update rule 
+so that means dog will come close to any kind of context word that it appears with so 
+dog  i  would  expect  it  to  appear  with  context  words  like  eats  pet  animals  dog  barks 
+drinks and so on right  so dog is coming closer to these words and i expect cat also to 
+come up here with these words and of course i do not expect truck to appear with these 
+words right  so then cat will also come close to these set of words dog will also come 
+close  to  these  set  of  words  so  transitively  dog  and  cat  will  come  close  to  each  other 
+right all of them are coming close to each other ok which is fine which was my original 
+goal 
+but my original goal was not that dog and eats should come close to each other because 
+eats  and  dog  are  neither  synonyms  when  they  do  not  have  any  semantics  i  mean  they 
+have a semantic relation but that is not what i wanted i wanted similar words to come 
+close to each other but  now i have the side effect that dog is coming close to eats but 
+that is bad was how can i live with that 
+so the i mean the key thing that you should notice is that you have one matrix of words 
+the other matrix is of context words so the representation of dog in the word matrix is 
+coming close to the representation of eats sleeps etc in the context representation on the 
+context  matrix  the  representation  of  cat  is  also  coming  close  to  these  words  in  the 
+context representation and transitively because of this dog and cat in the word matrix are 
+coming close to each other and this is the matrix that we care about 
+in this matrix dog and eats dog and sleeps are not close to each other right is that fine 
+everyone  gets  this  now  ok  so  this  is  only  an  intuition  and  this  becomes  very  tricky 
+when i will blow this up what do i mean by blow this up right now what am i trying to 
+do what is the size of n two right i am taking one word and outputting the other word 
+hence you get all these neat interpretations that you are moving close to that vector and 
+so on the moment i add more words to n these interpretations become more and more 
+hard right but this again i mean this is  good to understand that this is what happens at 
+least  in  the best  case so  this is  only  an intuition  which is  reasonable in  my opinion  i 
+have not come across a formal proof which says that this is what actually happens and 
+that is one criticism for word2vec it works very well but there is no formal proof which 
+tells you why exactly it works 
+as  opposed  to  svd  right  there  we  know  there  is  a  principle  behind  it  here  that  is  not 
+very clear right but it works very well based on this intuition ok so everyone gets the 
+whole  set  up  how  we  started  with  a  classification  problem  of  predicting  the  n  th  word 
+given the n minus one words which had nothing to do with word representations that is a 
+simple language modeling problem which has existed forever we smartly modeled it or 
+someone  smartly  modeled  it  using  a  neural  network  such  that  the  parameters  of  the 
+neural network end up giving  you the word representations and this network is end to 
+end  trainable  using  an  objective  function  the  training  data  comes  for  free  for  popular 
+languages  you have like tons  of training data the entire  wikipedia entire web whatever 
+you can scrape that is why with more and more training data you can learn even better 
+and better representations so for popular languages the representations are really good 
+and then we saw an intuitive explanation for why this works because of this movement 
+of  things  closer  to  each  other  and  the  key  thing  to  notice  there  are  two  different 
+representation matrices one for the words one for the context and this is not surprising 
+the  same  thing  happened  for  svd  also  u  sigma  was  w  word  and  v  was  w  context 
+right  so it is all in the same spirit right 
+now  in  practice  instead  of  window  size  of  one  it  is  common  to  use  a  window  size  of  d 
+either d could be four or seven i have i have even say and seen eleven actually but not beyond that 
+ok now let us see what happens if you have two and here itself it should become clear that 
+now those interpretations are not very neat so what i will use suppose i want to take a 
+context of two words then i have he sat and now i want to predict the next word 
+so what is my input now he and sat right  so i will take the one hot representations 
+of he and sat i will just concatenate them sorry i just concatenate them is that fine and 
+my input now belongs to r raise to two v in general it will belong to r raise to d v ok and 
+now  what  is  the  next  step  do  you  see  something  funny  here  i  have  just  created  two 
+copies  of  this  ok  i  am  telling  you  an  inefficient  way  of  doing  this  later  on  it  will  be  a 
+very simple thing to  do a very efficient way of  doing this right but  first  just to  get  the 
+math around i will just do inefficient way of doing it 
+why have i staged it twice two words right  so now my h is actually going to be the sum 
+of all the columns of w which correspond to my input words is that fine i have to earlier 
+i had just one word as the input so my h was just equal to that column of w now my h 
+is going to be equal to the sum of all the columns of w corresponding to the words that i 
+have and i will tell you why so i have taken w contexts comma w context which is just 
+the w context matrix staged twice back to back so this was my w matrix this is my two 
+hot vector because i have two inputs now right  so my vocabulary size is three so the first 
+one hot vector followed by the next one hot vector and now i am going to repeat w w 
+now  what  is  the  product  of  this  is  the  sum  of  the  two  columns  that  you  see  highlighted 
+right and exactly that is what i have written here 
+so if i do it this way then i can just do this very expensive matrix multiplication and to 
+do a something very trivial which is just taking the sum of two columns right  but at least 
+you  get  the  operation  and  i  will  just  on  this  next  slide  or  something  i  will  tell  you  an 
+obvious simple way of doing that so i just get the sum of the two columns so that is the 
+input to my network if i had k words as input if i had my window size four what would it 
+be i would have these four copies of w context i will have these four one hot vectors and it 
+will just give me the sum of those four columns  ok that is going to be the input ok and the 
+rest of the story remains the same right  once you have this h the rest of it from there 
+remains the same and this is the formula for h in general 
+in  the  special  case  it  was  just  the  i’th  column  in  the  general  case  is  the  sum  of  all  the 
+columns that are there in your input 
+now  in  practice  of  course  this  is  a  very  mate  expensive  matrix  multiplication  it  is 
+stupid to do it that way what you will do is you will just slice of those columns from w 
+context right and then just add them up so you do not really need to do that stupid mate 
+matrix multiplication because you know that the matrix multiplication is essentially just 
+selecting these columns and adding them so just select those columns and add them up 
+so you do not do that bad matrix multiplication operation is that fine 
+now  what  happens  during  back  propagation  in  this  case  in  the  generic  case  the 
+ordering does not matter is what you have seen yes it does not matter yeah there is some 
+assumption  of  the  model  so  it  is  that  is  why  the  name  of  bag  of  words  you  are  not 
+relying on the sequence so this comes from nlp that if you rely the sequence you call 
+it sequence if you just going to take the words in the sequence you just call it a bag of 
+words because once  you put them in a bag there is no ordering  there right that is why 
+the word name bag of words 
+so  and  again  p  on  given  sat  is  given  by  this  softmax  formula  ok  now  tell  me  during 
+back propagation and if you  give me a right  answer to  this i really feel  happy that  you 
+have  understood  everything  right  from  the  beginning  of  the  course  so  no  pressure  so 
+which are the parameters which are going to get updated during back propagation which 
+are the two large matrices w word and w context so obviously the answer is not w word 
+and w context otherwise i would not have asked you the answer is some dash of these 
+two some subset of these two which subset let us start with w context which is the input 
+do we are we going to update the entire w context did it participate the entire w context 
+participate in the computation only those columns corresponding to the words so only 
+those parameters will get updated 
+so how many columns will get updated d columns right  w word till all the columns 
+of w word  participate in the  computation how many  of  you say  yes how many if  you 
+say no the others do not care can you just focus on this circle did all the columns of w 
+word participate in the computation you see the summation at the bottom it is over all 
+the  columns  of  w  word  all  of  them  participated  so  the  parameters  which  will  get 
+updated are w word and all the columns of the input words and same back propagation 
+will work again is that fine 
+so remember that and this is i cannot emphasize it enough whatever i have explained is 
+only for an intuitive explanation you will never ever do this matrix multiplication right 
+and that is  why what  you are  going to  do is  you are  just going to  select  those columns 
+add them up and feed them and the network will take care or rather you will take care 
+that you update those parameters only and you do not update the entire w context matrix 
+because  anyways  there  is  no  gradients  flowing  to  the  other  components  so  remember 
+that  in  the  practical  implementation  of  w  of  word  two  vec  do  not  search  for  this  matrix 
+multiplication  at  the  input  or  if  you  are  writing  the  code  on  your  own  which  is  highly 
+unlikely do not do it that way 
+so if you whatever code that you look at did not have this complex matrix multiplication 
+typically  they  will  just  pick  up  the  columns  and  add  them  and  feed  them  right  and  i 
+think the tensor flow way of doing is you have this word embeddings matrix and you can 
+slice  columns  from  there  and  so  so  everyone  understands  this  so  far  now  what  are 
+these problems with this why is this not as simple in some sense as the mnist data set 
+again focus on the circle this softmax computation is a very expensive operation right 
+you have a v cross k sized matrix somewhere there and unlike at the input here you will 
+have to do this matrix multiplication right 
+so  we  have  a  v  cross  k  matrix  multiplied  by  a  k  cross  one  vector  and  there  is  no 
+simplification of this  you have to  do this multiplication what  are the sizes of v that we 
+saw in practice fifty k one hundred k and if you had googled thirteen million or something right  so 
+this is not feasible we cannot do this expensive matrix multiplication 
+so  although  all  of  this  works  very  fine  we  need  to  think  of  ways  to  simplify  this 
+softmax computation where the denominator requires the summation over all the words 
+in the vocabulary so you have to do that many matrix multiplications 

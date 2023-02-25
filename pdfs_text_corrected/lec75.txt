@@ -1,0 +1,140 @@
+distributed representations of words 
+so  what  we  saw  now  was  sparse  representations  or  one  hot  representation  sparse 
+because  only  one  bit  is  on  from  there  we  will  move  on  to  something  known  as 
+distributed  representations  of  words  and  you  have  already  seen  that  sparse  is  in 
+theory but it gives a very simple recipe of converting words to vectors but it does not 
+serve much purpose 
+so  let  us  see  what  distributed  representations  of  words  are  so  this  around  one thousand, nine hundred and fifty-seven  j  r 
+firth made this very profound statement that you shall know a word by the company it 
+keeps and this of course a play on some other similar code but what does this actually 
+mean so it means that you want to know what  does the word bank convey or what is 
+the  essence  of  the  word  bank  right  what  this  code  says  is  that  if  you  want  to  know 
+about bank you should say you should see the company that it keeps that means what 
+are the other words which appear typically in it is neighborhood and of course when 
+you have a large amount of corpus given say the entire wikipedia 
+of course at that time wikipedia did not exist but any large corpus and does this led to 
+something  known  as  distributional  similarity  based  representations  so  to  understand 
+this we first have to understand the idea of a cooccurrence matrix 
+so the basic idea is to use the accompanying words which in this example happen to be 
+financial  financial  deposits  credit  etcetera  to  represent  bank  and  to  do  that  we  will 
+construct something known as a cooccurrence matrix which looks like this right so a 
+cooccurrence matrix is a terms cross terms matrix that means every row in the matrix 
+corresponds  to  a  term  or  a  word  and  every  column  in  the  matrix  also  corresponds  to  a 
+term or a word 
+can you guess what how many rows would there be size of the vocabulary how many 
+columns would there be size of the vocabulary right okay so here is how we construct 
+a cooccurrence matrix so we take a word we are interest interested in constructing the 
+row for that word the number of columns is the same as the size of the vocabulary 
+now for every column we will make an entry which tells us whether or how many times 
+this this word appeared in the context of the target word right for example if i look at 
+machine i am looking at the row for machine i am trying to construct the entries in that 
+row  i  know  that  the  number  of  columns  is  equal  to  the  all  the  unique  words  in  my 
+vocabulary 
+so i look at the first word which is human and in that cell i enter the value which is the 
+number of times human appeared in a window of k words around machine is that fine is 
+that straightforward and that is how i will construct this cooccurrence matrix where i 
+have  taken  the  window  size  as  two  that  means  in  any  given  cell  my  entry  would  be  the 
+number of times human appeared within a 2word window of machine is right the ig’th 
+cell  clear  the  definition  of  the  ig’th  cell  clear  so  this  tells  me  that  user  actually 
+appeared two times around the word system in a window of two words around it is that clear 
+everyone gets this how i construct the cooccurrence matrix ok now you could use the 
+same so this is known as words and this is known as context that means the rows we 
+refer to them as words and the columns they refer to them as  context now as you said 
+that the number of rows and the number of columns can be same that we can consider 
+the same words in the context as well as the same word as the target words right 
+but you could also do something different you could say that i do not want to consider 
+all words  that is  context  words  because for example the word for appearing with  any 
+other word does not really give me much information because it is just a stop word right 
+or the word the or and or a these are known as stop words in the language these do not 
+really give me much information 
+so  if  you  go  back  to  the  bank  example  financial  credit  deposit  are  the  words  which  i 
+really care about and these are the financial bank or with deposits and also these words 
+do not really matter a lot ok do you get the intuition 
+so  you  could  choose  to  have  fewer  columns  which  are  only  the  important  words  that 
+you  consider  and  you  ignore  the  stop  words  ah  in  this  discussion  i  will  alternately 
+switch  between  considering  the  columns  as  the  same  as  the  rows  and  sometimes  are 
+restricting the columns to fewer number of entries 
+so  now  each  row  gives  us  the  vectorial  representation  of  the  word  so  we  have  seen 
+how we have moved from sparse representations to distributed representations so now 
+take a guess now would this vector be sparse 
+so we saw the extreme sparse right which was one hot now the vectors which you get 
+here  are  they  going  to  be  dense  or  still  sparse  sparse  right  because  every  word  does 
+not  appear  with  every  other  word  right  you  still  have  these  v  dimensional  vector  and 
+there are some words which will appear with  very  few words right so  you expect  to 
+have non zero entries in very few columns right so these representations are also sparse 
+so  there  are  some  problems  some  of  which  are  fixable  so  we  look  at  the  fixable 
+problems first the first thing as the stop words are very frequent so these counts should 
+be very large 
+so  if  you  take  the  entire  wikipedia  corpus  and  you  take  the  word  machine  or  system 
+then the words the and for and so on would have appeared like more than one thousand times 
+in  the  context  of  the  word  machine  right  and  as  compared  to  the  other  words  like 
+system or user they would have appeared much fewer times so this kind of skews your 
+counts right it is like highly biased in the favor of stop words so how do you deal with 
+this 
+so there are two ways one is ignore frequent words right so that is the solution which i 
+suggested earlier that your number of columns would be less than the number of words 
+is that fine so you do not actually consider frequent words at all 
+the other is user threshold t so that means in these columns like for and with and so on 
+whatever be the entry if that crosses a certain threshold then i will just replace it by that 
+threshold is that clear 
+so  i  am  just  saying  that  this  means  that  the  word  has  appeared  more  than  one hundred  times 
+and  i  am  not  interested  in  keeping  the  actual  count  which  was  more  than  one hundred  i  just 
+saying  that  more  than  one hundred  is  enough  for  me  right  because  i  know  that  all  the  other 
+entries  are  going  to  be  much  less  than  this  so  just  like  replacing  it  by  a  very  large 
+number instead of actually counting that number 
+the other solution is instead of count you can use something known as pmi so this is 
+how  you  compute  pmi  even  if  you  do  not  know  it  does  not  made  a  lot  of  difference 
+because you know that it will always be there on the slide that is why you guys do not 
+read  anything  so  pmi  is  computed  like  this  so  intuitively  tell  me  what  does  pmi 
+capture look i would say focus on this formula rather than the upper one when would 
+it  be  high  the  easier  question  to  answer  is  when  would  it  be  low  remember  you  are 
+dealing with a fraction 
+so  if  independently  the  two  words  appear  a  lot  of  times  but  together  they  appear  very 
+rarely then the pmi is going to be low is that clear now if both the words appear one hundred 
+times and together also they appear one hundred times that is the best case scenario that means 
+these are very tightly tight words right they always tend to appear together 
+so the pmi would be high for words which are very  frequently  cooccurring now so 
+this  is  what  would  happen  if  you  replace  the  counts  the  cooccurrence  counts  by  the 
+corresponding  pmi ok now if the count  of two words is  zero we have a problem  because 
+then the pmi tends to be minus infinity right so how do you deal with this situation 
+epsilon or some we will use some hack right as usual 
+so instead of pmi use something known as pmi zero which works like this if the count is 
+greater than zero then you use pmi if the count is equal to zero then you just put the entry zero 
+in the set make sense there is also something known as positive pmi which is slightly 
+more extreme it says that use the pmi only if the pmi is greater than zero otherwise use zero 
+can anyone tell  me the  rationale for doing this you see the subtle difference between 
+the  three  things  right  one  is  of  course  doomed  because  you  cannot  handle  zero  counts  the 
+other  one  is  saying  that  if  the  count  is  zero  then  i  will  just  substitute  zero  the  last  one  is 
+saying that if the pmi is negative right then i will replace it by zero that means in the last 
+case  all  the  cells  in  your  or  in  your  pmi  matrix  would  be  positive  right  non  negative 
+rather 
+so can you tell me the rough intuition for using this and there is only a rough intuition 
+but can you tell me so the very rough intuition for this is that what does it even mean to 
+say that two words are negatively correlated i mean either they occur together right which 
+means there is some relation between them but a negative relation between words does 
+not make sense that is the intuition behind this now of course i could argue that what 
+about  antonyms  and  things  like  that  but  that  is  also  not  the  same  right  because  you 
+could have good and bad in the same sentence right 
+but  that  is  the  roughly  the  intuition  that  negative  values  do  not  mean  much  so  just 
+replace  them  by  0sok  there  is  no  again  a  formal  reasoning  behind  this  but  just  the 
+intuition so we have looked at the cooccurrence matrix where we started with counts 
+these counts were very sparse and there are also some other problems with counts in the 
+terms of some frequent words taking a lot of limelight and so on 
+so we have fixed although then we have done some very minor and simple fixes and i 
+just very rush quickly rush through them because they are very simple but these were all 
+fixable problems what a nonfixable severe problem with this what is the problem with 
+the one hot representations large 
+what  about  these  representations  still  large  it  is  still  of  size  v  it  is  still  very  high 
+dimensional still very sparse not as parse as the one hot encoding but still sparse and it 
+grows  with  the  size  of  the  vocabulary  so  now  remember  that  penn  treebank  at  fifty  k 
+words google 1t corpus at tha thirteen million yeah so it keeps going with the size of the 
+corpus 
+so now how do  you know how do  you  fix this i  wish  i had that harry  potter thing 
+anyone remembers that spell to wipe out your memory how would you deal with it so 
+you now see how it connects so now again you have ended up in a situation where you 
+have a very high dimensional matrix right and you are looking for ways to reduce the 
+dimensions so we will go back and rely on things that you have learned and one of those 
+was svd right so you can use singular value decomposition 
+why did i say svd and not pca because this is not necessarily a square matrix a this 
+could be a rectangular matrix and for all practical purposes svd is just a generalization 
+of pca 

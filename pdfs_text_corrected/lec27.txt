@@ -1,0 +1,167 @@
+lecture  four 
+now  we  go  to  the  next  module  where  we  will  first  see  how  to  compute  the  gradient 
+with respect to the output units well that was the first guy in our chain right that is the 
+first person that we need to talk to 
+so that is the part that we are going to focus on 
+so  this  is  the  output  and  when  i  say  i  want  to  compute  the  gradient  with  respect  to 
+output unit what do you actually mean what is the quantity that i am looking for i will 
+help you out actually what i meant by output unit is this entire thing right so i actually 
+meant al’s ok but it is it is a fair answer and even y hat is a fair answer ok in fact am 
+going to start with y hat and then go to al so i will have to start with this guy and then 
+come to this guy 
+so this is the loss this is y hat which is equal to y one hat y two hat up to yk hat so these 
+are the k values that we have here and we are looking at cross entropy that means we 
+are looking at the classification problem right so we have got a distribution over the k 
+classes  that  is  what  y  hat  looks  like  and  we  know  that  one  of  these  guys  is  the  right 
+class maybe say y two so the loss function is minus log of y hat two because two is the correct 
+class  in  this  toy  example  that  i  am  considering  ok  so  the  loss  function  i  am  just 
+repeating the definition right that is how the loss function is 
+now oh god so again  this is what  our  y hat  looks like ok now  i want  to  compute the 
+gradient with respect to any of the output units right so it could be y one y two y three y four up 
+to  yk right so this i actually can take values from one to  k in this case one to two right ok 
+now can you tell me what is this loss ok this much is fine can you tell me what is this 
+derivative minus one by minus one by y hat l if y is equal to l 
+student 
+and zero otherwise how many of you get that cool ok so it is a very simple thing that you 
+can think of this as z and this is y only if z is equal to y then the derivative would exist 
+otherwise it is going to be zero right ok so how do i write this fe part using 
+student 
+how  many  of  you  have  seen  indicator  variables  before  good  so  this  is  what  you  are 
+telling me right it is going to be minus one by y hat l if i is equal to l ok and if i is not 
+equal to l then these two things are not related it this is a function of something else and 
+you are taking a derivative with respect to a different quantity 
+so it is a constant with respect to that quantity and the answer would be zero ok now i am 
+going to  write this as this right so this  is  the same as saying so this variable actually 
+this  is  known  as  the  indicator  variable  it  takes  on  the  value  one  if  the  condition  in  the 
+bracket holds otherwise it takes on the value zero so this is exactly i am writing exactly 
+this but in a more compact manner ok is that clear to everyone 
+so this is what the quantity this is the quantity that we have computed with respect to 
+one  of  the  output  units  ok  so  this is  what  derivative  partial  derivative  gradient  how 
+many of  you say derivative no one likes derivative  partial  derivative that  is  always 
+the safest choice partially [fl] right and gradient oh there is one brave soul who say is 
+gradient do not worry well fix that ok 
+so this is the partial derivative y because my y hat is actually a vector and i am taking 
+the  derivative  with  respect  to  one  of  those  guys  ok  now  if  i  want  the  gradient  with 
+respect to y hat what would that look like a vector which is a collection of 
+student 
+partial derivatives so let us see this is the quantity that i am interested in am interested 
+in  the  gradient  of  the  loss  function  with  respect  to  the  vector  y  hat  so  remember  the 
+vector  y  hat  is  y  one  hat  y  two  hat  up  to  yk  hat  right  so  this  gradient  is  going  to  be  a 
+collection of the partial derivatives with respect to y one hat y two hat and so on 
+now  what  is  each  of  these  quantities  so  it  is  simple  right  so  this  quantity  the 
+derivative is either going to be zero or is it going to it is going to be one by y one hat right if l 
+is  equal  to  one right and that is  exactly what  i have done so now how many elements 
+here are actually going to be nonzero at a time how many of these going to be nonzero 
+one which one 
+student 
+the one corresponding to l right everything else is going to be zero so this is a dash vector 
+y not vector ok so now am going to write one hot vector like this what have we done ok 
+where el is what one hot vector such that it is l th entry is one ok that is what am going that 
+is how am going to define e l is that fine with everyone ok 
+and so you see the story how did how we went about computing this we started with a 
+partial derivative with respect to one of t guys right we found a formula for y i we saw that 
+this  formula  is  generic  enough  and  so  now  we  can  compute  the  gradient  which  is  a 
+collective of all these yis where i ranges from one to k right and then we just put that in a 
+gradient vector 
+so  this  story  is  going  to  repeat  throughout  the  lecture  where  we  try  to  compute  the 
+gradient  with  respect  to  one  guy  and  then  generalize  oh  sorry  we  compute  the  partial 
+derivative with respect to one guy and then generalize and try to find the gradient fine ok 
+so what if i what do i have so far i have this quantity what does till which part of the 
+diagram am i currently the dash green part dark green part i am till here i need to go 
+till the light green party that is collectively the output unit ok although i have divided 
+into  two  halves  but  when  i  say  output  unit  i  mean  that  output  neuron  right  complete 
+neuron so what  i am  actually interested in  is  these quantities or  more specifically ok 
+this is what i am interested in what is this one of those guys right this al is actually 
+al1 up to alk right so this is one of those guys so this is going to be the gradient or 
+this is going to be the derivative a partial derivative sorry ok now what do how do we 
+proceed from here 
+now  i  will  again  have  to  compute  this  you  already  know  that  good  but  before  that  i 
+want  you  to  answer  one  question  right  so  y  hat  l  what  is  y  hat  l  it  is  the  output 
+corresponding  to  the  correct  class  does  it  depend  on  an  arbitrary  al  i  so  in  the 
+previous thing we saw that only when i is equal to l there is a connection in this case is 
+there a connection always or only when i is equal to l 
+student 
+always why softmax so 
+student 
+denominator  has  all  the  ali’s  right  so  this  is  there  it  is  y  hat  l  in  the  numerator  of 
+course  it  only  has  this  unit  which  corresponds  to  the  l  th  probably  did  not  choose  my 
+variables very well so l th component of a capital l right and but in the denominator 
+you  have  the  entire  sum  which  means  that  every  output  guy  here  each  of  these  dark 
+green guys depends on each of the dash green guys light green guys good 
+so  that  is  at  least  settled  that  we  always  the  we  can  always  compute  this  partial 
+derivative we do not need an if else here there is nothing like l is equal  to i then what 
+will happen it will always have this partial derivative 
+so we will now derive the full expression for this so this is what we are interested in is 
+this fine so this is a function of the form so you are taking how do i say this so this is 
+log of a function so first you will take the derivative with respect to log and then push 
+the  partial  derivative  inside  right  so  that  would  be  minus  one  by  y  hat  l  and  then  the 
+derivative with respect to y hat l now what is y hat l the softmax function right 
+so  it is  the  l’th  entry  of  the  softmax  function  applied  to  that  output  vector  what  is  the 
+output vector al right so it is the l’th entry of the softmax or l’th entry of the function 
+applied to the output vector 
+so this was our al what is our output right so now one of these guys here is the l th 
+guy and one of these guys here is the l’th guy right so what you do is you take this you 
+apply  the  softmax  function  to  it  which  again  gives  you  a  vector  and  now  you  are 
+interested in the l’th component of that vector that is what this quantity means it should 
+be clear now 
+now i will just do some simple math stuff here and we should be able to derive this is it 
+fine am just replaced by the actual softmax formula this is a derivative of the form u by 
+v  right  what  is  the  formula  for  that  yeah  it  perfectly  right  yeah  so  this  is  what  it 
+would be right i mean it is you all know this i am not going to spend time on this 
+so now am just going to substitute the values here yeah it is getting a bit nasty but it is 
+not  very difficult  right so so this so this is  our g of x so am  taking the derivative of 
+that then this is this one over h of x you can just figure it out right anyway it everyone just 
+read this for a few seconds and let me know if this is not clear this is g this is h in this 
+formula right have just substituted the gs and hs in this now what is this quantity going 
+to be it is derivative of the form e raise to x right so it is e raise to x always 
+student 
+if  i  is  equal  to  l  right  so  now  we  have  this  dependence  because  we  are  looking  at  a 
+numerator but the numerator only depends on the l th entry right so now you are trying 
+to take the derivative of the l th entry with respect to some arbitrary i th entry so only if 
+l is equal to i you will get the derivative right 
+now what about this how many terms in the summation would remain 
+student 
+one which one 
+student 
+where  i  dash  is  equal  to  i  right  so  the  i’th  guy  would  remain  the  rest  of  it  is 
+straightforward right this square i have just divided into two parts ok ah now let us see 
+can you simplify this because i cannot ok can you simplify this what is this 
+student softmax 
+softmax and which entry of the softmax 
+student 
+l’th entry i’th entry l’th entry with the saw with the indicator variable but what is this 
+this is our input hidden layer output so ok now let us see what is the next step  this 
+is should have been y hat i but y hat is equal to f of x right so we can fix this unit so 
+ok  fine  so  we  have  actually  what  do  we  have  now  we  have  the  derivative  of  the  loss 
+function  with  respect  to  the  i’th  unit  of  the  output  layer  right  and  which  part  of  the 
+output layer the pre activation pattern ok now what am i going to do i have a formula 
+which tells me how to compute this what was i actually interested in so now how am i 
+going to go from here to there i just put all the partial derivatives into a 
+student vector 
+vector and that vector is the 
+student 
+gradient good 
+so we have this one formula it is ok if some of you did not get this derivation right it is 
+very very straightforward if you go back and look at it i am pretty sure you will get it is 
+nothing  in  this  is  very  simple  elementary  stuff  right  except  for  some  degree  here  and 
+there ok so now what would this look like 
+we  should  add  actually  l  theta  here  this  would  look  like  a  collection  of  all  the  partial 
+derivatives we have  a  generic  formula what  will  we do now what  is  the first  entry 
+minus in indicator l equal to one minus y hat one which is the variable that we are indexing 
+over i right not l oh god oh we are indexing or ok have i goofed up oh that is wrong is 
+it oh yeah that is wrong fine then this is fine we are indexing over i and then we can do 
+this 
+now can you simplify this i am looking for ok this is the element wise difference of two 
+student 
+of the indicator vector and 
+student y hat 
+y hat oh hey we should change all this y hat is equal to f of x right but i just want it to 
+be  consistent  as  y  hat  so  is  this  fine  this  is  a  simplification  fine  right  so  we  have 
+come  a  long  way  right  you  have  finish  this  part  ok  we  have  got  the  gradients  with 
+respect  to  the output  units  ok this much part is a clear to  everyone moduler bit of the 
+math which you can go back and look at it this entire derivation is fine but you get the 
+concept  right  that  we  start  with  one  unit  from  there  grow  the  gradient  then  keep  going 
+applying the chain rule 
+so we started with the dark green guys and then went to the light green guys now we 
+have the derivative with respect to the entire light green vector and that is what we had 
+started off with that we wanted the gradient with respect to the output units 

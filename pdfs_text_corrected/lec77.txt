@@ -1,0 +1,11 @@
+svd for learning word representations 
+so we will start from where we left yesterday ah so we did this whole story on starting 
+from co occurrence matrices we learnt how to get better word representations and the key 
+thing there was we used svd as a dimensionality comp reduction tool and we came up with 
+this neat result that you could use w word as the representation of the mate of the words it 
+has m rows and k columns where k is very less than the size of the vocabulary 
+so you have achieved lot of compression and you are still able to learn very meaningful 
+representations which you could use for several downstream tasks what to use these for and 
+how to use these for you will see that later maybe four lectures from now i mean i say four 
+lectures i mean four two hour lectures right so it might be more in terms of actual lectures so 
+we will get to that but for now we have a way of learning representations for words 

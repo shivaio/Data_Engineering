@@ -1,0 +1,135 @@
+early stopping 
+i will do will do early stopping where again we will get into some of these eigenvector 
+analysis so let us see that 
+so  the  idea  been  early  stopping  is  actually  very  simple  in  principle  what  needs  to  be 
+done so we know that this that this trend exists between the training error and the tester 
+right so in practice what you will do is you will continue to optimize the training error 
+the empirical training error which is the sum of the errors on the m training points 
+you  will  also  continuously  keep  track  of  the  validation  error  that  means  the  same 
+quantity you will compute over the n validation or test points everyone get this you can 
+do  this  and  you  are  actually  doing  this  in  your  back  propagation  assignment  keeping 
+track of the training error as well as the validation error and you keep plotting them ok i 
+will keep running for various epochs and keep something known as a patients parameter 
+p 
+so if you are at the 20th epoch and if your patients parameter p is equal to phi and just 
+do a check whether in the phi last phi epochs has my validation error ever gone down or 
+it has been staying the same or has it been increasing ok now i will give you a condition 
+that it was either staying the same or it was actually increasing is this good or bad 
+what does it tell you while your training error was of course decreasing may the more 
+you train your training error will keep going down so what does this tell it is just over 
+fitting  you  are  fitting  the  training  error  you  are  just  making  it  zero  or  as  close  to  zero  as 
+possible  but  that  is  not  helping  your  validation  error  so  the  validation  error  is  either 
+worst case increasing or remaining the same right 
+so this is a very commonly used trick which is  known as early stopping you keep this 
+passions patients parameter and you make sure that if you have cross this patients right 
+and the patients here is that i was waiting for the validation error to go down but it is not 
+going down  for some p  epochs so no point in  continuing training anymore  i will just 
+stop it does not make sense 
+so and this can also be used in conjunction with other regularizers right so in the quiz 
+also  we  had  this  question  sorry  for  bringing  up  the  quiz  but  we  also  at  this  question 
+where  you  have  the  sparsity  regularization  and  i  was  asking  whether  i  can  add  the  l2 
+regularization along with it so these regulations can be added or used in conjunction it 
+is not that you can only use one of them 
+so early stopping is a way of regularizing but you could also use it in conjunction with 
+l2 regularization or any other regularization technique that you do not want right so but 
+how does this act as a regularizer from the picture it is probably clear and is the same as 
+the  explanation  i  was  trying  to  give  to  his  question  right  that  you  are  preventing 
+yourself  from  entering  in  these  regions  and  trying  to  enter  into  more  favorable  stop  at 
+more favorable regions 
+but  can  you  think  of  slightly  more  in  terms  of  what  happens  in  gradient  and  what 
+would happen if you stopped it early and so on can you try it to connect it to the update 
+rule of gradient descent what  happens as  you keep doing it for more and more epoch 
+no  gradient  descent  has  nothing  to  do  with  validation  error  or  backtracking  error 
+gradient descent only works on the training data let us think in those terms 
+gradient  star  diminishing  to  zero  so  what  happens  how  does  gradient  descent  progress 
+where  do  you  start  i  started  a  random  point  at  every  epoch  which  is  a  collection  of 
+iterations right or you go or many training points what happens to this i start moving i 
+keep moving now if i fix the number of epochs or do not allow it to change any more 
+after  a  number  of  epochs  what  am  i  doing  i  am  restricting  the  boundary  around  the 
+weight right i am not allowing it to grow beyond a certain boundary do you get that 
+let  us  see  that  so  we  will  first  see  an  intuitive  explanation  and  then  go  to  a  more 
+mathematical  analysis  are  update  so  the  update  rule  for  gradient  descent  is  i  always 
+make this mistake this has to be minus oh the t h have disappeared ok is there so sorry 
+other to have disappear 
+so now what would actually happen at the t h step is we have w naught three plus or minus 
+does  not  matter  it  just  tells  you  that  how  much  it  is  going  to  change  this  is  what  is 
+happening  actually  at  the  t  h  step  right  you  have  just  subtracted  all  the  previous 
+derivatives that you had so far right from where you started off now you are looking at 
+t  steps  so  at  every  point  you  are  computing  a  certain  gradient  but  had  a  certain 
+magnitude 
+now  let  me  say  that  across  all  these  steps  the  maximum  gradient  that  you  had  i  will 
+just call it by tau right so that means in this summation there are t terms i am saying 
+the maximum of those was tau that was the maximum rate gradient that i got at any one 
+point 
+now  what  i  am  going  to  do  after  this  i  am  going  to  replace  this  by  something  this 
+summation is always going to be less than or equal to this right because i am assuming 
+that each of my steps is less than tau there are t such steps so i could have at matched 
+moved  t  into  tau  right  but  i  would  have  moved  less  than  that  because  tau  was  the 
+maximum gradient that i had 
+so this is going to be less than equal to is that do you get the change from the equality to 
+less  than  equal  to  ok  so  now  what  am  i  restricting  actually  in  early  stopping  what  is 
+being restricted there are only so many symbols there i just speak one t tau is of course 
+not in your hands w naught is not in your hands w so t is the one right so i am only 
+allowing  that  many  updates  so  that  means  from  w  naught  you  can  only  moves  that 
+much this looks you see that analogy that this is something similar to you not allowing 
+the weights to really grow a lot 
+so now but will not end here you will of course do some more stuff on this right ok 
+so  we  now  see  a  mathematical  analysis  of  this  so  recall  that  a  taylor  series 
+approximation for l w is the following the same thing which i wrote a few slides back 
+or many slides back everyone remembers this right and now again i am going to do the 
+same thing that if i know the optimal w star then the gradient at that point is going to be 
+zero 
+so this term disappears and now if i take the derivative this is what will remain this is 
+exactly what we did earlier also right so we will have derivative of this and derivative 
+of  this  so  the  derivative  of  this  quantity  is  just  this  and  the  derivative  of  this  is  zero 
+because that is exactly what we started off with right that w star is the optimal solution 
+now sgd update rule is the following ok which i can write as this i just replaced this 
+by this ok i am just rearranging some terms is that ok how many if  you are fine with 
+this how many feels to tired to even care about this 
+so this is what w t would be this is again some simple steps leading to some conclusion 
+the conclusion is what matters the steps are very easy you can go back and look at them 
+right so again  i will use the evd the same trick that  i did  earlier and it will give me 
+this instead of h ok again i will just do some rearrangements and actually i can show 
+that if i start with w naught equal to zero then w two is actually given by this quantity ok and 
+there is a proof of this in the appendix you can go and look at it 
+now  what  does  this  look  similar  to  rotation  diagonal  rotation  exactly  similar  to  the 
+analysis  that  we  did  for  l2  regularization  right  and  in  fact  if  you  can  you  can  show 
+that if we compare this expression with the while we had for l2 regularization and this 
+is the expression that we had for l2 regularization right rotation some scaling and then 
+again rotation right then we can show that early stopping is actually equivalent to l2 
+regularization if the following condition is satisfied 
+this  does  not  mean  much  because  god  knows  how  you  will  satisfy  this  condition 
+right  but  all it is  saying is  that there is  some equivalence at under certain conditions 
+and  that  is  what  is  the  intuition  was  also  telling  us  that  it  is  somehow  preventing  the 
+weights  from  going  large  and  it  is  doing  this  in  this  very  convoluted  way  where  this 
+condition holds for it to be equivalent to l2 regularization 
+as i said for you and me is going to be very hard to create this condition right how do i 
+make sure that something like this is true right but that does not matter what matters is 
+that there is some equivalence between them 
+so when you are doing early stopping it is not just a heuristic or a blind thing that you 
+are doing you know that it is somehow related to l2 regularization hence that you are 
+doing it and hence it also works in practice is it fine we will that work for all of you ok 
+right  so  the  things  to  remember  is  that  early  stopping  only  allows  t  updates  to  the 
+parameters this is the important thing rights so now if a parameter w corresponds to 
+a dimension which is important for the loss then what would this quantity be the partial 
+derivative  of  the  loss  with  respect  to  that  parameter  it  is  going  to  be  if  there  is  a 
+parameter 
+for  example  let  us  take  the  amir  khan  an  example  right  that  whatever  weight  you 
+gives to  whether the actor was  amir  khan or not  if that is  very important  because if 
+that feature is on you are lost completely changes and so on right if you do not learn the 
+weight correctly that feature is very sensitive 
+so for important features the loss would be very sensitive to the changes in the weights 
+of these features is that intuition correct right that means this gradient would be large 
+ok and if a parameter corresponds to a feature which is not important what would this 
+derivative  be  small  now  what  is  the  net  effect  of  this  you  have  some  parameter  which 
+are important so the derivatives are large some parameters which are not important 
+so the derivatives are going to be small and you are going to only allow t updates so 
+what  is  going  to  happen  the  parameters  which  are  important  we  will  end  up  getting 
+effectively  more  updates  right  because  each  of  these  magnitudes  was  higher  and  you 
+did t of those the parameters which are not important we will end up getting effectively 
+lesser movement 
+because each of these gradients were small  and you did  only t  of those right so  you 
+again see this that it is a weird way of ensuring that your important parameters get more 
+updates than  your non important  parameters right so it is  very important  to  see these 
+connections between these different regularization methods all of you are fine with this 
+fine 

@@ -1,0 +1,362 @@
+so we will go to the next module where  you wanted to look at two more architectures 
+for image classification these are googlenet and resnet 
+so here is a question right so consider the output at a certain layer of a convolutional 
+neural network so you have this layer after layer of convolutions and max pooling and 
+so on and you are at somewhere in the middle and this is what your volume looks like 
+this  is  what  your  output  volume  looks  like  now  after  that  you  could  apply  a  max 
+pooling layer you could apply a one 
+one convolution you could apply a three 
+three convolution 
+or you could apply a five 
+five convolution right 
+and so far we saw that all these architectures they do one of these things they either do 
+a max pooling or they do a three 
+three convolution or they do a five 
+five convolution or a seven 
+seven 
+eleven 
+eleven  right  any  convolution  but  they  are  all  uniform  they  are  all  either  three 
+three  all 
+either five  five or either seven 
+seven right so why choose between these options why not do all 
+of this at every layer do you get the question that i am trying to ask right 
+ 
+so far what we were doing is that you have this volume this volume at a certain layer of 
+the convolutional neural network and after that you are either using all three cross three filters 
+so you are using two hundred and fifty-six three 
+three filters or five into three 
+three filters or using seven 
+seven or using five 
+five 
+you are never using a mix of all these right so why not use a mix of all these why the 
+why take a decision on that i only want three 
+three because it is possible that you want to 
+capture  interactions  at  different  levels  so  you  should  have  varied  size  filters  at  every 
+layer 
+so how many of you get the question and the intuition that i am trying to ask ok  so 
+the idea here in googlenet or in the inception net is that why not apply all of them at the 
+same time and then concatenate the feature maps right so i will also do max pooling i 
+will  also  do  three 
+three  feature  maps  i  will  also  create  five 
+five  eleven 
+eleven  and  then  just 
+concatenate all of these together so let us see how to do that right 
+now  one  problem  with  this  naive  idea  is  that  it  could  result  in  a  large  number  of 
+computations so let us see what i mean by that so suppose the padding is zero the stride 
+is one then if you have a w 
+h 
+d input as the volume and if you have an f 
+f 
+d 
+filter then the output would be of this size we all agree with this this is the formula that 
+we have been looking at so this is the size of the output volume now every entry in 
+this output volume requires how many computations to get a single entry in this output 
+volume how many computations do i have to do 
+ 
+student f 
+f 
+d 
+f 
+f 
+d so how do i get a single value i apply a convolution at that value and then i 
+do those many computations and here the number of computations is that i am  going 
+over this block of f 
+f 
+d doing a weighted multiplication and then adding them up 
+right so you need that many computations everyone is clear with this ok  fine 
+so each element of the output requires these many computations and we have so many 
+elements  in  the  output  right  so  you  are  doing  really  those  many  number  of 
+computations right so can we do something to reduce the number of computations right 
+so that is the key idea that we need to focus on so all of us buy the idea that doing this 
+multi granular or multi sized filters is a good idea because you are capturing interactions 
+are different layer but i showed you that this is a problem with this you guys just apply 
+multiple filters so let us see what we do 
+so we what we do is one 
+one convolutions what is the one 
+one convolution do what does 
+it make sense 
+student 
+how does the one 
+one convolution make sense you have a pixel i fit a one 
+one convolution 
+on that what will i get i will get back the pixel 
+ 
+student 
+along the depth right so remember it is not one 
+one it is one 
+one 
+depth 
+student depth 
+right so what does a one 
+one convolution do it actually aggregates along the depth so 
+this is what my one 
+one convolution looks like it is one 
+one 
+d so i just fit that block on 
+that pixel and do everything along the depth and get a single value right so from a 3d 
+output using a one 
+one convolution i can go to a two 
+2d feature map everyone gets this 
+ok 
+now i could use several of these one cross one operations one cross one convolutions in fact i 
+could  use  d1  of  these  such  that  d1  is  less  than  d  so  what  effectively  happens  the 
+depth of the output reduces so i take a certain output volume whose original depth was 
+d now  i take d1 one 
+one convolutions  right  so  i get  an output whose depth  is  smaller 
+than the depth of the original output is that fine everyone gets this ok 
+and you see how this will save computations right because remember that this was f 
+f 
+d  and  now  i  have  reduced  d  to  d1  ok  so  it  is  going  to  reduce  the  number  of 
+computations  so  that  is  what  the  idea  is  you  reduce  it  from  f 
+f 
+d  to  f  cross  of 
+cross d1 right so thats this particular network or this paper introduced the idea of this one 
+cross one actually it did not introduce it used it but it made it popular probably 
+ 
+now once you have done this so this is how i am going to proceed now i have a certain 
+volume i have applied one 
+one convolutions to it using that i have reduced the number of 
+dimensions  now  i  am  going  to  apply  three 
+three  convolutions  as  well  as  apply  five 
+five 
+convolutions  on  top  of  that  right  because  that  is  the  motivation  that  i  had  started  with 
+that i want to apply kernels of multiple granularity 
+now can you think of some refinement to this you see this branching over here why 
+use the same one 
+one convolutions before feeding to three 
+three as well as five 
+five i could use a 
+different set of one 
+one convolutions and feed it to a five 
+five and use a different set of one cross 
+one convolutions and feed it to three 
+three is that fine what is the problem with this 
+student again increasing the number of computations 
+again increasing the number of computations right but they found out that the tradeoff 
+between  this  is  fine  even  if  you  are  doing  more  one  cross  one  operations  it  still  is  ok  the 
+number  of  computations  are  still  manageable  ok  and  then  you  could  also  do  a  max 
+pooling because we were choosing between these things right  five 
+five three 
+three seven  seven and 
+max  pooling  so  we  will  do  all  of  these  in  parallel  and  we  also  do  some  one 
+one 
+convolutions so how many different types of operations we have done we have done 
+one 
+one three 
+three five 
+five and max pooling followed by one 
+one convolutions 
+now all of these outputs that we have  got  we have  got  a bunch of feature maps now 
+this  is  one  set  of  feature  maps  this  is  another  feature  maps  this  is  another  and  this  is 
+another all of these four we are going to concat together to get a single output volume do 
+you  see  what  is  happening  right  it  is  not  very  mechanical  there  is  nothing  really 
+profound  about  what  is  being  done  the  only  two  profound  ideas  are  one  is  apply 
+multiple kernels of different sizes and the other is to use one 
+one convolutions to make the 
+whole computation manageable that these are the only to main ideas the rest of it is not 
+very  different  from  what  we  have  been  doing  how  many  if  you  get  this  operation 
+completely 
+so this block is called the  inception module ok this entire thing is  called an inception 
+module  so  in  subsequent  slides  when  i  put  an  inception  module  then  you  know  that 
+these  parallel  operations  are  happening  right  so  far  whenever  we  had  seen  a 
+convolutional  neural  network  it  was  all  serial  right  so  you  started  with  one  operation 
+then another operation then another operation and so on now you have an output or an 
+ 
+input  volume  you  apply  multiple  operations  in  parallel  and  get  one  single  output  right 
+so it is a parallel serial combination ok 
+so  you  will  now  see  the  full  googlenet  architecture  so  his  question  was  basically  three 
+cross three would result in a different sized feature map right because of an five cross five would 
+result in a different sized feature  map so i will use appropriate padding so that all of 
+this becomes equal ok 
+so this is how googlenet looks like so you have the input again rgb and same two hundred and twenty-seven 
+two hundred and twenty-seven or two hundred and twenty-nine 
+two hundred and twenty-nine then you apply a convolution layer followed by a max pooling layer 
+convolution  max  pooling  then  you  have  this  inception  module  with  a  very  specific 
+configuration  so  they  have  ninety-six  one 
+one  convolutions  before  feeding  to  one hundred and twenty-eight  three 
+three 
+convolutions sixteen one cross one convolutions before feeding to thirty-two   five five convolutions and so 
+on and i do not really see much point in going into the details of these numbers there 
+is hardly any intuition behind them 
+i again guess that it’s you try a bunch of things and this is the one which probably gave 
+the best output so the key idea is that of course you have this inception module which 
+is a parallel module which does a lot of operations in parallel this is again followed by 
+another inception module which has a different configuration followed by max pooling 
+then again a few inception modules in fact five of them again max pooling then inception 
+and this is the other interesting idea that they came up with 
+ 
+so at this point remember in vgg net at the final layer you had an output of size five hundred and twelve 
+seven 
+seven right and we said that this was a problem how many of you remember this why 
+was this a problem 
+student 
+because i need to connect this to a 
+student fully connected 
+fully connected layer right and that fully connected layer was of size four thousand and ninety-six right so what 
+they said is that what  you could do is instead of taking five hundred and twelve cross seven cross seven for each of 
+these five hundred and twelve feature maps that you have take the seven cross seven and just do an average pooling 
+from there what does what do i mean by that 
+student average 
+take these seven cross seven values take an average of that so now instead of five hundred and twelve cross seven cross 
+seven how many values will you end up with 
+student five hundred and twelve 
+just five hundred and twelve and in their case instead of one thousand and twenty-four cross seven cross seven you will just end up with one thousand and twenty-four 
+values  right  so  instead  of  looking  at  these  dense  connections  with  every  pixel  in  the 
+output volume you just take the average of those pixels and then do a dense connection 
+from  there  so  from  this  volume  you  just  go  to  a  vector  of  size  one thousand and twenty-four  which  is  exactly 
+this  vector  shown  here  and  from  there  on  life  becomes  easier  right  because  you  have 
+done  a  fifty  percent  sorry  fifty  times  reduction  in  the  volume  so  this  was  one thousand and twenty-four  cross  forty-nine 
+now we just have one thousand and twenty-four cross one so you have a forty-nine times reduction in the size and that is a 
+huge parameter reduction 
+and  that  actually  worked  very  well  in  practice  they  of  course  add  these  dropouts  and 
+other  things  and  then  you  have  your  fully  connected  layers  and  finally  the  soft  max 
+layer  at  the  output  to  predict  one  of  the  thousand  classes  right  so  this  is  the  full 
+structure  of  googlenet  or  inception  net  or  with  multiple  inception  modules  right  so 
+just  remember  that  key  takeaways  are  three  one  is  half  filters  at  multiple  granularity 
+applied  in  parallel  the  other  is  use  one  cross  one  convolutions  to  reduce  the  number  of 
+ 
+computations and the final one is to use this average pooling to make sure that you do 
+not have this blow up of parameters at the output ok so these are the three main ideas 
+that you need to do right ok 
+so this is  exactly what  i  explained so instead of having this nasty looking  connection 
+which would have been fifty thousand, one hundred and seventy-six cross one thousand you just take the average from this grid and 
+just get a one thousand and twenty-four dimensional vector which results in a much smaller weight matrix at the 
+output everyone gets this so ok yeah so this is fine 
+so  this  has  twelve  times  less  parameters  than  alexnet  it  has  two  times  more  computations 
+right so that is what i meant by the tradeoff so the number of parameters has reduced 
+significantly  of  course  a  large  amount  of  this  savings  happen  in  the  fully  connected 
+layer  its  not  the  ingenuity  in  the  inception  module  which  led  to  the  fewer  number  of 
+parameters that actually leads to more number of parameters right 
+but the reason they could afford more number of parameters in the convolution layers is 
+because they reduced a lot of parameters in the fully connected layer do you get that 
+so  they  did  this  tradeoff  and  it  has  two  times  more  computations  then  alexnet  but  it is 
+still acceptable because you see that there are many many layers as compared to alexnet 
+right so let us actually count the number of layers that we had here so one two three four five six seven eight nine 
+ten eleven twelve thirteen fourteen right so it has fourteen layers and each of these inception modules is again 
+like split layer right it has this parallel components there 
+so having two times more computations was still an acceptable tradeoff and it of course 
+led to much better accuracy as compared to alexnet or zf net or vgg net right that we 
+had seen in the original trend graph ok so now we will go on to the last architecture that 
+we will discuss for image classification which is resnet 
+so here is the idea behind resnet or here is the motivation right now suppose we have 
+been  able  to  train  a  shallow  neural  network  well  now  again  my  definitions  of  shallow 
+are relative this is by no means shallow there are many layers here right so you have 
+some eight layers here 
+now if i have been able to do this properly that means what i mean by that is that using 
+this  network  at  least  i  was  able  to  reduce  the  training  error  to  zero  or  close  to  zero  some 
+acceptable  value  and  i  was  able  to  get  some  reasonable  generalization  performance 
+that  means  on  the  test  that  i  was  able  to  get  some  reasonable  accuracy  that  is  what  i 
+mean by i was able to make this network work well 
+now suppose i add a few layers to this network and i have carefully added some layers 
+in between here and in between here or over there right now intuitively i could argue 
+that if the shallow network was working well right then for the deep network this is exist 
+at least one solution which can directly come from the shallow network can you tell me 
+what that solution is 
+student 
+i want all of you to kind of digest that idea what the deep network could have done is i 
+know that this shallow network works why not  i  just behave like that and  i learn these 
+parameters in such a way that i just end up copying from here to here how many if you 
+get  this  right  so  there  is  a  case  for  the  deep  network  to  do  at  least  as  well  as  the 
+shallow  network  and  it  could  do  the  same  thing  at  this  point  all  of  you  get  this  idea 
+right 
+so in other words the solution space of the deep network or rather the solution space of 
+the shallow network is actually a subset of the solution space of the deep network there 
+was  one  solution  for  the  shallow  network  which  could  have  been  used  as  it  is  for  the 
+deep network of course for the deep network there are several other solutions because 
+instead  of  the  identity  here  you  could  learn  different  things  there  but  at  least  that  one 
+solution exists so i should at least if i do use this in practice ex i should expect that this 
+would work as well as the shallow network right is that argument fine with everyone 
+student 
+or which has only one yeah yeah of course 
+student yes 
+i mean so it those arbitrary things would not work but here what there it is the for the 
+explanation intuition right you are using some reasonable things and you are just trying 
+to make it compatible with whatever you have so far so the argument is valid right so i 
+cannot  expect  that  i had a volume whose depth  was one hundred and twenty-eight and then  i suddenly decide to 
+use only one filter in the next layer right 
+that means i have compressed everything and now i expect it to be able to recover from 
+there  that  is  not  going  to  happen  right  so  that  is  a  fair  argument  but  the  argument 
+which  i  was  trying  to  make  or  at  least  for  the  illustration  purpose  is  that  if  you  do 
+reasonable  things  and  that  is  what  people  were  trying  out  right  these  this  is  the  exact 
+network that someone was trying out and this did not work with well i will tell you what 
+it is so do you get his doubt and my clarification on that is that fine ok 
+so this is what was happening in practice right so you have a twenty layer network or thirty-two 
+layer network or forty-four layer network and a fifty-six layer network and you see that the training 
+error of deeper networks is much higher than the training error of the shallow networks 
+that means this argument which i was trying to make that the deep network should at 
+least do as well as the shallow network was not working well in practice right and it is 
+if you think about it is not very surprising because this argument hinged on the fact that 
+it should be able to learn this identity mapping but this identity mapping is one of many 
+solutions right 
+so for it to be able to narrow down on that solution it is easy for you and me to think 
+about  it but  for the network it does not  have this  intuition  right  that  i can just copy it 
+from  there  to  here  do  you  get  that  the  solution  space  is  really  really  large  and  like 
+finding  that  needle  in  a  haystack  right  you  have  these  many  solutions  possible  and  i 
+am trying you to arrive at a solution where you end up with the identity solution is that 
+clear and it is not so easy for the network to do that everyone gets this how many of 
+you get this idea 
+so why  not  explicitly try  to  do something of this sort where  the network can  actually 
+learn  some  kind  of  an  identity  function  so  now  consider  any  two  layers  you  know  by 
+stack layers i mean this is a convolution layer and followed by a convolution layer right 
+so  these  are  two  convolution  layers  back  to  back  so  from  i  what  do  i  actually  end  up 
+doing here i had a certain input x and i am learning some transformation of x through 
+these convolution layers right i am trying to learn x and then i sorry i was given x i am 
+passing it to convolution layer so i will run some transformation of x 
+and  my  argument  was  that  if  it  could  learn  to  directly  copy  x  here  the  deep  network 
+should at least work as well as the shallow network so why not i explicitly ensure this 
+so why not i do this that in addition to these connections i also explicitly connect x to 
+the output do you get this so now what i am trying to do this is hx is equal to f of x 
+which is the transformation that i learned for x and in addition i also add x so what am 
+i doing i am  explicitly  feeding it  the identity function right  how many  if  you  get  the 
+intuition  for  this  so  what  i  am  trying  to  do  is  i  have  a  sense  that  if  i  could  have 
+transferred this x as it is across layers then there is a chance that i should be able to do as 
+well as the shallow network right 
+so now  i am  going to  explicitly  ensure that that  you learn these transformations  but  i 
+will also feed you x at every stage at a reasonable time right so these are known as skip 
+connections so after every two layers i will feed back the x or you could try after every three 
+layers i will feed back the x so i am trying to maintain the original copy of x after every 
+interval ok fine so why would this help so this follows back from our argument and 
+it is the same thing which i said before 
+so  using  this  idea  of  using  these  skip  connections  these  authors  were  able  to  train  a 
+really  deep  network  of  one hundred and fifty-two  layers  right  and  this  gave  on  multiple  vision  challenges 
+right  one  being  imagenet  it  gave  sixteen  percent  better  results  and  the  best  network  and 
+this is the one which reads that near human performance then imagenet localization is 
+another  challenge  where  you  need  to  localize  the  object  so  there  they  get  twenty-seven  percent 
+better  than  the  best  results  and  there  are  these  bunch  of  other  vision  tasks  detection 
+segmentation and all of them and in all of them this significantly outperformed the best 
+system using a very very deep network of course the downside is that you have a very 
+very deep network it will take its own time to train and so on but of course if you have 
+a microsoft or google you can afford to do that 
+so  that  is  the  current  theme  right  i  mean  the  one  with  the  largest  computational 
+resources wins everything right  so and they also are there is  some other bag of tricks 
+which  is  not  i  mean  it  is  not  very  difficult  to  understand  so  they  used  batch 
+normalization  every  after  every  conversation  layer  have  you  heard  of  batch 
+normalization  ever  in  your  life  ok  good  they  used  xavier  by  two  initialization  ever 
+heard of that xavier by two was the same as 
+student he initialization 
+he  initialization  right  then  they  use  sgd  not  any  of  the  fancy  adam  or  adagrad  or 
+anything  with  a  momentum  of  nine  learning  rate  was  set  to  one  and  divided  by  ten 
+whenever the validation error plateaus the mini batch size was two hundred and fifty-six they use a weight 
+decay  of  one  ht  what  is  weight  decay  weight  decay  is  in  the  context  of  which 
+regularization 
+student l2 
+l2 and what does this mean weight decay of one e raised to minus five 
+student lambda 
+the lambda was set to one e raised to minus five all of you remember these things right we 
+did it in some previous course in some previous life and no drop out was used right so 
+since i have this here i will just say something more on this so in your reading papers 
+on  deep  learning  right  focus  on  the  experimental  section  where  all  these  hyper 
+parameters  are  described  so  these  are  known  as  the  hyper  parameters  these  are  not 
+related  to  the  parameters  of  the  model  these  are  related  to  hyper  parameters  which  is 
+what the batch size is whether  you used l two regularization what was the learning rate 
+what was the optimization and so on 
+so turns out in many cases if you do not stick to this you will not be able to reproduce 
+the results of the paper right so you might be wondering that this network i understand 
+this is just one hundred and fifty-two layers and i can just keep adding skip connections i can easily code this 
+up but i am not getting the same results as the original authors of the paper 
+so  this  is  where  you  need  to  dig  up  them  right  you  need  to  look  at  the  experimental 
+section  where  most  good  authors  provide  these  details  of  how  they  have  trained  the 
+network  how  many  epoch  that  they  use  what  was  the  patients  set  and  all  that  if  you 
+follow  those  the  chances  of  reproducing  are  much  higher  still  not  guaranteed  but 
+definitely much higher ok so that is where we end the lecture on convolutional neural 
+networks and imagenet classification 

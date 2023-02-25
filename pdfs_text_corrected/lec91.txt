@@ -1,0 +1,31 @@
+this  is  where  we  left  off  in  the  last  class  so  we  look  at  three  networks  for  image 
+classification  starting  with  alex  net  then  zf  net  and  then  vgg  net  vgg  net  in 
+particular  had  sixteen  layers  including  convolutions  and  fully  connected  layers  and  one 
+thing that we saw that a large number of parameters are there in the first fully connected 
+layer 
+because you are connecting a five hundred and twelve 
+seven + seven volume to a four thousand and ninety-six dimensional vector right so 
+that is one thing the other thing that i would like to kind of mention right now so that it 
+becomes useful for the later part of the lecture is that if i look at any of these pink boxes 
+here right or even these things which are known as the fully connected layers and if i 
+just flatten them out and view them as a vector what does that vector actually capture 
+it captures a it captures an abstract representation of the image right 
+so now imagine what would happen is suppose you have trained one of these networks 
+alex net vgg net or any of your favorite networks and by what i mean by training is 
+that you have been tracking the cross entropy laws and you have run it for several epochs 
+ 
+with some patience and so on and i was satisfied with whatever training error you are 
+getting and you have stopped training now right 
+now  after  this  if  i  pass  images  through  these  net  through  this  network  and  i  take  the 
+representation from any of these boxes or from the fully connected layer what is it that i 
+have essentially got now i have got an abstract representation of the image that i have 
+been feeding it right so just remember this and this is something that we will use 
+so  this  is  very  common  to  do  so  you  have  a  trained  image  net  many  people  have 
+released different models for image net the ones which we have covered being included 
+them  and  now  for  him  any  image  task  if  you  want  to  do  some  processing  then  it’s 
+common to take the strain network pass your image through that 
+so  you  can  train  any  you  can  use  any  image  trained  image  net  and  pass  that  image 
+through it or sorry any trained convolutional network trained on image net and pass the 
+image through that and you can get a representation for that image and these are known 
+as the fc representations and these are as the convolution representations ok any of the 
+convolution layers fine 

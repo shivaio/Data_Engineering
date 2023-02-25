@@ -1,0 +1,233 @@
+so  welcome  to  lecture  four  of  cs7015  the  course  on  deep  learning  today  we  will  talk 
+about feed forward neural networks and back propagation so quick recap of the story 
+so far it so we started with mp neurons we saw there were some problems with the mp 
+neurons  they  could  handle  only  boolean  inputs  and  boolean  outputs  and  threshold 
+needed to be hard coded so from there we moved on to perceptrons which allowed for 
+real inputs real outputs and sorry real inputs and binary outputs and we also learned an 
+algorithm  for  learning  these  weights  and  parameters  right  so  we  need  there  was  no 
+need to hand code these parameters anymore 
+but  then  we  found  that  for  a  single  perceptron  there  is  a  limitation  it  cannot  it  can 
+only  deal  with  functions  which  are  linearly  separable  so  then  we  went  on  to  a  multi 
+layer  network  of  perceptrons  and  we  proved  by  illustration  that  it  can  handle  any 
+arbitrary  boolean function whether linearly separable or not  the catch is that  you  will 
+need  a  large  number  of  neurons  in  the  hidden  layer  right  then  we  also  observed  that 
+perceptrons  have  this  harsh  thresholding  logic  so  which  makes  the  decisions  very 
+unnatural  it  is  forty-nine  it  is  negative  fifty-one  is  positive  so  you  wanted  something  more 
+smooth 
+so  the  smoothest  approximation  to  this  step  function  which  is  the  perceptron  function 
+was a sigmoid function sigmoid is a family of functions and we saw one such function 
+which  was  logistic  function  and  then  we  saw  that  it  is  very  smooth  now  it  is 
+continuous and differentiable 
+now  for  the  sigmoid  neuron  on  a  single  sigmoid  neuron  we  saw  a  learning  algorithm 
+which  was  gradient  descent  and  we  proved  principally  that  it  will  always  go  in  the 
+direction where the loss decreases right so that is what is the basis for gradient descent 
+and then we graduated from a single neuron to a network of neurons and made a case 
+that such a network of neurons with enough neurons in the hidden layer can approximate 
+any arbitrary function right ok so i have told you that it can approximate any arbitrary 
+function what does that mean and what is the thing in the network that does all this 
+all the tower functions and the tower functions depend on weights and biases so there 
+in that illustrative proof again we were adjusting the weights and biases by hand right 
+we knew that we wanted these very tiny tower functions and we were doing it 
+now from there where should we go 
+student 
+we  need  an  algorithm  to  learn  these  weights  and  biases  right  so  that  is  what  back 
+propagation  is  so  today  i  am  going  to  formalize  these  feed  forward  neural  networks 
+we just did it by illustration the other day  i will introduce  you to the terminology and 
+see  what  the  input  outputs  are  and  so  on  and  then  we  will  look  at  an  algorithm  for 
+learning the weights in this feed forward neural network 
+let  us  begin  so  this  a  lot  of  this  material  is  inspired  by  the  video  lectures  by  hugo 
+larochelle on back propagation he has a course on neural networks 
+it  is  available  on  youtube  you  can  check  it  ok  so  let  us  first  begin  by  introducing 
+feed forward neural network right 
+so what is a feed forward neural network the input to the network is an ndimensional 
+vector  so  ok  that  means  my  input  belongs  to  rn  that  fine  the  network  contains  l 
+minus  one  hidden  layers  where  do  you  already  know  what  hidden  layers  are  right  we 
+have been defining that terminology since multi layered perceptron so you have these 
+hidden layers and there are l minus one of these and then it has one output layer containing 
+k  neurons  ok  those  are  the  feed  forward  neural  network  looks  like  what  is  missing 
+here 
+student 
+the weights right 
+so each neuron in the hidden layer ok before that each neuron in the hidden layer and 
+the  output  layer  can  be  split  into  two  parts  right  so  i  will  call  the  first  part  as  the  pre 
+activation  and  the  second  part  as  the  activation  have  you  seen  this  plate  before  right 
+what does the pre activation do 
+student aggregation 
+aggregation and what does the activation do 
+student nonlinearity 
+nonlinearity right so we have this pre activation and activation at every layer and a i 
+and h i are vectors is that correct because this entire thing or rather this part is h one and 
+this  part  is  a  one  both  of  these  are  vectors  right  and  for  this  discussion  am  going  to 
+assume that everything till here belongs to r n 
+so  the  input  was  r  n  and  all  the  hidden  layers  also  have  n  neutrons  is  that  fine  so 
+please pay a lot of attention to this couple of slides because this is going to stay with us 
+for the rest of the lecture and perhaps two more lectures and even for the course alright so 
+this is very important that you understand this the way we are defining a feed forward 
+neuron network 
+the input layer can be called as 0th layer what  i mean by that is that  i  could refer to 
+this  as  h  zero  ok  there  is  no  a  zero  h  zero  here  because  there  is  no  pre  activation  activation 
+you are just given the input so i just call it as h zero ok and the last layer can be called as 
+h of l right whatever you get from this green part you will call it as h of l ok what 
+is the dimension of h of l r raised to k it belongs to r k because i have said here that 
+you have k neurons each corresponding to k classes ok 
+now we have weights between the input layer and the first hidden layer now can you 
+tell me this belongs to r n this also belongs to r n so what is the dimension of w one n 
+cross n right because it contains weights for connecting each of these inputs to each of 
+these hidden layers there are n here n there right so it is n cross n 
+and  what  are  the  dimensions  of  the  bias  n  one  corresponding  to  each  of  the  hidden 
+inputs  fine  and  this  is  only  for  up  to  this  layer  because  till  here  i  have  assumed 
+everything is n 
+now what about the output layer n cross k and the biases k k dimensional ok so this 
+is  what  the  network  looks  like  but  now  i  have  to  give  you  some  function  so  i  have 
+just  i  have  shown  you  a  diagram  but  what  does  it  mean  mathematically  because 
+remember that we are always interested in writing something of the form  y is equal to 
+function of x right and that is not well defined yet 
+so let us start defining that ignore the red portion for now ok i will go over it so each 
+of  these  activations  right  or  rather  the  pre  activations  is  given  by  b  i  plus  w  i  into  h  i 
+minus one so what it means is that these activations take inputs from the previous layer 
+multiply by them by weights and also add the bias is that clear so let us see it right 
+for example if i look at a one which is this vector so that is three dimensional and assuming 
+it is three dimensional for simplicity 
+so it is a one one a one one a one two a one three right and that is equal to how do you get rid off this b 
+one one b one two b one three plus this matrix multiplication is this clear to everyone i know it is trivial 
+but  am  still  going over it right  so let us not  ok and then how do  you  do this matrix 
+multiplication row was multiplied by the column so this is what you get right and in 
+the end  i  can  write it as this right and this looks very similar to  what  we have been 
+seeing  throughout  it  from  a  mp  neuron  to  perceptron  to  sigmoid  neuron  and  now  this 
+case right 
+so it is just an aggregation of all your inputs or weighted aggregation of all your inputs 
+that  is  the  case  which  i  want  it to  know  and  that  is  obvious  now  so  you  understand 
+what these are right 
+so  this  is  r  n  in  our  case  we  have  assumed  n  equal  to  three  what  is  this  i  will  keep 
+asking till this is completely fine with everyone r n and this is 
+student 
+n cross n and this is 
+student 
+n cross one n cross n  i mean r n sorry is it fine so everyone understands the operation 
+happening  here  it  is  a  weighted  aggregation  of  your  inputs  so  every  guy  here  is  a 
+weighted aggregation of all the inputs ok 
+now after that i do h i of x is some function of a i of x ok what does this mean so 
+this is again a vector right i have assumed that it is three dimensional so these are the three 
+elements of h i so these are the three guys now these are some function of these light blue 
+guys ok now how does that function operate on the vector it operates element wise 
+not all functions on vectors are element wise but this particular function we are going 
+to do element wise 
+that means that h one one is equal to g of a one one h one two is equal to g of a two and h one three is equal to 
+g of a one three right where if i take g of a one three one of the functions that i could choose is the 
+sigmoid function so it would just be one over one plus e raised to minus here so what is 
+happening is i am taking this value and passing it to the sigmoid function to get oh sorry 
+am taking this value and passing it to the sigmoid function to get h one one taking this value 
+passing it to the sigmoid function to get h one two right 
+so the key thing to understand here that this is a element wise operation right it is not 
+operating on the vector that does not make sense it is operating on every element of the 
+vector right ok and g is called the activation function 
+it could be logistic tanh linear anything right so we will see some of these functions 
+later on ok 
+now the activation at layer i sorry they are supposed to be activation at the output layer 
+the activation at the output layer is given by the final function which is f of x is equal to 
+o of a of so let us see so this is a three in our case l was equal to three because we had l 
+minus one hidden layers and the lth layer was the output layer right so this is a l so this 
+is what i have computed here that light green part of the figure that you see right now 
+based on that i want to produce an output 
+so that is  someone had asked me a question that  why do  we  always  choose sigmoid 
+because sigmoid will clamp the output to zero to one what if i want to predict the amount of 
+oil  which  will  not  be  between  zero  to  one  right  that  is  why  for  the  output  we  will  use  a 
+special  function  that  will  call  the  output  function  and  later  on  i  will  show  you  that  it 
+depends on the task at hand so it is going to change with the task that we are going to 
+do right so we are just going to say that the final output which is h of l is equal to 
+some function of the pre activation at  that layer  is  this terminology clear  to  everyone 
+how is each function operating is that clear to everyone 
+and  we  will  see  some  examples  of  the  output  activation  function  right  now  just  for 
+simplicity  am  going  to  remove  the  x’s  from  the  brackets  right  so  instead  of  calling 
+everything ai of x hi minus of x and so on i will just call them ai hi and so and so that 
+just simplifies things but we know that everything is a function of x because x is the 
+input and that passes through some functions and we get the final output right so this is 
+the notations that we are going to use is the dimension of everything that you see every 
+variable that you see here completely clear to everyone 
+dimension of ai bi w hi x everything is clear ok and the output layer has a slightly 
+different dimension than the other layers because there we have k classes as opposed to 
+n neurons everywhere else ok fine now i need to put this in the paradigm that we saw 
+for supervised machine learning what were the five components there data 
+student model 
+model 
+student parameters 
+parameters 
+student learning 
+learning algorithm 
+student 
+objective function right ok everyone remembers that ok 
+so i said that we will do deep neural networks and we are trying to write this y hat as a 
+function  of  x  but  then  what  i  gave  you  is  just  a  diagram  from  which  this  is  not  clear 
+whether  y  hat  is  actually  a  function  of  x  how  many  of  you  think  y  hat  is  actually  a 
+function of x very few ok 
+so let us see what exactly is our model assumption here right so the question let me 
+repeat  the  question  just  to  be  clear  so  i  said  that  they  are  given  some  data  we  do  not 
+know  the  true  relation  between  y  and  x  we  make  an  assumption  that  y  is  related  to  x 
+using some function f right and it is has some parameters and then we like to try to learn 
+the parameters of that function so what is the function here 
+so  what  is  your  model  what  have  you  assumed  as  the  model can  you  write  y  as  a 
+function of x if yes what is that function how many of you have the answer i think 
+you  have  your  answer  ok  i  think  i  cannot  wait  more  so  i  will  give  you  the  answer 
+then it will become very obvious ok so this is how y is a function of x right so let us 
+see what is happening i took the original x which was this i transformed it added b one 
+that was the dash at layer one 
+student 
+no this thing 
+student 
+preactivation at layer one i passed it through the activation function right ok 
+now again let us be clear about the dimensions what is the dimension of this 
+student n 
+n what is the dimension of this n cross n so what is the dimension of this product 
+student 
+n what about this so what is the product the final dimension of this 
+r n now you are passing it through a function g that function is operating element wise 
+so what is the output dimension 
+student r n 
+r n so this is again r n ok now this 
+student 
+so now you see the whole story right so now this n cross n guy multiplies with this n 
+guy  again  you  get  a  vector  again  pass  it  through  a  nonlinearity  was  it  so  hard  it  is 
+obvious now right  you just take an x  just  note down all the transformations that  you 
+have  done  that  is  what  a  function  does  right  it  passes  it  through  the  through  first  a 
+linear  transformation  this  is  a  linear  transformation  then  a  nonlinear  transformation 
+then again linear nonlinear and so on 
+so just see how far we have come from where we started off right we started off with 
+simple things like w transpose x right that was the perceptron model where we were 
+taking  decisions  based  on  w  transpose  x  and  we  were  saying  y  is  equal  to  one  if  this 
+quantity  is  greater  than  something  y  is  equal  to  zero  if  this  quantity  is  greater  than 
+something right that is why we started off with we made it slightly more complicated by 
+doing this this was sigmoid neuron 
+now  from  there  where  have  we  gone  to  this  right  so  we  have  increased  the 
+complexity of the network with great complicity complexity comes great 
+student 
+no  power  right  we  have  already  seen  the  representation  power  of  deep  neural 
+networks right so it comes from this complexity that you have you have a lot of linear 
+and nonlinear transformations right that adds to the complexity of the network it has 
+more  parameters  at  each  linear  transformation  you  have  some  parameters  and  you  are 
+also using a lot of nonlinearity so that is the reason why deep neural networks are so 
+powerful right do you get that ok so just to impress again right 
+so any machine learning algorithm that you have you should be able to write it in this 
+form right that y is a function of x with some parameters and then your job boils down 
+to learning these parameters right it just happens that here y is a very complex function 
+of the inputs is that clear ok so i am not deviated from the original story i am still 
+being  able  to  write  y  as  a  function  of  x  with  some  parameters  ok  what  are  the 
+parameters 
+student 
+all the w’s all the b’s right so w one to w l and b one to b l 
+and the algorithm that we are going to see today for learning these parameters is called 
+gradient descent but we will use it with back propagation where back propagation will 
+help  us to  compute gradients  it  is  ok  it  does not  it does not  make sense at  this point 
+that  is  what  the  lecture  is  supposed  to  be  about  right  so  and  what  is  an  objective 
+function 
+student 
+loss function so i could just go with this loss function right ok there is an error here 
+i  thought  we  corrected  this  there  is  a  summation  so  actually  these  are  vectors  right 
+so this does not make sense so you should have summation j equal to one to k yij minus 
+yij does that make sense so this is the vector y hat ok for the i th example it will be 
+called as y hat high i which will have k elements right so y hat i one y hat i two up to y hat i 
+k right 
+so that is what my predictions are and i will have the corresponding true vector also i 
+am  trying  to  take  the  difference  between  them  which  is  going  to  be  an  element  wise 
+difference everyone understands the error in the slide how many of you do not get it 
+how many of you get it if you do not get it please raise your hands it is a minor thing 
+i can correct it and how does deep neural networks fit into these this paradigm 

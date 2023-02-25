@@ -1,0 +1,75 @@
+contrastive estimation 
+so  we  will  move  on  to  the  next  way  of  dealing  with  the  expensive  softmax  so 
+remember that so this is known as contrastive estimation 
+so remember that this is where we are in the story that we saw the bag of words model 
+we saw the skip gram model and we saw that both of them have this expensive softmax 
+computation at  the end and that is  the problem we are trying to  deal  with  so we saw 
+one way of dealing with which was negative sampling so you i hope you saw that there 
+was no expensive computation there 
+the  only  computation  there  was  the  dot  product  between  the  two  words  which  appear 
+together  or  which  do  not  appear  together  now  let  us  see  what  happens  in  contrastive 
+estimation 
+so  here  again  you  use  a  same  idea  so  you  have  a  positive  sentence  or  a  positive 
+example he sat on a chair you create a negative sentence which you replace the word by 
+some  random  word  now  you  construct  a  feed  forward  network  like  this  which  takes 
+these two one hot representations basically uses your word context matrix to give you the 
+summation of these two representations right that is exactly what we have done in the 
+skip  gram  model  now  you  have  this  hidden  representation  which  is  the  sum  of  the  two 
+word representations 
+now from here on instead of doing this softmax computation which we had earlier we 
+just predict a single score ok we just predict the score for this word pair being of correct 
+word  pair  we  do  the  same  thing  with  the  random  pair  so  we  take  sat  we  take 
+abracadabra  and  the  add  up  there  word  representations  you  get  this  hidden 
+representations  and  you  get  a  score  sr  fine  so  what  is  the  output  computation  right 
+now  what  is  the  is  it  a  matrix  operation  is  it  a  scalar  operation  is  it  a  vector 
+operation  what  is  this  h  is  equal  to  we  need  to  change  this  to  k  on  the  slide  please 
+note so what is this product w into h just a dot product between two vector 
+w is just k cross one that means it is a vector so as compared to k cross v earlier we 
+just  have  k  cross  one  you  get  that  how  many  of  you  get  this  we  have  a  very  simple 
+computation at the end ok but now how we set up by loss function earlier i could set 
+up  the  loss  function  as  maximizing  the  log  like  it  of  the  correct  word  but  now  i  just 
+predicting  two  scores  so  what  is  the  loss  function  what  should  i  try  to  intuitively  do 
+and today we are going to see a new loss function which we have not seen earlier so 
+try  to  think  about  this  what  would  you  do  forget  about  the  math  forget  about  the 
+machine  learning  all  that  what  would  you  actually  want what  is  your  wish  list  that 
+should be easy to characterize 
+score s score sr do you want this or this first one right you want s to be greater than sr 
+can you think of making an objective function out of this you want to maximize 
+student 
+s minus sr  fine that is a good starting point so would you be happy with this what 
+would  you  want  this  or  this  both  cases  s  is  greater  than  sr  right  what  would  you 
+want 
+student a big margin 
+a big margin fine 
+so we would like sr to be greater than s and not just so we could try to maximize s 
+minus srok but we would also like this difference to be a certain margin that means i 
+would want s to be greater than sr by at least a margin of m and that m is something i 
+will decide so i could say that it should be at least ten points greater than sr or one point 
+greater than sr depending on the scores that i have so all my scores are between zero to one 
+then probably a margin of three or four is ok sounds reasonable right that means s could 
+be six and sr could be two does that make sense 
+so  what  i  am  saying  is  what  i  am  trying  to  say  is  that  this  is  my  sr  i  want  s  to  be 
+greater than sr i am not just happy with that i am saying that even if i add a margin to sr 
+even then this condition should hold right 
+and  that  is  the  same  as  saying  that  s  sr  and  there  should  be  at  least  a  margin  of  m 
+between that that  is  the difference that  i  accept  i am  not if  you tell  me that s is ninety-nine 
+and sr is ninety-eight where then you are not really distinguishing much i want at least s to be 
+nine and sr to be at least less than five or somewhere 
+so  there  should  at  least  some  gap  between  that  and  that  gap  is  m  so  instead  of 
+maximizing  s  minus  sr  i  am  going  to  maximize  s  minus  sr  plus  m  is  that  fine  ok 
+now suppose  you are at some point of training  i will have some need some parameter 
+configuration  that  means  you  have  learned  some  values  for  vc  and  vw  and  you  do 
+this  forward  propagation  compute  s  and  sr  and  we  actually  find  that  this  condition 
+holds right so right now my loss function is this at some point you are doing this and 
+you observe that this condition holds that means s is actually greater than sr plus m in 
+that case what do you want a loss to be how many of you get the question 
+i  want  that  s  and  sr  should  be  separated  from  a  margin  of  m  in  the  favor  of  s  i  am 
+doing my training  i am at certain configuration for uc s and vw s and so on i pass it 
+through the feed forward network and  i get s and sr and i observe that this condition 
+already holds 
+is my  network doing anything wrong at  this point  it  is  doing it is  job  properly what 
+should  be  the  loss  that  i  back  propagate  zero  again  gets  that  there  is  nothing  to  correct 
+here i do not need to back propagate any loss 
+so then can you give me the full objective function maximize this but at this condition 
+already  holds  then  do  not  do  anything  is  that  fine  so  that  is  about  this  so  and  again 
+observe that we have gotten rid of the expensive softmax computation 

@@ -1,0 +1,77 @@
+so i  was talking about successes in image speech pattern recognition even natural 
+language processing and so on so one interesting thing here is about sequences so i 
+will talk about sequences now 
+sequences are everywhere when you are dealing with data  so  you have time series 
+which is like say the stock market trends or any other kind of a series time series then 
+you have speech which is again a series of phonemes or you have music you have text 
+which is a series of words you could even have videos which are the series of images 
+right one frame each image each frame can be considered to be an image and so on 
+so in speech data one peculiar characteristic of speech data is that every unit in the 
+sequence interacts with other units so words on their own may not mean much  but 
+when you put them together into a sentence they all interact with each other and give 
+meaning to the sentence right and the same can be said about music or speech or any 
+kind of sequence data so all these elements of the sequence actually interact with each 
+other 
+so there was a need for models to capture this interaction and this is very important for 
+natural   language   processing   because   in   natural   language   processing   you   deal   with 
+sequence of words or all your texts or sentences or documents or all sequences of words 
+so that is very important and the same in the case of speech also 
+so if you take up any deep learning paper nowadays it is very likely that you will come 
+across the term recurrent neural network or lstms which are long short term memory 
+cells and so on 
+so this is also something which was proposed way back in one thousand, nine hundred and eighty-six 
+so a recurrent neural network is something which allows you to capture the interactions 
+between the elements of your sequence i had said at a very layman level but of course 
+you are going to see this in much more detail in the course and this was also not 
+something new even though you hear about it a lot in the past  three  to four years the first 
+recurrent neural network and what you see here is exactly a very similar to what we are 
+going to cover in the course was proposed way back in jordan by jordan in one thousand, nine hundred and eighty-six 
+its variant was proposed by elmen in 1990so this is again not a very new idea this 
+has existed for some time but now there are various factors because of which it has been 
+possible to now start using them for a lot of practical applications as i said one you 
+have a lot of compute time and the other you have a lot of data and the third is now the 
+training has stabilized a lot because of these advances which i was talking about in terms 
+of better optimization algorithms better regularization better weight initialization and so 
+on 
+so it has become very easy to train these networks for real world problems at a large 
+scale so that is why they have become very popular and hear about them on a regular 
+basis but it is again something which was done way back 
+so from one thousand, nine hundred and ninety-nine to one thousand, nine hundred and ninety-four actually people also looking at various problems will be training 
+neural networks and recurrent neural networks and so that this problem which is known 
+as exploding and the vanishing gradient problem which is again something that we will 
+see in the course in reasonable detail we have this problem and it is very difficult to 
+train   recurrent   neural   networks   for   longer   sequences   so   if   you   have   a   very   long 
+sequence or a time series you cannot really train a recurrent neural network to learn 
+something from that 
+and to overcome these problems around one thousand, nine hundred and ninety-seven  long short term memory cells were 
+proposed and this is again something that we will cover in the course and this is now 
+almost de facto standard used for training for a lot of nlp work lstm are used as one 
+of   the   building   blocks   and   another   variants   of   lstms   which   are   known   as   gated 
+recurrent units and some other variants 
+so   this   is   also   not   something   new   even   though   they   have   become   very   popular 
+nowadays like almost any article that you pick about to talk about any article on deep 
+learning that pick about to talk about recurrent neural networks or lstms or gated 
+recurrent units this is not something which is new 
+lstms had come way back in one thousand, nine hundred and ninety-seven  but again due to various compute and other issues 
+which i said at that time it is not  so  easy to use them  but  by two thousand and fourteen  because of these 
+parallel progresses which i mentioned in terms of optimization regularization and so on 
+people are now able to use rnns lstms for large scale sequence to sequence problems 
+and in particular a very important discovery at this time are very important model which 
+was proposed at this time which is attention mechanism which is used in a lot of deep 
+neural networks nowadays which enabled to deal with a lot of sequence prediction 
+problems 
+for example translation where you have given one sequence in one language and you 
+want to generate the equivalent sequence in another language so this is known as a 
+sequence to sequence translation problem  so  for that people proposed a sequence to 
+sequence attention network and this was one of the key discoveries which then led to a 
+lot of adaptation of or  adoption of deep neural networks for nlp 
+a lot of research in nlp happened which was then driven by deep neutral networks so 
+a lot of existing algorithms which are non neural network based algorithms which are 
+traditionally used for nlp was slowly replaced by these deep neural network based 
+algorithms ok 
+and   again   this   idea   of   attention   itself   is   something   that   was   explored   earlier   also 
+somewhere around one thousand, nine hundred and ninety-one or so and it was something known as reinforcement learning 
+which was used for learning this attention mechanism what attention basically tells you 
+is that if you have a large sequence and if you want to do something with this sequence 
+what are the important entities of this sequence or elements of this sequence that you 
+need to focus on so this is again something that we will look at in detail in the course 

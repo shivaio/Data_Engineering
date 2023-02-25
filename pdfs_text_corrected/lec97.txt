@@ -1,0 +1,57 @@
+so  we  will  see  what  guided  backpropagation  is  so  idea  here  is  a  bit  hacky  a  bist 
+heuristically but it still works very well so let us see what it is right 
+so suppose you feed an input image to a convolutional neural network that image will 
+go through all the convolution layers and say it one convolution layer this is what your 
+feature map looks like i am operating at a very small scale i am just considering a two 
+two 
+feature map ok 
+now we consider one neuron in some feature map at some layer ok so we will consider 
+this particular neuron and we are finding interested in finding the influence of the input 
+on this neutron so this is what i will do is i will set all the other neurons in this layer to 
+zero because i do not care about them i only care about this particular neurons i just focus 
+on that 
+ 
+and  we  now  back  propagate  all  the  way  back  to  the  image  right  that  means  i  will 
+compute if i call this as h2 then i will compute  h2 
+i1i2i3 and so on ok 
+now recall that during forward pass what happens is because you have relu neurons any 
+output which was negative that was clamped to zero in the forward pass any output which 
+was negative was clamped to zero so what would happen to the gradients when they flow 
+back through those neurons you already did this if an relu neuron is dead the gradients 
+do not flow back right so the gradients will not flow back through these neurons that 
+means that only the so only these gradients will actually flow back which correspond to 
+non negative entries in the image before it or in the matrix above it right is that fine 
+so  now  these  guys  use  this  interesting  idea  that  in  the  forward  pass  you  dont  allow 
+negative  things  to  go  forward  so  the  backward  pass  also  do  something  similar  dont 
+allow the negative influences to go back that means any gradient which is negative just 
+clamp it to zero ok so what i am going to do is all these negative elements in the gradient 
+i am going to set them to zero you see that so this is just taking the same idea which you 
+apply  that  forward  propagation  that  relu  clamps  the  output  to  zero  if  the  influence  was 
+negative and the backward pass also do the same any gradients which are negative just 
+clammed them to zero 
+so  the  intuition  here  was  that  maybe  there  was  a  pixel  which  is  really  influencing  the 
+particular  neuron  and  it  stands  out  but  because  there  are  some  positive  and  negative 
+ 
+gradients flowing back they seem to cancel each other and all these influences tend to 
+be zero because thats what we observe that image was largely gray with very few non gray 
+pixels 
+so this is  very heuristically because the reason  i call it a heuristic is  because  you are 
+messing with the math right the math tells  you that the  correct gradient has to go back 
+irrespective  of  whether  its  positive  or  negative  but  they  give  this  justification  that  on 
+based on two things and the forward pass you are not passing the negative gradients a 
+negative  outputs  so  in  the  backward  pass  also  kill  them  and  this  should  avoid  this 
+canceling of positive and negative output 
+so this is known as guided back propagation because you are meddling with the actual 
+back propagation you are doing something different 
+and  so  the  idea  was  to  neglect  all  the  negative  influences  and  when  they  apply  this 
+guided back propagation this is what the influence looks like so you see that it is much 
+sharper now it is actually very nice its focusing completely on the eyes and you can see 
+the layout of the cat much more clearly as in the earlier picture earlier image right 
+so this is a popular technique to use to for various things it is also among other things 
+for in for understanding what your convolutional neural network is doing right so this 
+lecture is entirely about understanding what are the neurons learning what are the weight 
+matrices learning what are the kernels learning and so on so these are all again tricks 
+that  you  need  to  have  in  your  repository  to  be  able  to  do  something  more  than  just 
+reporting  accuracy  ok  i  will  get  seventy  percent  accuracy  on  this  status  (refer  slide  time 
+0415) right so this guided back propagation is one algorithm that you will implement 
+as a part of the assignment so 

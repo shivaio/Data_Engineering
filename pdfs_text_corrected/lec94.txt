@@ -1,0 +1,91 @@
+so now this was visualizing the neurons inside the convolutional neural network so 
+neurons remember are the outputs right  these are not  these are the feature maps  what 
+about the weights itself what are the weights in a convolutional neural network 
+student 
+the  filters  the  filters  themselves  are  weight  have  you  ever  tried  to  visualize  weights 
+before when 
+student auto encoders 
+auto encoders and what was a trick there how did we 
+student 
+visualize what was the optimization problem that we solved 
+student 
+how many of you went and looked at the prerequisites how many of you looked at the 
+prerequisites ok 
+so we had done something similar while discussing auto encoders so because that we 
+had done something similar while discussing auto encoders right so we were interested 
+in  knowing  that  there  is  a  particular  hidden  neuron  inside  the  auto  encoder  and  we 
+wanted to see that what does this neuron capture so if i give it emnist digits then what 
+kind  of  patterns  does  it  fire  for  and  if  you  remember  we  had  solved  this  optimization 
+problem  and realize that this neuron will fire for an input which looks like this where 
+w1 or all the weights which are connecting to this neuron ok what was the dimension of 
+the input if you are dealing with emnist digits 
+student 
+seven hundred and eighty-four what is the dimension of this a one thing which i have circled here 
+student 
+seven hundred and eighty-four right it is written x equal to so it has to be seven hundred and eighty-four why is it seven hundred and eighty-four because there are seven hundred and eighty-four 
+weights  connecting  each  of  the  input  pixels  to  that  neuron  right  so  that  means  this 
+weight matrix itself we can visualize it as an image and thats exactly what we had done if 
+you remember we had this grid of images that we were analyzing and in some images we 
+saw  that  some  dark  element  fires  here  and  each  we  were  arguing  that  this  is  the  curve 
+which exists in two or nine or eight and that is the one which is capturing 
+and in some cases there was a cusp here which was firing and we were arguing that this 
+could be for the three or for a nine or for a eight or something like that right so we were trying to 
+visualize these things and the way we had plotted it was just treating this weight matrix 
+or weight vector as an image and seeing what causes the neuron to fire right 
+so we can do something similar for convolutional neural networks i want you to think 
+how would you do that i will give you some hints  the answer is there on the next slide 
+but i just want you to think about it right so remember here you have dense connections 
+ok  that  means  your  weight  vector  was  the  same  dimension  as  the  input  vector  what 
+about filters in the case of cnn they are smaller they are three 
+three five 
+five or seven 
+seven much 
+smaller than your original image 
+so then what do these filters correspond to just think of the animation that we had seen 
+right we had this image and we were taking a filter and applying it at different places so 
+what does the filter correspond to what is the filter overlap  with patches in the image 
+right so now what kind of analysis can you do 
+student dense 
+what  kind  of  patches  does  this  filter  fire  for  or  what  kind  of  patches  does  the  neuron 
+connected to this filter fire for does that make sense everyone gets the intuition how 
+many if you get the intuition please raise your hands thank you 
+ 
+so  now  recall  that  we  can  think  of  a  cnn  as  a  feed  forward  neural  network  and  in 
+particular  when  you  have  a  filter  it  actually  interacts  only  with  few  pixels  right  so 
+interacts with say pixel one two five and six so that is the patch that it interacts with 
+and now i want to see when does this neuron fire so that is the same as asking what do 
+i put in one two five six for this neuron to fire or similarly what do i put in three i do not know this 
+was  one  two  five  six  i  guess  so  three  four  seven  eight  for  the  same  different  neuron  to  fire  right  but  all 
+these neurons fire because they are connected to the same filter 
+so that means i am interested in these patches which will cause the neuron to fire and 
+those patches can appear anywhere in their image is that fine that is the whole point of 
+convolution neural networks wherever there is a nose whether it is at the top corner of 
+the image or the center or the bottom it should be able to  detect  right  that is  the whole 
+point of weight sharing and sparse connectivity ok 
+ 
+so  we  are  going  to  do  exactly  the  same  thing  we  will  have  a  three 
+three  filters  or  five 
+five 
+filters  or  seven 
+seven  filters  were  just  going  to  visualize  as  them  as  images  but  unlike  the 
+earlier  case  where  the  image  actually  correspond  to  the  full  mnist  image  here  these 
+images are just corresponding to those three cross three or five cross five patches and you want to see 
+what kind of patches causes the neurons to fire ok and the solution is still the same we 
+will have this w by w the normalized weight filter weight which is causing the input to 
+fire how many if you are fine with everything at this point please raise your hands high 
+up 
+ 
+so  this  is  what  we  get  right  and  we  observe  certain  things  which  like  we  had  earlier 
+made  a  case  for  that  these  filters  try  to  detect  certain  types  of  patterns  or  textures  or 
+edges  so  you  can  see  that  right  this  is  capturing  these  slanting  edges  this  is  trying  to 
+capture  some  horizontal  sorry  vertical  edges  then  some  edges  oriented  differently  and 
+also  some  colored  patterns  some  texture  right  so  you  see  something  like  a  checkbox 
+here or chess box here and so on 
+so  these  filters  are  actually  firing  for  different  kinds  of  patches  so  they  are  trying  to 
+detect different things from the images so you could visualize this and unless you see a 
+lot  of  variety  in  this  that  means  something  is  wrong  right  because  your  filters  are  not 
+being  trained  to  be  discriminative  with  terms  of  different  patterns  that  they  can  detect 
+and so on right  so  you want  these variety of  patterns to  occur ok  and  i  am  going to 
+make a claim that this is only interpretable for the first layers in the convolutional neural 
+network  why  is  it  so  i  am  seeing  some  half  complete  answers  so  i  will  ask  this  as  a 
+quiz question 

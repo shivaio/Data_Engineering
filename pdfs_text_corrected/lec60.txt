@@ -1,0 +1,101 @@
+true error and model complexity 
+so now we will try to see that how does this true error that we see depend on the model 
+complexity 
+so using steins  lemma and some trickery we can show the following what is steins 
+lemma so i had this deal with my students last year you do not ask me what steins 
+lemma is i will not ask you what steins lemma is ok so it is some lemma which tells 
+us  that  this  quantity  what  was  this  quantity  the  last  term  which  was  troublesome  rate 
+that  covariance  term  which  was  troublesome  that  is  this  quantity  this  quantity  is 
+actually equal to this quantity 
+so let us buy that let us all of us agree that steins lemma is correct and it tells us that 
+this is the case ok and you saw the quiz one paper ok fine from last year i mean ok so 
+now we will work with this premise and we will see what it actually tells us now when 
+will this  quantity be high so  what this  is telling us  i mean jokes  apart  let  us try to 
+focus again that this quantity is actually equal to the summation of this quantity 
+now  let  us  take  one  term  in  this  summation  when  would  dou  f  hat  x  i  by  dou  y  i  be 
+large  what  does  it  actually  tell  you  if  i  change  one  of  these  yi’s  a  bit  when  the 
+prediction for it is going to change by a lot do you get that how many of you get this 
+some of you do not get this just think about it when would this be high what does the 
+derivative  capture  if  the  derivative  is  high  that  means  a  small  change  in  the 
+denominator is going to lead to a large change in the numerator 
+what  is  the  denominator  actually  the  true  y  that  we  have  observed  what  is  the 
+numerator  that  is  the  predicted  y  so  what  you  are  saying  is  that  if  there  is  a  small 
+change in y i then there is going to be a large change in the prediction ok when would 
+this  happen  would  this  happen  for  simple  models  or  complex  models  complex 
+models how many of you say complex models so this is the link to model complexity 
+rate and i will make a more intuitive case for this but at least some of you get this that if 
+your model is very complex that means it is even one of  your data points  changes and 
+the prediction of the model is going to change largely 
+so now relate this back to that sinusoidal model that we had and we had this complex 
+model  every  model  that  i  was  training  which  was  strained  on  a  different  set  of  twenty-five 
+examples the model was vastly different and that is exactly what was happening when 
+you  were  changing  even  one  data  point  your  predictions  were  changing  largely  that 
+means  your  model  was  changing  largely  do  you  get  that  intuition  so  indeed  a 
+complex  model  will  be  more  sensitive  to  the  changes  in  the  observation  whereas  a 
+simple  model  will  be  less  sensitive  to  it  and  hence  we  can  say  that  the  true  error  is 
+actually  equal  to  the  empirical  train  error  plus  something  which  relates  to  the  model 
+complexity 
+now let us first verify that indeed a complex model is more sensitive to minor changes 
+in  the  data  so  this  is  some  data  that  i  had  sampled  from  the  same  distribution  and  i 
+trained one simple model which is the green line which you see that was a linear model 
+and i trained one complex model which was a twenty-five degree polynomial which you see ok 
+now what i am going to do is i am going to take one of these points and change it a bit 
+and i retrain the model 
+what  happens  to  the  simple  model  it  does  not  change  much  but  what  happens  to  the 
+complex model it is more sensitive to these observations that i have and that is exactly 
+the  quantity  that  we  were  interested  in  that  means  a  complex  for  a  complex  model 
+which  is  more  sensitive  that  summation  that  we  care  about  is  going  to  be  high  that 
+means that difference between the true error and the estimated error is going to be high 
+so  that  is  why  instead  of  minimizing  the  train  error  we  should  always  minimize  the 
+train error plus some quantity which is linked to the model complexity this is the basis 
+for all dash methods regularization method 
+so  now  you  see  where  this  comes  from  so  ok  where  omega  theta  would  be  high  for 
+complex models and simple for simple models ok you get the intuition for this and the 
+rest of the lecture we will spend in taking various cases where we will actually show that 
+omega theta would be high and we are trying to  control for omega theta  this  quantity 
+for the rest of this lecture and for the rest of this course i will assume that we all know 
+how to deal with 
+we  have  done  enough  of  this  we  have  done  a  lot  of  back  propagation  we  have  done 
+enough  derivations  of  the  laws  with  respect  to  the  output  layer  and  so  on  everything 
+right so all of us understand how to deal with l train theta where l train theta is this l 
+equal to one to m squared error loss or your log likelihood or any of these losses right so 
+we all know how to deal with this today we are going to focus on this other term which 
+brings in the regularization 
+so what omega theta does is actually acts as an approximation for this so what i should 
+have actually tried to minimize is not just l train theta but  l train theta plus this other 
+quantity which was there in my equation you get this my true equation was that my loss 
+is  equal  to  l  trained  theta  plus  this  term  right  which  we  approximated  using  steins 
+lemma  so  i  should  have  tried  to  minimize  this  quantity  but  i  do  not  know  how  to 
+really compute this quantity 
+so  i am  going to just substitute it  by omega theta and ensure that omega theta is  such 
+that  it  is  high  for  complex  models  and  low  for  simple  models  do  you  get  the  recipe 
+everyone  gets  this  how  many  of  you  understand  this  fine  so  we  can  show  that  l1 
+regulation l2 regularization early stopping all of these are actually special cases of this 
+particular formulation that we have 
+and  remember  that  this  is  the  sweet  spot  that  we  were  aiming  for  ok  and  this  gap  is 
+actually  this  quantity  because  we  are  making  a  very  optimistic  estimation  of  the  error 
+whereas there is actually this quantity which we have been ignoring and that is why we 
+see that the validation error is high ok so is the full picture in terms of the diagram and 
+all the equations that we have seen 
+so we should ensure using omega theta that this gap is also minimized therefore our 
+function  should  be  minimized  l  theta  plus  omega  theta  so  essentially  what  we  are 
+trying to do is minimize this gap and hence the model would generalize better on the test 
+data is this intuition clear to everyone 
+why do we care about this bias variance tradeoff model complexity this is not a course 
+on  machine  learning  they  are  highly  complex  models  they  have  many  parameters 
+many nonlinearities in fact now can you relate this back to the universal approximation 
+theorem what is the universal approximation theorem say give me any data i will give 
+you a deep neural network which will exactly over fit the data right and that is exactly 
+what  we  want  to  avoid  that  is  why  regularization  is  important  in  the  context  of  deep 
+neural networks fine it is very easy for them to over fit the data and derive training error 
+equal to zero and that is why we need some regularization 
+so  today  we  are  going  to  look  at  different  forms  of  regularization  starting  with  l2 
+regularization  some  simple  tricks  so  some  of  these  are  going  to  be  mathematically 
+motivated  some  of  these  are  just  going  to  be  heuristics  or  empirical  stuff  so  data  set 
+augmentation is one such empirical stuff how many of you tried data set augmentation 
+for the immunized assignment or the back propagation as parameter sharing and tying is 
+something that no i am not 
+please do not give me that look yeah i am not suggesting that adding noise the inputs 
+adding  noise  to  the  outputs  early  stopping  ensemble  methods  and  drop  off  right  so 
+these are the things that we are going to talk about this and all of this is in the context of 
+regularization where you want to avoid some kind of model complexity 

@@ -1,0 +1,77 @@
+lecture – twelve 
+so  in  this  lecture  we  will  look  at  various  ways  of  visualizing  convolutional  neural 
+networks  and  although  it  is  not  very obvious  at  this  point  as  we  go  along  we  will  see 
+what i mean by that so let us start this lecture 
+so i forgot to add the acknowledgments slide so a lot of the material that i am going to 
+cover today is based on some content by andrey karpaty in his online course stanford 
+course we will add the appropriate acknowledgments and a link to the course ok 
+so with that i will start module one which is visualizing patches which maximally activate 
+a neuron ok so what are we trying to do here is we are trying to the quest today largely 
+is going to be able to understand what a cnn has actually learned right and what i mean 
+by that is we said that there are these filters which try to detect edges which try to detect 
+blurs and so on and then there are these neurons which fire for certain things and so on 
+so we want to see different ways of finding out what a convolution neural network has 
+actually learned or what have the filters actually learned or what are the different neurons 
+in  the  convolutional  neural  network  actually  capturing  what  do  they  fire  for  what  are 
+the kind of images that make them trigger and so on right so that is the first thing that 
+we are going to look at how do you visualize patches which are causing a neuron to fire 
+so  this  is  again  our  vgg  network  just  put  it  vertically  say  have  passed  an  image  to 
+that and then at every layer you are applying convolutions and then match pooling and 
+so  on  right  up  to  the  last  layer  right  now  we  consider  some  neurons  in  one  of  these 
+layers so i am considering this neuron and i want to find out what exactly is this neuron 
+trying to do right and which is the same as asking what kind of images does this neuron 
+fire for 
+so  i  have  thousand  different  classes  i  have  cats  dogs  cars  trucks  and  so  on  i  am 
+interested  in  figuring  out  what  are  the  different  kinds  of  classes  that  this  neuron  fires 
+and  this  is  more  from  say  i  am  already  getting  some  output  accuracy  and  i  am  either 
+happy  with  it  or  not  happy  with  it  in  either  case  i  just  want  to  see  what  is  it  that  my 
+network is learning is there any scope for improving is that that there are no neurons in 
+the  network  which  actually  fire  for  the  dog  class  did  not  should  i  do  something 
+differently  was  it  that  most  of  the  neurons  fire  for  all  classes  that  means  they  do  not 
+have any discriminative power so what exactly is going on right 
+so that is why we are that is why this study is interesting and you will do something of 
+this sort in your cnn assignment ok so and by now we are clear that if i am focusing 
+on  any  neuron  and  any  layer  i  can  always  go  back  and  trace  the  patch  to  which  it 
+corresponds in the input image everyone is fine with that right so we saw that if i am 
+somewhere  here  then  every  neuron  here  corresponds  to  some  sixteen  cross  sixteen  patch  in  the 
+original  image  and  the  same  is  true  for  every  layer  right  i  can  always  this  is  a 
+deterministic  process  i  can  just  find  out  which  are  the  original  image  pixels  which 
+contributed to the computation of this particular neuron in any layer ok 
+so  i  can  do  that  so  now  what  i  am  going  to  do  is  i  will  send  as  many  images  as 
+possible  whatever  images  are  there  in  my  training  data  test  data  whatever  images  i 
+have i will pass these images through the convolutional neural network ok and for the 
+neuron of interest i will note down which when does it fire and where ever it fires and 
+by  fire  i  mean  it  is  a  output  is  close  to  one  or  it  is  a  output  is  high  because  these  are 
+relu  neurons  i  look  for  high  output  they  do  not  saturate  at  one  right  so  this  i  look 
+which images for which this neuron had an high output and for those cases i will go back 
+and trace the image and see which patch of the image actually caused this to fire 
+so i want to see whether my neurons are actually learning things like noise detector or 
+eye detector or something right 
+so let us look at the results of one such experiment done by a group of researchers so 
+they considered some neurons in the pool five layer and they did this experiment that they 
+pass  a lot of images and whenever this neuron fired they went  back and  saw what  was 
+the patch in the image which was causing this neuron to fire 
+so that they found that one set of neurons is actually fires for people places so if you 
+go back and trace which is the image which caused is to fire or which is the patch then 
+it is largely centered around a persons face or which is something which is very clearly a 
+person ok another set of neurons fires for dogs another set of neurons fires for flowers 
+all sorts of flowers and  different  orientations  different  maybe colors are  same here but 
+they are all different thing right somewhere inside a bouquet somewhere inside a flower 
+pot some somewhere on a table and so on but expected of that these neurons are firing 
+for any flowers that appear in  your input image and the fire only for that patch nothing 
+around it 
+so it is very is actually able to localize and fire there are some images which fire for 
+this images the digits and alphabets written in the image so these are some addresses or 
+dates or billboard signs or something like that and whenever there are these characters or 
+numerals there and this neurons fire 
+and  some  neurons  fire  for  houses  and  then  some  neurons  fire  for  shiny  surfaces  so 
+there is this different sets of neurons which fire for different sets of things right so also 
+that means your convolutional neural network is trying to learn specific characters of the 
+input  characteristics  of  the  input  and  this  is  one  way  of  visualizing  so  this  is  not  like 
+anything tricky here it is  just that its good  you  can think of this as debugging tools for 
+your  convolutional  neural  network  right  because  in  your  you  i  guys  are  used  to 
+programming where you give different inputs and see what is the output and then try to 
+debug it 
+so  this  is  one  way  of  trying  to  figure  out  whether  your  network  has  learned  does  it 
+really need more training is there a certain class of images for which it is not firing at all 
+or is it confusing between two classes and so right so that is one way of visualizing 

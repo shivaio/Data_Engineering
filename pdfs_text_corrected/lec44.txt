@@ -1,0 +1,129 @@
+lecture – six 
+in  this  module  we  will  study  eigenvalue  decomposition  so  the  answer  to  that  was 
+actually  which  i  was  hoping  all  of  you  will  give  because  all  of  you  have  done  two 
+prerequisite  which  is  linear  algebra  and  machine  learning  both  of  them  teach  you 
+principal component analysis so i was hoping that you will give that answer 
+now  can  you  give  that  answer  he  already  of  course  gave  that  answer  is  that  make 
+sense so we relate it to that so but before going to principle component analysis we 
+look at eigen value decomposition 
+this is very straightforward so let u1 to un be the eigenvectors of a matrix a and let 
+lambda one to lambda n be the corresponding eigenvalues 
+now i am going to construct a matrix u such that the columns of u are these vectors u1 
+to un is that fine what u looks like and now i am going to do this product i am taking a 
+the product of the matrix a with the product of with the matrix u where u is this right 
+it is the all the eigen vectors tagged one after the other is this fine the next step i am 
+just pushing the matrix inside if you know the four different ways of multiplying a matrix 
+you will know that this is correct or else for now just thing that  you can just push the 
+matrix inside 
+now  what  is  this  i  can  replace  them  by  the  lambda  one  u  one  lambda  two  because  a  u  one  is 
+equal to lambda one u one by definition ok now can you write this again as a product of two 
+matrices one is of course the matrix u and the other is 
+student diagonal 
+diagonal so the diagonal matrix will come first or the matrix u will come first how 
+many if you say u will come first how many if you say the diagonal matrix will come 
+first the sum is never one ok 
+so it is going to be like this ok and you can write this as u lambda so u is again the 
+vector  the  matrix  containing  the  eigenvectors  of  a  and  lambda  is  a  diagonal  matrix 
+where every diagonally element is a corresponding eigen value 
+now this is  what we have so far a into u is  equal  to  u into lambda now suppose  u 
+inverse exists i will assume that u inverse exists and later on i will tell you under what 
+conditions  it exists  then  i could  write it  as this any  of these two forms  in  one case  i  am 
+post multiplying by u inverse in the other case i am pre multiplying with u inverse ok 
+so  this  is  known  as  the  eigenvalue  decomposition  of  a  matrix  and  the  other  way  of 
+writing it is known as diagonalization of the matrix right you take a matrix apply some 
+operations to  it so that the result is  a diagonal  matrix is  this  clear to  all of  you is  very 
+straight  forward  ok  and  again  eigen  vectors  play  an  important  role  in  this  now  the 
+important  question  is  under  what  conditions  would  u  inverse  exist  u  inverse  would 
+exist if the columns of the matrix u are 
+student linearly independent 
+linearly  independent  ok  do  we  know  the  columns  of  the  matrix  are  linearly 
+independent 
+student yes 
+yes because it is a 
+student 
+set  of  eigenvectors  and  we  already  saw  the  proof  that  the  eigen  vectors  are  linearly 
+independent  ok  this  just  follows  whatever  i  say  ok  now  do  we  need  proof  for  this  i 
+slide nineteen we did this i did not realize it fine 
+now if a is symmetric the situation is always more convenient why is it 
+student 
+what would u be 
+student orthogonal matrix 
+what is an orthogonal matrix actually 
+student 
+so the eigenvectors are orthogonal so we have this situation right suppose i want to 
+do  u  transpose  u  ok  this  is  how  that  operation  would  look  like  ok  now  what  is  the 
+ij’th entry of the resultant matrix 
+student dot product 
+it is the dot product between the 
+student ui and uj 
+ui  and uj  everyone  gets this right  the ijth  entry  of this product is  going to  be the dot 
+product between ui and uj this dot product would be dash if i is not equal to zero or j 
+student j 
+j and there is no point in this so each cell of the matrix q ij is given by the dot product 
+and it is going to be zero if i not equal to j and it is going to be one if i is equal to j ok so u 
+transpose u is equal to the identity matrix that means u transpose is the dash of u 
+student 
+transpose of u and of course inverse also ok so u transpose is the inverse of u and it 
+is very convenient to calculate what is the complexity of inverse so now you appreciate 
+that  that  is  a  that  has  high  complexity  and  in  this  case  if  the  vector  if  the  matrix  is 
+orthogonal that means it is a collection of orthogonal vectors and the inverse just comes 
+for free right 
+so now given this situation and do not read the hint as if this is going to help but yeah 
+what can you now say about the sequence the same sequence that you saw earlier so i 
+have  given  you  that  the  evd  of  a  is  equal  to  u  sigma  u  transpose  where  u  is  the 
+collection  of  the  eigenvectors  and  sigma  is  the  eigen  values  the  diagonal  matrix 
+containing the eigenvalues 
+now what given this and ignoring the knowledge of the first section of this lecture can 
+you tell me something about this series what would be the nth element of the series 
+student u sigma power n 
+u sigma 
+student power n 
+power n 
+student u transpose 
+u transpose and you arrive at the same conclusion right where i was talking about this 
+operation right so if we can say something about this matrix then we can say something 
+about this series what can you say about this matrix if the largest eigenvalue is greater 
+than  one  as  you  keep  raising  it  is  power  that  value  is  going  to  explode  and  hence  the 
+entire  product  is  going  to  explode  less  than  one  that  product  is  going  to  vanish  and 
+everything else would be less than that right remember is the dominant eigen value 
+so  everything  would  be  less  than  that  so  that  product  will  vanish  ok  so  the  same 
+conclusions you can arrive at right so that is why i want to do these sections again so 
+you  would  have  done  these  in  linear  algebra  but  you  would  have  not  arrived  at  these 
+conclusions from a very different interpretation but i want to focus on the interpretations 
+that i care about i do not how many of you have seen this series in the course on linear 
+algebra you have ok but i do not see why anyone else would teach this is not required 
+is  only  required  for  some  things  that  i  want  to  do  in  the  course  right  that  is  why  i 
+wanted to do this section 
+so everyone is comfortable with eigenvalue decomposition it is a very simple stuff right 
+i  mean  there  is  no  proof  or  anything  involved  there  we  just  use  some  properties  of 
+eigenvectors and eigenvalues and do it 
+now there is one more important property of eigenvectors which well use today so let 
+us see what this means right you have a matrix a which is an n cross n matrix ok and 
+your import interested in computing this value x transpose a x where x belongs to rn x 
+belongs to rn 
+so  what  am  i  trying  to  do  here  of  all  these  vectors  possible  in  rn  i  want  that  vector 
+which maximizes this quantity what is this quantity scalar vector matrix tensor 
+student scalar 
+scalar ok such that x is  equal  to1  this  is  the problem  that  i have been  given to solve 
+why it is not clear as of now but suppose this is a problem  i am trying to solve or the 
+inverse of this which is minimize the same thing of all the vectors in rn find the vector 
+which minimizes this quantity subject to these constraints then the solution for this is 
+given by the smallest or largest the solution is the smallest eigen value of a 
+and x is the eigenvector corresponding to that so if you are trying to minimize and the 
+solution  is  a smallest eigenvalue we need to  clarify that if  you are trying to  maximize 
+and  the  solution  is  the  largest  eigenvalue  is  that  clear  and  the  value  of  x  would  be  the 
+corresponding  eigen  value  so  largest  eigen  vector  is  the  same  as  something  that  we 
+have defined today dominant eigen vector right 
+so let me just repeat so that there is no confusion let us focus on this problem the 
+solution  to  this  problem  that  is  the  x  which  will  give  me  the  maximum  which  will 
+maximize this is the dominant eigen vector of the matrix a right is that clear fine ok 
+and if you want to minimize it is going to be the smallest eigen vector that means the 
+inverse of the dominant 
+so there is a proof for that i will not go over the proof you can take a look at it at your 
+own leisure 
+so  what  has  been  the  story  so  far  the  story  has  been  that  the  eigenvectors 
+corresponding to different eigen values are linearly independent 
+if  you  are  dealing  with  the  square  symmetric  matrix  which  is  something  that  we  will 
+deal  with  soon  then  things  are  even  more  convenient  because  the  eigen  vectors  are 
+actually orthogonal ok and they form a very convenient basis and now we are going to 
+put this to use when we talk about principal component 

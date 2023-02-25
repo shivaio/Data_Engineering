@@ -1,0 +1,85 @@
+adding noise to the inputs 
+we go down the next module which is adding noise to the inputs right 
+so  we  have  some  kind  of  a  noise  process  and  now  can  you  relate  that  how  that  was 
+related to regularization that was exactly the motivation in that case that we could have 
+an  over  complete  auto  encoder  which  is  a  very  complex  model  because  it  has  a  large 
+number of parameters 
+and  to  avoid  that  we  were  adding  this  noise  to  the  inputs  so  that  even  if  it  tries  to 
+minimize  the  training  error  it  is  not  actually  minimizing  the  true  training  error  right 
+because  you have fed some noise to  it everyone gets this right ok now actually we 
+can show that for a simple input output neural network right that means you do not have 
+any hidden layer you just have a set of inputs and you have the output layer then adding 
+noise to the input or rather adding gaussian noise to the input it is equivalent to weight 
+decay 
+so this can also be viewed so we will do this part right so we will just quickly do a 
+small derivation where we show that adding gaussian noise to the inputs is the same as 
+doing  a  l2  regularization  that  is  a  very  neat  idea  so  this  can  also  be  viewed  as  data 
+augmentation  right  exactly  what  i  shown  on  the  previous  slide  you  added  two  you  just 
+corrupted some inputs of it that is the same as adding noise to the data 
+so  the  essentially  augmenting  the  data  right  you  have  some  training  data  and  just 
+augmenting it so to get more training data is that fine 
+now  about  this  smallest  derivation  this  is  again  just  a  set  of  steps  i  will  go  over  it 
+reasonably  fast  i  will  give  you  the  set  up  and  then  it  is  quickly  work  through  the 
+derivation right 
+so what i was trying to say is that if you have a simple input output neural network that 
+means you just have inputs and the output you do not have a hidden layer right then 
+adding a gaussian noise to the input units where the noise comes from this distribution 
+it is  a gaussian distribution zero mean  i want  to  show that doing this is  effectiveness  the 
+same as doing l2 regularization 
+now again see this is the same thing squared eggs in vacuum because this is not the kind 
+of networks that we deal with  but  it is  good to  see what  happens at  least  in  these neat 
+conditions because we will never have a simple input output network at least not in this 
+course we will have a deep neural network always so but at least see what happens in 
+the simple case right so what we are doing is from the x i’s we are creating a noisy x i 
+by just adding some epsilon noise to that and what is our model going to be it is just 
+an aggregation of all the inputs ok so this is what our original model would have been 
+without the noise fine 
+i would have just aggregated all the inputs i am assuming there is no nonlinearity at the 
+output and i am just taking y i is equal to summation of all my inputs everyone fine with 
+this side or this is too simple for you guys to understand because we have been doing a 
+lot  of  deep  neural  networks  so  suddenly  onelayer  network  i  do  not  know  what  it  is 
+everyone gets it right 
+and  instead  of  y  hat  now  i  have  y  tilde  because  instead  of  x  i  i  have  x  i  tilde  ok  but 
+what is x i tilde x i plus epsilon i right so i can write it as this just fine so actually y 
+tilde is nothing but y hat plus some quantity ok what are we interested in always this 
+quantity the expected mean square error ok i mean expected squared error and why not 
+y hat 
+so we have added noise to the input so now y tilde are the outputs that we are going to 
+tilde so let us see what  that quantity is and again  just going to  be  some simple stuff 
+so i replaced y tilde by this that we just derived on the right hand side on the left hand 
+side ok so i am going to take these two terms together so i can write it as this plus this 
+the whole square fine and  i  am  going to  keep this  as it is what  is  this  quantity the 
+original squared error expected squared error right  when  i was not  adding noise to  the 
+inputs  ok  and  you  see  how  we  got  these  two  quantities  this  is  just  a  plus  b  the  whole 
+square is equal to whatever it is equal to right now let us look at the last term this is a 
+square of a sum right 
+so  what  kind  of  terms  would  you  have  inside  you  will  have  some  terms  which  are 
+epsilon i squares and you would have some terms which were epsilon i epsilon j right ok 
+so  we  will  have  some  expectations  which  are  going  to  be  something  into  epsilon  i 
+square and some expectations which are going to be epsilon i epsilon j everyone gets 
+this some terms there now which of these terms would disappear 
+student 
+these terms right why because the noises are independent ok i am not if i have drawn 
+a noise for one instance it does not have any influence on the noise that i  am going to 
+add to the next instance if i have taken one x i corrupted it with some noise there is no 
+bearing on the noise that i am going to use for the next epsilon i right all these features 
+are the noise added to the features are independent 
+so  now  from  these  terms  only  the  square  terms  are  going  to  remain  is  that  fine  and 
+similarly this quantity what can you say about this we just did something similar why 
+i am a saying that this is going to zero again i can show that this is the covariance between 
+this random variable and this random variable ok and now are these two random variables 
+dependent what is epsilon i the noise that i am adding to the input does it have any 
+effect  on  y hat  no right because  y hat  does not  depend on the noise what  is  y true 
+output does it have anything to do with the noise no right 
+so that is why these two random variables are independent so i can again write there the 
+expectation of their product as a product of expectations and then the expectation of this 
+is  going  to  be  zero  because  epsilon  i  was  drawn  from  a  zero  mean  distribution  is  that  fine 
+everyone gets that the same trickery that we did  earlier so this is the quantity that we 
+are left with you see how i got from here to here this is an expectation of a sum which 
+is equal to a sum of expectations w i has nothing to do with it is not a random variable 
+so it is just the expectation of sigma i square which is nothing but the variance right so 
+i get this what does this look like i already told you the answer before starting right this 
+looks like  l two  regularization this is  the true error  i mean this is  the empirical  estimate 
+from  the  training  error  and  this  is  the  weight  decay  term  everyone  get  this  how  you 
+see that this is  an equivalent thing so at  least  in this neat  set  up  you  get  the intuition 
+that adding noise to the inputs is a same as adding a l2 regularization term 

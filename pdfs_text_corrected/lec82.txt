@@ -1,0 +1,141 @@
+hierarchical softmax 
+ 
+the  next  one  is  a  bit  tricky  so  the  third  solution  is  to  use  something  known  as 
+hierarchical  softmax this  is  a bit counterintuitive in  the sense it is  a very smart  trick 
+but it is not something which is very obvious so just pay a bit attention on this it is a 
+neat way of handling this large vocabulary thing and this i think used in various nlp 
+applications where speed is important not often but wherever speed is important 
+so this is what our original network was this was the either you take it as a skip gram 
+model  or  you  take  it  as  a  continuous  bag  of  words  model  right  let  us  take  it  as  a 
+continuous bag of words model 
+you  had  a  word  as  the  input  and  then  you  had  this  large  prediction  and  you  had  this 
+softmax  computation  which  gives  you  the  probability  and  you  are  trying  to  maximize 
+this probability for the correct word right where v w is the correct word 
+now instead of this the hierarchical softmax says that you construct a binary tree such 
+that  your  tree  has  how  many  nodes  v  nodes  it  has  one  node  corresponding  to  every 
+word ok and there exist a unique path from the root node to every leaf node every leaf 
+node corresponds to a word and there is a unique path from the root node to leaf node of 
+course  there  will  be  overlapping  things  for  example  for  this  word  the  path  is  these 
+nodes and for this word also the path is like there is some overlap in the path 
+but for every word there is a unique path how many if you get that setup now let lw one 
+lw two up to lw p be the nodes on this path so i am calling this as lw1 lw2 lw3 sorry 
+sorry sorry sorry yeah actually it is so actually this is l on one l on two l on three that means 
+the third node on the path of on the second node on the path of on and so on right that is 
+how it is going to be and let pi w be a binary vector 
+so  what  is  the  size  of  pi  w  actually  binary  tree  log  of  v  right  so  the  size  of  pi  w 
+vector is going to be log of v so if there are eight leaf nodes you will have three nodes as the 
+size of the vector so for each of these things this vector takes on a value one so here the 
+value would be one because the path  branches to  the left  if the path  branches to  right 
+then the value is going to be zero right so for every node or every word i have this way of 
+uniquely defining it is path i can say that the path is one zero zero is that fine for the word on 
+the path is one zero zero if i consider some other word the path would be different is that fine 
+and of course i have assumed there are only eight words here right that is why this holds if 
+there are either otherwise i would have a vector whose size is log v right now my v is eight 
+so it is just three 
+finally each of these internal nodes is associated with a vector ok so i have u one u two u three 
+so how many of these would i have if there are v nodes at the leaf how many nonleaf 
+nodes do you have in the binary tree v you all know this right 
+so if you have v nodes at the leaf then you will have v nodes internally so for each 
+internal node i have a vector associated with it so how many vectors do i have in all 
+u v and my input side is still the same right i have this w word or w context depending 
+on whether it is a skip gram or by or continuous bag of words model 
+so how many parameters does this model have is it same as the bag of words model or 
+less than the bag of words model or more than the bag of words model this is how you 
+will  think  you  will  see  how  many  input  parameters  do  the  pool  two  models  have  how 
+many output parameters  to  the two models are input parameters same output  parameters 
+how many vectors do  you have u one to uv  each  of size k same  as the original model 
+right it is just as an original model i had put everything inside as w context which was k 
+cross v right so it is the same number of parameters 
+so the total number of parameters in the network is the same 
+now  for  a  given  pair  w  comma  c  which  is  the  correct  pair  we  are  interested  in  the 
+probability p of w given vc nothing great about this it is the same as i have been saying 
+always that we want the pa probability of w given c what we are going to model as w 
+given vc because vc is the representation of c and we model this probability now as the 
+following thing why does this make sense you just assume this is on and these are on 
+k’s right so on one on two on three why does this make sense 
+i will get the word on at the output only if the first element on the path was pi on one and 
+the second element on the path was pi on two up to the k’th element on the path was pi on 
+k  how  many  forget  that  please  raise  your  hands  ok  right  so  that  is  how  we  are 
+modeling it is it but what about pi on one pi on two pi on k how do you model that at 
+least this form is clear to everyone right if it is not let me know because then you not 
+understand the rest of the stuff yeah ok 
+so now see that modeling part is always in your hands right you know that you want 
+you are interested in  a certain  probability  it  depends on  you how to  model  it so now 
+what you have done is you have con constructed a binary tree now i am interested in p 
+of on given some word vc right or some word vector vc now i can say that but the way 
+i am thinking about this is that i get the word on only if the first if i started from the root 
+node  the  first  vector  took  on  the  value  one  or  the  first  branch  took  on  the  value  one  the 
+second branch took on the value zero and the third branch took on the value zero so that is 
+exactly what i am saying here 
+it  is  a  probability  that  the  first  turn  that  i  took  was  a  left  turn  then  a  right  turn  then  a 
+right  turn  yeah  the  path  is  you  have  constructed  the  binary  tree  and  the  path  is  fixed 
+now for all the words how to construct the binary tree is a separate thing but the binary 
+tree has been constructed and every word has a unique path associated with that so that 
+word  will  occur  only  if  that  path  is  executed  right  so  i  am  just  trying  to  find  the 
+probability of that path being executed 
+now i need to tell you what does each so how many terms are there in this product k 
+terms right how do i estimate each of these k terms is what i need to tell you ok can 
+you  think  of  it  how  would  i  model  each  of  these  probabilities  remember  that  every 
+node has a vector associated with it how many if you can think of an answer i hope i 
+are you saying what i think you are saying 
+so this is what i will do so as i said for the on example this is what you want this is 
+the path that you want to be executed 
+and i am going to model it as this 
+so  getting  a  left  turn  i  model  it  using  this  that dot  product  between  the  original  word 
+vector which was the input word vector which was vc and the node representation of the 
+node associated with that particular node does this make sense so i will tell you what 
+we are trying to do so this path was clear that the probability is going to be a product of 
+these probabilities 
+now i want how do i get each of these probabilities so that is again in my hand right i 
+am  going  to  say  that  i  am  going  to  train  my  parameters  vc  and  ui  where  ui  is  the 
+parameter  corresponding  to  every  node  i  am  going  to  train  it  in  a  such  a  way  that 
+whenever i want this to take on the value one this should be close to one ok because i will 
+set up my loss function accordingly we will see the loss function 
+but i am saying that whenever i want the probability to be equal to one i am going to use 
+this to computed and alternately when i want the probability to be zero i am going to take 
+one minus that which is just this is that fine okay let us go ahead a bit and then we will 
+come back if you are still lost 
+so what does this actually ensure this ensures that the representation of a context word 
+vc will have a very high similarity with the node ui if the path takes a left turn there and 
+it will have a very low similarity with the node ui if the path takes a right turn their how 
+many if you get this part based on if you assume that this is how we are going to model 
+it when is this going to be high when the dot product between vc and ui is high when 
+is this going to be low 
+when the dot product between these two is low right there is a negative yeah so we ok 
+sorry i or rather when is this going to be low right so you get that so it is coming so 
+the word representation which is vc which is this guy would come to the come close to 
+all  these  representations  or  move  away  from  them  depending  on  whether  you  want  to 
+take a left turn there or a right turn there 
+now what would happen to words which appear in similar context the same thing that 
+we  have  been  discussing  so  far  right  they  will  come  close  to  the  node  representations 
+which are along the path right is that fine so this  is the context representation right 
+this is actually you are representing every context word by these three representations now 
+if a word appears in the same context it is representation is going to either come close or 
+move away from these representations right so words appear in the same context if 
+you have  cat  and  you had sleep here then cat  has to  come  close to  this it has to  move 
+away from this and it has to move away from this is that clear that is how we have set 
+up the probabilities 
+now  instead  if  i  had  dog  and  again  you  had  the  context  word  as  sleep  now  the 
+representation of dog also has to go close to this it has to move away from this and it 
+has  to  move  away  from  this  so  in  effect  again  the  same  thing  is  happening  that  the 
+representation of cat and dog are moving in the same directions so they will eventually 
+come close to each other how many if you get this intuition 
+and  how  many  computations  do  you  need  now  to  compute  the  probability  of  this  so 
+earlier you acquired that complex softmax computation how many computations do you 
+need  now  you  definitely  need  these  many  computations  and  each  of  these 
+computations requires a sigmoid over or dot product right so that is much much lesser 
+than so you just need these many dot products as compared to your expensive softmax 
+computation earlier 
+so you see how you get the savings using the hierarchical softmax so this is as i said 
+this is not very intuitive it is like a really smart trick and it takes time to get  your head 
+around it but i am sure if you go back and look at the slides you will get it right if it is 
+if  you  have  just  got  fifty  percent  of  the  idea  here  that  is  typically  how  it  happens  every 
+time but  and  i probably not  figured out  a better  way of teaching this but once  you go 
+back i am pretty sure that you will get to understand what is happening 
+so now the question is how do we construct a binary tree anyone has any thoughts on 
+that do we need to ensure certain things while constructing the binary tree okay i will 
+ask this as a quiz question just note that there is some subtlety here ah in practice this 
+is what is done you just randomly arrange the nodes on the leaf nodes and then you just 
+construct  a  binary  tree  from  there  right  so  you  have  distributed  all  your  leaf  nodes 
+randomly and on top of that you have constructed a binary tree my question is there a 
+problem in doing that which i will ask you on 

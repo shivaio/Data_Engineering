@@ -1,0 +1,337 @@
+unsupervised pretraining 
+so with that we go on to the next module in which we will talk about unsupervised pre 
+training 
+so this work which i am going to talk about they trying to understand what has changed 
+since the late 90s or the  early two thousand how did  deep learning become so popular despite 
+this problem with training them right this problem was there 
+so  what  happened  to  them  solve  it  right  and  this  field  actually  got  revived  by  this 
+seminal work by hinton and others in two thousand and six 
+so let us see what that idea was so this is the idea of unsupervised pre training in the 
+original paper they introduce idea in the context of something known as r b m’s which 
+we  will  do  in  the  last  thirty-three  percent  of  the  course  but  we  could  do  the  same  with  auto 
+encoders  which  we  have  already  done  so  in  this  lecture  i  am  going  to  talk  about  this 
+idea in the context of auto encoders 
+so consider the deep neural network shown in this figure so the a module name and the 
+idea  was  unsupervised  pre  training  so  that  itself  is  a  giveaway  of  what  is  going  to 
+happen  ok  so  suppose  this  is  the  deep  neural  network  that  i  have  designed  for  a 
+particular classification task so what it is doing is this taking an input which is the red 
+colored neurons that you see at the input it has four hidden layers that means it is four layer 
+deep and then  you have the output layer which tells  you whether positive or negative 
+right that is the network that i have and i know that this is hard to train such a network 
+the loss will not converge and i will not get anything meaningful 
+so what these guys suggested is that forget about the supervised criteria that you have 
+that means you are trying to minimize a classification loss just forget about that just take 
+the first  two layers of this  network ok which is x and h one  right so  you take the original 
+input x you feed it to  some transformations  and  you  get  the hidden representation  h one 
+and now try to reconstruct x from h one what is this 
+student auto encoder 
+auto encoder ok what is the objective of the auto encoder 
+student 
+it is exactly this for each of the m training examples look at each of the dimensions of 
+your input and minimize the square difference between the actual input and the predicted 
+input right is that fine that is what an auto encoder does so this is what they suggested 
+ok so right now i am not telling you why this makes sense and all that that is what we 
+will do later right now i am just telling you the trick then we will analyze by that trick 
+works and why is this objective unsupervised 
+student 
+because we are not using any labels we just giving an input and we just reconstructing 
+the input we only have x’s we do not have y’s of course eventually we will use the y but 
+at this stage when i am calling it unsupervised pre training i am not using the y 
+now at the end of this what would happen yeah what would h one learn 
+student 
+it  will  learn  an  abstract  representation  of  x  was  that  our  original  task  what  were  we 
+interested in 
+student 
+in the classification task but we are doing something very different why we will see ok 
+now guess what would the next step be does this make sense 
+now at  the end of the first  unsupervised pre training  i have ensured that h one which is 
+this  layer  has  learned  some  abstract  representation  of  the  input  right  and  that  i  know 
+from the auto encoder i mean the auto encoder which we have learned earlier right that at 
+learns an abstract representation of the input 
+now  i  have  this  so  that  means  given  an  input  i  know  how  to  compute  an  extract 
+representation and i am also sure that it captures the important characteristics of the data 
+i will just repeat  this process  i know that  i have four layers in  my original  network so  i 
+will now take h one try to  compute h two and then reconstruct h one from it so the in effect 
+what am i doing in plain english learning and even more 
+student 
+abstract  representation  of  the  input  h  one  was  already  one  abstract  representation  now 
+from  this  i  am  learning  an  even  more  abstract  representation  and  does  the  objective 
+function  makes  sense  right  all  i  have  done  is  replaced  x  by  h  one  right  in  both  these 
+places the rest of it is the same for all the training examples for all the dimensions and 
+throughout i am assuming that we are n layers i mean sorry n neurons and every layer 
+including the input layer 
+now what would the next step be fix the weights in h one layer fix the weights in it is two 
+layer and now try to reconstruct h two from this h two right and in this way we will continue 
+and learn all the hidden representations does that look ok right so at least this much 
+we believe it because we know that auto  encoder works and  you are just using an auto 
+encoder  and  we  are  using  it  incrementally  from  every  abstract  representation  learn  an 
+even more abstract representation 
+now at the end of this what will i do what was my original task 
+student classification 
+classification so what will i do 
+student 
+what is a network that i have when i finish this unsupervised pre training 
+student 
+no tell me of the diagrams that you see on the slide how much of the network would i 
+have right everything except the green output layer right because the last step would be 
+take h four or sorry take h three and reconstruct h three from it and in the process learn h four right is 
+that clear 
+so i would have learnt till that point and now what i am going to do is something very 
+simple 
+i  will  after  this  layerwise  pre  training  is  done  i  will  add  my  output  layer  now  all  the 
+weights in my network for every layer have been initialized 
+and  they  have  been  initialized  in  a  way  that  that  layer  learns  a  good  abstract 
+representation  of  the  input  right  that  is  the  thing  that  we  have  achieved  at  the  end  of 
+unsupervised  pre  training  that  every  layer  has  learned  and  more  and  more  abstract 
+representation of the input right now i will keep all these weights initialized to whatever 
+i learned in the pre training setup does that make sense 
+so that means instead of taking this big network with the output layer and initializing 
+the  way  it  is  randomly  i  am  just  going  to  use  whatever  weights  i  learned  using  the 
+unsupervised pre training ok so can you tell me what has happened in terms of the error 
+surface  and  so  on  or  my  movement  in  the  w  b  plane  or  in  this  case  this  very  high 
+dimensional w plane 
+i have reached some configuration for the w’s where i know that each of these layers is 
+a  good  meaningful  representation  of  my  original  input  right  is  that  a  fair  statement  in 
+english  how  many  of  you  agree  with  this  ah anyone  has  any  questions  at  this  point 
+one layer weights that is what you do in answer because if you train all the four then you 
+are again entering the same problem which you had earlier right 
+you cannot back you cannot back propagate through all the four layers because now it is a 
+deep network and we know that does not work so at every layer you fix whatever you 
+have  learned  so  far  and  at  a  time  you  are  training  only  one  layer  so  that  is  one 
+interesting way of looking at it right you know that the deep neural network with four layers 
+was not trainable 
+so now we have reduced it to one layer at a time i knew that one layer at a time works 
+right is that fine now i will add the output layer and what will i do train the weights of 
+the 
+student output layer 
+i  will  not  just  do  that  i  will  fine  tune  the  entire  network  that  means  i  will  train  the 
+weights  of the output layer and  i will also  fine tune the entire network but  now  i am 
+contradicting  myself  i  just  gave  an  answer  to  him  that  again  i  am  doing  this  deep 
+training and i know that deep training does not work 
+but  this actually  works  do  you  get  the difference right  one is  that  when  i start from  i 
+take this big network  i start  from  random  weight initialization and try to  train  it that is 
+the story from one thousand, nine hundred and eighty-six to two thousand and six that in most cases these networks did not converge 
+so  now  in  two thousand and six  we  came  up  or  someone  came  up  with  this  idea  of  unsupervised  pre 
+training where you train the layer network one layer at a time you do up till the last layer 
+now  you  add  the  output  layer  and  then  fine  tune  the  entire  network  that  means  back 
+propagate over the entire network is a set up clear to everyone how many you understand 
+the setup 
+now again when i am doing the last step which is known as fine tuning i have to back 
+propagate over the entire network because i am saying i will adjust all the weights but 
+suddenly this works as compared to starting from scratch you see the problem and you 
+see  why  this  is  important  then  because  this  has  now  given  you  a  way  of  training  deep 
+neural network i still not told you why it works 
+we will delve into it but not really give any concrete answers because concrete answers 
+do not exist but we will at least try to get some intuitions behind why it works so you 
+get the setup now that this is what was happening till one thousand, nine hundred and eighty-six to two thousand and six and now with this 
+idea suddenly deep neural networks were being able to train well 
+so in effect what we have done is we have initialized the weights of the network using 
+the unsupervised objective right so now initial starting with random weights we have 
+some  weights  which  cater  to  the  unsupervised  objective  that  we  had  and  the 
+unsupervised objective was us layer wise reconstruction so that is what has happened in 
+plain english is that fine everyone gets that 
+now the question is why does this work better and i give you two options and i want to 
+think about both these options ok is it because of better optimization or is it because of 
+better generalization no that is not an option but i of course we will relate it to that but 
+given  these  two  i  want  you  to  think  whether  there  is  any  difference  between  these  two 
+statements  or  not  that  is  the  first  thing  i  want  you  to  see  how  many  if  you  get  the 
+difference between these two statements not many why is it so what is optimization deal 
+with dash data or dash data 
+student 
+the answer you can give dash right dash one data or dash two data what is optimization deal 
+with 
+student training data 
+training data optimization remains on training data what does generalization depend on 
+student it as zero 
+it as zero so you get the difference between these two questions fine so let us try to answer 
+this again here right this is two thousand and six to two thousand and nine period that i am going to talk about there are 
+some answers and just bear with me i will give you those answers some of them will not 
+look very convincing but what happened after that or as a result of these investigations 
+that  is  more  important  right  whether  these  answers  make  sense  or  not  they  will  make 
+sense to an extent i am not saying that we will just be bluffing 
+but it will not be very convincing because there is no theory behind it right so what is 
+convincing if  i  give  you a proof that  this less this is  equal  to  that right  then if we  give 
+you  a proof  and everything  you do not  have  any  other questions  that is  not  what  i  am 
+going  to  give  you  i  am  going  to  give  you  some  intuitions  because  that  is  all  these 
+existing works from two thousand and six to two thousand and nine had and then i will make a commentary on that which 
+will lead us to some other things so just bear with me for a few minutes right 
+student 
+that is the optimization problem if that was the case the i will just come to that that is 
+what i want to talk about ok so it is so these are the two questions that we are dealing 
+with right and the answer is depends so we will see what it is 
+so let us first examine the case when it is because of better optimization 
+so let us first understand what is the meaning of this question when i ask is it because 
+of better optimization then the question that i am asking you is that the first set up where 
+i was trying to train everything from scratch compared to the second set up where i had 
+this unsupervised pre training is it that the optimization problem becomes easier in the 
+second set up now if the optimization problem becomes easier what do i actually mean 
+by that that i was able to drive the dash to dash 
+student loss to zero 
+loss to zero right so is it that this is the optimization problem that we were interested in 
+so is it the case that in the absence of unsupervised pre training we are not able to drive 
+the loss to zero for the training data and hence poor optimization right that if you do not do 
+this unsupervised pre training even for the training data we cannot drive at loss to zero that 
+means our optimization problem itself is not working properly right i mean the problem 
+is fine 
+but the solution is not good you get that do you understand what is the subtle meaning 
+of this how many if you get this so let us see this in more detail right 
+so the error surface of the supervised objective of a deep neural network is highly non 
+convex  it  looks  something  like  this  or  even  nastier  than  this  and  in  particular  it  has 
+many hills and plateaus and valleys we saw this even in the toy examples that we were 
+dealing with right and given the large capacity of deep neural networks it is still easy to 
+land  in  one  of  these  zero  error  regions  on  what  basis  am  i  making  the  statement  which 
+theorem 
+student 
+universal approximation theorem that is what the universal approximation theorem told 
+us in fact there is a study the paper which has been cited it showed that if the last year 
+has a very large capacity then you can drive the loss to zero even without pre training do 
+you get the meaning of this what does is mean so i have the input i have a series of 
+hidden layers what do i mean by the last layer has a lot of capacity what do i mean by 
+that it has a lot of dash 
+student parameters 
+parameters  now  how  do  i  create  these  parameters  i  will  just  grow  the  size  of  the  last 
+hidden layer right and using that then i will predict this one y 
+so so that is how i could increase so that is exactly what they did they took a very deep 
+neural network and made sure that the last layer was given a very high capacity and then 
+they showered that even if you do not do an unsupervised pre training you can still drive 
+the training loss to zero right 
+so this was hinting that maybe this is not an optimization problem this is something it is 
+still  not  very  conclusion  but  we  will  just  go  with  these  studies  we  will  just  all  i  am 
+saying is that do not shoot the messenger this is what the study says i am just relaying it 
+back to you right and they will have questions on these which will try to address but if 
+the capacity of the network is small then the unsupervised pre training helps 
+so if you do not have these large capacity networks but you have very deep networks 
+in  that  case  unsupervised  pre  training  helps  and  this  is  all  empirical  observation  right 
+there  is  no  proof  which  says  that  given  a  capacity  k  with  so  much  error  bound  i  can 
+guarantee that the loss would be epsilon within the zero loss and so on it nothing like that 
+that is what it should have been ideally the case in which case life is much easier for me 
+but that is not the case this is just an empirical study as are most of the studies done in 
+the period of two thousand and six to two thousand and nine 
+so  that  tells  us  something  about  what  optimization  means  and  whether  this  was  an 
+optimization problem or not 
+so let us look at the other question is it because of better regularization so what does 
+regularization do or you gave the exact answer it constrains the weights to lie between lie 
+in  some regions  so it does not  allow the weights a lot of freedom  right and so  you 
+know  what  l  one  regulation  does  it  constrains  the  weights  to  this  box  and  l  two 
+regularization constrains us to this circle why no why this i know this but why 
+student 
+in why the circle i am pretty sure most of you do not know what you are saying but you 
+are saying the right answers but anyways i will test this in the quiz so i have given you 
+another quiz question on camera so yeah so a prevents a loss from taking large values 
+so  indeed  pre  training  also  constrains  to  the  way  to  lie  in  certain  regions  of  the 
+parameter space why am i making this statement what is the meaning of the statement 
+so  i told  you that what  regularization does and from there  i am  making this  jump and 
+saying that even with pre training the same thing happens that your weights are actually 
+constrained to certain regions of the parameter space why am i making this statement 
+and what are these regions that the weight is constrained to think l theta think omega 
+theta any regulation is of the form l theta plus omega theta 
+let  us see so it constrains  the way to  lie in  regions where the  characteristic of the data 
+are  captured  well  that  is  what  unsupervised  pre  training  does  it  is  trying  to  train  the 
+network  in  a  way  that  each  layer  actually  captures  the  important  characteristics  of  the 
+data and this is based on our understanding and belief in auto  encoders so you could 
+actually think of this that the unsupervised objective that you had for all these layers that 
+was actually omega theta you are first trying to optimize omega theta 
+so in a normal regulation problem you put l theta and omega theta together and then you 
+try to balance them but here you have done it slightly differently you first gave it omega 
+theta which is the lost of reconstruction and you asked it to minimize this loss across for 
+every layer 
+student 
+no is this fine tuning so now what that means is that see remember that this is a very 
+high  dimensional  region  where  you  initialize  makes  a  lot  of  difference  so  with  this 
+unsupervised pre training you are at least ending up in reason so you could think of it 
+as  a  constraint  that  ok  move  wherever  you  want  to  but  start  from  here  which 
+automatically  means  that  i  have  i  mean  i  have  how  to  it  is  some  other  regions  in  that 
+parameter space you get that 
+student 
+as you typically that would be one thing and it would also mean that you are starting 
+from  there  so  with  this  early  stopping  and  other  criteria  you  will  not  be  able  to  grow 
+much  out  from  here  right  so  just  if  that  makes  sense  geometrically  from  here  you 
+would not be able to move all the way there you get that everyone gets this question and 
+the answer 
+so you see what the answer per is object was and you also see the difference between a 
+normal  regularization  and  this  regularization  in  the  normal  case  you  had  l  theta  plus 
+omega theta put together and then you are trying to minimize the sum of these two it was a 
+joint optimization here you have first done omega theta ensured that the weights that you 
+learn  minimize  this  objective  and  now  you  add  in  the  supervise  objective  which  is  l 
+theta right 
+so now this makes sure that your network cannot be too greedy with respect to  l theta 
+because  it  has  been  constrained  that  has  to  first  honor  the  omega  theta  because  that  is 
+where  you started and now from  there on it has  to  decide how to  do  l theta does that 
+make sense you see how this is acting as a regularizer is that ok and that links back to 
+your weight initialization thing right fine 
+so some other experiments have also shown that pre training is more robust to random 
+initializations 
+now what do i mean that mean by that so in these two graphs that you see here so this 
+on the x axis  you have the number of layers that you add to  your deep neural network 
+and  on  the  y  axis  you  have  the  error  that  your  network  gives  when  you  try  different 
+initializations right so this box actually tells you the variance in the error 
+so that means i tried training a network with four layers and i tried different initializations 
+and the error varied in this range ok is that good or bad what would we want typically 
+something which looks like the plot below right where all these variances are little that 
+means even once  you do unsupervised pre training  right it is  more robust  to  random 
+initializations random initializations of what 
+student 
+the  original  random  initializations  from  which  point  you  started  the  unsupervised  pre 
+training  ok  because  once  you  have  done  the  unsupervised  pre  training  that  is  your 
+initialization everyone gets that 
+so  these  are  some  let  us  see  ok  so  these  are  some  empirical  studies  and  let  me  just 
+make a comment on these 
+so what happened from two thousand and six to two thousand and nine is people showed that see this is possible you can 
+actually train a deep neural network using some of these tricks we do not have a very 
+clear  answer  for  why  this  works  and  you  could  argue  different  way  so  this  is 
+optimization this is regularization and so on but i do not have any theory supporting it 
+there  is  no  proof  for  why  unsupervised  pre  training  works  all  of  these  are  empirical 
+observations 
+but what it at least established was that it is possible to do this so now if it is possible 
+to  do  this  let  me  see  if  there  are  better  ways  of  doing  this  do  we  actually  need  to  do 
+unsupervised pre training oh i think it is better regularization then why not  i try better 
+regularization  techniques  and  see  whether  that  helps  so  that  led  to  the  evolution  of 
+which thing that you have already seen yeah which regularization technique that you saw 
+in the last class 
+student drop out 
+drop  out  right  so  drop  out  was  something  specific  to  neural  networks  which  was 
+introduced in the context of neural networks so this is because people started believing 
+it is possible so let us try even better ways of doing that so that is how dropout came 
+out  right  then  people  said  maybe  optimization  is  the  problem  maybe  these  earlier 
+algorithms which up till that point was which algorithm 
+student 
+gradient    maybe  that  was  not  good  so  let  us  try  to  decide  and 
+design  better  optimization  methods  and  that  led  to  the  evolution  of  adam  adagard 
+rmsprop  so  on  right  so  although  these  studies  were  not  so  theoretical  in  what  they 
+were  trying  to  prove  they  created  this  hope  which  then  led  to  a  lot  of  prolific  work  in 
+that field right so at least you get the context now right the some of these might look 
+oh this is one data set people did experiments on m l s but i could have taken a different 
+data set and showed that these results do not hold and so on you could always ask those 
+questions 
+but  at  least  what  happened  is  people  started  believing  these  and  people  started 
+questioning that ok unsupervised pre training is one thing what else can i do and now 
+what  has eventually happened is  today no one uses unsupervised pre training right that 
+method which led to the revival of this field and you would have hoped that that would 
+actually survive for many years that is out 
+now  hardly  anyone  uses  unsupervised  pre  training  it  is  only  used  in  the  context  of 
+transfer  learning  so  what  i  mean  by  that  is  that  if  you  have  a  model  trained  for  one 
+classification say classification of images on one data set right 
+now you have a very small amount of data in some other domain so instead of training 
+a  network  from  scratch  for  this  domain  you  will  just  initialize  it  with  the  weights  for 
+whatever  you  have  trained  on  data  set  one  so  that  is  more  of  transfer  learning  rather 
+than  unsupervised  pre  training  so  that  is  still  very  prevalent  but  this  reliance  on 
+unsupervised training to make sure that the network actually trains that is largely phased 
+out 
+because  what  has  happened  since  two thousand and six  and  two thousand and nine  is  that  we  have  better  optimization 
+algorithms  which  are  rmsprop  ada  grad  adam  even  so  on  right  many  various  and 
+even now that research area is active as i was saying just in december there was a paper 
+which pointed out some flaws in adam and how to improve it and so on we are better 
+regularization methods the most prominent among those being 
+student dropout 
+dropout so these two are things which you have already seen today we are going to talk 
+about  better  activation  functions  this  is  again  something  which  evolved  that  maybe 
+sigmoid tanh are not  good so maybe something else is  needed  and then better weight 
+initialization  strategies  so  then  people  took  this  inference  oh  one  way  of  looking  at 
+unsupervised  pre  training  is  that  it  actually  initializes  the  weights  in  a  better  way  from 
+where on it becomes easier for me to reach convergence 
+so  why  do  not  i  come  up  with  better  weight  initialization  methods  itself  instead  of 
+relying on this indirect way of initializing the weights so you get this so get the whole 
+picture now what we have been doing in the past few lectures and how it connects to the 
+history and these studies which were done from the period two thousand to two thousand and nine how many if 
+you get the whole picture ok so that is where we are now so today we are going to 
+talk about better activation functions and better weight initialization methods 

@@ -1,0 +1,211 @@
+so we spoke about bias and variance and we saw that simple models have a high bias but 
+low variance and complex models have a low bias high variance and so on and we saw it 
+some illustrative examples that what that is what that means 
+and then the important thing to note was these two formal definitions of bias 
+and formal definition of variance which you all know anyways and then the important 
+concept that we spoke about was the train error versus test error right 
+so this was the curve that we were interested in and one corner of this curve was related to 
+high bias low variance and the other corner was related to low bias high variance right 
+so i am looking for something in the middle that is what our quest is in this lecture right 
+and we want to find ways of falling somewhere in middle 
+and this led to the definition of two quantities of interest or training error and test errors so 
+training error is computed from the training points these are the points that you actually look 
+at while you are solving this optimization problem so the training always involves solving 
+an optimization problem which is the objective that you want to optimize or maximize and 
+the test error is something that you want to use it for at eventually 
+so you all have these two quantities of interest that we design and we realize that the training 
+error is more optimistic whether the test errors actually gives us the real picture of what we 
+do and we tied those back to things that you have done previously in the machine learning or 
+other courses that we always split the data into training valid and test training it on the 
+training data do some validations on the validation data but never look at the test data that 
+is for the final evaluation 
+so that’s the this is this intuition which i have been trying to build with these two curves is 
+the explanation for why we do things that way 
+now we are interested in doing a more mathematically rigorous analysis of this intuition 
+right so that is where we left off so what we are interested in so now i will just start 
+from this point is that we are given some data which is m n m training points and n testing 
+points and we know that there is a true function between the outputs and the inputs and we 
+are also expecting or accepting some noise in this relation just as in any other relation so 
+which means that y is related to xi but by some true function but there is also this noise and 
+for simplicity we assumed as this noise comes from a normal distribution with zero mean and 
+some small variance and as usual we never know f right but we are trying to approximate 
+this f hat and we come up with some parametric form for f hat and then try to learn the 
+parameters of f hat from the training subset of the data that is given to us 
+so this is what we always do and we have already seen different variations of f hat one of 
+them being the deep neural network and what we are actually interested in is this quantity the 
+expected difference or square difference between the predictions made by our model and the 
+true value of the output with respect to the true function right then we asked i asked you 
+whether we can actually estimate this quantity and all of you said no why it is because you 
+do not know what f of xi is right so we will see how to estimate this empirically 
+so then we started off with this information that we have we know what y i hat is because 
+that is the prediction that we make and we know yi what yi is we do not know the function 
+but we see the output of the function in the form of the training data points given to us or any 
+data points given to us 
+so we wrote this by making this particular substitution where we notice that yi that we see is 
+actually the true function plus some noise and then we did some trickery and try to simplify 
+this and then we just realize that this is the term that we are interested in so we moved it 
+to the other side of the equation and came up with this neat left hand side or neat right hand 
+side that we need to analyze now so far everything is clear 
+this is where we ended the last class right you just went to it very quickly but i assume 
+everything is clear at this point ok fine so we are left with a bunch of expectations right 
+and we have i am assuming we have no clue how to estimate this right i mean so and 
+remember that when you are dealing with expectations as always this true expectation and 
+then there is this empirical estimation right so what we are going to move towards so 
+these all equations when i write e here capital e here i am talking about 
+the true 
+expectation 
+now we will see how to approximate the true expectation with an empirical expectation and 
+then based on that we will make some observations 
+so that is what we will do now 
+so we will just take a small d two and i will just tell you what expectations are or what 
+empirically expectation is how to compute them so suppose we have observed the goals 
+scored in k matches there is some k football matches that we have seen and we have seen 
+that the goals scored were the following 
+now if i asked q what is the expected value of the goal now the number of goals for what 
+will you do take the average of this this is what you will do so what is it that you are 
+doing here you are taking a dash estimate of the expectation empirical estimate you are 
+making some observations these are the observations given to you these are the k matches 
+watch as much as many football matches as you want after the semester ends and then 
+notice the number of goals that were scored in them and then you can compute this 
+expectation right and this is how you do empirically so there is something that we do on a 
+regular basis but i just want you to realize that what you are doing is actually an implicit 
+estimate of the true expectation 
+now can you relate this to the quantity that we are interested in we are interested in 
+computing a certain expectation which is this can you take an analogy and tell me how you 
+would do this the hint is we have done this a million times in the course already fine so 
+this is how we will do it and have actually done this a million times in the course so when 
+you compute this we are actually doing an empirical estimate of the data 
+so let us just take a minute to understand this we are given some data we are interested in 
+this to expectation which we cannot compute so we will take this data we will assume there 
+is enough of this we are given m samples which are enough and from that we will make an 
+empirical estimate and just as in the case of these goal scored right as you see more and 
+more matches you will have a better understanding of how many goals can be scored when 
+two particular teams are playing in the same analogy goes here as you see more and more 
+data your estimate would become better but that is how you will do the estimation 
+so now we will come back to so now do not get surprised when i am going to replace all 
+these e’s by this all the e’s that we had in our original equation i am going to replace them 
+by these summations ok fine 
+so this was our original equation that we had derived and we were interested in this left hand 
+side quantity which is a sum of some terms on the right hand side so now this expectation i 
+told you that we can estimate it from data but which data training data or test data both 
+so we will try to estimate it from both and see if there is any difference which arises when 
+you estimate it from one data and the other data ok 
+so the first thing that i am going to do is i am going to use test observations to estimate this 
+so can you tell me what are my summations going to look like it is summation over n plus 
+one to n plus m right we assume that the first endpoints are training points and the remaining 
+points are test points 
+so the quantity on the left hand side is true error remember that because that has f x which 
+we do not know quantity on the right side the first thing is empirical estimation of the error 
+ok the second thing is a small constant however the epsilon i square and we assume that 
+comes from a normal distribution with a small variance what is the third quantity actually i 
+have given you the answer already but i want you to think about it i am saying it is the 
+covariance between two things 
+when i say it is the co variance between two things what is the first thing that i need to 
+prove is that the two things are dash random variables i mean first thing we need to see is 
+that the two things are random variables epsilon i clear it is a random variable 
+what about this other thing or rather epsilon is a random variable what about the other thing 
+and depending on the training instance that you have sampled this ongoing difference is 
+going to differ right you are having your training or test instance whatever is this x i this is 
+going to differ because these x’s are different they are all random variables so there is 
+difference between these two quantities also going to be a random variable is that fine ok 
+but still is this the 
+so then i have told you this is x and this is y and what i am saying is that the co variance 
+between x and y is just e of x x into y is that correct 
+that is how you define co variance what is the definition of co variance if you have 
+bothered to look at the prerequisites no expectation in the form of e so co variance is e of x 
+minus mu of x into y minus mu of phi what is our x epsilon and what is our y what is mu of 
+x zero 
+so i will just simplify this a bit ok i will open up the product what is mu of y into e of x 
+what is e of x what is the expected value of the noise zero 
+so then this turns out to be as that is that fine that is why we are writing the co variance is 
+just the product of the two things 
+let us just 
+so 
+take a minute to again understand this the true error is the empirical 
+estimation of the error plus i mean plus or minus a small constant ok and then this nasty 
+quantity that we do not know what to do with it so let us look at this quantity and see what 
+we can say about it 
+now what is the co variance between these two i am trying to compute this expectation 
+from the test data just remember that so each i here is a test instance are these two random 
+variables dependent or independent is the question that i am trying to ask it is independent 
+so let us look at it piece wise so remember that we had said that y is equal to f of x i plus 
+epsilon i right this epsilon i had no relation to f of x i i mean i could choose any x i but 
+this noise is going to be random so there is no relation between these two 
+now is there a relation between f hat of x i and epsilon i we are doing tests so how did we 
+come up with f hat of x i how did when i say how did we come up with f hat is i mean 
+how did we learn the parameters of a f hat using the training data and what are we computing 
+expectation with respect 
+influence the 
+parameters that we had learned further from the training data no since there is no 
+dependence between these two guys 
+to now test data these these epsilon improve 
+so that is why epsilon i is independent of the other random variable that you see in this 
+expectation is that clear do you get the intuition f hat x i further no but this is the mean 
+this noise is what is present in the test data and you have not seen this add training time 
+when you are training the parameters you did not look at this noise you are looking at the 
+noise in the training data 
+so this is not participated in the estimation of the parameters of f hat but that was for the 
+training data right but this now i am doing the expectation from a test data 
+so these two random variables are independent that means i can write this as is this fine 
+what will happen to this 0ok so what did we eventually conclude that the true error is equal 
+to empirical test error plus a small constant right 
+so what does this tell you now tell me forget the math tell me in english right what 
+does this take what does this mean can you relate it to now why you do this training error 
+validation error test error so what does this tell me this tells me that if i have trained a 
+model and now if i take an estimate of the error on some data which i had not used for the 
+training then that error which i see is actually very close to the true error it only differs by 
+this small constant 
+how many of you get that that is why when i look at the validation error it is not being 
+overly optimistic it is giving me a true picture of what the actual error is right so there are 
+two things that you need to understand here one this is the quantity that we are interested in 
+which we cannot estimate we are trying to estimate it by using this we are trying to make an 
+approximation so we are trying to see how good this approximation is what this derivation 
+is telling us is that if you are approximated it using the test error or the test data then this 
+approximation is actually very close to the true error and how close it is actually it just 
+differs by this small constant 
+so you get the importance of what we are seeing here right ok now to truly appreciate this 
+i need to tell you what would have happened if you had used the training data for this 
+estimation right it is largely dependent but that is again a normal assumption that you 
+make so this is ok good that you asked at this point i will be doing a couple of things 
+today where we will be deriving some things we will 
+try to prove some things 
+mathematically but all of these would have underlying some assumptions 
+so if you remember the adam derivation with this we did there also we had made this funny 
+assumption that the gradients are actually coming from a stationary distribution which will 
+not happen in practice so this reminds me of this joke from big bang theory which says 
+that i have a solution but it only works for squared eggs in a vacuum right so it is basically 
+all these things always have some assumptions underlying them but the idea is to kind of 
+ignore those assumptions and see what happens in a neat setting and at least see whether in a 
+neat setting everything works fine or not 
+so that is what is happening here so is a valid point that you are assuming that the noise 
+comes from a zero mean distribution now if the noise did not come from a zero mean 
+distribution then this would have not gone down to zero and the mean would have been 
+higher than this is no longer a small constant and so on so those things are there so this is 
+going to happen in some of the other derivations that i do today it is not that i am teaching 
+you something wrong it is just that you have to take it with a pinch of salt in the sense that 
+these assumptions are there and the original derivations these are not my assumptions and 
+they work only under those assumptions 
+so you have to be careful about that but the idea is that still with these assumptions can we 
+at least make something meaningful out of it right is that fine with everyone can we all 
+work with that basic premise so what i have done so far is told you that if you are 
+estimating the errors from the validation data you are doing a good job 
+now let us see if i would estimate the error from the training data take a guess what would 
+happen what would my argument for this be now this will not disappear right because 
+these two are not independent now i cannot write it as a product of two expectations that 
+means it will not go down to zero so that is the argument which i am going to make 
+so hence actually the true error if you see right it is equal to the empirical estimation plus 
+some quantity that means the true error is dash as compared to the empirical error that 
+means the empirical error that we see is pessimistic or optimistic optimistic that is what i 
+started with that you gave a very optimistic estimation of your error if you are looking at this 
+empirical estimation from the training data because you have ignored this quantity is it fine 
+so what is missing in the story 
+let us see now what was this quantity so far all our discussions l theta right but now 
+suddenly i have realized that my true error is actually l theta plus something else right you 
+see where i am headed with this ok so that is what we need to see now ok now think it 
+would be we should but i am pretty sure it is positive i cannot work it out right now but i am 
+pretty sure it is positive and you can see and if you find it is not then let me know 
+so how is all this related to model complexity we started off with this idea that model 
+complexity tells you how much is the bias how much is the variance and because of that you 
+get these two curves that you are not happy with one curve being very optimistic and the 
+other curve being a bit pessimistic now how does this discussion tie up to model 
+complexity 

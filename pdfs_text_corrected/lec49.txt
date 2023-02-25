@@ -1,0 +1,147 @@
+lecture – six 
+so we will  in  this module we  will  look  at  practical  example where  pca is  used  and  i 
+just like to give you a flavor of why all this is important right why do we need to throw 
+away some dimensions and then how does it practically help 
+so  consider  that  we  are  given  a  large  number  of  human  images  right  so  this  is  like 
+some  faces  data  set  a  database  that  says  one  of  the  intelligent  agency  someone  is 
+maintaining one of the  government  agency or  may be  aadhar data bases or something 
+like that ok now  each image here is one hundred  cross  one hundred  that means  it is ten k  dimensions 
+right it is a very high dimensional data ok and your job is to actually store this on to do 
+some database for a large amount of the population right because you are collecting these 
+images from various people 
+so  now  we  would  like  to  represent  and  store  this  data  using  much  fewer  dimensions 
+right and you would be really ambitious that if you want to store that more than fifty to 
+two hundred dimensions right so you see the compression that i am looking at you have ten k 
+which is a big storage problem for me and i want to just bringing out to fifty to two hundred but i 
+have know that this is crucial data right i do not want to store information which is not 
+able  to  distinguish  these  faces  i  was  still  be  able  to  reconstruct  the  faces  from  this 
+information  right  do  well  i  mean  minimum  error  reconstruction  from  this  and  that  is 
+exactly what pcas are allowing us to do right so now we construct a matrix of m cross 
+ten k what is m 
+student 
+the numbers of samples you have the numbers of data points that we have and each of 
+this is of dimensions ten k ok so this is what matrix what do we call this matrix oh it 
+is already given right it is the x matrix the data matrix that we always have now each 
+row  of  the  matrix  corresponds  to  one  image  and  each  image  is  represented  using  ten  k 
+dimensions just to reiterate 
+now  let  us  see  so  now  what  would  you  do  this  is  the  original  data  i  want  a 
+dimensionally  reduced  data  right  you  want  store  this  ah  is  the  mike  working  you 
+want  this  data  to  be  represented  by  a  fewer  dimensions  so  what  is  your  solution  do 
+pca so what will you do x transpose x right and i did not get my slide (refer time 
+0243) 
+so  we  retain  the  top  one hundred  dimensions  corresponding  to  the  top  one hundred  eigenvectors  of  x 
+transpose x right so basically we do a pca find the one hundred find all the eigenvectors of x 
+transpose x and then just retain the top one hundred of those now what is the dimension of each 
+of these eigenvectors should be straight forward take your time it is early morning 
+student 
+ten k right so now can you think of a physical interpretation of this so what are you 
+trying  to  do  you  are  trying  to  store  faces  and  now  you  have  come  up  with  these 
+dimensions no sorry we have come up with these basis vector which is eigen vectors and 
+each of them is also ten k which is as same as dimensions of your faces 
+can you think of a physical interpretation of what is happening here none of went you 
+through the slide except perhaps you or i do not know just think about it so what you 
+are  trying  to  do  is  you  are  trying  to  represent  any  possible  face  in  your  database  right 
+using  a  linear  combination  of  some  vectors  ok  now  these  vector  should  have  some 
+interpretations right it should be connected to faces and somewhere otherwise how will 
+you construct  a face from  taking a linear combination or some random  vectors do  you 
+get the point 
+so  can  you  think  of  each  of  these  ten  k  dimensional  vectors  which  is  the  same  as  the 
+dimension of your original data as a face and try to plot it can you try to do that at least 
+it make sense ten k dimensional ok that is the same what you are image size was i could 
+just arrange these ten k dimension as one hundred cross one hundred and try to plot it ok so let us see if 
+you  do  that  what  happens  ok  we  convert  each  eigen  vector  into  one hundred  cross  one hundred  matrix 
+and treat it as an image and let us see what we get 
+this is what we get so this is the top sixteen eigen vectors that i have plotted now can you 
+tell  me  a  physical  interpretation  of  this  this  is  the  basis  for  constructing  any  face  in 
+your data base right that what you are trying to say all the faces that you have in your 
+database or in the world you can combine them by looking at the these elementary face 
+structures right which are your basis 
+and then you could scale them up by using these alphas you will be multiply them with 
+the certain alpha right and when you combine them you will get the base any face that 
+you had in your original database does a physical interpretation make sense how many 
+of you get this 
+so that is what is happening here so we have constructed this basis now i will come to 
+that  later  so  these  images  are  actually  called  eigen  faces  and  the  form  of  basis  for 
+representing any face in our database ok in other words we can now represent a given 
+image  as  a  linear  combination  of  these  eigen  faces  so  this  is  my  original  image  ok  i 
+want to reconstruct it now use sixteen or twenty-five of these eigen faces what do you think would 
+happen  we  will  get  some  face  which  has  some  error  there  is  some  error  in 
+reconstructing this face 
+so let us see what we get so i am using only one basis vector and i found out this alpha 
+one i how would i found it out 
+student 
+dot product of the face vector with the basis vector ok now i instead of one i take two you 
+see  i  have  took  this  two  basis  vectors  scaled  them  with  the  corresponding  alpha 
+coordinates and added it them up right and i am trying to get some face value it does 
+not look it goes to the original face that means the dash is very high the reconstruction 
+error is very high 
+that  means  i  have  still  dropped  some  of  the  important  dimensions  i  have  still  drops 
+some of the important eigen vectors right so the value of k which is the top k eigen 
+vectors is something that i need to take care of it and should be in a way i can always 
+construct the reconstruct i can always compute the reconstruction error here right how 
+will you compute the reconstruction error 
+student 
+take the square error between the original image and this second image that you see here 
+right so you will take the square error between this and this and you will end up with 
+the number which is not acceptable right now what i will do is i will go further i have 
+taken four ok still not quite there but i can see a shape emerging right 
+i go to eight things becomes better since you are already know what the original face at least 
+you can make sense of it and by the time i reach sixteen i am almost there right at least i 
+can recognize the face that is probably losing out some subtle things in the face but i can 
+recognize it 
+now how many of you appreciate what is happening here yeah of course now what is 
+happening here so think in terms of a practical application right what have you done 
+what have you able to be achieve how may basis vectors where you able to store or did 
+you store 
+student sixteen 
+sixteen  that  means  sixteen  into  ten  k  values  ok  and  suppose  you  had  a  million  images  in  your 
+database how many would you require to store 
+student 
+wait let us we do it step wise forget about pca if you had a million image in your data 
+base and each of them have ten k dimensions how much storage do we need 
+student 
+million  into  ten  k  floating  point  values  ok  now  with  if  i  say  sixteen  sixteen  may  be  too 
+ambitious may be later on  i will say fifty or one hundred is ok but  let us  say sixty then how much 
+data we need to store 
+student sixteen into ten k 
+sixteen into ten k and you can reconstruct any face 
+student 
+yeah  alpha’s  needs  to  be  stored  right  so  for  every  image  instead  of  storing  ten  k 
+dimensions  you  will  just  store  the  sixteen  alphas  right  and  you  can  see  that  even  if  i  go 
+there to one hundred and its still manageable instead of ten k i am going to just store one hundred alphas 
+right and as i go to one hundred what would happen 
+student 
+the  reconstruction  error  would  become  even  lesser  ok  so  is  that  is  the  intuition  clear 
+ok so this eigen vector storage is a onetime storage we are going to store this k eigen 
+vectors each of them are ten k dimensional and k is one hundred or two hundred we do not really care 
+because the original data was very large right and for each image we just need to store 
+these alpha values k of them right so for each of them instead of ten k we will store 
+one hundred to two hundred alpha values and of course it is significantly reduces right 
+so this is why we need to do all this right and what is the other advantage of doing this 
+anything of something else so what is pca actually allowing you to do if you again 
+think  of  it  not  i  mean  subtract  the  math  out  just  think  it  in  terms  of  physically 
+interpretation  and  what  is  that  it  is  allowing  you  to  do  if  you  had  to  say  it  in  english 
+what is it allowing you to do compression is a loaded word can you just spell it out for 
+me what is this compression mean actually 
+student 
+right  so  it  is  storing  all  the  relevant  information  in  the  image  and  discarding  all  the 
+error element information right now this also ensures that if you have multiple images 
+of  the  person  then  what  would  happen  you  should  take  the  image  under  lighting 
+conditions  or  may  be  at  person  had  applied  some  makeup  or  something  like  that  right 
+what would happen 
+student 
+in the original space the ten k dimensional space what  would happen to these images 
+they will be very far from each other right because the lighting conditions have changed 
+you see a dark person so have a light person something like that right and now because 
+pca has helped you to throw away this dimensions right may be the exact terminology 
+which i am using may be the lighting condition  do not do it because  you can imagine 
+that  there  would  something  right  that  suppose  as  some  element  which  is  calling  the 
+image to look slightly different but that is not the important information right so that 
+would get discarded off and only the relevant information would stay 
+so then multiple images of the same person which were dash in the original space would 
+come dash in the new space 
+student 
+far  in  the  original  space  would  come  closer  in  the  new  space  right  so  this  is  what 
+compression  helps  you  to  do  so  this  is  what  you  want  to  learn  you  want  to  learn  the 
+important  characteristics  of  your  original  data  and  that  is  what  pca  allows  you  to  do 
+fine 

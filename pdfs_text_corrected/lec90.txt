@@ -1,0 +1,301 @@
+so  now  we  will  go  to  the  next  module  we  will  talk  about  some  success  stories  on 
+imagenet  right  so  this  is  the  challenge  which  actually  made  convolutional  neural 
+networks very famous back in two thousand and twelve 
+so they are going to look at some algorithms in fact two more hopefully today 
+so  this  is  the  story  right  so  there  is  this  challenge  or  competition  called  imagenet 
+large scale visual recognition competition right that is what ilsvrc stands for and 
+this was a data set  created which had one thousand categories it actually has ten thousand categories 
+but in the competition we use only thousand of those categories yes 
+so one thousand plus one thousand i think the roughly the data set size is one million and so that is what 
+was used for training a classifier and i am talking about two thousand and ten the pre deep era right  i 
+mean so of course deep era networks existed at that time but the participants and these 
+challenges and that time were relying on the classical machine learning approaches so 
+what was that approach take the image 
+student  feature 
+extract features which features 
+student 
+predominantly 
+student sift and hawk 
+sift  and  hawk  features  were  the  predominant  features  at  that  time  and  then  you  train  a 
+classifier on top of that and then you use things like on symbols or better handcrafted 
+features and things like that certain more tricks on top of that so that with that on this 
+data  in  two thousand and ten  the  error  was  two hundred and eighty-two  percent  that  means  if  i  give  you  a  test  set  of  one thousand 
+images you will make two hundred and eighty-two errors on that right that is what this means then in eleven there 
+was still some progress this was again pre deep era and there was this error came down 
+to  two hundred and fifty-eight  and  then  in  two thousand and twelve  there  was  this  alexnet  which  was  a  deep  convolutional 
+neural  network  applied  to  the  task  of  image  classification  and  it  gave  a  dramatic 
+reduction right from two hundred and fifty-eight to one hundred and sixty-four 
+and was i think absolute in absolute terms eight to nine eight to nine percentage better than the best 
+system in that competition that year ok so that was in two thousand and twelve in two thousand and thirteen there was further 
+improvement  on  a  different  architecture  for  doing  this  and  that  give  a  further  error 
+reduction of one hundred and seventeen then in two thousand and fourteen there was vgg net so these are all three that we are going 
+to  see  today  which  give  a  further  error  reduction  of  seventy-three  then  google  decided  to  join 
+the  party  and  they  make  it  sixty-seven  and  as  i  have  said  before  then  afterwards  microsoft  got 
+crazy  and  they  brought  it  out  in  three hundred and fifty-seven  and  this is  when  we  started  making  claims  that  a 
+convolutional neural network has become better at this task than humans right 
+because if you show these one thousand images to a human even a human is bound to make a 
+thirty-five percent more than thirty-five percent error that means because some of these images would 
+be blurred so i would not be very sure whether this is a bulldog or a different type of 
+dog or something like that right so i even a human cannot really recognize it correctly 
+and  that  is  the  whole  hype  around  how  convolutional  neural  networks  have  beating 
+human level performance on this particular task right 
+and  let  us  see  so  this  was  all  the  shallow  pre  deep  era  the  first  architecture  was  eight 
+layers  and  i  think  this  was  called  a  varied  no  this  probably  not  this  yeah  the  second 
+architecture was also eight layers then we had nineteen then twenty-two and then one hundred and fifty-two right thats how the 
+progress  has  happened  so  these  are  all  the  architectures  that  we  are  going  to  look  at 
+today or at least some of them today and the rest maybe tomorrow 
+ok so we will start with alexnet and i am going to tell  you the exact architecture of 
+alexnet what was refused what did it actually use 
+so the input was an rgb image so it had  a depth  of three and it was two hundred and twenty-seven 
+two hundred and twenty-seven that is 
+what the data set input was all the images in the data set were to two hundred and twenty-seven 
+two hundred and twenty-seven cross three so 
+the  first  thing  that  they  did  was  they  decided  to  use  ninety-six  filters  can  you  read  that 
+anyways i will say it outright 
+so  they  resided  to  use  ninety-six  filters  with  a  spatial  extent  of  eleven  cross  eleven  a  size  of  four  and 
+padding of zero ok so the moment you see size a stride of four what do you know is going 
+to  happen  there  is  going  to  be  some  shrinkage  roughly  by  how  much  onefourth 
+right so now can you compute these three things what was w2 what was h2 and what 
+was the number of parameters in this layer we will do it for a few of these layers and 
+then i will just rush through that so whats w2 going to be you have already done this 
+computation right the exercise that we did was exactly this computation so there was 
+fifty-five cross fifty-five and what is the depth going to be i want everyone to say that 
+student 
+ok and what is the number of parameters 
+student 
+ninety-six into 
+student eleven 
+ 
+eleven into 
+student eleven 
+eleven into three don’t forget the depth the depth is three here 
+so that is the number of parameters that they had in this layer ok eleven into eleven into three into 
+ninety-six now what is the next layer going to be a max pooling layer 
+ok  so  they  had  a  max  pooling  layer  where  they  used  a  three  cross  three  max  pooling  that 
+means  you are  going to pick up max from  a three cross three grid and the stride was two  that 
+means we are going to get half the output and now can you tell me what w2 h2 would 
+be roughly half of fifty-five fifty-five right so twenty-seven twenty-seven 
+and what is the number of parameter is going to be don’t be lazy everyone be say it 
+student zero 
+zero right so that is the max pooling layer 
+now what is the size of your input volume at this point 
+student twenty-seven 
+twenty-seven cross twenty-seven cross 
+student ninety-six 
+ninety-six  as  opposed  to  the  original  input  which  was  two hundred and twenty-seven  cross  two hundred and twenty-seven  cross  three  so  as  you  keep 
+progressing  your width  and height  is  decreasing but  your depth  is  increasing because 
+you are using more and more filters to capture more and more patterns in the images 
+now so you have twenty-seven 
+twenty-seven 
+ninety-six then they decided to use two hundred and fifty-six filters each of size five 
+five 
+with a stride of one and padding of zero ok is it right so how many parameters do you have 
+now 
+student 
+two hundred and fifty-six into 
+student five into five 
+five into five into 
+student ninety-six 
+ninety-six 
+ 
+so thats the number of parameters that you will have and the size since would decrease 
+only by one right because you have a stride of it will decrease by two because a filter size is 
+five and you have a stride of five ok 
+so  these  are  the  number  of  parameters  we  had  six  million  parameters  in  this  layer 
+what is the next layer going to be pooling 
+so you do a max pooling again you do a three 
+three you do a stride of two so your width in 
+height  is  going  to  decrease  the  depth  does  not  change  remember  in  max  pooling  the 
+depth  does  not  change  because  the  max  pooling  operation  is  per  feature  map  it  is  not 
+across the depth fine then use a three 
+three filter and three hundred and eighty-four of those 
+so how many parameters would you have 
+student 
+ 
+three hundred and eighty-four into three cross three into two hundred and fifty-six the depth 
+so now you guys get it so i will not bore you anymore 
+and then you have a convolution operation again which is a three hundred and eighty-four convolutions each of 
+size three 
+three and so many parameters followed by a convolution operation again followed 
+by a max pooling operation then followed by a fully connected layer 
+ 
+so what would i do to this two hundred and fifty-six 
+two 
+two i will fatten it so i will get what dimensional 
+output 
+student one thousand and twenty-four 
+one thousand and twenty-four two hundred and fifty-six into two into two so this one thousand and twenty-four dimensional vector i am going to fully connect it to 
+a four thousand and ninety-six dimensional vector how many parameters four million right four into ten raise to  six 
+right so roughly four million 
+then  you  have  another  four  million  another  four thousand and ninety-six  vector  fully  connected  how  many 
+parameters 
+student sixteen million 
+sixteen  million  then  you  have  the  one thousand  classes  that  you  are  interested  in  right  so  again 
+fully  connected  so  you  get  the  full  architecture  anyone  has  any  questions  no  one 
+wants to know why this particular configuration among all the possible configurations 
+why  not  ten  layers  why  not  first  eight  cross  eight  filters  why  not  nine  cross  nine  filters 
+unfortunately no one knows [laughing] 
+student 
+so this i mean see this what this is what would happen right now we get into something 
+known  as  hyper  parameter  tuning  right  so  what  are  the  hyper  parameters  in  this 
+ 
+network the kernel size is and the number of filters right so you would have tried a 
+lot  of  these  things  evaluated  on  the  validation  set  seen  which  one  gives  the  best 
+accuracy  and  then  chosen  right  so  that  is  probably  what  would  have  happened  but 
+there is not enough insight into how this particular architecture came up 
+apart from some things right that three curves three neighborhood sounds reasonable initially 
+when you have the full image you use larger filter sizes because you want to capture a 
+lot of things there but once the image has shrunken you use smaller filter sizes so those 
+are some rational decisions which look reasonable but why these three convolutional filter 
+layers back to back instead of convolution max pooling convolution max pooling and so 
+on right 
+so  the  some  of  those  things  are  not  clear  so  just  in  case  you  are  wondering  do  not 
+wonder  this  is  just  the  architecture  this  is  known  as  modestly  named  as  alexnet  so 
+that is [laughing] yeah and so i said that this has eight layers but you clearly see more than 
+eight  layers  here  so  why  did  i  say  that  has  eight  layers  which  are  the  layers  we  are  not 
+counting 
+student 
+why 
+student 
+because they have no parameter right so when you count the number of layers you only 
+count  those  layers  which  have  parameters  so  you  have  five  convolutions  and  three  fully 
+connected layers 
+then so the total number of parameters in this network is two thousand, seven hundred and fifty-five million parameters and 
+ok at this point i will and obviously you notice that most of these parameters were there 
+in  the fully  connected layer so  you had four million  here then sixteen million  here and then 
+again four million here right 
+so  roughly  twenty-four  million  of  the  twenty-seven  million  parameters  were  there  in  the  fully  connected 
+layer you see that skew in the number of parameters ok 
+and  i  will  just  look  at  the  fully  connected  layer  again  so  the  last  max  pooling  layer 
+actually  gave  you  a  two hundred and fifty-six  cross  two  cross  two  output  you  just  flatten  it  to  get  a  one thousand and twenty-four 
+dimensional vector and then you connected fully to the four thousand and ninety-six vector right so that is what 
+i mean by a fully connected layer why do you move max fully 
+so the reason for that is basically to shrink the size of the image right because after that 
+if  if  you  keep  working  with  this  size  right  then  the  number  of  parameters  is  going  to 
+really blow up a by using a larger stripe yeah both of them are feasible right so now 
+see from here remember that we had the original image sizes two hundred and twenty-seven cross two hundred and twenty-seven and by the 
+end we were just left with two cross two 
+and then adding a fully connected layer on that makes sense right if i had not done this 
+shrinkage throughout either by increasing the stride of the convolution layer or by doing 
+max  pooling  right  then  you  would  have  left  with  something  of  the  order  of  two hundred  cross 
+two hundred here and then you have to do a fully connected on top of that is just infeasible right 
+it  just  throws  away  all  the  hard  work  that  you  have  done  by  doing  weight  sharing  and 
+sparse connectivity right so that is not feasible 
+there  are  also  papers  with  say  which  i  think  it  is  titled  fully  convolutional  neural 
+network which does not have any max pooling layers and they show that that also works 
+fine  in  fact  when  we  see  vgg  net  we  will  see  that  it  has  back  to  back  convolution 
+layers  and  very  few  max  fully  layer  right  so  these  are  all  things  which  people  have 
+trained 
+not  so  many  years  two  years  the  challenge  came  out  in  two thousand and ten  and  in  two thousand and twelve  this  was  used 
+right so it is like not really a large gap right and if  you read the original paper they 
+had to do a lot of tricks to actually make this work it was not as simple as i am showing 
+it of course now with  all the stability which comes from  these platforms tensor flow 
+pytorch you can probably just go and implement this as it is and you should be able to 
+reproduce the results but six years back that was not the case there was a lot of hard 
+work  involved  in  getting  this  too  work  and  they  this  was  also  the  paper  which 
+introduced the relu nonlinearity in the context of convolutional neural networks right 
+so they had to change from sigmoid or tan edge to relu 
+a  lot  of  these  small  small  things  which  they  had  done  and  at  that  time  it  is  also  not 
+possible with the existing hardware to train this on the given gpus that you had at that 
+time so they had to do some splitting across gpus and so on so it was not as simple 
+as  it  is  today  with  all  the  hardware  as  well  as  api  developments  or  platform 
+developments around this right so probably that is why it took two years to yeah sure 
+so each of these things so after  you do the convolution operation you pass it through 
+the  relu  nonlinearity  ok  so  what  does  that  mean  is  that  the  convolution  operation 
+gave  you a feature map every entry here was just a weighted average of the neighbors 
+right you take this entry or rather you take this feature map and create a new feature map 
+where every entry here is the sigmoid of every entry here do  you get that or not sorry 
+sigmoid some nonlinearity and they use the relu has the nonlinearity so you do get 
+everyone  gets  this so all the convolution  layers are followed by  a  relu nonlinearity 
+layer 
+so you get this volume pass it through the relu and get a new volume but i have just 
+shown that as a single operation it is before pulling so this was the fully connected layer 
+so now we look at the next architecture which is zfnet 
+now i am going to compare zfnet with alexnet so on the top you will see alexnet 
+on the bottom you will see zfnet ok so again the input was the same two hundred and twenty-seven 
+two hundred and twenty-seven 
+three 
+now instead of eleven cross eleven filters zfnet decided to use seven 
+seven filters and their rationale 
+was that you do not need such large neighborhoods you do not need as small as three 
+three 
+ 
+but probably you need at least as much as seven 
+seven you do not need eleven 
+eleven so that is the 
+first change that they did and that would also result in some parameter pruning right 
+because the number of parameters now would be seven cross seven into three so the difference in 
+the  number  of  parameters  at  this  layer  for  zfnet  which  is  at  the  bottom  and  alexnet 
+which  is  at  the  top  would  be  this  how  many  of  you  get  this  ok  so  thats  in  the 
+difference  in  the  number  of  parameters  so  now  the  output  volume  still  remains  the 
+same its fifty-five 
+fifty-five 
+ninety-six 
+then again they had the same max pooling operation this layer there was no difference 
+between  zfnet  and  alexnet  and  then  after  that  you  had  again  layer  three  which  was 
+exactly the same as alexnet 
+ 
+then  layer  four  again  the  same  as  zfnet  afterwards  layer  five  instead  of  three hundred and eighty-four  filters  they 
+decided to use five hundred and twelve filters the rest of the thing remains the same that means the size or 
+the spatial extent of the filter remains the same that again results in some difference in 
+the parameters so thats the number of parameters that got added in zfnet as opposed to 
+alex net 
+and  of  course  the    oh  sorry  sorry  oh  sorry  the  bottom  one  is  a  zfnet  yeah  that  is 
+correct sorry so in zfnet you had five hundred and twelve filters as opposed to three hundred and eighty-four filters in alex net ok 
+is it fine 
+and then the next layer again instead of three hundred and eighty-four filters they had one thousand and twenty-four filters 
+then again instead of two hundred and fifty-six they had five hundred and twelve filters and then a max pooling layer then the 
+same dense fully connected layers ok 
+so everyone gets this this is the difference between the two architectures and this led 
+to that difference in the error of around three to four percent is that we have seen earlier 
+so difference the total number of parameters was one hundred and forty-five million and of course zfnet had 
+more parameters because is that it has these more filters in the deeper layers ok so we 
+go to the last point which is may be more in that vgg net 
+so again  in  the  case of  vgg net  the input was ok so  i just want  to  i  will not  see it 
+in  so  the  input  was  again  the  same  it  was  rgb  cross  two hundred and twenty-seven  cross 
+two hundred and twenty-seven 
+so  this  is  what  the  vgg  architecture  looks  like  they  have  so  in  vgg  network 
+throughout  ok  wait  so  how  many  layers  this  zfnet  have  eight  so  you  only  count  the 
+pink boxes because the those has ones which have two parameters now vgg net has 
+slightly more number of layers but in all the convolution layers they use three cross three filters 
+right  from  the  beginning  they  use  three  cross  three  filters  ok  so  you  have  the  first 
+convolution  layer  then  another  convolution  layer  another  convolution  another  max 
+pooling layer followed by two convolution layers then a max pooling layer followed by three 
+convolution  layers  max  pooling  just  keep  adding  box  is  writing  just  because  you  can 
+and then you have the fully connected layers 
+so again there is not much intuition for why sixteen in fact later on someone came if this is 
+the vgg sixteen architecture because it says sixteen layers later on some of someone came up 
+with the vgg nineteen architecture which has nineteen layers right so a lot of this is data center 
+even right so  you try  your best to  get the best possible accuracy on the imagenet data 
+and that is the architecture you came up with right 
+but  as  long  as  how  many  of  few  feel  comfortable  with  what  is  happening  right  and  i 
+mean  when  i  say  comfortable  i  mean  that  you  really  understand  the  gory  details  of 
+what  is  happening  at  each  layer  in  terms  of  input  volumes  output  volumes  number  of 
+parameters how are you going to train this network end to end can you see how are you 
+going to train this so you will get some loss here that is going to propagate all the way 
+back to the first layer right and this propagation is going to happen over some sparse 
+connections  that  fine  now  this  is  one  very  important  point  that  i  have  skipped  and 
+which none of you is questioning is everything that is happening here differentiable 
+student 
+what  happens  to  max  pooling  is  max  pooling  or  differentiable  operation  so  i  am 
+going  to  ask  you  this  how  are  you  just  note  this  down  how  are  you  going  to  back 
+propagate  to  the  max  pooling  layer  because  you  need  to  see  whether  the  max  pooling 
+layer is actually a differentiable layer or not  so here i just some statistics about vgg 
+net everyone is writing that down [laughing] this perhaps means i will not ask it 
+the  kernel  size  is  three  cross  three  throughout  the  total  number  of  parameters  in  non  fully 
+connected layers is sixteen million the total number of parameters in fully connected layers 
+is one hundred and twenty-two million so you see that this fully connected layer is really a problem it like really 
+hogs all the lime that it has the maximum number of parameters there right and so and 
+the most number of parameters are there in the first fully connected layer because  you 
+have this five hundred and twelve 
+seven 
+seven you remember then alex net and zfnet the last layer was two hundred and fifty-six 
+two 
+two which has definitely more manageable than this layer which has grown almost eight 
+times in size but not even eight actually four into four into two right sixteen thirty-two times in size right 
+so  that  is  really  blown  up  the  number  of  parameters  in  the  first  fully  connected  layer 
+so you just imagine the i mean you have such a deep layer and then you realize that all 
+the  main  number  of  parameters  are  there  in  this one  particular  layer  everything  else  is 
+much  fewer  parameters  or  orders  of  parameters  less  number  of  parameter  is  less  then 
+this one fully connected layer 
+ 

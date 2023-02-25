@@ -1,0 +1,117 @@
+ 
+so in this video we will try to look at an explanation for why we need bias correction in 
+adam or in other words i want to explain why do i do this particular step why did i take 
+m  t  and  v  t  as  it  is  but  why  did  i  do  this  particular  step  which  i  called  as  the  bias 
+correction step 
+so  note  that  in  the  case  of  adam  if  you  look  at  this  equation  for  m  t  we  are  actually 
+taking  a  running  average  of  the  gradients  and  storing  it  as  m  t  right  so  this  is  the 
+gradient  and  we  are  taking  a  running  average  or  exponential  running  average  of  these 
+gradients exponentially decaying running average 
+so the reason we are doing that is that we do not want to rely on a single estimate so we 
+do not want to rely only on gradient of w t we want to look at the overall behaviour of 
+the  gradients  over  multiple  time  steps  and  then  take  a  decision  so  that  means  in  one 
+particular gradient at time t is actually pushing us in some direction we do not want to be 
+very  hasty  and  start  moving  there  we  want  to  accumulate  the  history  and  appropriately 
+weigh  everything  in  the  history  that  is  the  idea  behind  taking  this  running  average  of 
+radiance 
+and  the  other  way  of  looking  at  is  that  we  are  interested  in  the  expected  value  of  the 
+gradients and not the point estimate at time w t right at time t rather so gradient of wt 
+which is this quantity which is the point estimate at time t we are not interested in that 
+were  interested  in  the  expected  value  and  our  behaviour  should  be  according  to  the 
+expected value that is what we desire 
+so however instead of computing the expected value of this quantity which should have 
+been  ideal  we  are  computing  mt  as  the  exponentially  moving  average  so  in  the  ideal 
+case we would want that these two quantities are the same that the expected value of mt 
+the way  i am  computing it and the expected value of the  gradient of w t  should be the 
+same  if  that  is  the  same  then  i  am  fine  because  then  that  means  i  am  just  taking  the 
+expected value or the of the gradient instead of relying on the point estimate ok so let 
+us see if that is indeed the case 
+so  for  convenience  we  are  going  to  just  denote  this  gradient  w  t  as  g  t  because  it  is 
+cumbersome  to  write  this  grad  symbol  and  we  will  just  not  make  it  so  readable  the 
+derivation that we are going to do so i am just going to replace that as g t so what i have 
+written is g t here instead of grad w t right so from now on i will just use g t for grad w t 
+is that fine ok so we have this expression for m t 
+so now let us just try to expand it and see what happens right so m zero it is going to be zero 
+because that is my starting points i have no history nothings so i will just going to keep 
+it  as  zero  m  one  is  my  first  time  step  at  which  it  is  going  to  be  beta  into  m  zero  so  i  am  just 
+substituted  t  minus  one  and  t  here  and  in  the  original  expression  i  have  just  substituted 
+appropriate quantities for m of t minus one and g of t so m of t minus one is zero m zero and g of t 
+is g one and of course b zero m zero itself was zero so what will be left it is one minus beta g one 
+now let us look at what happens is m two m two is going to be beta m one plus one minus beta g 
+two but i already have an expression for m one so i am just going to substitute that here and 
+this is what i get now let us look at m three m three is again going to be beta times m two plus one 
+minus beta times g  three  and  i have an expression for m  two so  i  am  going to  substitute that 
+here and see if that leads to something interesting 
+so i have just substituted the value of m two here right and i already had the m three part here 
+the this term here as it is ok and now let us see so this already starts looking something 
+interesting  you  see  some  pattern  here  in  particular  we  could  take  these  one  minus  beta 
+terms outside they can be taken common and then you will be left with beta square g  one 
+plus  beta  square  g  one  plus  beta  g  two  plus  g  three  so  let  us  try  to  write  this  more  compactly 
+right  so  i  have  taken  one  minus  beta  common  and  then  i  have  written  the  remaining 
+terms as this particular summation and you can verify 
+so when i is equal to one this is going to be beta three minus one which is beta square into g one 
+when i is equal to two this is going to be beta three minus two which is going to be beta into g two 
+and when i is going to be three this is going to be beta raise to three minus three which is beta raise 
+to zero which is just one into g three right so we get back the same expression that we had here 
+of course there is a one minus beta outside so this is a more compact way of writing it and 
+this was for the 3th entry right this was for m three the third entry 
+now what if we want to write it for the t’th entry in general what if we want to write the 
+expression for m t 
+so in general m t we can write it as one minus beta as i equal to one to t b beta t beta raised 
+to t minus i into g i right so this three is here i have just replaced them by t s right you can 
+just verify that this is from you can just generalize from the third entry to the t’th entry 
+so now let us see we have the following expression we have simplified the expression 
+for  m  t  and  written  it  more  compactly  but  what  we  were  eventually  interested  in  the 
+expected value of m t right we wanted to show that certain things holds for the expected 
+value of m t 
+so you just take expectation on both sides so this is what we will get ok now one minus 
+beta  is  of  course  a  constant  so  i  can  move  it  outside  the  expectation  so  then  i  get  an 
+expectation of a sum 
+now the expectation of a sum is the same as the sum of expectations so i can write it as 
+a sum of expectations ok now again beta is a constant so i can take it outside the expect 
+expectation so what i will be left with is beta raise to t minus i outside and expectation 
+of g i right so this is actually expectation of g one when i equal to one then expectation of g 
+two expectation of g three and so on 
+now  we  will  make  an  assumption  that  all  these  gi’s  that  means  the  gradient  at  time 
+step  one  the  gradient  at  time  step  two  the  gradient  as  time  step  three  and  so  on  they  all  come 
+from  the  same  distribution  ok  we  are  going  to  make  that  assumption  so  let  us  try  to 
+understand the implication of that right so let us say this was a distribution from which 
+g  one  came  right  suppose  i  am  dealing  with  a  scalar  quantity  and  maybe  this  was  the 
+distribution  from  which  g  one  came  now  g  two  could  have  come  from  a  different 
+distribution  g  three  could  have  come  from  a  different  distribution  and  if that  was  the  case 
+then expectation of g one would be different from the expectation of g two and so on 
+so what we have assumed to it will make things simple for us is that g one g two g three any g i 
+comes from the same distribution and hence you can say that the expectation of all these 
+gi’s is going to be just the expectation of g that is this one single distribution from these 
+which these entries come this  of course  a very strong assumption but  we are  going to 
+live with this assumption 
+so then this expectation of g i just becomes expectation of g so i have gotten rid of the 
+index i that means i can move it outside the summation right so this is what i will get 
+now these two have come out of the summation and inside i have this quantity now let 
+me just expand this quantity this is nothing but beta raise to t minus one plus beta raise to t 
+minus two plus so on at last you will reach t minus t which is just going to be beta raise to 
+zero 
+so this is nothing but a sum of a g p with common ratio beta and i can replace that sum 
+by  this  formula  you  know  this  is  the  formula  for  the  sum  of  a  g  p  with  common  ratio 
+beta so i have just replaced that and now what happens is this one minus beta and one minus 
+beta cancel out so i get this particular expression that the expected value of m t is equal 
+to the expected value of g into one minus beta t 
+so  i  will  just  take  one  minus  beta  t  on  the  other  side  and  i  can  move  it  inside  the 
+expectation because it is a constant it does not matter so i will get as oh actually yeah i 
+can just move it inside so i will get it as expectation of m t over one minus beta is equal to 
+expectation  of g t  right  and this  quantity the one  which  i have circled is  nothing but  m 
+hat  t  right  this  was  exactly  the  bias  correction  that  i  was  applying  if  i  go  back  to  the 
+previous slide or the slide before that so this was exactly the bias correction that i was 
+applying 
+so what i have inside is this so what i have shown is that if i apply the bias correction 
+then  the  expected  value  of  the  bias  corrected  m  t  is  equal  to  the  expected  value  of  the 
+gradient and that is actually what i wanted i wanted that whatever m t i am computing 
+if i look at its expected value it should be the same as the expected value of my gradients 
+and that is what i have arrived it 
+hence  this  bias  correction  makes  sense  and  hence  we  apply  this  bias  correction  for 
+adam so this we have shown for m t we had a similar expression for v t right so for m 
+t  we  had  this  bias  correction  as  m  hat  t  and  similarly  for  v  t  also  we  had  this  bias 
+correction as v hat t so you can derive the same kind of derivation for v t also and show 
+that that bias correction makes sense right so this is an explanation for why you do bias 
+correction in the case of adam 
+thank you 

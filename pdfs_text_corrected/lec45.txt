@@ -1,0 +1,356 @@
+principal component analysis and it is interpretations 
+so  in  this  module  we  will  talk  about  principle  component  analysis  and  it  is  different 
+interpretations in this model we will look at one interpretation and then in the rest of the 
+module some other interpretations 
+so the story i add is going to be this we will talk about pca and it is interpretations ok 
+so  now  let  us  try  to  motivate  pca  first  consider  the  following  data  ok  in  what 
+dimension is this data 
+student two dimension 
+two  dimensions  it  is  r  two  ok  and  each  point  here  is  represented  as  it  is  x  coordinate  and 
+using it is x coordinate and it is y coordinate ok now it means that were using x and y as 
+the basis  right  that  is clear that is  the standard way that  you would do any data point 
+you will just represent using that basis 
+now what if we choose a different basis let me give you one basis and then let me ask 
+you some questions on this 
+suppose we chose this basis so in the previous modules we made a case for the x and y 
+coordinate  axis  there  is  nothing  sacrosanct  about  it  you  could  use  any  basis  the  only 
+condition on the basis that the vector should be linearly independent and in fact if they 
+are orthogonal it is even better right 
+so now i have given you a different basis now what do you make any observation here 
+so they have all the points here have a very small component along the u two axis  right 
+so now this so far this point right if i consider at this point then this is the component 
+along the u one axis so that is it is u one coordinate as akin to the x coordinate and this is it 
+is u two coordinate akin to the y coordinate is a are the arrows clear here 
+so that means there u two coordinate is very small and it is also very small for all the data 
+points right so it is almost as if there is some noise there it is all within some epsilon 
+now  so  it  seems  that  the  data  which  were  actually  represented  in  r  two  can  actually  be 
+represented in r one by getting rid of this noisy dimension right so if you had chosen a 
+different  basis  you  realize  that  with  just  one  dimension  you  could  have  captured 
+everything  that  was  there  in  the  data  and  the  other  dimension  was  just  adding  noise  it 
+was redundant there is hardly any information there 
+so now can you state this more formally because this is this intuition but can you stated 
+more  formally  in  terms  of  things  that  you  have  learned  and  say  probability  for  it  for 
+example what is wrong with the direction u two the spread of the data points along the u 
+two direction is very small what is the spread mean the variance right so we do not care 
+about u two because the variance in the data along this direction is very very small ok and 
+in  particular  right  if  i  were  to  build  a  classifier  then  would  u  two  have  any  predictive 
+power because along this dimension the points are indistinguishable ok so think of it 
+that  you are trying to  find out whether  you have so  you have say one hundred  candidates and 
+you want to decide whether they would be good basketball players or not 
+and quite naturally all the people that have shown up are say six foot two and six foot three inch 
+and so on and there in a very small height difference between them and all of them are 
+sixty-two is the average and very close the spread is not much so this feature is not going to 
+help you decide whether this person is going to be a good basketball player or not you 
+will  have  to  rely  on  other  features  where  the  variance  is  more  for  example  how  many 
+teams  has  he  participated  in  the  past  how  many  matches  as  he  won  as  a  team  as  a 
+member of some team and so on it 
+so  those  who  expect  some  spread  to  be  there  all  these  one hundred  candidates  might  have 
+different things right but if the height is the same for all of them it is not going to be a 
+good predictor and that is exactly what is happening along the u two direction the points 
+are almost indistinguishable there that is why it does not matter 
+so in general given any data now this was a simple case where the data was r two i am 
+talking about the general case where the data is rn right and you will find this situation 
+in higher dimensions also so you would not want to use that entire n dimensional data 
+where you know that there are some columns along with the variance is very small so 
+you  want  to  represent  the  data  with  fewer  dimensions  such  that  the  data  has  high 
+variance along those dimensions 
+now  let  me  just  clear  a  confusion  here  right  so  i  am  not  saying  that  take  your  n 
+dimensional data ok find the variance across each of these dimensions and then throw 
+away the columns which have the lowest dimension in this particular example if you had 
+done  this  what  would  happen  could  you  have  done  that  think  of  the  original 
+dimensions  x  and  y  along  these  two  dimensions  there  is  enough  various  in  the  data 
+right  the  x  coordinates  vary  from  here  to  here  and  the  y  coordinates  also  vary  from 
+this  point  right  up  to  that  point  right  so  there  is  enough  spread  in  the  x  and  y 
+coordinates 
+so in your original data i am not saying that pick look at each column and see if there is 
+no  variance  along  that  column  then  throw  it  away  that  would  not  work  because  you 
+might  end  up  with  the  situation  that  there  is  enough  variance  across  each  of  these 
+dimensions it is just that when you look at the data from a different angle that means 
+you projected onto a different basis this becomes clear right 
+so you see the difference i that is not the same these two things are different operations 
+so what i am looking at is projecting the data to a different basis that is exactly what i 
+did  with  u  one  and  u  two  and  then  some  things  became  clear  about  the  data  now  this 
+projection along a different basis i would be interested in doing that only if i can get rid 
+of  the  number  of  dimensions  right  if  now  i  had  already  had  one  basis  where  i  had  n 
+dimensions now if the new basis is also going to be that all these new n dimensions that 
+i  have  come  up  with  are  important  then  you  are  not  gaining  much  i  do  still  have  this 
+high dimensional  data but  you would like to  project  it in  a way that  you get  rid of  the 
+lower variance dimensions 
+so  you  might  project  it  onto  n  dimensions  but  you  want  to  rank  these  dimensions 
+according to variance and then throw away some of these dimensions is that clear is the 
+objective  clear  ok  fine  is  that  all  that  we  care  about  n  dimensions’  project  to  a  new 
+basis and throw away the key dimensions which have less variance is that all what else 
+would you want people have done the mlpr course no i would not so i am not going 
+to classification or anything i just want a better representation of the data at this point i 
+am not really thinking about what  i want to do with the data maybe  you are talking in 
+terms  of  classification  and  we  have  already  seen  even  if  the  data  is  not  linearly 
+separable we have solutions for dealing with right so that is not a critical point ok so 
+there is something else that very interested in and let us look at that 
+now consider this data i have three dimensional data ok do you find something odd about 
+this data 
+student 
+y and z are 
+student 
+are highly dash 
+student correlated 
+correlated  right  do  you  want  these  dimensions  can  you  think  of  any  practice  such 
+dimensions occurring height in  centimeter  and height  in  inches  someone would have 
+just  given  you  data  right  or  if  you  if  you  take  the  credit  card  a  credit  card  fraud 
+detection case right someone would give you the salary and it would also give you the 
+income tax now these two are highly correlated right 
+so then you do not really care if you have one you could probably almost with certainty 
+predict the other right modulus some rules right because you get some tax exemptions 
+and all that but still so you can have this in practice but  even in our oil mining case 
+your salinity pressure density those things could be related right so z is not adding any 
+new  information  beyond  what  y  is  happening  so  the  two  columns  are  highly  correlated 
+so  actually  yeah  this  is  the  formula  for  correlation  all  of  you  know  this  anyone  who 
+does not know this formula good so not nothing is a stupid question right so you can 
+always ask 
+so y hat is the mean of this column ok sorry y bar z bar is the mean of this column and 
+this is how you compute correlation this is just the formula ok so from every entry you 
+subtract  the  mean  ok  so  this  is  known  as  centering  the  data  so  if  you  do  this  what 
+would the mean of the new data be 
+student zero 
+zero right so that is why it is called centering the data ok so i will have zero mean zero mean 
+and  you  so  what  does  this  what  is  the  intuition  behind  this  formula  does  anyone 
+know can anyone tell me so this is a summation ok so this quantity is going to be 
+high if the summation is high it is a summation of some n terms now these terms could 
+be positive or negative if all the terms are positive what would we happen to the sum 
+student 
+it would be high if there are some terms which are negative it would be low now when 
+would all the terms be positive whenever y is above the mean z is also above the mean 
+right  therefore  this  quantity  is  positive  this  quantity  is  positive  whenever  both  are 
+below  the  mean  again  the  product  would  be  positive  when  one  is  above  the  mean  the 
+other is below the mean then there is something wrong happening right and in that case 
+you will have a negative term right 
+so for more details of course you can refer your other textbooks and so on but this is 
+just the intuition an important  step here is  to  zero mean the data  right we are computing 
+the subtracting the mean of the data ok another way of saying this is that the column z 
+is  actually linearly dependent  on  y ok  it  is  almost  linearly dependent  i  of course have 
+some noise twenty-one seventy-six and so on but it is largely linearly dependent i can get i can write z 
+as some c times x fine ok 
+so  now  can  you  tell  me  the  refined  goals  that  we  have  we  are  interesting  the 
+representing  data  using  fewer  dimensions  such  that  remember  that  when  i  say  fewer 
+dimensions  i  mean  a  new  set  of  dimensions  right  it  is  not  throwing  away  dimensions 
+from  the  current  data  we  are  looking  for  a  new  set  of  dimensions  what  are  the 
+conditions that we want from these new set of dimensions 
+student 
+one there should be high variance along these dimensions the new dimensions and 
+student 
+the dependence are linearly independent or uncorrelated ok fine 
+and even better of course if they are orthogonal why 
+student 
+because we are looking for a new dash 
+student basis 
+basis and the most convenient basis is 
+student orthogonal basis 
+orthogonal basis ok fine 
+so now let us assume someone has given us this new basis ok and let us call this p one p 
+two pm so instead of this x y z and so on someone has given us this new basis eventually 
+we will of course figure out how to find the basis but let us assume that someone has 
+given  this  new  basis  right  and  they  are  both  linearly  independent  and  actually  it  is 
+redundant  actually  so  yeah  this  example  of  a  redundant  feature  such  an  orthogonal 
+vectors is sufficient they are linearly independent 
+let p be an n cross n matrix such that p one p two p n are the columns of p right same thing 
+as we had put the eigen vectors in a column and probably i have unknowingly given out 
+the solution but ok and let x one to xm be the m data points given to us ok so we are 
+given this data as usual we have this x matrix each one of them belongs to rn and we 
+have  m  such  data  points  right  that  is  the  standard  thing  that  we  are  operating  and  you 
+always write this as a matrix ok and we have already done the data is  zero mean and unit 
+variance 
+actually unit variance is not required but the data is zero mean fine that we will sorry i am 
+going to deal with covariance as a unit variance is not required so the data is zero mean is 
+what i am going to assume but what if the data is nonzero mean i can always make it zero 
+mean right 
+so just to remember this is an important trick that you will always have to use whenever 
+you  are  doing  any  large  scale  machine  learning  so  whenever  you  are  participating  in 
+kaggle competitions almost the first thing that you do is standardize the data that means 
+make it zero mean and unit variance so why is that important 
+student scaling 
+right scaling issues would not be there right so if i have something in centimeters and 
+some  other  unit  in  kilometers  right  now  remember  that  always  you  are  doing 
+somewhere this linear operation w transpose x you might add a nonlinearity on top of 
+that but now if your xi dimensions some of them are in the range of zero to ten thousand some of 
+them are in the range zero to ten right 
+then  there  is  some  abnormality  here  right  some  dimensions  are  winnings  in  terms  of 
+their magnitude and some dimensions are losing out right that is why you always make 
+it unit variance and you also make it zero mean you center the data ok so we will assume 
+this and if we all understand if the data is already not zero mean and unit variance we can 
+always make it zero mean and unit variance just scale it and make it centered 
+now we want to represent each xi right so xi is one of these data points that we had 
+that  means  one  of  the  rows  of  our  matrix  ok  and  you  want  to  write  it  as  a  linear 
+combination of this new basis 
+so if you have any basis any vector you can write it as a linear combination of that basis 
+is it fine so far it is ok ok now for an orthogonal basis we know that we can compute 
+these  alphas  just  by  taking  a  dot  product  of  the  vector  with  the  dimension  ok  and  just 
+repeating some of the things right 
+so  now  let  us  see  what  this  means  for  one  of  the  dimensions  this  is  my  data  point  xi 
+which i want to transform ok for one of the dimensions i just had to take the dot product 
+with that dimension and this will give me how many values one value that means the 
+coordinate  along  p  one  i  want  to  do  it  for  all  the  n  of  them  i  can  write  it  as  this  vector 
+matrix multiplication right what is the dimension of this 
+n cross one how many if you get that ok so this oh not many why 
+student 
+one cross n fine that is fine yeah how many of you get this ok fine yeah so this will give 
+me all the n alphas is that clear for this data point 
+so it will give me alpha i one to alpha i is it 
+now i want to do this for the entire data right so i have done it for x one i also want it to 
+be  done  for  x  two  and  all  the  way  up  to  x  m  for  each  of  these  i  would  have  such  an 
+operation where i have a vector multiplied by this matrix if i just stack all these vectors 
+i get back my matrix x and the whole operation i can write as x into p ok is that clear to 
+everyone ok what is the dimension of x into p 
+student m cross n 
+m cross 
+student n 
+n right so for all the m data points i have alpha 1to alpha n is that clear anyone who does 
+not understand this 
+so  x  hat  is  the  matrix  of  the  transformed  points  is  that  clear  i  have  now  the  new 
+coordinates  instead  of  the  original  coordinates  according  to  the  coordinate  axis  i  have 
+the new coordinates in this matrix 
+now i will just go through some very simple theorems or rather results and i will not 
+prove them you can prove them on your own or other proof is there in the slides we can 
+look at it later on right so if x is a matrix such that it columns have zero mean and if x 
+hat is equal to xp then the columns of x hat will also have zero mean is this obvious to 
+most of you not really is it how many of you think it is obvious ok then let me just go 
+over the proof 
+so for any matrix a one transpose a right  so  that means  you have this vector this is  a 
+vector  or  a  matrix  yeah  this  is  a  vector  right  so  i  have  a  vector  of  n  one  so  one  this  is 
+nothing but a vector of n 1s so what is this product actually going to give me 
+it will give me a vector containing n elements what is each element 
+student sum of that column 
+sum of that column right is this fine ok this is very obvious to see from if i have this 
+suppose i have two three one and three six seven ok and then of course the corresponding 
+so if i do this multiplication i will get a two dimensional output which would be just seven and 
+sixteen right so that is just the sum of that column 
+student 
+so  now  we  have  this  x  hat  that  is  the  transform  matrix  now  let  us  see  if  i  do  this 
+operation i x hat what happen i can write it as this i can club it as this what is this it 
+will be all 0s because the original matrix was mean zero that means the of the elements of 
+all  the  columns  each  column  independently  was  zero  that  what  this  is  going  to  be  a  zero 
+vector  so  zero  vector  multiplied  by  any  matrix  is  going  to  be  zero  now  is  it  obvious  i 
+hope this is obvious x transpose x is a symmetric matrix i still have the proof for that 
+now if x is a matrix whose columns are zero mean then a matrix sigma which i am going 
+to  call as a covariance  matrix which is  given by  this is  actually the covariance matrix 
+how  many  of  you  agree  with  this  how  many  of  you  have  seen  the  covariance  matrix 
+before so all of you agree that this is the covariance matrix if you do not please raise 
+your hands if you do not you will not understand the rest of the stuff now you have to be 
+given the right incentives 
+so let us see be the covariance matrix of x now what is the covariance matrix actually 
+first of all tell me that if i say that i have an n cross n matrix x 
+let me not make it any cross n let me make it m cross n ok what does the covariance 
+matrix actually capture what is the dimension of the covariance matrix first of all 
+student n cross n 
+n cross n ok and what does each entry of the covariance matrix capture the covariance 
+between the i’th column and the j’th column 
+student 
+so the entry ij of the covariance matrix captures the covariance between the i’th column 
+and the j’th column is that fine now what is the formula for covariance suppose i give 
+you two columns right let us see i have give you x one one x one two x one three and x two one x two two x two three can 
+you give me a formula and of course i will go up to k or rather m 
+so what is the formula summation 
+student 
+i equal to one to 
+student m 
+m 
+student 
+mu one 
+student 
+mu two anything missing 
+student by m 
+by m anything else in the denominator no no is it fine ok so an what is mu one mu one 
+is  just  an  average  of  this  ok  so  this  is  the  covariance  formula  now  if  the  mu’s  are  zero 
+then what does this boil down to 
+student 
+x one i into x two i  what is this quantity actually 
+student 
+this is the dot product between the i’th column and the j’th column fine ok now that is 
+pretty much the explanation right so now the c ij’th entry is supposed to be given by 
+this formula  if the means are zero  you are just left  with  this formula and this is  nothing 
+but the dot product between the i’th row and the j’th i mean the i’th column and the j’th 
+column is that fine 
+and now if you write it as a matrix then you can just say that it is the ij’th entry of the x 
+transpose x matrix everyone gets this no one has any confusion the people who raised 
+their hands fine good 
+so we now this is where the we are so far that we have assumed that someone has given 
+us these dimensions’ p one to pn which we have put in the matrix p  right and we have 
+also  made  a  case  that  x  into  p  which  is  what  i  have  written  here  actually  is  just  a 
+projection of the original data onto this new basis right everyone gets that ok and i am 
+calling  that  new  projection  or  the  new  result  that  i  get  as  x  hat  so  that  is  what  my 
+transform data is 
+what is missing here 
+student 
+we do not know what p is that i am assuming someone has given me that p now i need 
+to figure out what is the p here now using the previous definition we get that this is the 
+covariance matrix of the transform data so let us just write that this is fine this is fine 
+what is this 
+student 
+covariance matrix of the original data ok so i will just write it as sigma fine ok now 
+each cell ij of the covariance matrix towards the covariance between columns i and j of 
+x hat where x hat is the transformed data what is the property that you want to hold i 
+give you two conditions or i will give you only one condition for now when i is not equal to 
+j 
+student 
+zero ok so what should the covariance matrix look like 
+student 
+remember that this is what is this this is the covariance matrix of the transformed data 
+right that is what  i started with  right this is the covariance matrix of this transformed 
+data what do i want this covariance matrix to look like 
+student diagonal matrix 
+a diagonal matrix ok because i want every non diagonal element to be zero right and this 
+point i am not telling you what i want the diagonal elements to be i am just telling you i 
+do not want them to be zero 
+well if it is zero what would that mean 
+student 
+that is the variance right if you take the along a diagonal what you get is the variance it 
+is if it is not clear right now well return back to that right now we just know that the off 
+diagonal elements are the covariance between the i’th and j’th column and we want that 
+to  be  zero  so  we  want  this  condition  to  hold  this  is  something  very  new  that  you  have 
+never  seen  in  this  course  before  they  have  actually  not  seen  in  this  course  before  have 
+you seen this or not 
+student 
+thank god fine 
+so what is this 
+student diagonalization 
+the diagonalization of which matrix this matrix right and what was this matrix it was 
+x transpose x this is clear so what is the solution all rows always lead to 
+student eigenvectors 
+eigenvectors right 
+so we want p transpose sigma p to be a diagonal matrix and we know which are the set 
+of vectors which i put in p such that they will diagonalize sigma 
+student eigenvectors 
+eigenvectors of 
+student 
+x transpose x right ok wait why did i put this it is the matrix of the eigenvectors right 
+so it is a matrix of the eigenvectors of x transpose x 
+so  now  have  we  finished  it  do  we  know  principal  component  analysis  now  so  we 
+started with the intuition that we wanted to transform the data ok i cannot stress enough 
+that we want to transform the data not chopped off dimensions from the existing data ok 
+that means we need to project the data to a new basis and we had a couple of conditions 
+the  variance  should  be  high  and  the  covariance  should  be  zero  we  have  satisfied  one 
+condition  which is  the covariance is  zero and we  arrive  at  a solution  which says that  the 
+eigenvectors forms the basis that you should project on so that the covariance would be 
+zero 
+so we have a solution we know exactly which basis to use to represent the data ok so 
+that  the  covariance  condition  is  satisfied  what  about  the  variance  did  we  do  anything 
+about the variance 
+student 
+so we will come back to that ok fine 
+why is this a good basis what does the what is a good basis the best basis 
+student orthogonal 
+orthogonal right because the eigenvalues of x transpose x are linearly independent that 
+ok and they are also orthogonal because x transpose x is a dash matrix 
+student 
+ok 
+good real symmetric 
+so this method is called the principle component analysis for transforming a data to a 
+new  basis  and  that  where  the  dimensions  are  nonredundant  because  they  have  low 
+covariance and not  noisy because they have high  variance the second  part  i have not 
+proved right  and  i will get  to  that at  some point fine no that is  what  we saw right  no 
+what is i did not get that now in practice how many eigenvectors would you have 
+student n eigenvector 
+n eigenvectors do you want to keep all of them which ones will you throw away 
+student 
+the low variance ok 
+and now in the next interpretation actually we will try to see what is the what happens 
+when  you throw  away the least  important  dimensions right what  do  you mean by  the 
+least important dimensions 

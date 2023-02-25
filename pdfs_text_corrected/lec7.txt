@@ -1,0 +1,16 @@
+now since i mentioned rl so we will go on to the next chapter which was now 
+becoming much more ambitious with what you can do with deep learning and people 
+started beating humans at their own game quite literally 
+so there was this starting with atari games in two thousand and fifteen where resources from deep mind 
+show that you could train a deep neural network to play atari games and do much better 
+than what humans do so that is something that they were able to show on atari games 
+and then people started looking at other game 
+so then there was this go and this popular tournament and which alphago which is 
+deep reinforcement learning based agent was actually able to beat the reigning champion 
+at that time one of the best players of go at that time 
+then   even   at   poker   were   something   known   as   deepstack   which   is   again   a   deep 
+reinforcement learning based agent which is able to beat eleven professional poker players at 
+this game 
+then other games like defense of the ancients since on which is a much more complex 
+strategy based game where again deep reinforcement learning based agents have shown a 
+lot of success in beating top professional players on this game 

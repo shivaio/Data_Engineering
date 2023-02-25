@@ -1,0 +1,116 @@
+contractive autoencoders 
+so with that we will move on to something known as contractive autoencoder so this 
+is yet another type of auto encoders again with the same aim that you want to do some 
+kind of a regularization 
+so it again tries to prevent and over complete auto encoder or even an under complete 
+auto encoder for that point from learning the identity function 
+so it does not allow you to simply copy the inputs to the outputs that is what it is trying 
+to learn and it does so by adding the following the regularization term to last function 
+and the way it does this is by defining the following regularization term ok what is this 
+term ok let us see some things which we already know what is this frobenius norm 
+of some matrix what is this matrix 
+student jacobean 
+jacobean what is the jacobean 
+student 
+what are the two variables here that you see 
+student h 
+h and 
+student x 
+h is a scalar matrix vector 
+student vector 
+vector x 
+student vector 
+vector right so it is some function between two vectors ok and it is a matrix so take a 
+guess how many entries would not you have if x is r n and h is r k 
+student n cross k 
+n cross k even if  you do not know what the  entries are  you are able to  guess that it is 
+going to be a n cross k matrix right 
+now let us see what this n cross k matrix looks like ok 
+so it has the input has n dimensions and the hidden layer has k dimensions so this is 
+what the jacobean looks like 
+what is the first column if the partial derivative of every neuron in the first hidden layer 
+with respect to the first input right and now you can see what the other columns would 
+be  this  is  what  the  jacobean  is  this  basically  the  derivative  of  h  with  respect  to  the 
+vector  x  answer  is  just  you  are  taking  a  derivative  of  a  vector  with  respect  to  another 
+vector you will get a matrix as the output ok now what does the jl’th entry here capture 
+actually 
+student 
+what does a derivative capture 
+student 
+how much does h l change with a small change in 
+student x k 
+x k right that is what a derivative captures is that fine and then what does the frobenius 
+norm capture it is just the square of sum of the square of all the elements of the matrix 
+right so it is basically how much each of these elements vary with respect to the input 
+and  we  are  just  taking  the  square  of  that  so  you  see  what  is  the  term  that  we  have 
+added 
+now tell me what is intuition behind this ok so when would this term so remember 
+this term is added to the loss function and you are trying to minimize the loss function 
+so that means you want this term to go to 
+student 
+you want the frobenius norm to be 
+student zero 
+zero right ideally of course that will not happen because there is always a tradeoff between 
+l theta and omega theta if you make it zero then l theta would be very high right 
+so now what would happen if one of these guys say dou h one by dou x one actually goes to 
+zero what does that mean h one is not sensitive to variations in x one right fine but was our 
+original mandate what did we want these neurons to capture we wanted the neurons to 
+capture these important characteristics right 
+so if x one changes we want h one to change do you get that how many of you get that 
+we  wanted  the  neurons  to  capture  the  important  characteristics  of  the  data  right  but 
+now we have added a contradictory condition which says that we do not want the neuron 
+to capture a variations in the data do you see this so what is happening here l theta 
+says that i should be able to capture these variations right otherwise i will not be able to 
+reconstruct 
+if  all  my  h  i’s  are  not  sensitive  to  variances  x  one  that  means  i  give  it  any  x  one  it  will 
+produces the same h i is that clear is that with ok everyone right that means so see this 
+is this so i have these training examples occurs all these training examples my bold x 
+which  is  vector  x  is  going  to  change  that  means  xi’s  which  are  the  elements  of  this 
+vectors are going to change 
+now what this condition is saying is that if i change xi i do not want the h l’s to change 
+i  do  not  want  the  values  of  the  hidden  representations  to  change  so  that  means  it  is 
+changing the respective of what is the input fed to it try to produce the same output do 
+you get this argument ok that means it is not capturing any important characteristics 
+of the data is that fine is that valid argument but that is not what we wanted we wanted 
+it to capture the important characteristic of the data so what are we trying to do now 
+so just i it is hard for me to do evaluate what you have said but just pay attention and 
+see if that is correct you can judge it on your own right so that is the actually the idea 
+right  we have put  these  two contradictory  conditions with each other right  l  theta says 
+capture the important variances of the data omega theta says do not capture variations in 
+the  data  watch  the  tradeoff  capture  only  very  important  variations  in  the  data  do  not 
+capture the variations which are not important can you relate this to something that you 
+have seen before 
+student bias variance 
+no the other answer there are only two answers bias variance and pca when i say the 
+other answer 
+student pca 
+what  am  i  trying  to  force  it  to  do  capture  only  the  important  variation  it  is  if it is  not 
+clear right now we will come back to this ok 
+so let us try to understand with this with the help of an illustration right how many of 
+you get the argument which i made on this slide ok most of all 
+now  this  is  the  situation  i  have  u  one  and  u  two  as  my  dimensions  fine  which  of  this  is 
+important u one the variations in the data across u one is something that i should care about 
+because i can see that brings in some difference what about the variations in u two 
+student not important 
+not  important they seem  like noises because these variations are there they  are not  all 
+lying on the central line they are slightly away from the line here are some variations 
+but should i go out of my way to capture these variations does it make sense to do that 
+no right so it makes sense to maximize a neuron to be sensitive to variations along u one 
+but  it  does  not  make  sense  to  make  the  neuron  sensitive  to  variations  along  this  other 
+dimension  which  is  u  two  ok  by  doing  so  we  can  balance  the  two  conditions  so  one 
+condition was trying to capture all the important variations ok do this but do it only for 
+the  dimensions  which  really  matter  the  other  conditions  says  that  do  not  capture 
+important variations ok do this but do it only for those dimensions which do not matter 
+what is this remind you of at least the diagram should have it away right 
+student 
+it is same as principle component analysis right so that is exactly what you try to do in 
+pca  you  try  to  capture  the  variations  across  the  important  dimensions  but  not  across 
+the  non  important  dimensions  how  many  of  you  get  the  concept  of  contractive  auto 
+encoders ok good so i think that is a where we will end lecture seven 
+and  just  a  quick  summary  so  we  showed  that  under  certain  conditions  auto  encoders 
+are equivalent to pca 
+and we use this result very crucially there that svd theorem i will not state it 
+and  then  we  looked  at  different  types  of  regularizations  for  auto  encoders  where  we 
+looked at  weight  decaying that  means the standard  l2 norm we looked at  the sparse 
+auto  encoder  the  contractive  auto  encoder  and  we  also  looked  at  these  denoising  auto 
+encoders right so that is the summary of this lecture 

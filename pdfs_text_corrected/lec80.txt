@@ -1,0 +1,110 @@
+so what i will do is i will quickly go over what we were doing yesterday and then by 
+the time people come in we can start with the new stuff right so we were looking at 
+so that is so this needs to be corrected someone who pointed out yesterday same as bag 
+of words it should be same problems as the bag of words model so we are trying to fix 
+this problem where we have this large softmax computation which is very inefficient 
+and you wanted ways of getting rid of that so the first thing that we were looking at is 
+using negative sampling 
+and here the key idea was to con construct this d and d prime where d prime was the 
+random corpus and d was a true corpus 
+and how do you create this random corpus is something that was left at the end and 
+which i need to go over today 
+so i will go over that and then we realize that this actually could be modeled using such 
+a network where you take the dot product between the word representations 
+and try to maximize this to dot product for all the correct pairs by setting up your loss 
+function accordingly 
+and try to maximize or rather minimize this dot product minimize this dot product for 
+all the incorrect pairs by again setting the objective function appropriately 
+so we had this objective function where we want to maximize the probability that the 
+pair is correct for the correct pairs and maximize the probability that the pair is incorrect 
+for the incorrect pairs and both these probabilities we had modeled using a sigmoid 
+function and inside the sigmoid function we had the dot product between the 
+corresponding representations 
+so the net effect is you either maximize the dot product of the correct pairs or minimize 
+the dot product of the or rather and in minimize the dot product of the incorrect pairs 
+fine 
+and then so now today the part which was remaining about the comparison between d 
+and d prime so what i was saying last time is that d prime is actually k times d that 
+means in sample more negative examples than positive examples so if you think about 
+it actually the number of negative examples in the language is much much more than a 
+number of positive examples let us say if you have fifty k words in your vocabulary most 
+of them do not appear together right so that number is actually very very large as 
+compared to the number of words which can occur together 
+so how do you account for this natural imbalance so they said that if you keep it 
+same then we are saying that the size of d prime and d is going to be same that means 
+the words which appear together and not to appear together we are keeping those two 
+corpora as the same so that does not sound reasonable so they decided that we will 
+keep it k times ok now this k was a hyper parameter which was tuned based on the 
+data that they had and can you guess how they would have tuned it no what do you 
+tune your parameters on what did how did you tune your parameters for the back 
+propagation of the word no using what 
+student validation set 
+a validation set is it too early in the morning it fine validation set so they might have 
+had some validation set and if you look at the original word to word code which 
+someone had posted yesterday which allows you to compute the distance matrix right 
+so you could what you could do is you could learn these representations take a few 
+pairs of words and take a few pairs of good words right say cat and dog or cat and 
+feline and so on and also bad words like cat and truck bad combinations rather and see 
+if the distance between cat and truck is much higher than the distance between cat and 
+feline or cat and dog 
+so you select that k which gives you the best performance on your validation set and the 
+validation set here would essentially be to find if you get good representations for word 
+pairs that you care about and for word pairs that you do not care about ok now the 
+other thing was how do you create this r so you have v words in the vocabulary you 
+are looking at one of those w 
+you know that some of those have appeared with w in some context but there is this 
+large set which has not appeared with w in any context right so you are going to draw 
+r from this set and the simplest 
+thing to do would be to just draw the uniform 
+distribution that means all words and let us call this suppose there are capital r words 
+here all of these words could be drawn from using the probability one by r where r is 
+less than v 
+is that fine that is one way of doing it just randomly pick any word from the remaining 
+words and put it a pair it with w but you would also want to account for the individual 
+frequencies of those words right if the word is actually very frequent pair it up more 
+with w if it is not frequent do not pair it up enough does that make sense so i could 
+actually use the frequencies of each of these words and sample according to that 
+frequency right instead of using a unigram distribution 
+so they did something similar but they had this hyper parameter again so basically i 
+was sampling using the probability of r which is equal to count of r divided by the 
+number of times number of all the words in the corpus that is actually the frequency of 
+r divided by the total number of words in the corpus so instead of just taking that they 
+had this wearied factor of three by four do you we realize that if you take this three by four you get 
+the best performance 
+so let me just make a few comments on that so the original code of or rather the 
+original skip gram or the bag of words model actually worked very well and it kind of 
+hard a lot of seminal effect or a lot of revolutionary effect on the field of nlp right so 
+now everyone started talking about word vectors and how you can use this meaningful 
+representations of words as features for various down steep nlp thus right 
+so at the end in nlp what you are doing is you are collecting of a bunch of words a 
+document or a sentence or something and trying to do some processing on that now 
+earlier used to construct features out of these sentences using some handcrafted features 
+but now someone said that there is this automatic way of constructing word features 
+right which is using this method so people really bought onto that idea and a lot of 
+work started happening and then later on at the end of the course we will see something 
+that what it eventually led to 
+but later on when people started analyzing this more carefully right they realized that 
+the original word2vec implementation had a lot of these heuristics or lot of these 
+parameters which need to be really tuned to the core for it to be able to compete with 
+svd right so that is what we look at the end so svd was already one way of 
+computing word representations ah which while popular was not so popular it was used 
+for various reasons but 
+like every npl application is using svd 
+representations right but now it is almost like every npl application is using word 
+representations 
+it was not 
+it 
+so later on we will see that some of these things like three by four or k the value of k the 
+value of learning rate and some other hyper parameters if you really tuned them very 
+very well 
+the world 
+representations learned by svd or rather the other thing that if you introduce some 
+parameters in svd and tune them because remember for svd there was no tuning right 
+we just got a solution we just had the closed form solution which is the eigen vectors 
+is only then that as this word2vec algorithm can beat 
+but you could do some things for creating the cooccurrence matrix if you introduce 
+some factor there which is also looks like this three by four or something like that or if you 
+also introduced something which looks like a k then you will be able to get the same 
+kind of representations or equally powerful representations from svd as what you get 
+from word2vec so that is why i am stressing on these hyper parameters there is some 
+significance of those 

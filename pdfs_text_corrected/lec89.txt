@@ -1,0 +1,287 @@
+ 
+ 
+so we will start from where we left  yesterday so this is what we had seen yesterday 
+we saw what’s the difference between a convolutional neural network and a feed forward 
+neural  network  and  we  focused  on  two  main  properties  one  is  sparse  connectivity  and 
+the other was weight sharing that is about it and then we saw that this representation of 
+i  mean  we  saw  this  diagram  about  how  to  you  could  have  multiple  kernels  and  each 
+kernel  would  apply  across  the  entire  image  and  the  weights  would  be  shared  for  that 
+kernel 
+so far we have only focused on the convolution operation and even when you have seen 
+the  neural  network  or  the  convolutional  neural  network  we  have  only  seen  the 
+convolution layers  right so there is something more in a typical convolutional neural 
+network and that is what i was about to start yesterday so we just continue from there 
+so this is what a full convolutional neural network looks like so ignore these things for 
+now all these parameters etcetera as a just ignore for them i will just walk you through 
+what is important in this diagram right 
+so  your  input  is  an  image  and  the  tasks  that  you  are  dealing  with  here  is  digit 
+recognition or handwritten digit recognition right and what you see here is that you have 
+taken an input which is a two dimensional input and then the next layer you actually see one 
+two three four five six outputs so what does that mean 
+student 
+you have use six filters apply them throughout the filter throughout the image each filter 
+gave  you  one  feature  map  and  so  in  this  layer  you  have  six  such  feature  maps  so  the 
+original  two  dimensional  input  has  now  become  six  two  dimensional  outputs  ok  after  that 
+there is something known as a pooling layer we will see what a pooling layer is in detail 
+now what i want you to understand is lets assume that what the pooling layer does is it 
+does some kind of a shrinking it takes the original output and shrinks it how it shrinks 
+it we will see in a while but let us see what happens after that so now you have one two 
+three four five six as  your input  so now  you have this is  your input this volume is  now  your 
+input  i  call  it  a  volume  because  it  has  depth  height  and  width  and  now  you  are  again 
+going to apply convolutions to that and what do you see how many outputs do we have 
+now we have sixteen outputs  right so what does that mean 
+student 
+i took this 3d input applied sixteen 3d filters on it each 3d filter give me one feature map one 
+2d feature map why one 2d feature map 
+student 
+because we are doing a 2d convolution we are taking a 3d filter but we are doing a 2d 
+convolution  right and then after that again this becomes my input and then do a max 
+pooling on top of that and then something else happens after that so there as which we 
+will come to later 
+so right now i just want to say that there is this input then you come out will come with 
+some output after applying convolutions now this becomes the input for your next stage 
+where you have done pooling now the output of pooling becomes the input for the next 
+stage so you will take this as the input apply some convolution on that get some output 
+and continue in this way right and we will come back to what these are 
+ 
+ 
+so  now  let  us  dive  deeper  into  what  is  pooling  what  does  the  pooling  layer  actually 
+do so here is your input again it is a volume and now when i say input you should not 
+just think of the input as this remember that all of these can be inputs right so now at 
+every  stage  once  you  have  got  an  output  for  the  next  stage  that  becomes  input  that  is 
+typically how it was even in the feed forward neural network right once you compute a 
+hidden representation that is the input to the next layer 
+so  i  have  some  input  at  one  of  these  layers  either  the  input  layer  or  any  of  the 
+intermediate layers and i apply a filter on that and that filter gives me some 2d output it 
+gives me one feature map and let us say this is what the feature map looks like 
+now what does the pooling operation do so i would apply two 
+two pooling with a stride 
+off two so let us see what that will do that means i look at this two 
+two region i will pick 
+up the max value from there that is why this is max pooling ok so the max value is eight 
+i  will  just  keep  that  then  i  am  going  to  do  a  stride  of  two  that  means  i  am  not  going  to 
+place it on this block i am just going to shift to the next block again i will take the max 
+from there which is four right and i continue this and i get this is the output so you see 
+why the shrinkage happens because i am taking a two 
+two area and i am shrinking it by a 
+picking up only one value from there right 
+so it actually kind of half the width and half the breadth so total of one by four reduction is 
+what you get but  you could also use a filter with stride off one so this is what it would 
+look like so you will place it here take the max value then the max value then the max 
+ 
+value and so on right so in that case you will get a lesser reduction and instead of max 
+pooling  you  could  also  do  average  pooling  that  means  instead  of  taking  the  max  of 
+these  four  you  could  take  the  average  of  these  four  is  it  fine  so  is  the  pooling  operation 
+clear and how it results in the reduction of the size of your input ok 
+so now what  we will do  is now that we have  some idea of what  a full convolutional 
+neural  network  looks  like  so  it  looks  like  alternating  convolution  and  max  pooling 
+operations we know what a convolution operation looks like in particular we know that 
+a 3d filter applied to a 3d input results in a 2d output because we are not applying the 
+convolution  along  the  depth  we  just  applying  the  convolution  along  the  width  and  the 
+height right so that is what we know so far 
+and  based  on  this  knowledge  now  we  are  going  to  see  some  success  stories  of 
+convolutional neural network right 
+so  we  will  start  with  the  first  one  which  is  lenet5  so  this  was  already  the  fifth 
+version this was around ninety-seven or ninety-eight or something and i had mentioned this when we were 
+doing the history lecture 
+so this is the input now you have decided to apply six filters you have said that the stride 
+is going to be one that means you are going to place at every location the spatial extent is 
+going to be five and the padding is going to be zero  now the question that i have for you is 
+how many parameters does this convolution layer have what are the parameters here 
+student the weights 
+the 
+student 
+the filters the weights in the filters how many filters do have 
+student six 
+six how many ways does each filter have 
+student twenty-five 
+twenty 
+student five 
+twenty-five right five cross five is a twenty-five so the total number of parameters is one hundred and fifty now i want you to 
+appreciate something here so the input was actually thirty-two cross thirty-two which i believe one thousand and twenty-four 
+and the output was twenty-eight cross twenty-eight right that is what the output you got that is i guess seven hundred and eighty-four 
+yeah so in a feed forward neural network if  you had x belonging to r1024 and your h 
+belonging  to  r  seven hundred and eighty-four  how  many  parameters  would  you  need  one thousand and twenty-four 
+seven hundred and eighty-four  how  many 
+parameters do you have here 
+student one hundred and fifty 
+one hundred and fifty much much smaller right this is because of 
+student 
+both  sparse  connectivity  as  well  as  weight  sharing  right  so  now  you  appreciate  the 
+difference between the twook and thats one of the reasons that even before this is for 
+example from ninety-seven ninety-eight one thousand, nine hundred and ninety-seven one thousand, nine hundred and ninety-eight right so even before the deep learning wave of two thousand and six 
+or the revival after two thousand and six right convolutional neural networks must still being trained for 
+even deep networks four to five layers because they  had much fewer parameters and that is 
+why  it  was  relatively  easier  to  train  them  as  compared  to  a  very  dense  feed  forward 
+neural network 
+ 
+so i want you to appreciate that fact now after this i have the pooling layer when i am 
+going  to  use  a  stride  of  one  and  f  equal  to  two  that means  i  am  going  to  pick  up  ok  so 
+now i am going to use a max pooling layer where i am decided to use a stride of one and 
+the max pooling will happen in the region of two 
+two and again k six because there are just 
+six  filters  so  max  pooling  happens  on  every  feature  map  independently  it  does  not 
+happen across the depth that means i am not going to pick the max along these six layers 
+i am going to pick the max along each of these feature maps so it is a per feature map 
+operation ok 
+and this since it is a two 
+two filter it will result in a size reduction and from twenty-eight 
+twenty-eight i will 
+get to fourteen 
+fourteen how many parameters is the max pooling layer have 
+student 
+wow good there is no parameters in the max pooling layer because you are not having 
+any weight matrices just taking the input and applying a simple max operation on that 
+there  is  no  w  transpose  x  or  any  kind  of  a  transformation  happening  there  now  this 
+becomes your input what’s the size of this volume 
+student thirty-two 
+fourteen cross fourteen cross 
+ 
+student six 
+six so all the filters that i am going to use from now on what is the depth of those filters 
+going to be 
+student 
+what is the depth going to be 
+student six 
+i want to everyone to answer 
+student six 
+six right because we are always going to assume that the depth is equal depth of the filter 
+is equal to the depth of the input 
+now here they decided to use sixteen filters and by the way you did hopefully notice that 
+this twenty-eight how did you get it from which formula 
+student w n minus 
+wn minus f plus 2p plus one right so that is the formula 
+so now we have a fourteen cross fourteen input and you have sixteen filters so what is the depth of the 
+output volume going to be 
+student 
+what is the depth of the output volume going to be 
+student sixteen 
+sixteen right and a ok so you have sixteen and you have a spatial extent of five 
+five just a minute 
+spatial extent of five 
+five how many parameters does this layer have i want  everyone to 
+say it 
+student four hundred 
+ 
+four hundred ok fine so that is 
+student 
+there are sixteen of these each is five 
+five 
+student 
+oh into six into d ok ok good then we made a mistake here also no there the depth was one 
+are  you  do  you  get  it  how  you  got  two thousand, four hundred  right  we  forgot  about  the  depth  so  each  of 
+ 
+these filters is five 
+five 
+depth right what is the depth six the same as the input right so 
+each of these filters is twenty-five 
+six which is one hundred and fifty 
+sixteen yeah fine is that ok did i confuse you 
+or everyone back on track pooling layer edge should have been two because of that half 
+reduction using 
+student 
+yeah  maybe  can  we  just  check  this  i  think  it  should  be  two  ok  yeah  there  was  a 
+question 
+student 
+student 
+go from the pooling layer to the next layer from here to the next layer ok 
+so now what is the depth of your input volume six and what is the width and height fourteen 
+cross fourteen so now every filter that  i  going to  apply at  the next  layer is  going to  have a 
+depth of six so i have decided to apply sixteen such filters so what is the depth of this layer 
+going  to  be  the  depth  of  the  output  is  equal  to  the  number  of  filters  so  the  depth  is 
+going to  be sixteen and all  my  filters are five 
+five but  what  we forgot  is  that  when  i  say the 
+filter  is  five 
+five  it  is  actually  five 
+five 
+six  because  the  depth  is  also  there  right  so  it  is 
+width into height into depth so that is this number of parameters in each of my filters 
+right  and  that  is  one hundred and fifty  and  i  have  sixteen  such  filters  so  that  gives  me  a  total  of  two thousand, four hundred 
+parameters is it fine ok ok 
+so  now  we  have  a  volume  of  size  sixteen  cross  ten  cross  ten  now  i  am  going  to  do  max 
+pooling on that  maybe  again  this should be two there was the same doubt  you had fine 
+so it will result in  a reduction in  the output and now what  is  the volume what is the 
+size of this volume five 
+five 
+sixteen and the parameters is zero max pooling layer does not have 
+any pooling 
+now after this what we have is something known as the fully connected layer ok so 
+now as i said the size of this volume is sixteen 
+five 
+five its arranged in these feature maps 
+but  i  can  always  flatten  it  to  get  one  single  vector  do  you  get  that  so  from  these  sixteen 
+feature maps each of five 
+five size i can flatten it out and get the single vector of size four hundred 
+do you get that ok so thats what i do in the fully connected layer 
+ 
+so now i am going to flatten this treated as a single vector and then fully connect it to 
+the next layer what  do  i mean by  fully connected dense connections no more sparse 
+connection  so  now  we  have  a  feed  forward  network  from  this  point  of view  so  you 
+have four hundred and that connects to a layer of size one hundred and twenty so what are the number of parameters 
+student four hundred into one hundred and twenty 
+ 
+four hundred into one hundred and twenty plus we will have one hundred and twenty biases so that is what this number is fine so this 
+is one fully connected layer of size one hundred and twenty after that i have another fully connected layer of 
+size eighty-four so the number of parameters would be one hundred and twenty into eighty-four plus eighty-four and after that i have 
+the output layer so the output layer this was twenty-six or whats the output 
+student 
+oh  but  the  this  is  digit  this  is  alphabet  recognition  right  ok  so  probably  they  have 
+done  the  computation  using  ten  but  it  should  have  been  using  twenty-six  as  the  output  layer 
+because you want to predict one of the twenty-six alphabets so you can assume this is twenty-six so it 
+would be eighty-four 
+twenty-six + twenty-six right that is the size of the output layer right 
+now do you observe something immediately is a something very striking immediately 
+in terms of the number of parameters 
+student 
+ 
+the fully connected layers clearly dominated right here we were dealing of order two thousand, four hundred 
+and max and here we just start with forty-eight thousand itself right so just keep this in mind that the 
+fully connected layers have the largest number of parameters that you have and we will 
+try to come back to this and see if we can solve this problem ok 
+so  now  when  you  see  a  convolutional  neural  network  you  should  be  able  to  reason 
+about the following things at each layer what is the size of the input volume what is 
+the size of the output volume what are the number of filters being used and what are 
+the  number  of  parameters  in  that  layer  right  if  you  can  reason  these  things  and  you 
+have  really  understood  what  is  actually  happened  and  unless  you  can  reason  these 
+things  i do not  see how  you can efficiently  code it up right  so  you should be able to 
+know that this is the size of the input this is the size of the output and so on and i guess 
+all of us are comfortable with others 
+so  now  how  do  we  train  a  convolutional  neural  network  what  is  the  answer  your 
+nodding  that  means  you  do  not  know  or  you  know  it  is  too  trivial  to  even  ask  this 
+question how will you train it 
+student 
+but  how  do  you  back  propagate  through  a  convolution  operation  that  is  a  very  nasty 
+looking operation 
+a  cnn  can  be  implemented  as  a  feed  forward  neural  network  with  what  being  the 
+difference 
+student 
+only some of these weights would be active all the gray weights will not exist only the 
+colored weights will exist right now can you back propagate to this network have  you 
+seen something similar before 
+student dropout 
+dropout right so if you could do that you can do this also so now if you take this view 
+of a convolutional neural network where so this is just to give you an intuition or make 
+you  feel  confident  that  once  you  know  the  backpropagation  algorithm  there  is  no 
+nothing much different from training a convolutional neural network operation ok 
+so everyone is fine with that how many of you agree with that that you can actually 
+train using the same algorithm with some smart coding required to make sure that these 
+weights  are  not  active  and  so  on  but  in  practice  of  course  you  will  not  do  this  in 
+practice you will define the convolution operation you will also define the derivative of 
+the  convolution  operation  and  then  use  that  right  because  that  would  be  much  more 
+efficient  this  is  very  inefficient  right  because  you  are  assuming  that  there  is  a  fully 
+connected network and then some things do not exist there so that is not thats the whole 
+point i mean you wanted to avoid such dense connections right 
+but  in  principle  you  could  have  just  used  this  and  trained  the  convolutional  neural 
+network  in  practice  you  do  not  need  to  worry  because  you  just  need  to  define  your 
+forward convolution operations and people like google and all who release tensor flow 
+torch and all will do the hard work of doing the back propagation for you right so you 
+never  have  to  write  back  propagation  in  your  life  apart  from  what  you  have  already 
+written in the assignment right that is why i make you go through that torture once 
+so  now  afterwards  afterwards  whenever  you  use  any  of  these  platforms  or  pytorch  or 
+torch  or  tensor  flow  the  back  propagation  comes  for  free  you  just  need  to  write  the 
+forward progression that means you just need to write convolution operations and you 
+dont need to worry about how the derivatives will be computed but i what i want you to 
+understand is that conceptually it is the same you can still use or in fact you still use the 
+same back propagation algorithm to train a convolutional neural network also everyone 
+is  fine  with  this  pk  ok  so  now  we  know  how  to  trained  a  convolutional  neural 
+network also 

@@ -1,0 +1,91 @@
+glove representations 
+so now from here we will move on to yet another way of learning word representations 
+which is known as the glove representations 
+so  the  count  based  methods  rely  on  global  co  occurrence  counts  from  the  corpus  for 
+computing  word  representations  that  is  what  we  saw  in  svd  they  look  at  these  co 
+occurrence counts and from there they build the word representations 
+the predict based models set  up a learning problem where  you have this feed forward 
+net network and it tries to predict certain things from the given words and then you learn 
+the parameters of that network and you set up the task in such a way that the parameters 
+actually  correspond  to  word  representations  so  this  was  the  difference  between  count 
+and  predict  based  methods  now  what  is  the  obvious  next  thing  to  do  like  hear  the 
+answer from a few of you but i want to hear it from everyone 
+what  is  the  obvious  next  thing  to  do  you  have  count  based  methods  you  have  predict 
+based methods combine the two right so come up with some kind of a hybrid so that 
+is exactly what glove does which is known as global vectors 
+so i will go back to the co occurrence matrix so remember x ij encodes the important 
+global information about the word i and j and whether you replace it by pmi or ppmi or 
+just keep the counts it just gives you some information about how many times these two 
+words actually appeared together 
+so x ij encodes this global information and i call it global because it is computed from 
+the entire corpus fine why not learn word vectors which are faithful to this information 
+so what do i mean by that suppose v i is the representation of the i’th word and v j as a 
+representative the j’th word which i want to learn i do not have these representations i 
+wanted to learn now this gives me the dot product between them which gives me the 
+similarity between them why not  i set up my task in such a way that this similarity is 
+actually proportional to this probability 
+so what does a similarly tell us how well these two go together what does p of j given i 
+tell us how likely j is given i right so does that make sense to have this analogy that 
+the dot product tells me the similarity the other notion of similarity is that how likely j is 
+to appear in context of i which is given by p of j given i so why not set up my task such 
+that  whatever  vector  as  i  learn  are  actually  faithful  to  this  global  similarity  that  i  have 
+computed from the entire corpus how many if you get this intuition 
+how many if  you see the difference between this and the predict based  models  in the 
+prediction  based  models  you  are  operating  at  one  word  pair  at  a  time  here  you  are 
+looking  at  these  global  counts  ok  we  are  trying  to  directly  learn  vectors  which  are 
+faithful  to  your  global  similarity  as  given  by  your  co  occurrence  counts  you  get  the 
+merger between the two methods you should not get it yet because we still have to do 
+something or at least you get the intuition now what is p of j given i it is actually this 
+ok 
+so i can write it as this ok and similarly i can write the other guy v j transpose v i and 
+that is going to be different because that is going to have p i given j instead of p j given i 
+so i will have log x ij is fine but instead of x i i will have x j here 
+now if i add these two equations so i am going to add this equation and this equation 
+so the left hand side i just get two times v i transpose v j because v i transpose v j is the 
+same  as  v  j  transpose  v  i  and  on  the  right  hand  side  i  get  certain  quantities  so  this  is 
+what i would actually want my word vectors to look at look like i would want my word 
+vectors  to  be  such  that  when  i  take  their  dot  product  they  give  me  the  quantity  on  the 
+right hand side and this quantity has come based on counts learned from the corpus 
+so i have counts on the right hand side and i have learnable parameters on the left hand 
+side  so  you  see  how  we  are  merging  these  two  but  how  do  you  learn  this  problem 
+now it is ok to say what i like what i have said now is that this is what i desire i desire 
+that my word vectors should be learned in such a way that they are faithful to the global 
+counts through the following equation this is what i desire desiring something is one 
+thing but now how do i set this up as a learning problem 
+so  when  i  ask  you  what  is  the  learning  problem  what  do  you  need  to  think  about 
+objective function good  that is a good start so  what is the objective function for this 
+what are the parameters of the optimization you are optimizing with respect to what the 
+v i is and the v j’s right all the word representations how many of those do you have v 
+each  of  size  k  so  those  are  your  parameters  for  optimization  now  what  is  the  loss 
+function if i give you the loss function it will look very very obvious but i do not want 
+to do that 
+so  just  continue  thinking  about  that  while  i  will  make  some  more  simplifications  to 
+what we have here now what is this count this is the co occurrence count how many 
+times  these  two  occur  together  what  is  this  count  the  number  of  times  the  word  i 
+appear so  this depends only on i what  is  this count the number of times the word g 
+appears  so  to  make  the  model  more  flexible  that  means  give  it  some  more  freedom 
+what i am going to do is instead of log x i and log x j i am going to introduce parameters 
+b i and b j ok 
+i am saying that these parameters can also be learned so effectively using all these three 
+i should be able to get this this is what i desire now set up the loss function using these 
+two things come on that should not be so hard what is this this is what you are trying 
+to predict what is this this is what you know is true because you have computed from 
+the  corpus  now  can  you  come  say  the  loss  function  the  difference  between  these  two 
+right  so  you  could  have  this  as  the  loss  function  this  is  the  predicted  value  using 
+models parameters this is the actual value computed from the corpus 
+so think of this that you are trying to learn the parameters in such a way that you end up 
+predicting this and if you predicted this you know you have done the right thing ok and 
+this you know already because you have computed it from the corpus so this is the true 
+value and this is the predicted value so as in any loss function predicted minus true the 
+whole square does that make sense how many if you are fine with this 
+so  now  how  will  you  train  in  this  network  gradient  descent  so  i  will  use  gradient 
+descent and you will get these parameters 
+so  there  is  a  bit  more  on  this  which  i  will  not  cover  actually  so  i  will  just  skip  this 
+slide you can go back and take a look at it it is a some slight modifications to this yes 
+so again the same idea that cat will go close to all the so here again you will have the v 
+i  and  the  uc  s  right  so  you  will  have  cat  will  come  close  to  all  the  words  that  it  co 
+occurs with feline will also come close to the same words so maybe i have not used to 
+right  notation  here  if  you  need  to  change  it  again  so  we  should  have  v  i‘s  and  u  j’s 
+right  so  again  you  have  one  word  matrix  word  representations  and  the  other  is  the 
+context representation then it is fine right that is the problem here how many if you get 
+that right again we have to have these two things let us change that everywhere 

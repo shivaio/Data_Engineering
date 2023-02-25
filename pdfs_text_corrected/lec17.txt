@@ -1,0 +1,154 @@
+representation power of a network of perceptrons 
+we will go to the next module where we talk about a network of perceptrons and then 
+we talk about the representation  power  of a network  of perceptrons  so  this  module 
+should have been titled  as network of perceptrons so now in particular  what we are 
+going  to see is  how any  boolean function whether  linearly separable or not can  be 
+represented using a network of perceptrons 
+now what do i mean by represented during a network of perceptrons what it means is 
+that i will give you a network of perceptrons you take any boolean function feed any 
+value of x1 to xn and the network will give you the same y as it is expected from the 
+truth table ok that is what representation means just to put it out clearly 
+and now i am going to again do a setup i am not giving you the solution i am just 
+making some set up and then we will discuss the solution 
+so for this discussion we will assume that true equal to plus one and false equal to minus 
+one so instead of zero and one we will assume minus one and plus one and these are your inputs 
+x1 and x2 we are taking the two input case and i will have four perceptrons first i will have 
+four perceptrons and i will also have very specific weights connected to form the inputs to 
+these perceptrons so red means minus one and blue means plus one right so the first two 
+inputs are connected with a weight of minus one the next two inputs with minus one plus one 
+plus one minus one and the last would be 
+plus one now once i have this i will set the bias of all these perceptrons to minus two so 
+that will that means they will fire only if they are weighted sum of the inputs is greater 
+than two now after this i will have one more perceptron so i had two inputs i converted 
+that to four values these four values are now going to feed into one more perceptron 
+and these weights i will not fix them these are the weights that i am going to learn ok 
+these and the final output of this perceptron which is the green perceptron is the output of 
+the network right so now coming back to what i said that it can represent any function 
+what i mean is that you take any function feed in any combination of x1 x2 this 
+network will give you y and i am telling you that it will match the truth table of that 
+function 
+now let us define some terminology this will also stay with us for the rest of the course 
+so this network contains three layers  the layer containing the inputs it is called the input 
+layer very creative the middle layer containing the four perceptrons is called the hidden 
+layer and the output layer which gives you the output is called the output layer output 
+perceptron which gives you the output is called the output layer right so you have a 
+input layer a hidden layer and an output layer 
+and the outputs of the four perceptrons i am going to call them as h1 h2 h3 and h4 and 
+the red and blue edges are called the weights for the layer one which we have not learned 
+we have actually set them by hand and the weights for w1 w2 w3 w4 are called the 
+weights for the second layer other the layer two weights and these are the weights that we 
+want to learn 
+now i make this claim that this network it can take any boolean function it can 
+implement any boolean function so this same network can implement any boolean 
+function that means if i take this network and if i try to learn the values of w1 w2 w3 
+w4 for any boolean function whether it was originally linearly separable or not i will be 
+able to implement it 
+so isn’t this an astonishing claim any boolean function do you think  this is an 
+astonishing claim well not really if you really understand what is happening here right 
+so let us see what exactly is happening here so when will perceptron one fire when the 
+input is false false zero zero will it fire for any other input when will perceptron two fire any 
+other input same for the next perceptron same for the next perceptron 
+so you start getting an intuition of what is happening here you do ok let us see so 
+now for this particular network now that i have given you some intuition of what is 
+happening basically every node or every neuron in the hidden layer is catering to one of 
+the inputs and it will fire only for that input it will not fire for anyone else 
+so now let us try to implement the xor function and see what are the so now let us 
+try to implement the xor function and see what are the set of inequalities that result 
+from this earlier when we try to look at the set of inequalities we ended up with a 
+contradiction let us see if that happens now so this is x1 x2 this is your xor function 
+so that is just like any truth table then i am noting down the intermediate values and 
+then my final input to the green perceptron is going to be summation of these and it will 
+fire if this summation is greater than equal to zero or else it will not fire 
+now for the first case when the input is zero comma zero what is h1 going to be one and 
+everything else is going to be zero that is exactly what we saw in the previous slide so 
+what is the summation going to be just w1 right so it is w1 h1 plus w2 h2 so on but h2 
+to h4 are zero so only thing that remains is w1 for the second case w2 for the third case 
+w3 for the 4th case w4 
+so is it clear now what is happening let us go a bit more into detail right so now for 
+the xor condition what are the conditions that we need w1 should be less than w0 
+because this should not fire w2 should be greater than equal to zero w3 should be greater 
+than equal to sorry w naught not w is not zero and w4 should not fire so w4 should be less 
+than w0 are there any contradictions here by design no right so we have made sure 
+that for the final layer only one of these guys feeds to it 
+so it does not matter what the remaining outputs are they do not interfere with each 
+other unlike earlier where we had conditions like w1 should be something w2 should be 
+something and then w1 plus w2 should be something there are no such contradictions 
+here because we have made sure that every neuron in the middle layer actually caters to 
+one specific input and now the weights in the final layer can be adjusted so that we get 
+the desired output for that input 
+so i can set whatever value of w1 i need to set so that i can fire the neuron in fact i 
+could just fix w0 as zero and then i can adjust the weights of w1 w2 w3 w4 and i can 
+implement the xor function so are you convinced that this can be used to implement 
+any boolean function how many if you are not convinced so the negative question 
+never works how many if you are convinced sure 
+now what if we had three inputs 
+before that it should be clear that the same network can be used for any of the remaining 
+fifteen functions and for each of these functions we will end up with a different value of w1 
+w2 w3 w4 but you will be able to satisfy the truth table right and you can go home and 
+try it which i am sure you will do 
+ah so what if we have a function of three inputs two hundred and fifty-six what is two hundred and fifty-six no 
+eight fine sure 
+so this is what it will look like and anything specific about the weights of the initial 
+layer can you tell me what the weights would be just tell me red red red red blue blue 
+whatever colours you like this thing first perceptron what would the weight colours be 
+red red red then 
+enough so this is how it will look right right and now this same thing will work with 
+the same logic for any boolean function of three inputs you will get these eight inequalities 
+and they will not interfere with each other and you can set the values of w1 to w8 so that 
+you can satisfy it ok fine 
+so what if we have n inputs 
+two power n perceptrons in the middle layer right ok 
+so now here is the theorem any boolean function of n inputs can be represented exactly 
+by a network of perceptrons containing one hidden layer with two raised to n perceptrons 
+and one output layer containing one perceptron we just saw an informal proof of this we 
+just constructed i just gave you the answer it this is how you will get it now note that a 
+network of two raised to n plus one perceptron  is it sufficient or necessary or both 
+sufficient yes that is what it says is it necessary 
+no we already saw the and function  which we can just represent using a single 
+perceptron right so it is not necessary but it is sufficient so this is a very powerful 
+theorem if you think of it right so now this whole objection right remember this history 
+and when we have the c i winter when people showed that perceptron cannot handle the 
+xor function that is for a single perceptron 
+if you have a network of perceptrons you can actually have any boolean function but 
+what   is   the   catch   as   the   value   of   n   increases   the   number   of   neurons   increases 
+exponentially right but still in theory you could have a solution 
+now again why do we care about boolean functions i keep coming back to this why do 
+we care about boolean functions because you took this and so the question that i the 
+question that i want to answer is how does this relate back to our original problem 
+right we know any boolean function can be implemented how do we go back to our 
+original problem which is whether we like a movie or not right 
+and you could see that there is a whole family of problems there right whether we like 
+a movie or not whether we like a product or not whether i want to go home today or 
+not yes no any kind of a yes no problem it is a whole family of problems there 
+so let us see so we are given this data from our past experience right so we are told 
+that this is what the movie looks like these are the actor’s director’s joiners everything 
+we also know whether we like these or not 
+so we have a set of positive points and we have a set of negative points right and now 
+we want to have a computational model which can satisfy this data that means once the 
+model is trained once whatever algorithm i algorithm i use has converged it should be 
+able to give me the correct output for a given input that is what we are interested in and 
+that is a real classification problem that we are interested in now for each movie we are 
+given these factors as well as the decision 
+and i said pi’s and ni’s are positive and negative points the data may or may not be 
+linearly separable it is not necessary that the data is linearly separable those were the 
+goody cases it but in general that may not happen but do we worry about it now no 
+what the previous theorem told us is that irrespective of whether your data is linearly 
+separable or not i can give you a network which will be able to solve this problem 
+modulo that it might be very expensive in the number of neurons in the middle layer 
+but if you keep that aside i have a solution for this 
+and that is why we care about boolean functions because many problems we could 
+actually cast to it in a simplistic way if we ignore the real inputs and if you even think 
+of the real inputs suppose it could take all values between zero to one you can always make 
+it binary you could say that is the value between zero and one is the value between one and 
+two and you could make it as small the scale as small as possible right so that is why 
+we care about this 
+so the story so far has been that the network of networks of the form that we just saw it 
+which contain one input layer output layer and one or more hidden layers these are 
+known as multilayer perceptrons but a more appropriate terminology would be multi 
+layered network of perceptrons 
+because the perceptron is not multilayered you have a network of perceptrons and that 
+network has many layers right but generally there is abuse of notation we always call it 
+mlp which is multilayered perceptrons and the theorem that we just saw gives us the 
+representation power of an mlp and basically tells us that it can represent any boolean 
+function that we want to deal with so that is where we will end this class and in the 
+next class we will talk about sigmoid neurons 

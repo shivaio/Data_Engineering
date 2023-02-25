@@ -1,0 +1,612 @@
+lecture  seven 
+welcome  to  lecture  seven  of  the  course  on  deep  learning  cs  seven thousand and fifteen  in  this  lecture  we  are 
+going to talk about auto encoders and we will focus on their relation with pca then talk 
+about regularization in auto encoders wherein we will look at denoising auto encoders 
+sparse auto encoders and contractive auto encoders so let us begin with the introduction 
+to auto encoders what they are 
+so this is what a typical auto encoder looks like and as you can see this is very much 
+like  a  feed  forward  neural  network  you  have  an  input  which  is  x  i  so  you  are  given 
+some  training  data  you  are  given  some  i  samples  x  i  to  x  n  so  this  is  your  training 
+matrix  x  which  we  have  seen  in  the  previous  lectures  so  this  is  one  of  those  training 
+inputs x i and then you have a hidden layer and then an output layer so let us look at 
+what is the configuration of the hidden layer and what does the output layer actually try 
+to do 
+so it is a very special type of a feed forward neural network what it does is it encodes 
+with input x i to a hidden representation h ok and it uses an encoded function to do this 
+so this is what the encoded function does it first does a linear transformation 
+so w is a matrix and x i is a vector and you again have the bias b as a vector right so 
+let us look at these dimensions right so let us try to fix some dimensions so suppose x i 
+belongs to r n that is what we have been considering throughout the course so far and 
+let us say h belongs to r d 
+so it is  a d dimensional  representation so in  that  case what  would w be  yeah so w 
+would be r n cross or the d cross n right so it will multiply with the n cross one vector 
+which is x i and give you a d cross one output right and similarly the b would also be d 
+cross one and then on top of that you have this non linearity g which will be operating at 
+element wise just as we had seen earlier so it could be any of the sigmoid functions the 
+logistic or tanh and so on 
+so the end result is you have taken an input x i and encoded into a hidden represent h by 
+using a linear transformation first and then a nonlinear transformation right so i refer 
+to w x plus b as a linear transformation because it is a matrix multiplication now once 
+you have constructed this hidden representation 
+the job of the decoder or the latter half of the feed forward neural network which is this 
+half is to take this encoded representation and then try to reconstruct x again from it 
+so again let us first look at the equation so this is the equation for the decoder where 
+again  you  first  take  the  hidden  representation  do  a  linear  transformation  and  then  you 
+again  have some function on  nonlinearity on top of it right  so  we will see what  this 
+function can be so we will refer to it as f for now we will not say whether this is sigmoid 
+or linear or what kind of a function it is we will come back to it later on 
+so now let us again look at these dimensions so what is x i x i is again r n and your h 
+was r d so you have to go from a d dimensional input to an n dimensional output so 
+again your w star is going it to be r d cross sorry r n cross d so it will multiply with a 
+d cross one vector and give you an n cross one output right and that will pass through some 
+function and it will give you x i hat which is a reconstruction of x i 
+so  why  are  we  trying  to  do  this  right  we  took  an  input  x  i  we  computed  it  is  hidden 
+representation by doing some nonlinear and linear transformation and then again we are 
+trying to  reconstruct  x i  hat so  why  are we trying to do this so reason we are doing 
+this  is  that  we  want  to  learn  what  are  the  most  important  aspects  or  most  important 
+characteristics of the input data x i right so if you compute a hidden representation h 
+which is presumably smaller than your original input data 
+and  from  that  hidden  representation  if  you  are  able  to  reconstruct  x  i  right  then  that 
+would  mean  that  this  hidden  representation  captures  everything  that  is  required  or 
+everything  that  is  yeah  everything  that  is  required  to  reconstruct  x  i  from  x  i  from  the 
+original input right 
+so the model will be trained to minimize the difference between x i and x i hat so you 
+want  to  make  sure  that  after  passing  through  this  bottleneck  which  is  the  hidden 
+representation you are able to reconstruct x i and the reconstructed output is very close 
+to the original input right 
+so  can  you  see  an  analogy  with  pca  where  you  are  trying  to  find  this  hidden 
+representation or this most important elements of the original input x i so there we had 
+used this linear transformation where we are taking the original input x and transformed 
+it to a new basis and we had used that basis for representing the original input right so 
+something  similar  is  happening  here  we  are  using  this  hidden  representation  h  to 
+represent our original input 
+now let us consider a few cases the first cases when the dimension of h is less than the 
+dimension  of  x  i  in  this  case  as  i  was  trying  to  say  earlier  if  we  are  still  able  to 
+reconstruct x i hat perfectly from h then what does it say about h it tells us that h is a 
+loss  free  encoding  of  x  i  it  captures  all  the  important  characteristics  of  x  i  write  just 
+repeating what  i had said on the previous slide  and now  you can see an analogy with 
+pca because h has all the important characteristics required from the original input data 
+so  it  has  probably  got  rid  of  all  the  noise  or  all  the  low  variance  dimensions  or  the 
+correlated dimensions and so on and this is just the compact representation which is as 
+good  as  the  original  representation  and  from  there  you  can  reconstruct  the  original 
+representation  and  such  an  auto  encoder  where  the  dimension  of  the  hidden 
+representation  is  less  than  the  dimension  of  your  original  input  is  known  as  an  under 
+complete auto encoder 
+now  let  us  look  at  the  other  case  where  the  dimension  of  the  hidden  representation  is 
+greater than the dimensional of the original input ok such an auto encoder is i will tell 
+you what it is called so we will we are looking at the case where the dimension of the 
+hidden representation is greater than the dimension of the original input 
+so  now  in  such  a  case  the  auto  encoder  could  learn  a  very  trivial  encoding  by  simply 
+copying x i into h and then copying h into x i right so think of this from a compression 
+point of view right so now suppose you have ten bits initially right and then you want 
+to somehow compress it and store it only in four bits 
+and  now  this  four  bits  should  be  such  that  it  captures  everything  that  was  there  in  the 
+original ten bits because you would want to reconstruct the original input again right so 
+this is what we do typically when we compress any of our files right we have a larger file 
+we compress into a smaller information while making sure that everything important is 
+there so that whenever i want to recover it i can just recover it from there 
+so this is definitely a hard task but now what i am doing in this auto encoder is that i 
+had ten bits i am actually giving it more bits now because the dimension of h is greater 
+than the dimension of the input and then from these sixteen bits i want to reconstruct the ten 
+bits now this is a very trivial task right because all i could do is copy these ten bits into 
+the  first  ten  bits  here  leave  the  remaining  six  blank  and  then  from  those  ten  bits  just 
+reconstruct  the  input  that  is  very  very  trivial  if  you  give  me  more  storage  and  what  i 
+originally needed then definitely i can easily reconstructed 
+so this looks very trivial and this is what it could do right just copy the input to the first 
+the n bits 
+so this was n and this was d and we are looking at the case where d is greater than n so 
+it will just copy the input to the first n bits and then just take it back to the output just as i 
+said in the case of you have ten bits sixteen bits and then again ten bits it is very trivial to do 
+this 
+so such an identity encoding is useless because you are just not running any important 
+characteristics  of  the  data  your  h  is  almost  the  same  as  x  i  it  also  has  all  the  useless 
+information that x i had in fact it has slightly more because it has these blank units also 
+but  this  is  not  really  useful  right  why  would  you  want  to  actually  learn  such  a  hidden 
+representation right so it is not clear why would you want to do that so we will take a 
+look at it we will come back to why this is important 
+so such an auto encoder is known as an over complete auto encoder because it has the 
+hidden  representation  has  more  number  of  neurons  as  compared  to  the  original  input 
+now let us look at a case where this would actually be important right so this is a very 
+rough intuition for why you would want an over complete auto encoder 
+so let us consider the case where you have as input one of the features that you are looking 
+as  bmi  so  suppose  you  are  trying  to  find  out  whether  the  person  is  likely  to  get  a 
+certain  disease  or  not  right  so  whether  he  would  have  a  heart  attack  or  whether  he 
+would have a diabetes would have diabetes and so on and  you are looking at  various 
+parameters or various medical parameters of that person and one of them could be height 
+one of them could be weight and one of them could be bmi 
+now  for  whatever  reason  you  have  not  computed  the  height  and  weight  and  you  have 
+only looked at the bmi so now what has happened in your input and all of you know 
+that bmi is actually body mass index which is a function of the height and the weight 
+so now what has happened is that in your original input there was already this compact 
+the your feature space is already compact because you would actually look at you should 
+have  actually  looked  at  both  the  features  height  and  weight  but  for  some  reason  you 
+have only computed bmi and you could think of various some other correlated features 
+which are functions of many other features but you do not look at all those features and 
+just this final function of those features 
+so  now  in  that  case  if  suppose  your  prediction  is  that  this  person  has  or  has  a  high 
+likelihood of being of high likelihood of having diabetes at some point in his life then 
+you would want to know whether it was the height or whether it was the weight which 
+was responsible for this 
+so  in  your  original  input  your  features  are  actually  entangled  and  you  would  like  to 
+disentangle  them  right  so  you  would  want  to  go  from  this  smaller  feature  space  to  a 
+larger  feature  space  where  some  of  these  entangled  features  get  is  disentangled  so  in 
+those cases we reach an over complete auto encoder however the problem still remains 
+that  there  is  no  reason  why  the  machine  should  actually  learn  to  disentangle  these 
+features it could still just simply copy the bmi here and then copy it back here 
+so that is why when you are dealing with over complete auto encoders you will have to 
+do something special  to  prevent  this kind  of identity  encoding so  as  you just take the 
+input  and  copy  it  to  the  hidden  layer  and  then  copy  it  back  to  the  output  so  we  will 
+look  at  what  kind  of  special  treatment  you  need  to  do  to  prevent  these  kind  of  identity 
+representations 
+here is the road ahead so first we will talk about the choice of f x i g x i right so we 
+did not say anything about what these functions f and g have to be so we will talk about 
+those and then we will talk about the loss function so i have just told you so far that we 
+will train this model in a way that x i is very close to x i hat right and i have argued that 
+if  we  are  able  to  actually  achieve  that  that  x  i  hat  is  the  same  as  x  i  in  which  case 
+presumably presumably the loss would be zero that means our hidden representation has 
+captured all the important characteristics of the original data 
+same  as  in  the  analogy  of  ten  bits  to  four  bits  to  again  ten  bits  right  if  i  am  able  to 
+reconstruct  this  without  any  error  that  means  loss  is  zero  then  these  four  bits  or  the  hidden 
+representation  of  my  original  x  was  actually  able  to  capture  everything  that  was 
+important in x so that it can reconstruct x again as x hat without losing any information 
+right  so  that  is  the  loss  function  that  we  would  want  now  what  is  the  actual 
+mathematical formulation for this loss function that is what we will see next 
+so first let us start with the choice of f f and g so we will consider two case two cases one 
+case when your inputs are binary and the second case when your inputs are actually real 
+numbers right so the first we will look at the binary case so now just some notation 
+clarification  so  remember  our  original  data  was  this  matrix  x  which  was  m  cross  n 
+that means you had x one x two up to x n and each of these was r n 
+so now when i am referring to the entire row or entire data instance i will use bold x i 
+as i have circled here and i want to refer to one of the elements of this guy then i will 
+use this notation x i j same as what i have written here so what i am saying is that each 
+of these x i j‘s actually is a binary variable 
+now which of the following functions would be most appropriate for the decoder so 
+remember was the input was binary that means your output also has to be binary you 
+do not want to produce numbers arbitrarily large belonging to any or want do not want to 
+produce any real number you want to produce numbers which lie between zero to one so in 
+such  a  case  what  would  be  an  appropriate  loss  function  or  sorry  what  would  be  an 
+appropriate function for the decoder so remember i am asking you what would f  be 
+so  i  am  giving  you  three  choices  it  should  be  tanh  or  just  a  linear  decoder  or  a  logistic 
+function which of these would be most appropriate logistic why would that be because 
+it  will  make  sure  that  your  outputs  are  between  zero  to  one  tanh  would  give  you  outputs 
+between minus one to one but you do not want that because your inputs were between zero to one 
+so when you are reconstructing obviously you want outputs between zero to one you do not 
+one minus one to one and linear  of  course can  give  you any  real number which is  not  what 
+you want right 
+so if you produce any arbitrary real number like hundred and so on your loss is going to 
+be very high because your inputs were just zero to one and you are producing these arbitrary 
+real numbers which are very different from what your input was ok so in this case the 
+logistic  function  makes  the  most  appropriate  choice  and  g  is  typically  that  means  the 
+encoded function is typically again  chosen as a sigmoid function so it could either be 
+the logistic function or the tan h function right so the there is you could choose any of 
+these as the encoder function fine 
+now let us consider the other case where your inputs are real valued that means when 
+you  reconstruct  something  you  should  again  produce  real  values  that  means  your 
+function f should take whatever is the input given to it and map it to some real numbers 
+right so that is what we want from this function f earlier in the binary case we wanted 
+it to map it to binary numbers right so that is the difference that we have now 
+so  in  this  case  which  of  the  following  would  be  appropriate  the  second  one  right 
+because  tan  h  does  not  make  sense  because  it  will  just  produce  minus  one  to  one  but  you 
+want to produce any possible real number because some of these are actually higher than 
+one greater than one linear would be fine because it will produce any real number logistic is 
+again not fine because it will produce numbers between zero to one 
+so the logistic and tan h as  i said would clamp the output to certain ranges so that is 
+not appropriate hence you should choose the linear function and again in this case also g 
+is typically chosen as the sigmoid function fine ok so the next thing that we look at is 
+the choice of the loss function 
+and again  we will consider both  the cases where a case the first case is  the inputs are 
+real valued and the second case is when the inputs are binary 
+so  let  us  look  at  the  real  case  first  now  here  the  objective  of  the  auto  encoder  is  to 
+reconstruct  x  i  hat  to  be  as  close  to  x  i  as  possible  now  we  have  actually  seen  this 
+before  so  something  similar  before  when  we  were  talking  about  regression  so  now 
+you want to produce real valued outputs and they should match your real valued inputs 
+so  what  is  an  appropriate  loss  function  that  you  can  choose  the  squared  error  loss 
+function right 
+so what does this actually capture it says that for all my input data x one to x m for each 
+of these dimensions x one to up to x one n right i want to make sure that my original input i 
+will have a similar x hat reconstructed where i will have x one one hat x one two hat and x one n 
+hat 
+so i want to make sure that each of these pairs of variables are actually similar and i 
+can  capture  that  by  ensuring  that  the  squared  error  loss  between  the  ij’th  entry  in  my 
+output is the same as this or sorry rather i could capture the squared error loss between 
+the  ij’th  entry  in  the  output  and  the  input  ok  that  is  what  this  function  is  trying  to 
+capture straightforward similar things we have seen while we were doing regression 
+except that there we had y hat and y but here we are just trying to reconstruct the input 
+so there is no y here we just have the x ok and the parameters of the objective function 
+are of course all the variables or all the parameters that we have in a network which is 
+w w star c and b 
+and the matrix or the vector way of  writing this is  the following so  we have x i so 
+what i am looking at here is i have gotten rid of this summation and i am just written it 
+in vector form so let me just explain what this means so this is what x i would look 
+like right so this would be x i one x i two up to x i n ok this is the vector and then you have 
+the x i hat vector which is going to be x i one hat x i two hat up to x i n hat 
+so  taking  the  difference  between  these  two  vectors  that  is  what  this  term  is  so  what 
+you will get is essentially x i one hat minus x i one up to x i n hat minus x i n right and then 
+you are taking the dot  product  of this vector with itself which will essentially  give  you 
+this summation right so the dot product of this vector with itself is actually going to be 
+this summation it is going to be the sum of the squares of the elements of this vector and 
+that is exactly what we wanted 
+so this is a more compact vectorial way of writing the same thing and now we can just 
+train the auto encoder by treating it as a regular feed forward neural network this is just a 
+like any other feed forward neural network you have find the loss function 
+and you can just use back propagation to treatment right but and in this case all we will 
+need  is  a  formula  for  the  gradient  of  the  loss  function  with  respect  to  with  your 
+parameters which are w and w star i have again ignore the biases and the bias is here b 
+and c so we will also need dou l theta by dou b and dou l theta by dou c right so these 
+two gradients also you will need but these are generally the easier ones to handle if you 
+know how to compute this b and c are very easy 
+so let us look at this now what we need for back propagation as i said we will need this 
+gradient  right  all  these  four  gradients  but  let  us  focus  on  one  of  these  now  we  have 
+already  done  back  propagation  and  we  have  looked  at  arbitrary  neural  feed  forward 
+neural networks here right we did not have we just said that there are l hidden layers 
+and  in  this  case  l  is  equal  to  one  right  or  other  we  had  said  there  was  l  minus  one  hidden 
+layers and the l’th layer was the output 
+so in this case l minus one is equal to one that means there is just one hidden layer so it does 
+not  matter  we  had  actually  derived  it  for  the  general  case  when  l  is  equal  when  the 
+number of hidden layers is l minus one and here we just have one eight n layer so it is much 
+more simpler than what we had learnt and even for the number of neurons in the each 
+of  these  layers  we  are  just  assumed  general  that  it  could  be  r  n  and  in  this  case  we 
+would have some r d which is less than n or it could even be greater than n right 
+so but it does not matter because whatever algorithm we had or whatever equations we 
+had derived for back propagation they did not care about what this n or d was we had 
+just derive it in general terms right and the same for the output layer 
+we did not assume any number of inputs any number of neurons in the output layer we 
+again said that it has some k neurons but there the catch is in the earlier case when we 
+had  derived  back  propagation  we  were  dealing  with  classification  and  we  had  these  k 
+classes that we want to predict at the output 
+and in  which case our loss function was actually  the cross entropy  or the negative log 
+likelihood  function  right  where  we  were  trying  to  maximize  the  probability  of  the 
+correct class out of the k given classes but here our loss function is slightly different it is 
+actually this squared error loss between the input and the output 
+so  now  given  this  difference  in  the  loss  function  does  it mean  that  everything  that  we 
+learn  in  the  previous  lecture  on  back  propagation  we  just  have  to  throw  it  all  away 
+because now there is a new loss function that means my gradients are going to be very 
+different from what i had derived for the back propagation loss where i was looking at 
+the cross entropy loss as compared to the squared error loss so does it mean that i will 
+have to throw away all the hard work that we had done in that course in that lecture or 
+can we reuse something from them we can reuse 
+so let us look at what we can reuse and i will just give you an intuitive explanation for 
+that  so  you  can  think  of  this  as  a  composite  function  right  and  you  are  taking  your 
+input passing it through a lot of functions and then arriving at the output and then your 
+loss function is actually a function of the output itself 
+so what we have is something like this right we have a situation like this that you had 
+an input x you computed some function of it say x square right so i will call this as y one 
+then you computed some other function of it say y one say log of  y one right so they this 
+was log of y one so in effect it is actually log of x square because y one is equal to x square 
+and then some other function and then finally you had the output so you had this other 
+function which was sign of i am calling this y two so say this was sign of y two and finally 
+you had this function which was e raise to y three 
+so you have a very complex composite function of your original input right and this is 
+your final output function that you are considering which is e raise to y three now the way 
+you would do this is if you want to take the gradient of d l with respect to your input d x 
+right in that case what would you do is you just apply the chain rule you will write it as 
+dou l by dou y three dou y three by dou y two dou y two by dou y one and then dou y one by dou x right 
+and this is something very similar that we are done in the back propagation lecture we 
+had  constructed  this  chain  and  then  we  had  attacked  every  element  of  this  chain  and 
+derived how to deal with that right derived an neat expression for that 
+now the question which i am asking you is that in that lecture we had assumed a certain 
+l and that l was actually cross entropy but in this lecture i have actually changed the l 
+what i am saying is the l is actually equal to the squared error loss now does that mean 
+that i have to throw away all this work that i had done no right 
+so even in this example if you look at it suppose i change this function from e raise to y 
+three  to  say  square  root  of  y  three  so  i  have  just  changed  my  l  but  notice  all  of  these  other 
+guys  are  going  to  remain  in  the  same  because  y  three  is  still  sign  of  y  two  so  that  the 
+derivative of y three with respect to y two is not going to change even though i have changed 
+the  output  function  the  loss  function  everything  else  is  going  to  be  remain  in  the  same 
+right 
+so that means all these portions i could just reuse from the time when i had computed 
+for this chain i just need to rework on this final expression and plug it in right so that 
+is why all the work that we had done in the case of back propagation will not go to waste 
+in particular everything that we had done 
+so let me just go to the next slide so in particular everything that we had done for this 
+portion of the network right which is actually dou a two all the way up to dou w right so 
+if ok so let me write it like this i want dou l by dou w so i can write it compactly as 
+dou l by dou a two and then dou a two by dou w right 
+so this portion is not going to change because i am not change any of the functions here 
+i  have  just  assumed  sigmoid  or  logistic  or  the  same  kind  of  network  the  only  thing  i 
+have changed is something at the output layer so i will just need to recomputed this and 
+the rest of it can be reused right so that is the intuition which i wanted to give you 
+and that is exactly what is written on this slide so i am written it as dou l theta by dou 
+w star that is the first gradient i have interested in and i could write it as dou l theta by 
+dou h two dou h two and dou a two by w star right 
+now  this  portion  as  i  was  trying  to  say  is  something  that  we  have  already  seen  in  the 
+back  propagation  lecture  and  nothing  has  changed  in  the  network  in  that  part  so  you 
+can just reuse it as it is and this portion is  something that we need to  recomputed right 
+that is the only thing that we need to recomputed and plug it into our back propagation 
+code or the algorithm which we had in the previous lecture and similarly if you want to 
+do dou l theta by dou w it is the same idea here that you could write it as the following 
+chain  and  this  part  of  the  chain  you  already  know  how  to  compute  from  the  back 
+propagation lecture 
+all  you need to  do is  change the loss function and just try to  find the derivative of the 
+loss function with respect to  your output layer which is h two that is the final thing that 
+you have changed just as in my toy example i had changed e raise to y three to square root of 
+y three right that is the similar change that i am trying to do here fine 
+so  all  we  need  do  is  dou  l  theta  by  dou  h  two  but  dou  h  two  is  the  same  as  x  i  hat  right 
+because  that  is  my  output  and  my  output  i  am  calling  it  as  x  i  hat  so  i  need  to  take 
+actually the derivative of this so i am just using the vector form here i could have also 
+written it as this summation over i equal to one to n x i j minus x hat i j the two whole square 
+right i could have also written it as am i just writing it as the vector here in the vector 
+form  here  right  but  this  quantity  ultimately  is  going  to  be  a  scalar  because  it  is  a  dot 
+product between two vectors which is the scalar 
+so what i am doing here is taking the derivative of a scalar with respect to this vector 
+so what is that derivative going to be it is going to be a vector 
+and i am just so we have similar stuff in the past so you can actually easily work this 
+out  so  this  will  actually  turn  out  to  be  the  following  vector  which  is  to  times  x  i  hat 
+minus x i right so this is very simple i have just computed this and all i need to do is 
+go  back  and  change  my  back  propagation  code  and  change  this  derivative  of  the  loss 
+function with respect to the output clear and the rest of the code i can just reuse it as it is 
+so now similarly so we have both of these ready 
+now let us look at the other case when we have binary inputs ok this is the most more 
+this  is  something  different  that  we  will  have  to  do  here  so  we  will  now  look  at  the 
+second case where the inputs are binary so first we look at case when the inputs were 
+real numbers and hence your outputs also needed to be real numbers 
+now we look at the case where inputs are binary and hence your outputs also need to be 
+binary ok now here so each of these guys is actually a sigmoid functions so it is in or 
+rather  if  you  look  at  the  output  you  could  divide  into  two  parts  so  this  is  the  pre 
+activation and this is the activation so your this is actually the pre activation and this is 
+the activation right 
+so this activation is actually chosen as the sigmoid function or the actually the logistic 
+function  not  the  sigmoid  function  of  course  logistic  is  the  sigmoid  function  but  the 
+logistic  function  which  was  one  over  one  plus  e  raise  to  minus  z  right  so  logistic  of  z  is 
+equal to one over one plus e raise to minus z and remember that this sigmoid function was 
+element wise 
+that means this is a is a vector it has elements a one a two up to a n and then you know apply 
+the  sigmoid  to  it  you  get  h  which  is  going  to  be  sigmoid  of  a  one  sigmoid  of  a  two  and 
+sigmoid of a n right so it is just the sigmoid applied to every element of the activation 
+layer that means every element of this vector which have circled 
+so  now  in  this  case  your  outputs  are  going  to  be  between  zero  to  one  right  because  your 
+inputs were also between zero to one and your sigmoid or the logistic function is going to give 
+you clamped outputs between zero to one so since this is between zero to one we could actually 
+interpret it as probabilities right so we could say that whatever you are reconstructing 
+is actually telling you that with eight 
+suppose the reconstruction value is eight then you could think of it that with probability 
+eight it is telling you that the output should have been one right and if it tells you that the 
+output is two if the sigmoid gives an output as two then you could think of it that with 
+probably two the output was actually zero or rather the input was zero because an input is the 
+same as the output 
+so  that  is  one  way  of  interpreting  it  and  this  way  of  interpreting  it  why  does  it  make 
+sense  so  we  will  just  look  at  that  right  so  before  at  if  i  do  not  give  you  this 
+interpretation and remember that the sigmoid is going to produce values between zero to one 
+but not necessarily zero and one right it will try to be as close to zero when the input is zero but it 
+could  also  produce  five  and  so  on  and  when  the  input  is  point  nine  it  could  also 
+produce something like ninety-five 
+so at the output also you are going to get these vectors which are of which would look 
+something  like  this  right  and  suppose  you  are  input  was  zero  one  zero  one  now  can  think  of  a 
+suitable loss function for this yeah so again these are two vectors these are x hat and x 
+so  once  again  you  could  have  just  gone  with  the  with  a  squared  error  loss  right  you 
+could  have  taken  the  squared  error  difference  between  these  two  and  you  could  have 
+been fine 
+so  that  is  definitely  one  way  of  going  about  it  but  whenever  we  are  looking  at  these 
+binary  inputs  and  whenever  this  probabilistic  interpretation  is  possible  we  tend  to  do 
+something better which is look at the cross entropy loss instead of looking at the squared 
+error  loss  so  i  am  not  saying  that  the  square  error  loss  is  wrong  in  this  case  but  you 
+could  also  use  this  cross  entropy  loss  and  in  practice  for  our  binary  inputs  the  cross 
+entropy loss often works much better than squared error loss 
+so  let  us  see  what  i  mean  by  the  cross  entropy  loss  so  remember  that  you  have  n 
+outputs  right  that  is  why  this  summation  let  us  not  worry  too  much  about  what  is 
+written inside for the time being i will explain that but that is the i just want to explain 
+the summation first so what  you are saying is that for each of these green guys at the 
+output you are going to make some loss and you just want to some over that loss that is 
+what we are trying to see 
+now ideally  you could  have just written it as just  done what  you had done before  and 
+written this entire replace this entire box by this squared error loss and that would have 
+been just fine right of course there should have also have been this summation i equal to 
+one to m here because you are going over all the m training instances and for each of the m 
+training instances  you are trying to minimize this loss so  this two summations followed 
+by this squared error loss would just have been fine 
+but  instead  of  that  i  have  this  something  special  here  ok  so  let  us  look  at  what  this 
+special quantity is ok and now for that remember that i am trying to interpret each of 
+these inputs as a binary random variable i am saying that they can take values zero or one 
+so  i  can  think  of  it  that  when  i  am  given  that  this  value  is  zero  i  can  write  it  as  this 
+deterministic probability distribution where i have p and the probability mass is entirely 
+concentrated out on this zero value and my the probability mass on the value one is zero this is 
+something similar to what we had done earlier when we are given these labels suppose it 
+was apple orange mango and banana and the class label was given to us that this is an 
+apple then we could still write it as the probability distribution where all the mass was 
+concentrated on apple and everything else was here 
+so i am saying something similar here right so you could think of it that two possible 
+values can occur here one and zero and if i tell you this is zero right then i am telling you that 
+with  probability  one  into  it  is  zero  and  with  probability  zero  it  is  zero  so  i  still  write  it  as  a 
+probability  distribution  now  the  same  thing  i  can  have  at  the  output  so  for  this  unit 
+when i am trying to reconstruct it and if i produce the output as two then i can or rather 
+let us say eight then i can say that with eight probability i am predicting zero and with two i am 
+predicting a one right 
+so now i can think of this again as two probability distributions and once i some have 
+two  probability  distributions  i  know  that  cross  entropy  is  the  right  or  a  better  loss 
+function  to  look  at  right  and  what  is  cross  entropy  actually  in  this  case  it  would  be 
+given by summation i equal to one to two right or rather i equal to zero to one because if the those 
+are the values it can take p of i right into log of q i plus yeah so p of i into log of q i that 
+is how i can write it 
+so let me just since there are only two terms i can just expand this summation right so 
+i can write it as p i or rather p zero log of q zero plus of course it is a minus sign here this is a 
+minus sign at the out p one log of q one i can just open up because there are only two terms 
+so i can write it as this is that fine ok 
+now also i know that there is this relation between p zero and p one right that p zero is actually 
+one minus p one yeah similarly you have this relation between q zero and q one that q one is equal 
+to one minus q zero because the sum is going to be 1ok now let us look at this sum right so 
+in  the  binary  case  this  sum  becomes  interesting  because  now  suppose  your  input x i  j 
+right which is the entity that i am looking at suppose that was equal to zero in which case 
+all the probability mass would be concentrated on p zero and p one would actually be equal to 
+zero which means the second term would display 
+on  the  other  hand  if  x  i  j  is  equal  to  one  then  the  reverse  situation  what  happen  that 
+everything  would  be  concentrated  on  p  one  that  means  p  one  is  equal  to  one  and  this  guy 
+would become zero because p zero is going to be zero right ok so there is this another way of 
+writing it that  you could day that instead of x instead of writing p zero and p one  you could 
+just write it as x i j right into log q zero plus one minus x i j into log of q one 
+so now let us look at it again so when x i j is zero first which is the same which happened 
+here just an  in same thing right because whenever s x i j is zero p zero is 
+equal to sorry it should have been q one and log q zero sorry i made a mistake here so it have 
+been x i j into log q so or rather let me just rewrite it 
+so this is going to be actually i can write it as i look at this term first so i can write it 
+as x i j into log q one and then the second term i am going to write it as one minus x i j into 
+log  of  q  zero  right  and  then  i  am  going  to  simplify  this  further  but  let  see  what  is  the 
+consequence of this 
+so  now  whenever  x  i  j  is  equal  to  one  this  term  will  remain  and  the  second  term  will 
+disappear and that is exactly what was happening in our original formula right so this 
+is just an equivalent way of writing your x i j is equal to zero this term will disappear but 
+this term will remain that means log q zero will remain this is exactly what was happening 
+in our original formula right 
+so that is so now i have given you why a i can replace p zero and p one or rather p one and p zero 
+by x i j and one minus x i j and now i can make a similar argument for x hat i j also so i 
+can  think  of  q  zero  as  whatever  s  predicted  at  the  output  right  sorry  i  can  treat  q  one  as 
+whatever  is  predicted  out  one  output  so  whatever  my  sigmoid  function  predicts  i  can 
+think of it as it is predicting the probability of getting a one right so it is just predicting 
+the heads probability or the probability of getting one so i can instead q i q one i can write it 
+as x i j hat and similarly instead of q zero i can write as one minus x i hat i g right so did 
+you get that so these become very messy 
+so let me just clean this up and i will just go over this again right 
+so what i was trying to tell you is that in the ideal case you could have just replaced this 
+by  the  squared  error  loss  but  since  you  are  dealing  with  binary  inputs  you  can  do 
+something better because you can interpret the outputs as probabilities so when you get 
+a two here you can interpret it as it is telling you that the probability of this unit being one is 
+two it is very less and that is the same as saying that the probability of this unit being zero 
+is one right 
+so you can interpret this as a probability now if you think of it that way then you can 
+say that at the input you are actually given a probability distribution so which tells you 
+that  in  the  first  case  your  probability  distribution  looks  like  one  zero  right  because  all  the 
+mass is focused on value zero because your input is zero at that case and now suppose your 
+output was two right and  two is  what  you are treating as a probability of  so  this is the 
+probability of one this is the probably of sorry this is the probability of zero oops and this is 
+the probability of one 
+so if your output is predicting two that means it is predicting eight for zero and two for one 
+now if you think of it this way then you can capture the loss function between these two 
+guys using the cross entropy formula which is going to be summation i equal to zero to one p 
+i log q i is that fine ok and now i just said that the since there are only two terms i can 
+just write it as p zero log q zero plus p one log q one 
+then i focused on this relation between p zero p one and your input so whenever your input 
+is  zero  ok  your  p  zero  is  going  to  be  one  so  then  i  can  just  replace  p  zero  by  one  minus  my  input 
+right  so  if  the  input  is  zero  then  this  guy  is  going  to  be  one  and  that  is  exactly  what  this 
+expression is also going to be 
+so i can write it as one minus x j log q zero and similarly for this second guy whenever input 
+is one this guy is going to be one whenever my input is whenever my input is one this p one is 
+going to be one whenever my input is zero this p one is going to be zero so i can just replace p one 
+by  log  by  x  i  j  and  now  you  can  see  that  this  expression  evaluates  to  the  same  as  this 
+expression right you can substitute value of x i j zero or one you will get the corresponding p 
+zero  p  one  which  would  be  one  or  zero  depending  on  what  your  input  was  and  these  two 
+expressions will evaluate to the same thing 
+so just as i replaced the p’s by x i’s x i j’s i can similarly replace by a the q’s by x i j 
+hats  right  because  once  again  q  zero  is  nothing  but  one  minus  whatever  my  output  was 
+predicted  because  whatever  is  predicted  i  am  treating  as  the  probability  of  getting  a  one 
+so one minus that is going to be the probability of getting a zero so that is what q zero is and 
+similarly q one  i can  replace by x hat  i  j and so that is exactly  what  i have done in this 
+expression here 
+so now this expression every term in  these n terms captures the cross  entropy  for that 
+particular  random  variable  right  so  this  is  the  original  distribution  p  for  this  random 
+variable this is the predicted distribution q for this random variable and i have just told 
+you  that  this  the  cross  entropy  between  these  two  distribution  can  be  written  in  this 
+simple form as the function of x i j and x hat i j 
+so  this  is  the  standard  thing  to  do  when  you  are  dealing  with  bernoulli  random 
+variables so you can go back and read up a bit about it ah but for now i guess with this 
+explanation it should suffice to know why this expression is used and remember that i 
+am  not  telling  you  that  this  squared  error  function  was  bad  i  am  just  telling  you  that 
+instead of the squared error function cross entropy loss function works better when you 
+are dealing with binary inputs 
+so with that let us pursuit and the another we have looking at it is the following you can 
+now look at this expression and tell me when is this expression going to be minimized 
+so we have x i j and x hat  i  j  you can see that  this expression will  be minimized only 
+when x i j or rather x hat i j is equal to x i j right so now x i j could take value zero or one 
+ok and now x hat i j could take zero one or zero one 
+so you can see that for these two combinations the value is going to be minimized only 
+when x hat i j is actually equal to x i j that means if x hat if x i j was zero then x hat i j 
+should also be zero and similarly in this case also if x i j was one then the expression will 
+be minimized only when x hat i j is equal to one so let us see this so suppose x i j was zero 
+that means this term is going to go to zero but this term is going to remain and now if you 
+are x hat i j was not equal to zero 
+then you will get some log of one minus x hat i j as the loss right but if x hat i j was also zero 
+then you would get log of one which is zero so this whole expression would then evaluate to 
+zero which is the minimum possible value for this expression right 
+so that means if x i j is zero then this expression will be minimized only when x hat i j is 
+also equal to zero similarly if x hat i j sorry if x i j is one then this one minus one will give you zero 
+so this term is going to disappear but this term will remain so this will just be log of x 
+hat i j because x i j is equal to one 
+now if x hat i j is also equal to one then this is become log of one which is zero that means 
+again  this  expression  will  attain  it  is  minimum  value  when  x  hat  i  j  is  equal  to  x  i  j  is 
+equal to one right so this expression now attain it is minimum value in two cases when x 
+i j is equal to x hat i j is equal to zero or when x i j is equal to x hat i j is equal to one so 
+compactly i can say that this expression will attain it is minimum when x i j is equal to x 
+hat i j that is why this loss function makes sense 
+now  again  we  have  this  problem  that  we  want  to  use  back  propagation  to  train  this 
+network and once again for back propagation we will need the following gradients the 
+gradients of the loss function with respect to w and w star ok this is what we are going 
+to need and i am going to make this same argument again that whatever hard work you 
+had done in the back propagation lecture you can just reuse all of it 
+because  the  only  thing  your  changing  is  this  final  loss  function  so  you  just  need  to 
+compute the  gradients with respect  to  this loss function and everything  else is  going to 
+remain the same right 
+so that is exactly what i am going to do on this slide so whatever is in the boxes here 
+these two boxes that is something that you have already computed and now what i am 
+going to compute is the stuff which is outside the boxes so let us look at that so i am 
+interested  in  computing  this  dou  l  theta  by  dou  h  two  this  is  the  derivative  of  a  scalar 
+quantity with respect to a vector say it is going to be a vector and i am going to follow 
+our usual recipe which is h two is actually equal to h two one h two two up to h two n 
+so i am going to consider any of these guys which is h two j i am going to compute the 
+derivative of the loss function with  respect  to  this one entry  and since  i  have that  i am 
+going to construct the entire gradient right so now i will have this dou l theta by dou h 
+two j right and once i have that expression i am just going to generalize it to all the other 
+entries in this vector 
+so let us look at that expression first ok so now if you look at this actually it does not 
+have an h two j right but we know h two j is the same as x hat j or rather x hat i j right for the 
+ith input it is going to be x hat i j because h two is equal to x hat i ok you can just see that 
+the top left corner of the slides say x two is equal to x hat i so this is nothing dou l theta 
+by dou x hat i j 
+so now i want to take the derivative of this quantity with respect to one particular x i j and 
+remember that this quantity has the sum which is indexed over j so j goes from one to n i 
+am looking at one particular j so that means if i expand this sum of all the js possible the 
+derivative with respect to all but one is going to be zero because they do not depend on this 
+particular j so if i am looking at j equal to three then the term which has x hat i one is going 
+to the derivative of that term is going to be zero 
+so for all these terms in the expression only that term where a j is equal to the j which i 
+am  considering  is  going  to  remain  ok  so  that  means  only  one  term  in  the  summation 
+would remain  and  for that  one term so let me just rid of the summation  right  so that 
+means only one term in the summation would remain i am trying to find the derivative 
+of this quality x which has a lot x i j’s with respect to x i j 
+so  now  this  is  of  the  form  a  log  x  so  the  derivative  would  a  over  x  right  so  that  is 
+exactly what i have written here and similarly for the second guy this is one minus a into 
+log  of  one  minus  x  so  the  derivative  is  going  to  be  one  minus  a  over  one  minus  x  and  of 
+course there is this minus sign here which will then get adjusted appropriately right so 
+that is how this expression has been completely that is very straight forward and now as 
+you need the derivative of h two j with respect to a two j 
+so remember that h two is equal to sigmoid of a two which means it is just an element wise 
+sigmoid  right  so  i  just  need  to  compute  the  derivative  of  the  j’th  entry  of  h  two  with 
+respect to the j’th entry of a two all the other derivatives are going to be zero because they do 
+not depend on that particular entry of a two so now that is just going to be sigmoid of a two 
+into one minus sigmoid of a two right 
+so  i  have  computed  these  two  quantities  i  can  just  plug  it  then  back  into  back 
+propagation  code  the  rest  of  the  code  is  going  to  remain  the  same  and  i  have  the 
+gradients ready with me 
+and as i said once i have this one guy i can just extend it i can just generalize it so i 
+just had these j’s here right for h two j so i can just replace the j by one two up to n and i will 
+get the same expression 
+so that is the end of module one where we introduced auto encoders what we showed is 
+that  they  are  actually  just  like  any  other  feed  forward  neural  network  accept  that  they 
+have this special  objective that  they  want  to  reconstruct  the input  and the reason they 
+want  to  reconstruct  the  input  is  they  about  to  first  create  a  bottle  neck  which  is  this  h 
+hidden representation and then try to reconstruct from there and just as i gave you that 
+compression analogy that you have this ten bits you want to compress it to four bits and then 
+reconstruct the entire input again 
+so this will happen only  if these four bits  capture  everything that is  required or the most 
+important  characteristics  of  your  original  input  right  and  then  we  could  have  a  loss 
+function  which  tries  to  capture  the  difference  between  my  original  input  and  my 
+reconstructed input 
+now we argued that this loss function will be dependent on the nature of your input so 
+for the real inputs it was straight forward we just said that we can use the squared error 
+loss  function  for  the  binary  inputs  we  actually  did  something  special  we  said  that  we 
+can actually use the cross entropy and then we had this funny way of writing the cross 
+entropy which was this x i  into log of x hat  and  one minus x i into log of one minus x hat 
+and just gave you some intuition that that is the same as writing p log a pi log or rather p 
+zero log q zero plus p one log q one write and the i just gave you some explanation for doing that 
+you can go back and check on how do you write the cross entropy for bernoulli random 
+variables  and  you  will  see  that  this  expression  makes  sense  and  once  we  had  this 
+expression computing the gradients was easy so the other thing that we relied on is that 
+in  the back propagation lecture we had taken  care of everything up to  this point and in 
+this lecture we have actually changed the loss function 
+so  one  loss  function  was  the  sum  of  squared  squared  loss  errors  and  the  other  loss 
+function was the sum of sum of cross entropies whereas in the back propagation lecture 
+we had only dealt with cross entropy by the case that we made is that sense you have this 
+chain all you have done is change the last function in the chain right you have changed 
+this l function all the other functions you have not changed 
+you can just reuse the computations from these or you can just use the code that you had 
+written for these in  the  back propagation assignment and  you just need to  change this 
+last guy to  adjust for the change in the output layer or the change in the loss layer so 
+with  that  we  will  end  the  introduction  to  auto  encoders  there  we  have  done  we  have 
+actually covered how to train an auto encoder using back propagation 

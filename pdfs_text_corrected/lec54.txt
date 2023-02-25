@@ -1,0 +1,302 @@
+denoising autoencoders 
+in this module we will learn about denoising autoencoders 
+so the idea behind  the denoising autoencoder is  very simple what  you  do is  you have 
+your original x i now for the minute for a minute just consider the discussion when your 
+x i's are binary inputs ok so each of these red guys can be between can be zero or one now 
+what  i do is before feeding it this input to my autoencoder the box is the autoencoder 
+what i do is i do a corruption 
+so the corruption is as follows with probability q i will set x ij that means one of these 
+guys to zero right and with probability one minus q i will keep it as it is ok so with some 
+probability q i am actually corrupting the data otherwise i am retaining the data as it is 
+and then feeding that data to the autoencoder why would this work binary input case 
+as i said just assume that the inputs are binary 
+we  will  also  see  the  other  case  why  would  this work  what  was  our  problem  earlier 
+that  was  completely  able  to  reconstruct  the  training  data  right  but  at  test  time  i  had 
+issues now what  i have done to the training data corrupted it just think for a minute 
+what  will  happen  now  i  want  someone  to  ask  me  a  question  in  return  oh  that  is  the 
+corruption that i am choosing or you could flip it is what you are saying yeah if it is zero 
+change it to one so that is also fine that is the question i was expecting what is the loss 
+function now what is the loss function x hat my i minus x tilde i or x hat i minus x i 
+which choice makes sense 
+student first tilde 
+first let us the case take the case when i do x tilde i what happens in that case from this 
+networks perspective it is still learning to memorize the training data right it just this is 
+what it thinks as the training data and just trying to learn that transformation right so it 
+is not really helping my case do  you understand that i just corrupted the training data 
+that  is  fine  but  from  the  networks  point  of  view  it  still  gets  away  by  memorizing  this 
+data and that is not what i want so what should i do can anyone tell me the i mean 
+can everyone tell me the answers 
+student minimize 
+minimize the error between 
+student an x i 
+an x i how many if you understand why that should help all of you gave the answer 
+but only few of your raised your hands why so hard to deal with this inconsistency 
+besides because i am still going to minimize my original objective function ok now can 
+the network get away by copying the input to the output so input remember the input to 
+the network is  this and what  i am  trying to  minimize this if i just copy  x tilde i to  the 
+output will my objective function be minimized no right so it does not have incentive 
+to  copy now so what will it have to  rely on say a reasonable probably twenty percent  is 
+the standard right so even if i reconstruct i will not get zero error i will at least get some 
+twenty percentage 
+so let us let me give you an example and then let me know if you can figure out what 
+happens this example will contradict something else that we have done before but just 
+play along suppose my input features were height weight and bmi and we all know that 
+bmi depends on height and weight i hope all of us know 
+now can you think what is happening i am corrupting one of these inputs and i still 
+want  everything  to  be  reconstructed  back  so  what  will  the  network  now  have  to  rely 
+on it will have a now rely on this relations between these inputs also so again if i take 
+my example of digit three i have corrupted some of these pixels right but i still want to be 
+able to reconstruct three so it will have to be smart enough to learn that if i have seen this 
+and i have seen this then it has to be something in between which gives me a three do you 
+get the intuition 
+so  now  i  am  making  it  is  job  harder  so  that  it  is  robust  to  changes  at  test  time  that 
+means a test time if my digit looked something like this it should still be able to predict 
+it  as  a  three  or  it  will  still  be  able  to  learn  the  same  representation  as  three  do  you  get  the 
+intuition right so that is  what  i am  trying to  do  i am  trying to  somehow bring in  the 
+corruptions that i would expect a test case and trying to make the model more robust 
+it can no longer get away by memorizing the training data because i am not feeding it the 
+correct training data it has to do something smarter than that everyone gets this i will 
+come back to your question everyone gets this please raise your hands yes yes this is all 
+under regularization no this is regularization no so at that case i have already made that 
+overfitting  can  happen  in  an  over  complete  as  well  as  under  complete  autoencoder 
+everyone  gets  that right  i show that example where it could  happen in  both  the cases 
+so my figure maybe over compete but it can just happen in any of these is that fine 
+it no longer makes sense for the network to just start copying the input data 
+different  kinds  of  noises  means  yeah  so  let  me  try  to  answer  that  right  so  what 
+probably  you  are  trying  to  say  is  that  all  my  input  images  were  three  vertically  written  i 
+added some noise and managed it but now at test time suddenly you show me a three of this 
+kind like that will not work also that is what were your question was a different types 
+mean different values of the noise twenty percent twenty-five percent and so on 
+so  we  will  first  see  practical  application  in  which  autoencoders  are  used  and  then 
+compare it to denoising at autoencoders so this the next few slides for those of you may 
+care is also a small answer to the difference between machine learning and dp 
+so  suppose  you  are  given  this  task  which  is  handwritten  digit  recognition  i  see 
+everyone  paying  attention  now  i  should  say  this  before  every  slide  ok so  this is  the 
+task handwritten digit recognition  you are given some data where  you want to classify 
+the digits into one of these ten glasses the traditional machine learning approach to this 
+is we just construct a feature vector this is a twenty-eight cross twenty-eight image so i guess twenty-eight cross twenty-eight 
+pixels  which  is  seven hundred and eighty-four  i  treat  this  as  a  feature  vector  and  feed  it  to  any  of  my  machine 
+learning algorithms say svm or multi class svm or logistic regression or any of these 
+right and do a classification based on them this is  what  you would have done in  your 
+machine learning course if i had given you this assignment right 
+now the autoencoder approach or in  general the deep learning approach would be  you 
+take  this  data  which  is  the  original  feature  representation  that  you  had  there  is  no 
+engineering feature engineering happening here  right ideally i want to have features of 
+the form that if pixel twenty-five comma thirty was black and if pixel thirty comma twenty was also black 
+then probably i am drawing a curve somewhere so it could be one of these curvy digits 
+and  not  one  or  any  of  these  seven  or  any  of  these  things  right  so  you  want  to  do  some 
+feature engineering 
+so typically in machine learning what  you do is  you start with these seven hundred and eighty-four features  you 
+observe  a  few  things  and  you  have  these  handcrafted  features  added  on  top  of  these 
+right so you will add some more features to the data now the deep learning approach 
+is  that  you  let  you  also  learn  the  features  on  their  own  so  how  did  we  learn  these 
+features  we  took  this  original  input  we  passed  it  through  the  an  autoencoder  which 
+captured some of these relevant characteristics 
+the  differences  we  do  not  really  know  what  these  relevant  characteristics  are  that 
+means you and i cannot read them and make sense of them i cannot say that this pixel is 
+actually  capturing  the  interaction  oh  sorry  this  neuron  is  actually  capturing  the 
+interaction  between  my  seven hundred  pixel  and  seven hundred and ten  pixel  i  cannot  do  that  i  could  have 
+handcrafted those features if i believe that all my data is around the center i could have 
+handcrafted some  features which say that capture the interactions between those that is 
+what you do in machine learning 
+here you are trying to learn the features also on their own right what would happen if i 
+add one more layer to  this autoencoder  i  would learn even more  complex interactions 
+between  these  features  so  this  neuron  is  actually  learning  interactions  between  all  the 
+input  neuronsok  i  add  one  more  layer  here  again  this  neuron  will  learn  all  the 
+interactions  between  these  abstract  representations  right  so  i  could  learn  more  and 
+more abstract  representations  of the input so  i am  not  doing feature engineering  i  am 
+just throwing data at  the network  and  i  am  assuming that it will learn better and better 
+representations 
+now i am doing this in the autoencoder setup where actually i am trying to optimize the 
+objective function of minimizing this loss and of course the squared of this loss is just 
+fine so first what  i will do is i am not happy with my original seven hundred and eighty-four dimensions so i 
+train a autoencoder to learn some k dimensions which are good  i know these are good 
+because they are able to reconstruct the data perfectly to a certain extent right of course 
+because  you add  regularization it may not  be perfect  but it captures the  essence of the 
+data you get that 
+so  i  have  better  dash  representations  now  feature  representations  right  my  original 
+feature  representation  was  seven hundred and eighty-four  i  have  come  up  with  some  better  representations  now 
+what will i do was my task to learn feature representations what was it classification 
+right so what will i do now is i will i have learned this much from the autoencoder 
+i will throw away the last layer i do not care about the last layer what i care at the last 
+layer is a classification problem right so i will construct a new neural network where 
+the first two layers of the network are the same as what i learned from the autoencoder and 
+on  top  of  that  i  will  add  an  output  layer  and  now  i  will  try  to  train  this  network  how 
+many  of  you  get  what  is  happening  here  those  of  you  do  not  get  it  can  you  ask  me 
+some questions let me just try to answer on my own it is like playing chess with yourself 
+so this is my original input seven hundred and eighty-four dimensions what i have learned with autoencoders is a 
+smarter representation of this data ok now one simple solution that i have is i have this 
+one hundred dimensional data suppose this is the representation so for all the training examples 
+instead of using that 784dimension data and feeding it to a multi class svm what i can 
+do  is  i  can  first  compute  this  one hundred  dimensional  representation  and  feed  that  to  a  multi 
+class  svm  is  that  fine  and  you  see  that  should  work  better  in  practice  because  i  have 
+reduced the dimensions i have reduced the dimensions smartly 
+and now i can train this network is this fine all i am saying is instead of a multi class 
+svm  i  could  also  have  a  neural  network  right  i  could  feed  that  representation  to  a 
+neural  network  so  what  would  that  neural  network  look  like  one hundred  what  are  the 
+parameters  here  w  belonging  to  one hundred  cross  ten  how  many  if  get  it  now  ok  so  this  is 
+what i could have done 
+so i have learned a better feature representation and now i am using that representation 
+to  learn  my  classifier  if  i  do  this  in  an  end  to  end  manner  that  means  my  feature 
+representation  is  also  came  out  of  a  neural  network  and  my  classifier  is  also  a  neural 
+network then i have a complete end to end solution for this you get this 
+now  we  will  see  a  way  of  visualizing  this  and  then  we  will  make  some  observations 
+from the visualizations so first let me tell you what the visualizations is 
+so  i  am  returning  to  the  autoencoder  setup  so  i  had  this  input  and  i  had  this  h 
+dimensional or k dimensional hidden layer now i can think of each of these neurons as 
+something which gets activated for a particular type of input is that fine what do i mean 
+by activated it is output would be 
+student one 
+remember this is a logistic neurons that we are talking about or even tanh neurons the 
+output  would  be  one  so  it  is  the  maximum  output  that  you  could  gain  fine  now  so  for 
+example h one is equal to sigmoid of this when would this fire when where w one transpose 
+x i is very high right when you are in that regime where the sigmoid flattens right this 
+regime ok when it is very high 
+so i want to be able to maximize w one transpose x i do you get this i want to be able to 
+maximize this i want to find my w one transpose is fixed now because i have trained the 
+autoencoder  i  have  got  these  weights  this  is  all  post  mortem  right  i  have  trained  the 
+autoencoder i have got these weights now i want to find an input which will cause this 
+particular neuron to fire 
+so  what  is  my  max  what  is  my  optimization  problem  maximize  just  help  me  out 
+maximize w one transpose x let me just call it x and the optimization is with respect to x 
+right because i want to find the x which maximizes this quantity my training is done i do 
+not  no  longer  care  about  changing  ws  my  training  has  been  done  i  am  interested  in 
+finding x’s which will maximally fire this 
+so  and  i  am  going  to  assume  that  all  my  inputs  are  normalized  this  just  makes  some 
+analysis  easier  and  remember  that  normalization  is  always  ok  you  always  do  that  so 
+this is  the optimization problem  that  i am  interested in  solving what  is  the solution  to 
+this how many if you can solve this no i want to find the x i 
+student 
+now  i  have  trained  the  autoencoder  now  i  have  known  all  these  the  one  i  am 
+considering one column of the matrix w one i want to see what is the input that i should 
+give  so  that  i  am  sure  that  this  neuron  will  get  activated  and  i  know  that  this  neuron 
+will get activated if i maximize this quantity right 
+so i want to maximize that quantity and find an x such that it will get maximized i was 
+just hoping that no one brings in eigenvectors w one is a column it is not a matrix just try 
+to work it out what is this this is a dash between w and transpose and x i dot product 
+when  would  the  dot  product  be  maximized  when  they  are  both  in  the  same  direction 
+right  that  means  you  know  the  direction  is  going  to  be  x  i  is  equal  to  and  what  did  i 
+want the norm to be now do you get it fine 
+so the solution is going to be this is fine w one by the norm of w one so just remember 
+that this quantity is going to get maximized when the dot product is maximized the dot 
+product is maximized when both x i and w one transpose are in the same direction right so 
+that means x i should be in the same direction as w one and i also wanted this constraint 
+that x i should be the norm of x i should be one so i am just dividing w one by the norm of 
+w one 
+so  i  know  now  what  is  the  input  i  should  feed  to  the  network  so  that  one  of  these 
+neurons fires now what i am going to do is i am going to plot the xi’s which maximize 
+each of these neurons i am going to consider some one hundred neurons in the hidden layer and 
+i am trying to find out the input image which is going to maximize or which is going to 
+cause each of these neurons to fire do you get what i am trying to do even though you 
+do not get why i am doing it but do you get what i am trying to do ok 
+so what am i going to do is this is a vector right so i am just going to try to plot this 
+as an image of the appropriate dimension 
+and this is what i get with a vanilla autoencoder there was no noise this is what i get and 
+this is for the mnist digit data set right so my data is two three one and so on digits this is 
+what happens when i get twenty-five percent nice and this is what happens when i get fifty percent 
+what  do  you  understand  from  these  figures  remember  that  each  of  this  is  the  figure 
+which caused one particular neuron to  fire is  that clear each of these is  a trigger which 
+caused one neuron to fire 
+one  image  yeah  one  box  corresponds  to  one  column  yeah  so  it  is  just  that  the 
+dimension  of  the  column  is  again  twenty-eight  cross  twenty-eight  so  i  am  just  plotting  it  as  a  twenty-eight  by  twenty-eight 
+image so i will just let me just clarify that is i think that is what i said yet so what is 
+the dimension of this in fact you just know this right this dimension of this is twenty-eight cross 
+twenty-eight 
+so i can just take that vector and again plotted as a twenty-eight cross twenty-eight image so what i mean 
+is this is seven hundred and eighty-four right so x i is a seven hundred and eighty-four dimensional vector i am just taking it as a twenty-eight cross 
+twenty-eight image and plotting it because my inputs were actually images so i am just plotting 
+those images fine so at least you see what i am doing here and what i am telling you is 
+that  each  of  these  boxes  that  you  see  corresponds  to  one  of  these  images  so  i  had 
+images x one x two up to x k such that each of these caused the k’th neuron to fire ok now 
+what  are  you seeing here  i mean what  how do  you make sense of  what  you  are seeing 
+and remember in the mnist ok sorry so let us try to forget all this neural network and 
+everything and let us just try to see yes the weights would be 
+student more distinct 
+no why do you say the weights are more distinct yeah but on average you would be still 
+reducing it right ok so let me just explain what is happening then we can come back to 
+this  so  now  we  have  this  set  up  we  had  some  input  we  had  a  certain  number  of 
+neurons here and then we had the output ok this is what our neural network was trying 
+to do 
+student 
+now let us take this task of recognizing a digit now how do i actually recognize a digit 
+if i want to distinguish between a nine and a three i would try to see if there is a curve in these 
+positions and it is not there in this hence this is a three this is a nine that is something roughly 
+like that right so in other words i am now i have given delegated so that means what i 
+do is i think of three as a combination of you get the idea as a combination of these images 
+with these strokes right so this is actually this stroke this is actually this stroke this is 
+roughly this stroke and so on you get the idea 
+so i think of three as a combination of many of these strokes right now what i would like 
+is if this guy could detect one of these strokes right the other guy could detect one of 
+these other strokes right now you see that some of these strokes are shared across digits 
+for  example  all  these  strokes  here  look  at  the  digit  nine  these  strokes  gives  common  to  three 
+and nine both right but some strokes would be missing for three some strokes would be missing 
+for nine and you would have extra strokes in both of these so now each of these neurons 
+could actually recognize these strokes then a combination of the information that each of 
+these neurons is  capturing  could  help  me decide  whether it is  a three or a nine  how many of 
+you get that intuition 
+student 
+so i would like each of these neurons to detect certain strokes ok that means i would 
+like this neuron the first neuron to fire for an input like this where there is a stroke at the 
+bottom  i  would  like  some  other  neuron  to  fire  for  a  different  input  whether  there  is 
+stroke here now can you relate this to what you are seeing in the picture in the second 
+and third picture this neuron is firing for inputs which would have a stroke at the corner 
+right  and  you  see  different  neurons  are  firing  four  different  strokes  so  each  neuron  is 
+trying to capture something relevant and together now i could combine them to get the 
+final output how many of you see this how many of you do not get this 
+so to  ask questions otherwise  i  cannot  really help  it how many of  you want  me to  go 
+over this again which part yeah so let me just repeat what each of these boxes is right 
+so  each  of  these  boxes  is  the  image  which  causes  the  k’th  neuron  to  fire  right  so 
+remember  i  decide  i  came  up  with  this  that  this  is  the  input  which  causes  the  second 
+neuron to fire what was the dimension of this input twenty-eight cross twenty-eight 
+so i am just plotting that twenty-eight cross twenty-eight input right and i am realizing that this input seems 
+to be something which has a dark spot here right so now just related to the analogy that 
+i  am  trying  to  give  at  the  bottom  that  this  neuron  fires  for  inputs  which  have  a  stroke 
+here that is that is capturing and there are other neurons which are trying to fire for other 
+strokes 
+and  i  would  want  these  neurons  to  capture  different  strokes  so  that  together  they 
+captured  all  the  information  in  the  image  and  helped  me  decide  that  a  combination  of 
+these strokes gives me a nine a combination of these other strokes gives me a three is that clear 
+now you also 
+student yes sir 
+so  yeah  so  now  the  thing  is  this  right  the  again  the  same  thing  you  could  learn  to 
+reconstruct the output but you may not capture the important characteristics in the input 
+right  so  now  as  you  keep  making  it  is  job  harder  it  has  to  rely  on  capturing  these 
+important  characteristics  in  the  input  right  and  actually  if  you  look  at  the  difference 
+between the second figure and the third figure right let us look at the same guy here 
+so you see that this is actually thicker and wider the stroke that you see here is thicker 
+and wider so now it is actually relying on more neighborhood information to fire it is 
+not firing just for this stroke but it is fighting for a larger stroke it is also requires more 
+neighborhood information because you are corrupting the pitch 
+so it has to rely on information from the other guys the same example that i gave for 
+height weight and body mass index right the same thing holds here i have corrupted a lot 
+of  inputs  so  now  it  will  fire  only  if  it  gets  a  lot  of  information  from  the  neighboring 
+inputs also  is  that fine ok and  i now  coming back to  your question  yeah  i do realize 
+now what you are saying that the weights are actually becoming larger yeah it makes it 
+more robust but again 
+so regularization just does not always mean that your weights have to be small right that 
+is one way of constraining or regularizing but this is another way of regularizing where 
+you  are  making  it  more  robust  but  it  does  not  necessarily  need  to  lead  to  the  same 
+solution where your smaller weights does that make sense it is ok for most of you any 
+please raise your hands if this 
+and this is same thing that i have written here 
+now we saw one form of this function ok which was just flip the input if the output is 
+just corrupt the input right you could also add a gaussian noise so you could take the 
+input add a gaussian noise to it with zero mean and then again try to reconstruct the original 
+input back is that fine so you could just use different noise functions to do this so we 
+will  now  see  such  a  denoising  autoencoder  where  we  have  actually  added  a  gaussian 
+noise instead of the zero one noise or the corruption that we were doing 
+yeah  so  the  purpose  of  this  particular  example  that  i  am  giving  is  to  compare  an 
+autoencoder  which  is  regularized  by  adding  this  gaussian  noise  with  an  autoencoder 
+which  is  regularize  by  using  weight  decaying  right  the  l2  regularization  so  l2 
+regularization is also known as weight decaying because you kind of decay the weights 
+right you force the weights to be small 
+so what  they showed is that with denoising autoencoder using a  gaussian noise  you 
+actually  learn  something  known  as  edge  detectors  right  so  you  see  all  of  these  are 
+trying to detect edge again the same thing is happening i am plotting the images which 
+will maximally cause a particular neuron to fire and it looks like all these neurons fire for 
+different edge patterns in your original data 
+so now they are capturing all the edges in the data and the combination of these edges 
+should tell you what your final class is ok and this seems to work much better than the 
+weight decay filter which is not really capturing any regular pattern ok so this is just an 
+empirical  evidence  that  an  autoencoder  with  a  gaussian  noise  seems  to  do  better  than 
+autoencoder with the l2 regularization 

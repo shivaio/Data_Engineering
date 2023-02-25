@@ -1,0 +1,195 @@
+ok so now we will go to the next module where we will try to learn the relationship 
+between the input size the output size and the filter size ok 
+so so far we have not said anything about the dimensions of the inputs i have just been 
+very vague that its m 
+n and also for the filter i have just said three 
+three five 
+five and so on 
+and in fact i am not even told you what the dimensions of the outputs are except that i 
+be  got  some  intuition  that  it  seems  that  the  output  dimension  is  smaller  than  the  input 
+dimension right 
+so let us look at these in more detail and see what do these different outputs look like 
+why  do  i  care  about  these  things  what  do  the  inputs  and  the  output  sizes  look  like 
+because these are your matrices that you will be dealing with this tell you these tell you 
+how many parameters you are going to have 
+these tell  you what is the size of the memory that you need to load this entire network 
+into your memory and so on it so that is why this computation is very very important 
+ 
+and i will have some more things to say about it towards the end of this lecture or some 
+lecture ok 
+so if you first define the following quantities so we have the input which has a width 
+w1 height h1 and depth d1 so if you are looking at the original image then the depth 
+is going to be three in most cases it is going to be rgb ok there is something known as 
+the stride s i will come back to it later on 
+but  i  am  just  defining  it  here  or  others  just  introducing  it  here  and  then  you  have 
+number  of  filters  so  i  said  that  every  filter  that  you  apply  you  are  going  to  get  one 
+feature map which is two dimensional if you have k such filters you will get k feature 
+maps each of them is 2d right 
+so  we  will  have  something  known  as  number  of  filters  k  and  then  you  will  have 
+something known as the spatial extent of these filters so that is the number three 
+three five 
+five 
+which i have been saying so that is known as the spatial extent i am going i am going 
+to refer to it as f ok and we are going to always assume square filters 
+so it is always going to be f  f is that fine ok and the depth of the filter is one more 
+thing which i need to worry about but i have already said that i am going to assume that 
+the depth of the filter is the same as the depth of the input ok 
+ 
+now the output is again a volume which is of size w2 h2 and d2 and my quest is to 
+find out how do i compute these w2s h2s and d2s that is what i want to figure out it is 
+not very difficult but i just want to do it properly so that is what the setup is right so 
+we have defined the sizes of everything on the input and the filters now you want to look 
+at how do we get the output sizes ok 
+so let us compute this for one example so this is my original image so i am looking at 
+a two dimensional input which i believe is seven 
+seven and i am applying a three 
+three filter to it 
+so  every  time  i  slide  the  filter  i  will  get  one  pixel  in  the  output  and  i  got  the  entire 
+feature map 
+now it is obvious that the size of the output is less than the size of the input why is it so 
+because there are certain pixels at which i cannot place the filter why you will go out 
+of the boundary right so i cannot if this is my pixel of interest i cannot place my filter 
+there  because  then  the  filter  will  go  outside  the  image  and  i  do  not  know  what  the 
+average to come to how to compute the average right those values are undefined do you 
+get that ok 
+ 
+so in general for let me see for the three cross in fact this is true for all these pixels which 
+have  been  shaded  or  any  of  these  pixels  i  cannot  place  the  filter  because  you  will  go 
+outside the boundary so now for a three 
+three filter what is the reduction in the size of the 
+output compared to the input the width decreases by two and the height decreases by 
+student two 
+two right so can i be bold enough and say that the width and height decreases by not yet 
+ok 
+so let us see if we had a five 
+five kernels ok then which are the places at which i will not 
+be able to place the filter these two shaded boxes and both these boxes i cannot place 
+the filter because the filter will go outside the image 
+ 
+so  now  can  you  tell  me  how  many  so  in  this case  the  size  reduce  is  by  how  much 
+the width reduces by 
+student 
+no the width reduces by four sorry and the height reduces by 
+student four 
+four so now can i say that the width and height actually reduce by f minus one where f is 
+the size of the filter is that ok how many of you get this so you did not get this no 
+you  did  not  get  this  ok  so  in  the  three 
+three  case  you  see  that  that  is  one  row  and  one 
+column on each side left and right which i cannot apply ok 
+so let us focus on the columns so columns give me the width right so when i have a 
+three 
+three filter there are two columns which get subtracted because these are the boundary 
+columns  when  i  have  a  five 
+five  filter  how  many  columns  get  subtracted  two  on  the  left 
+hand side two on the right side is a total of four 
+if i have a seven cross seven filter three on the left hand side three on the right hand side so total of six 
+so you see the relation it is always f  one right so your new width and height is always 
+going to be w1  f  one which is w one  f + one is that ok everyone gets this and same for 
+ 
+the  height  the  width  and  height  are  going  to  be  symmetric  because  the  filter  we  have 
+chosen to be symmetric it is f 
+f ok 
+now  but  what  if  we  want  the  output  to  be  the  same  as  the  input  what  do  we  do 
+padding ok you can use you know something known as padding so that means now i 
+will have a boundary of 0's so i am saying that this is my original image and outside it 
+there  is  a  black  border  or  a  white  border  i  do  not  know  whether  zero  stands  for  black  or 
+white it is embarrassing but 
+student black 
+black ok so it is a black border outside the image ok and now i am going to take an 
+average that way 
+now  this  was  the  pixel  earlier  on  which  i  could  not  place  the  filter  but  now  i  can 
+artificially place on it assuming that it there is a black boundary around it so now what 
+would be the output size 
+student 
+same  as  the  input  so  now  can  you  tell  me  so  i  have  w1  i  have  f  and  now  i  have 
+something  known  as  p  also  ok  so  i  know  that  w  output  rather  w2  is  the  output  is  one 
+ 
+now when i add the padding what would the formula be two p is that fine everyone gets 
+that ok 
+so  now  if  i  have  a  five  cross  five  filter  and  if  i  want  the  output  size  to  be  the  same  as  the 
+input size what is the padding that i should use 
+student p 
+p  is  equal  to  two  right  that  is  clear  from  the  example  that  we  saw  that  there  were  two 
+shaded columns and rows which were problematic so i need to do a padding of two and 
+then if i substitute in this formula you can just see right so five + four + one right so you will 
+get back w1 is that fine is that ok how many if you get this how the formula works 
+with the padding how many of you do not get this please raise your hands you do not 
+get this ok 
+so remember in the three 
+three case there was one column on the left hand right which was a 
+problem so when i say a padding of one i add one column to the left one column to the 
+right one column to the bottom and one column to the top 
+and that is exactly the problematic region in the three 
+three case right so that means this was 
+my  original  formula  ok  now  the  new  width  is  going  to  be  plus  two  times  the  padding 
+which i am  going to use because i have used one padding here and one padding here 
+right now in the three 
+three case that is ok 
+ 
+now in the five 
+five case how many columns are problematic two so that means i have use 
+a padding of two when i say a padding of two i add two on all the sides so now again if you 
+substitute in this formula so you would have w1  five + one + four so that will give you back 
+w1 right so that is how it is right 
+now the question is you have if you have taken care of filter size and padding now the 
+other thing that we need to look at is stride ok so the stride defines the interval at which 
+the filter is applied now what do i mean by that 
+so  remember  that  stride  is  basically  a  step  right  the  same  definition  as  it  is  applies  to 
+walking rate so right now what we were doing is we placed the filter at as this pixel at 
+the center then this pixel has the center and then this pixel has the center instead of that 
+i  could  take  a  that  means  my  stride  is  one  i  am  taking  one  step  at  a  time  so  if  i  do  a 
+stride of two what would happen 
+student 
+i will apply two alternate pixels right so this is how i will move so then what would 
+happen to my output size if my stride is two 
+student 
+what would happen 
+ 
+student 
+it will become half ok so what would the formula be then so so far my formula was 
+now if i have a stride of two what would the formula be 
+student 
+they divide the whole thing by two 
+student 
+by s right if it was s was three then this would have become onethird roughly right if s 
+was four this would have become onefourth so what should i divide by 
+student s 
+s so i should divide the whole thing by s 
+student 
+s ok 
+so it turns out that is not exactly that but you get the intuition and you can work out the 
+formula  so  you  do  not  divide  this  by  s  and  you  will  figure  it  out  it  is  easy  to  see 
+because of some ceiling and flooring and things like that so you can go back and check 
+that out and basically  you could just think of this that this was  your original weight in 
+the absence of stride or rather than the stride was one 
+so now if you are going to take longer strides you have two account for that if you take 
+a stride of two stride of two your width is going to become half you should take a stride of four 
+your width is going to become onefourth is that fine do not worry about this additional 
+plus point you can go home and figure it out 
+finally coming to the depth of the output what would the depth of the output be so let 
+me just see right now all our formulas were w2 h2 in the presence of filter padding and 
+size a stride sorry but we never had a formula for  d2 so that is what i am asking 
+now what is the depth of the output same as the every filter is going to give  you one 
+two dimensional output if you have k filters 
+student k 
+you will get k two dimensional outputs that means the depth of your output is k right 
+so the depth is very simple it is just equal to k the number of filters that you have so i 
+want you guys to note down these three formulas 
+now let us do some exercises so this is my original input which is two hundred and twenty-seven 
+two hundred and twenty-seven 
+three i 
+have decided to apply eleven cross eleven filters and i am not going to tell you the depth of the 
+filter because it is going to be the same as the input ok 
+ 
+and i have ninety-six such filters i have decided to use a stride of four there is no padding can you 
+tell  me  what  is  the  output  volume  going  to  look  like  what  are  the  dimensions  of  the 
+output volume ok so d2 is simple what is d2 ninety-six what is w2 
+student fifty-five 
+fifty-five h2 ok you guys have the last class fine so similarly you can do it for so actually 
+the  computation  which  i  had  that  this  was  just  not  some  random  computation  this  is 
+actually  the  first  convolution  layer  from  alexnet  right  so  one  of  the  popular 
+architectures that we are going to cover later on right 
+so this is what aalexnet does at its input it takes the rgb input and gives you a volume 
+of this slice this side and then there is something else with this volume right so we will 
+see that later on there is one more exercise you can do it later on i do not want to do it 
+now ok 

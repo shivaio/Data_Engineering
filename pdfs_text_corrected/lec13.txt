@@ -1,0 +1,42 @@
+errors and error surfaces 
+before we go to the next section which is on learning  i  just want to introduce the 
+concept of errors and error surfaces and tell you  what it relates to these multiple 
+solutions that we were talking about 
+so for simplicity what we will do is we will just set the threshold to minus or minus w 
+to one which is setting the threshold to minus one and now i will try different values of w1 
+and w2 ok so i was saying that there are multiple values of w1 and w2 possible and 
+these are all real numbers we are not constrained by having them as boolean values so 
+now this is one solution which i tried i tried setting w1 to minus one and w2 to minus one 
+what is wrong with this line does it lead to any errors how many 
+just one error so this makes an error of one out of the four inputs now let me just try some 
+other values of w1 and w2 this line again one error what about this line  not four three 
+because zero zero is anyways on this side of a line 
+so now given this now tell me that i my quest is to find these w so i would want to 
+find w1 w2 and so on given this discussion on errors can you tell me a condition that i 
+am looking for i want to find w1 w2 or up to wn such that errors are minimized and in 
+the best case errors are zero so that is what i want so this just i want to make a case that 
+these search for w’s is driven by certain objective and this objective is to minimize the 
+error 
+so now since we are doing this let us plot the error surface corresponding to different 
+values of w naught w1 and w2 
+once again for simpler analysis we will just keep w naught to be fixed at minus one and 
+now what i have so just do not read this bullet as of now even this one so i have this 
+w2 here so that is my one axis and i have w1 here which is my another axis now what 
+i am going to do is i am going to try different values of w1 and w2 so this axis can go 
+from minus infinity to plus infinity of course for showing the sake of showing here i 
+have just had it from minus four to four 
+so now what i am going to do is i am searching for some values of w’s w1 and w2 so 
+that my errors is zero and let us do a brute force and i will just try every value between 
+minus four to four ok in fact one of the solutions which i proposed actually was this eleven eleven 
+right that is the line which we saw on the previous slide and which led to zero errors and 
+that is the dark blue surface here  so  how did i compute this error actually i just 
+substituted minus sorry eleven eleven here and then i put in all the four values combinations 
+for x1 x two and i realized that i am able to satisfy all of them so i do not get any error 
+now instead of that if i had put something different 
+so let me just go back to the previous slide which was see minus one minus one which is i 
+think yeah somewhere around here right minus one minus one i guess so for that i am in 
+this light blue region where the error was one i make errors for one of the inputs so it 
+is a very brute force way of finding this and this is not going to work because we have 
+lots of inputs to check  but  this is just to give you an intuition that we are looking at 
+errors and we are trying to find a value of w1 w2 which minimize this error so that is 
+the idea behind errors and error surfaces 

@@ -1,0 +1,142 @@
+lecture – three 
+in  this  module we will  try to  learn  these parameters  and  initially  we will  try to  learn 
+them by guesswork and i will show that that is actually infeasible that is why we need a 
+more principled approach 
+so we will keep the supervised machine learning setup in mind and now we will focus 
+on this model and discuss an algorithm for learning the parameters which are w and b 
+given some data using a giving appropriate function objective function so that is what 
+we are going to focus on 
+now sigma here stands for the sigmoid function the logistic function in this case when 
+this sigma is actually the logistic function and now i am going to simplify this further 
+so that it helps us to do a better analysis i am just going to consider the case where i 
+am just in one input and the bias ok and also following the normal terminology in the 
+literature this w naught from now on i am going to call it b because that is the normal 
+convention b stands for bias 
+so i have two parameters w and b which i need to estimate ok and this is my model for 
+the movie example and the other change which i am going to make is instead of 
+deciding whether i like or dislike which is one zero the setup that i am going to work with is 
+that i am giving the critics rating and i want to predict the imdb rating so i am given 
+a real value and i also want to predict a real value 
+for no particular reason this just makes life easier for me for explaining a few things but 
+the same thing or the same algorithm would also hold if you add a binary output right 
+and you will see that later on in the course so here is a setup clear we just have two 
+parameters w and b and we are going to assume that y belongs to real numbers it is a 
+imdb rating and x also belongs to real number it is a critics rating 
+now let us see what we are given as training is a set of points we are given some n 
+training pairs and now we understand what this means that means for a lot of movie i 
+am giving the critics rating and i am also given the true imdb rating for them of 
+course in the two variable case this does not make much sense but just bear with me 
+and now the training objective is such that whatever my function predicts which is a 
+function of w x and b that should be very close to the true output that i know this is the 
+function that i want to optimize now let me ask you this 
+i am trying to tell you that i am going to give you an algorithm for training this network 
+suppose i have trained this with two data points five comma two and twenty-five comma nine right 
+at the end of training i will give you some values of w and b let us call them w star 
+and b star these are the final values of w which i have given w and b what do you 
+expect from these values 
+what do you expect at the end of training if i say now the network has learned what do 
+you expect you are still going to the test case i am just talking about the training still 
+we expect such that what happens if i plug in at the end of training if i plug in the value 
+five here what should happen 
+nine so this is what you expect at the end of training if you plug in the value five it 
+should be very close to two the output and if you plug in the value twenty-five it should be very 
+close to nine 
+this is exactly what you expect and this is what training means ok fine in other words 
+we hope to find a sigmoid function such that these two points lie on that function can 
+you imagine a geometric picture for this what would happen actually how many if we 
+can imagine it ok how many of you get it now this is what will happen right so you 
+will get a sigmoid function such that these two points lie on that fair ok and that exactly 
+means that when i plug in this value i will get this value and when i plug in this value i 
+will get this value right so that is what it means 
+so let us see this in more detail 
+and now what we will do is our quest is for this w star and b star i will try to find this 
+manually i will do some random guesswork and try to find this because i do not have 
+any clear principle algorithm for finding it as of now so i will just use some guesswork 
+so i will give my initial guesswork as w equal to five b equal to zero for no reason i just 
+picked up some values right and this is what the function that i got what does this 
+mean this function an error so the sigmoid formula should be here we should have this 
+sigmoid formula here 
+so is this a good are you happy with the solution if i give you are you happy with this 
+solution is this good bad ugly has to be something bad we will not call it ugly ok 
+so why is it bad it is not passing through those points i will ask you a question how 
+bad is it can you assign a number to it we are always good at qualitative stuff but 
+quantitatively can you tell me a number how bad is this can you tell me a way of 
+finding how bad this is i already told you in detail how to find that how bad it is 
+the loss function right 
+we have the loss function let us see that again and see if we can find out how bad this is 
+so this is what my loss function is ok and i have two data points i will just expand it out 
+fine now i will plug in the values i know this is nine and i will compute the value of f 
+twenty-five i will plug in this and i will plug in this ok and this is what i get so this is how bad 
+it is what did we actually expect it to be in the good case zero so this is not zero this is 
+seventy-three so now we have a quantitative handle on how bad this is ok so let us keep this 
+in mind and let us try to continue guessing so we want the loss function to be asked 
+close to zero as possible we are not there yet 
+so then i make a different guess i say let me try minus ten zero what happened now 
+is it now good bad ugly 
+now let us call it ugly right so it is worse and how do i know it is worse because i 
+plugged it in to the loss function and i got a value which is greater than the value at 
+which i was so i clearly know this is bad 
+so now this is how my mind is working right oh i as far as w was positive things looked 
+at least i was close to zero in the first decimal now when i made it negative that does not 
+look good so let me just keep it positive and keep increasing it right so i saw ninety-four and 
+i also tweaked the b of it i have done complete random guesswork right now what 
+happened good bad ugly 
+better ok now what will you do what would your next case would be make w even 
+more positive perhaps that would help and be even more negative and so on 
+i can continue in this manner and actually get close very close to the solution so i can 
+do this guesswork and find these values but it is still an educated guess right i am not 
+guessing in the dark this is what is helping me drive towards those guesses and i am just 
+looking at these values and making an educated guess right and that is the educated 
+guess which i took that probably making w even more positive would help but this is 
+still brute force in a sense right this is not something that you would want to do when 
+you have one hundred one thousand parameters and so on right and one million data points and so on 
+so let us look at something which is better than our guesswork algorithm ah so we are 
+not there yet actually on the next slide i am still going to talk about the guesswork 
+algorithm 
+and eventually we will get to something which is better than the guesswork that ok 
+so since we have only two points and two parameters what i can do is i can take all 
+possible values of w and b right that is what i was trying i was picking up some values 
+of w and b why just pick some values of w and b i will pick all possible values of w 
+comma b right and i will fix the range i cannot fix pick it from minus infinity to 
+infinity but i will pick a range i will say from minus six to six let me try all values of w 
+comma b compute the loss and plot it right let me tell something about this error 
+function because this is going to stay with us for quite some time 
+so what you see here is something like a flying carpet this is colour coded red is bad 
+red are the places where the error is high blue is good blue are the places where the 
+error is low darker the shade of blue lower the error darker the shade of red higher the 
+error so in particular if i look at this point what has happened is i have taken the 
+corresponding value of w comma b right which is say minus four comma minus one right 
+something like that 
+i have plugged that value into my loss function and i got this as the loss function this 
+has the loss value and that is what i have plotted for all values between minus six to plus six 
+and minus six to plus six for w and b so everyone understands how i have constructed this 
+error surface 
+now this of course becomes and now what i can do is once i see this error surface i 
+know how good this is the point where i need to be this is the darkest ah shade and this 
+is where the error is the lowest so i can just pick a w comma b value which lies there 
+this is fine for this toy example where you just have two parameters but this becomes 
+untractable once you have more data points and many more parameters 
+and that is what happens in most real world applications right so this is not a feasible 
+way of going about things right and here again note that i have only taken the range 
+from minus six to six i do not even know what will happen if i have to look at all values of 
+w comma b right maybe there was something outside here right which was even more 
+lower error or something right so i do not really know that 
+so i cannot really use this so i need something better than this plotting the error 
+everywhere and finding it order that is pure brute force or surrogate to this was the 
+guesswork algorithm but which is again something we cannot do for if you have large 
+number of parameters 
+so everyone gets this that this is a way of finding the solution but this is not feasible 
+right that is the only point i am trying to make 
+and we look at the geometric interpretation of what was actually happening in the case 
+of the guesswork algorithm with respect to the error surface 
+so i had chosen some values of w comma b the first value that i chose actually gave me 
+an error of if you remember it was some seventy-three or something like that right so that is the 
+point then i decided to take a very random guess and my error actually increased so 
+you see that i am actually climbing up on this error surface i have gone from a slightly 
+darker shade of blue to a lighter shade of blue right and then i corrected myself and then 
+kept moving in a direction where i was going towards the darker and darker shades of 
+blue 
+so what i was actually doing is i was trying to traverse the error surface and land up in 
+the good regions which were the dark blue regions now what i want to do is i want an 
+algorithm which will allow me to do this in a principled manner which is neither brute 
+force nor guesswork so that is what we learn in that module 

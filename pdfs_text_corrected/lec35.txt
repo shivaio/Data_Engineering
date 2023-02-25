@@ -1,0 +1,217 @@
+momentum based gradient descent 
+in this module we will look at momentum based gradient descent 
+so  what  were  the  observations  about  gradient  descent  that  it  takes  a  lot  of  time  to 
+navigate  regions  having  a  gentle  slope  so  what  is  the  practical  implication  of  this  in 
+practice why it what does this need to what does this mean right it takes more time so 
+remember we had said this max iteration equal to one thousand 
+now  if  you  are  initialization  happens  to  be  such  that  you  are  stuck  in  this  large  flat 
+region  then  those  one thousand  iterations  just  keep  moving  around  that  flat  region  right  you 
+will  not  enter  into  one  of  the  valleys  and  valleys  is  what  you  are  interested  in  right 
+because values is where you will have some minima for your function right 
+so if you have a very gentle slope then for one thousand iterations you will keep moving around 
+that gentle slope right that is why this has a practical implication now this was because 
+the gradient in these regions were small can we do something better that is the question 
+right so yes we can and we will take a look at momentum based gradient descent 
+so here is the analogy which i give my ta’s have heard this at least ten times so i will 
+just  repeat  it  the  eleven  time  for  them  so  i  hope  that  is  the  one  which  i  want  to  use  here 
+yeah ok so now suppose you are standing at the velachery gate and you want to go to 
+phoenix market city something that all if you can relate to today so you want to go to 
+phoenix market city and you ask the security guy at the gate that where do i go right 
+so he will say take a left no take a right so i am slightly dyslexic actually i have a 
+left  right  dyslexia  so  take  take  a  right  ok  so  you  will  say  he  has  told  me  to  move 
+right but you would still be a bit  cautious right we will just keep moving slowly in that 
+direction  that  is  how  we  find  ask  for  directions  you  keep  moving  slowly  in  that 
+direction 
+now  one hundred  steps  later  or  one hundred  meters  later  you  find  another  guy  and  you  ask  him  or  her 
+where is phoenix market city he again points to in the same direction keep moving left 
+right  so  now  you  will  what  will  happen  you  will  increase  your  space  and  then  you 
+ask  again  someone  when  you  read  the  signal  where  it  is  and  he  again  points  in  that 
+direction what will happen move even fast 
+so what is happening here if a lot of people are pointing you in the same direction you 
+better start taking larger and larger steps in that direction does that make sense that is 
+how we find directions and move around so just like a ball gains momentum as it goes 
+down a slope right it is constantly moving in that direction so it starts moving faster so 
+now  can  you  tell  me  a  way  of  incorporating  this  i  have  been  moving  in  a  certain 
+direction these directions are nothing but the gradients and now at this point someone 
+asked me again to move in the same direction what should i do 
+student take a bigger step 
+take  a  bigger  step  so  can  you  think  or  try  to  imagine  how  would  you  do  this 
+mathematically 
+student 
+so it is probably there are a few ways to do it so let us see so what i am doing here 
+is  this  is  my  current  gradient  right  so  i  asked  that  guy  at  the  signal  he  asked  me  to 
+move in that direction so that is this direction and this is all my history whatever i did 
+till step t minus one ok so now what i will do is i will so earlier i was moving like this 
+this  is  what  my update  rule was wt plus one is  equal  to  wt minus in  the direction of the 
+gradient right i will moving in the direction opposite to the gradient 
+now  what  i  have  is  in  addition  to  that  i  have  this  gamma  update  t  minus  one  so  that 
+means whatever i had done up till step t minus one i will also take that into account so i 
+will end up taking a larger step is that clear if it is not clear it will become clear on the 
+next slide 
+so let us see what this means right so it basically means that in addition to the current 
+step  also  look  at  the  history  there  are  three  guys  who  earlier  pointed  you  in  the  same 
+direction  so  maybe  this  direction  makes  sense  right  so  start  accumulating  that  and 
+move faster 
+so let us just break this down and see right so this is what the update rule is sorry this 
+is  all  my  updates  and  this  is  the  update  rule  so  at  time  step  zero  my  update  is  zero 
+because  not  started  yet  at  time  step  one  this  is  what  it  will  look  like  right  and  this  is 
+nothing but just move in the direction of the opposite to the gradient because this minus 
+sign will come later on right in the next equation 
+now  what  will  happen  update  two  so  its  gamma  times  update  one  plus  the  gradient  at 
+the  current  step  so  remember  here  everything  is  positive  i  am  adding  the  gradients 
+because my final negative sign is going to come in the next equation ok so do not get 
+confused with that eventually i am going to move in the direction opposite that opposite 
+will come from this negative sign 
+so  what  is  happening  i  am  moving  in  the  current  direction  plus  a  fraction  of  the 
+direction which was pointed earlier right ok then does this make sense so can you tell 
+me in general what is happening here at the t’th time step what is happening what kind 
+of average am i taking weighted average but it  is a dash weighted average this is  an 
+exponentially weighted average ok so let us look at this right 
+so when i am at step four i have most faith in the current gradient right and this gamma is 
+always i will just set it to less something less than one right so i have a fractional trust in 
+the  previous  gradient  even  smaller  trust  in  the  previous  guy  and  even  smaller  trusts  in 
+the  previous  guys  so  i  am  taking  an  average  of  all  my  gradients  but  it  is  an 
+exponentially  weighted  average  does  that  make  sense  my  maximum  faith  lies  in  the 
+current guy and then decaying faith in the previous guys 
+and as i move further and further away from the last guy that i checked right i will give 
+lesser  and  lesser  weightage  to  that  so  everyone  understands  what  is  happening  here 
+anyone who has a problem is just raise your hands if you understand this good 
+so in general this is going to be the formula and you see that as as i form problem here 
+no as t is larger this fraction is going to become smaller and smaller right so you are 
+first  the  first  step  that  you  take  will  have  lesser  and  lesser  weightage  as  t  increases 
+everyone gets this fine 
+so  now  this  is  the  code  for  momentum  based  gradient  descent  i  will  just  give  you  a 
+minute to stare at the code and see if it makes sense so this much part is ok you are just 
+computing the gradients with respect to all the points right and now we are keeping this 
+running sum ok which is the previous gradients and the current gradient right and then 
+you are just subtracting that running sum 
+now  this  looking  black  curve  that  you  see  here  that  is  gradient  this  this  guy  ok  this 
+black curve that you see here that is gradient descent when i have run it for around one hundred 
+iterations  now  i  am  going  to  run  momentum  base  gradient  descent  and  each  click  is 
+going  to  be  one  step  ok  and  i  want  you  to  observe  what  happens  ok  so  slowly  a  red 
+curve will start appearing on the figure 
+initially it will not be visible so do not worry there is nothing wrong with your eyesight 
+one how many if you already see the red part i see it two three four five six no now you can see it 
+as is nothing great about7 eight nine i want you to observe something here eleven twelve thirteen fourteen came 
+back  right  so  gradient  descent  i  ran  it  four hundred  iterations  it  was  just  stuck  here  right  this 
+was a point and i ran this for less than like around fifteen or twenty is what we counted right and 
+so already entered into the valley 
+so momentum base gradient descent is good you see that wicked smile on my face and 
+you know it is a trick question so we are moving fast right 
+even  in  the  regions  where  the  slope  was  gentle  right  that  is  the  beginning  of  the 
+beginning of our trajectory right this was the gentle region even that i was very quickly 
+able to navigate right within five to six steps i was away from that part right so even in the 
+regions  where  the  slope  was  gentle  i  was  able  to  move  fast  but  is  moving  fast  always 
+good 
+so  would  there  will  be  a  situation  where  momentum  would  cause  us  to  run  fast  ago 
+same thing now instead of walking  you are in a car  you ask the person at the security 
+whether i should go there he says  yes go in the right direction you keep moving there 
+someone  else  you  keep  accelerating  what  will  happen  eventually  you  will  go  fast 
+phoenix market city then what will you do 
+student take a 
+take a u turn come back again while taking a u turn what will you do 
+student 
+overshoot and come to the signal and then go back again right so you see this you will 
+end up taking a lot of u turns so let us change the input data a bit and see what happens 
+to momentum based gradient descent 
+so this is what my data looks like now so this is not what my data looks like this is 
+what my error surface looks like so earlier we had this error surface something like a 
+flying  carpet  now  i  have  a  very  peculiar  error  surface  this  is  again  for  the  two 
+parameter  problem  right  w  comma  b  that  means  i  want  to  learn  a  sigmoid  function 
+where i have these two plateaus at the top the dark red regions that you see and then a 
+very sharp valley can you tell me how i would have come up with this kind of an error 
+surface what are the points that i would have chosen just hold on to that part 
+so i have this kind of an error surface fine the error is high on either side of the valley 
+now could momentum be detrimental in this case yes no maybe i do not care i do not 
+care fine 
+so let us see this is the is this the two d equivalent of that three d surface everyone gets it i 
+can perfectly verify that you get it everyone gets it i will assume right so these are the 
+very high plateaus where the error is very high very sharp and narrow valley where the 
+error is low 
+so now again this sorry looking black curve is what i have done with gradient descent 
+after  some  one hundred  iterations  or  something  now  i  am  going  to  run  momentum  based 
+gradient descent and you have to help me understanding what is going to happen again 
+you will soon start seeing that red curve appear one two three four five six what will happen now it is 
+already fast that is known it was that black curve was after one hundred iterations or so it is fast 
+now tell me what will happen 
+student 
+he will go out is actually almost come out of the valley right it is almost at the top of 
+the  valley  now  what  will  do  take  a  u  turn  now  what  will  i  do  again  take  a  u  turn 
+now  i  will  keep  doing  this  i  will  take  now  smaller  and  smaller  u  turns  and  it  will 
+converge right so what happens here is because of this speedy movement and which is 
+very analogous to that car movement which i described 
+this  overshoot  your  goal  you  will  have  to  take  the  u  turn  come  back  if  you  are  again 
+careless  you  will  have  to  keep  taking  these  u  turns  but  you  will  finally  end  up  at  the 
+location that you want right it takes a lot of u turns before converging despite these u 
+turns  it  still  converges  faster  than  gradient  descent  right  because  gradient  descent  can 
+just  not  move  at  those  gentle  slopes  right  it  just  cannot  move  from  there  because  the 
+gradient is almost zero because the slope is flat right and it just cannot move but even with 
+this lot of u turn and lot of rework after one hundred iterations momentum base gradient descent 
+has reached an error of almost zero whereas gradient descent is still stuck at the plateau at 
+an error of thirty-six ye so see you have reached the minima now 
+student ye 
+now  you  will  be  navigating  there  right  but  you  know  that  now  your  loss  is  very  slow 
+low  so  you  could  end  that  right  you  know  that  your  loss  is  very  close  to  zero  so  you 
+could have a condition that once you have reached something very close to zero you could 
+end  that  even  if  you  are  making  these  very  small  movements  now  you  could  just  stop 
+there 
+student but in the plateau regions is also zero 
+but the loss is high right so if the loss is high and you are not moving you cannot stop 
+but if the loss is low and you are not making movements  you can just stop there right 
+so you can just end you can define that as your convergence condition 
+so let us look at we will come back to three d now we look at  a three d visualization and a 
+very different interpretation of what is happening i really want  you to understand what 
+exactly is happening in this example which i had picked up right 
+so this is what the three d surface looks like view from a different angle you have these two 
+plateaus  and  the  very  sharp  valley  now  this  is  the  corresponding  sigmoid  function 
+where  i started with so  what  i am  trying to  tell  you is  that this is a sigmoid function 
+corresponding to w equal to six oh no sorry w equal to two and b equal to six 
+this is the sigmoid function that i got once i plug that value so sigmoid is one over one plus 
+e raised to minus w x plus b and i have plugged in the values of w and b and plotted it 
+for all the values of x and this is the sigmoid that i got ok so that is my starting point is 
+this good how do you define good or bad 
+student 
+what do you expect at the end of training it should pass through all your training points 
+and these are my training points ok is it passing through them no its way off right ok 
+so  now  let  us  start  this  momentum  based  gradient  descent  and  what  just  see  how  my 
+sigmoid function changes so right now i am on the gentle slope even that momentum 
+base  gradient  descent  it  is  going  to  be  fast  but  not  dramatically  fast  because  still 
+building up the momentum 
+so  it  is  you  see  that  these  sigmoid  that  i  am  drawing  here  they  are  almost 
+indistinguishable from  each other  i  have already drawn three sigmoids  here so  i will 
+just go back so there was this initial guy then i draw drew a red one then one more and 
+then one more but they are all very close to each other 
+now  keep  viewing  both  these  sides  in  parallel  what  happens  here  on  this  figure  and 
+what happens to this sigmoid ok and i will ask you questions so still i am moving a bit 
+slowly  because  i  am  still  building  the  momentum  right  it  takes  time  to  build  that 
+moment  now  i  have  slowly  started  building  the  momentum  my  sigmoids  have  started 
+moving towards where they should be everyone gets this what is happening here ok 
+now  tell  me  what  will  happen  as  i  enter  the  valley  i  am  almost  entering  the  valley 
+what  will  happen  i  have  gained  this  momentum  now  so  my  w  comma  b  values  are 
+going to change much faster now so what will happen to these sigmoids they no longer 
+stick to each other we will start seeing a difference they are already moving away from 
+each other ok so that is what is happening to the function ok now you see even faster 
+changes  ok  now  what  will  happen  i  have  entered  the  valley  this  is  how  my  sigmoid 
+looks at this point now tell me what will happen 
+student 
+it  will  go  fast  what  will  happen  to  your  sigmoid  how  many  of  you  know  what  will 
+happen to the sigmoid ok i will tell you what happens and then it will be obvious right 
+so now i am entering the valley all of us know that i am going to come out of the value 
+of the other side right so let us see what happens when i come out of the valley from 
+the other side the sigmoid changes that is why you have this situation that your error is 
+high  on  both  sides  right  because  on  this  side  you  have  these  kind  of  sigmoids  on  the 
+other  side  you  have  the  other  sigmoids  and  somewhere  in  between  lies  the  solution 
+where does the solution lie at a very flat sigmoid right 
+so now i start this is where the oscillations will happen so notice what will happen to 
+the sigmoids they will toggle between these two orientations ok just see what happens 
+to the sigmoids you see it again moves keeps moving keeps moving it keeps oscillating 
+around  the  solution  and  then  finally  you  reach  the  solution  so  you  see  that  should  i 
+repeat this 
+so when i am on one side of this valley i have one kind of sigmoids right now when i 
+move to the other side of the valley i have this others kind of sigma and take a u turn so 
+when  i  u  turn  take  a  u  turn  i  again  overshoot  and  go  to  the  other  side  and  this  keeps 
+happening and i keep toggling till i reach my final solution 
+so these are all the oscillations that  you are seeing so  can  you visualize this what  is 
+happening do you understand all these relates to the actual function that you are trying 
+to learn so that is why we will end this module this was on momentum base gradient 
+descent now we will see a nesterov accelerated gradient descent 

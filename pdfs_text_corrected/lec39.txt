@@ -1,0 +1,111 @@
+line search 
+so we were looking at these different variants of gradient descent we saw that gradient 
+descent  has  this  problem  that  it  finds  it  difficult  to  navigate  the  gentle  slopes  so  we 
+came up with tricks on momentum based gradient descent and also nesterov accelerated 
+gradient descent 
+the  trick  in  momentum  was  that  if  lot  of  your  history  is  telling  you  to  move  in  a 
+direction  then  just  continue  to  gain  momentum  in  that  direction  so  instead  of  just 
+updating based on the current  gradient  you also update based on the history right  and 
+there we saw that this is always going to be a problem that you will end up taking uturns 
+and  we  had  this  analogy  of  how  you  look  for  directions  and  you  just  overshoot  your 
+destination and have to come back and take a uturn and come back and so on 
+so to prevent that we realize that the update done by momentum base gradient descent is 
+two step update you actually the first step is based on the history and then another step 
+based on the gradient at the current time step right so then instead of doing these two 
+steps at one go why not just update based on the history see what the gradient that tells 
+you and then we saw this nice figure i hope it was nice and where you saw that if you 
+look ahead point then you will be immediately corrected with respect to your errors so 
+that was about nag and momentum 
+then we saw the stochastic versions of these algorithms where we realize that if we do 
+the  batch  version  then  you  go  over  a  million  points  and  then  make  only  one  update 
+which could be very slow in cases where you have large data so we then decided to the 
+stochastic version where we just update for every point that again had these oscillations 
+because  we  were  taking  greedy  decisions  we  were  just  relying  on  one  point  to  tell  us 
+which was the right direction to go on and you saw that these esteem has become better 
+as you increase the value of this k 
+so  k  equal  to  one  is  the  most  stochastic  version  and  then  k  equal  to  two  you  get  the  mini 
+batch version and then you could just have different values of k so that you have more 
+reliable estimates of the  gradients  and in  the limit  if  you have the entire  data then  you 
+are just doing the full batch gradient descent right this is the vanilla gradient descent 
+anything  else  did  we  cover  then  we  had  some  tips  on  the  learning  rate  and  the 
+momentum these are again heuristic i gave  you some ideas and you could try these in 
+your  back  propagation  assignment  and  see  which  one  works  better  for  you  you  could 
+see  you  have  any  peculiar  observations  while  implement  the  back  propagation 
+assignment 
+so  now  there  are  a  few  more  things  left  in  this  lecture  so  i  will  start  with  the  line 
+search  first  so  this  is  one  more  thing  before  you  move  on  to  some  more  interesting 
+algorithms which are the current state of the art and lot of deep learning solutions 
+so  most  people  that  you  read  would  look  at  would  have  algorithms  that  we  will  see 
+after ten minutes 
+so now this is where just to contest contextualize things right so we are still trying to 
+see what is the light right learning rate to use a line search is one such method where 
+instead of just doing one learning so you can look at the code and just focus on this part 
+and tell me actually what are we trying to do how many of you get what the algorithm is 
+trying to do so far what we were doing is we were just having a single learning rate ok 
+and we saw that this learning rate can make a lot of difference right because if you are 
+on  the  gentle  part  you  want  larger  learning  rate  and  if  you  want  steep  part  you  want 
+smaller learning rate 
+so just fixing the learning rate to one value does not really help because then you will 
+make you will suffer on one of the two cases are either on the gentle case or on the steep 
+case now what line search does is instead of just using one learning rate at every step 
+now  whether  it  is  vanilla  gradient  descent  which  is  the  batch  one  or  mini  batch  or 
+stochastic right just use a bunch of learning rate so i have used five different learning 
+rates  here  and  i  have  computed  the  gradients  that  part  remains  the  same  the 
+computation of gradients does not change 
+now  you have the value now  you want  to  be  conservative  you  want  to multiply the 
+gradients  with  this  eta  right  but  you  know  that  you  do  not  always  want  to  be 
+conservative in fact in some cases when you are on the gentle slope you do not want to 
+be  conservative  at  all  you  want  actually  blow  up  the  gradients  so  now  try  these 
+different learning rates and update w and b ok so if you have five learning rates  you 
+will get five different updated values for w b 
+now plug in all these w b values into your loss function right and see whichever is the 
+minimum  retain  that  w  b  value  and  repeat  the  process  that  means  again  you  will 
+compute the gradients with respect to this new value of w b and the new loss function 
+again try out these five different learning rates and continue everyone gets that 
+so now are we using a fixed learning rate at every step no and now do you see that if 
+we are at a gentle slope it would pick probably this as the learning rate and if we are on 
+steep slope which should probably pick one of these as the learning rate and even lesser 
+than that  if  you have the disruption it does not make sense you see the advantage of 
+this  now  you  are  in  some  way  heuristically  trying  to  adapt  to  the  slope  of  the  error 
+surface right by just giving a different learning rates so try all of these and whichever 
+works best pick it up ok so that is about it we are trying different values 
+now what is the flip side of this now if you have k different learning rates that you are 
+trying then at every step you have now increased your computation k times so earlier 
+you  just  add  one  learning  rate  u  just  going  by  that  but  now  i  have  k  so  now  this  is 
+again a trade off which is you have to see now i will give an example where this trade 
+off clearly works 
+so now if you are at the gentle slope now making k more computations and moving out 
+of  that  slope  is  definitely  worthwhile  as  compared  to  just  sticking  to  that  slope  where 
+even  after  hundred  more  computations  you  will  not  really  move  out  of  that  slope  so 
+remember that gradient descent algorithm that we have seen where you just stick to the 
+gentle slope after hundred iterations also right but instead if i tried five different learning 
+rates and there is  a high chance that  i  could  have moved out  of the gentle slope does 
+that make sense you see the advantage of this 
+so this is something that i have to talk about when i back to second order optimization 
+so  i  will  see  when  to  teach  that  so  let  us  see  line  search  in  action  so  this  is  again 
+gradient  descent  this  black  curve  which  is  visible  there  this  is  the  one  i  am  talking 
+about which is run for few iterations and is just stuck on the steep curve you know this 
+story now and it is just get stuck there 
+now let us see what happens if i run so now i will start running the line search based 
+gradients descent so what do you expect now so it will just move very fast right so 
+on the first step itself it is crossed wherever gradient descent was stuck after fifty iteration 
+or so i will keep moving fast 
+now here is an interesting question would you see oscillations here so when you see 
+oscillations  it  is  when  your  loss  is  actually  increased  from  whatever  it  was  currently 
+will that happen in line search the answer is always no 
+it  could  happen when  could  this happen so  it depends on the learning  rates that  you 
+have chosen right so if you have chosen the learning rates so suppose at one point to 
+really be effective you needed the learning rate to be one ok and now if one learning 
+rate was not in your set right that means everything that is there in your set is faster than 
+one so that it will again have the same problem as momentum because you will move 
+faster than what  you should actually move so  it depends on this careful  choice of the 
+learning rate set 
+so that is all i have to say so there is a slight convergence would be faster than vanilla 
+gradient  descent  that  is  obvious  and  we  see  some  oscillations  ok  and  the  statement  is 
+actually wrong we need to remove that ok we see some oscillations and these could be 
+the  similar  wants  to  the  once  with  that  we  see  in  momentum  because  we  overshoot 
+because we have not chosen the right set of learning rates 
+one of the learning rates which was actually needed at a particular point right say at this 
+point suppose i needed to move very slowly and that very slowly say one and that was 
+not  in  my  set  then  any  other  learning  rate  is  always  going  to  be  much  faster  then  so 
+you could see oscillation 

@@ -1,0 +1,220 @@
+lecture  six 
+so this lecture actually is a bit of a digression and it is supposed to cover some of the 
+basics that we need for various sections of the course so it is  very important  that  you 
+understand some concepts for linear algebra specifically eigenvalues eigenvectors and in 
+particular today we will do principal component analysis and the reason that i do it is 
+there is an very neat relation of pca and to autoencoders an autoencoder is something 
+that well cover in the course it is a part of any deep neural network course 
+and  singular  value  decomposition  is  something  that  we  using  when  we  learn  word 
+vectors the word vector is again something very important i can just i can do the non 
+svd version of it where i just talk about what word to wick is but that will not give you 
+the same probably not  the same interpretation  as if  you start  from svd  and then reach 
+word vectors right so that is why i am covering these basics 
+so how many of  you know eigenvalues and eigenvectors  very embarrassing question 
+how many of you absolutely hate eigenvalues and eigenvectors so let us see if we can 
+change that today i mean on the positive side 
+so what happens when a matrix hits a vector so most of you a lot of people that i talk 
+to right actually think that eigenvectors are the villains of linear algebra it is very hard to 
+understand  them  and  so  on  but  today  i  am  going  to  make  a  case  for  they  are  not  the 
+villains they are actually the superheroes of linear algebra so that is what the lecture is 
+about so what happens when a matrix hits a vector 
+student transforms it 
+transforms it right so actually what happens is that it strays from it is path so this is 
+the original  this is the original vector x ok and now once i multiply 
+it  by  a  that  means  if  i  do  the  transformation  a  x  then  i  get  a  new  vector  and  two 
+things happen right one is the direction changes which is obvious and in many cases the 
+scale  also  changes  that  means  the  vector  might  get  elongated  it  is  magnitude  would 
+increase or it would decrease 
+so if you really think about it actually  right so matrices are the real villains of linear 
+algebra right and we just look at this vector was minding it is own business going along 
+it is own direction a metric comes and hits it and completely changes it is world right i 
+mean it just throws it off path increases a dimension or slows it down or whatever it so 
+that is they are the bad guys now for every villain what do you have a super hero right 
+so what is a super hero corresponding to orbit what does a super hero do know that 
+is a very linear algebra i am talking about comic books that this is very linear algebraic 
+answer he stands up to the villain right 
+and that is exactly what eigen vectors do it right they refused to change their part they 
+tell the matrix you can hit me as many times as you want probably you can increase my 
+you  could  probably  slow  me  down  a  bit  or  push  me  ahead  or  something  but  i  am  not 
+going to stray off from your path right so that is what eigenvalue eigenvectors do 
+so here is a matrix which is a villain and here is an eigenvector which is our hero and 
+now when this matrix hits this eigenvector it refuses to stray from it is part right it says 
+i will move forward i will move back whatever but i will not change my direction ok i 
+will  just  stay  honest  to  what  i  am  and  these  vectors  are  called  the  eigenvectors  i  am 
+more  formally  you  can  write  it  as  ax  is  equal  to  lambda  x  right  so  that  means  the 
+direction  remains  the  same  only  the  scale  changes  it  will  either  get  slowed  down  or  it 
+will get boosted up right so the magnitude would change but the direction remains the 
+same 
+now what is so special about eigenvectors like why are why is it that they are always 
+in  the  lime  light  i  know  the  any  course  that  you  do  invariably  touch  eigenvectors  or 
+eigenvalues  at  some  point  in  that  course  right  where  be  it  machine  learning  image 
+processing whatever you do you always speech everything that you do you will always 
+have eigenvectors and eigenvalues why is it so well it is turns out that several properties 
+of matrices can actually be explained away by looking at their eigenvalues so if i look 
+at  a  matrix  i  would  probably  not  be  able  to  comment  much  on  it  but  if  you  tell  me 
+something about the eigenvalues 
+i  can  see  a  lot  of  things  about  of  it  and  there  is  an  entire  field  on  this  way  this  entire 
+spectral  graph  theory  which  looks  at  properties  of  laplacian  matrices  and  come  in 
+something  on  the  properties  of  the  graph  and  so  on  right  and  that  is  just  an  example 
+which we do not care about but what we care about in this course there are a few things 
+that  we  care  about  with  respect  to  eigenvalues  and  eigenvector  and  that  is  what  i  am 
+going to focus on right so that is what this lecture is going to be out and i will take two 
+specific  cases  which  are  very  important  for  us  to  understand  certain  concepts  later  on 
+so i will start with the first one 
+and  i  will  start  with  a  very  simple  example  to  motivate  this  problem  and  eventually 
+will  lead  to  a  result  which  will  help  us  understand  a  very  important  concept  in  deep 
+neural  network  training  which  is  exploding  and  vanishing  vanishing  gradient  we  will 
+not  touch  that  concept  today  but  we  will  use  these  ideas  when  we  are  looking  at  that 
+later on 
+so  let  us  take  this  example  of  two  restaurants  so  there  is  a  chinese  restaurant  and  a 
+mexican restaurant  and on day one k one students  eat  in  the chinese  restaurant  and k two 
+students eat in the mexican restaurant so this is what my situation is on day zero k one for 
+chinese and k two for mexican now what happens as is obvious people get bored or they 
+have different want to try out different things so on day two or other each subsequent 
+day what happens is that a fraction p of the students who ate chinese today will opt for 
+max  mexican  on  day  on  the  next  day  and  a  fraction  q  of  the  students  who  ate  ma 
+mexican today are going to opt for chinese 
+so you get this situation right so i started with k one k two so what i am saying is on day 
+one that is the next day only a fraction p of the k one students will remain for chinese and a 
+fraction one minus q would be transferred from mexican to chinese ok and similarly only 
+a fraction q of the students would again stick to the mexican food and a fraction one minus 
+p into k one would shift from chinese to mexican is this setup clear ok can you write this 
+as a matrix operation it would be a matrix multiplied by a vector right can you tell me the 
+vector 
+student 
+k one k two k one k two and the matrix is in all this ok this is what it is and i am saying that this 
+happens on each subsequent day it is every day now this keeps happening so on day one 
+i started with say one hundred and eighty and now day two it change to something again day three it will change 
+something by the same fraction 
+now  let  me  call  this  as  matrix  m  and  this  is  of  course  v  zero  right  by  definition  as  we 
+decided now what would happen on day two what would v two be m applied to v one right and 
+which would be m square applied to v zero i am just substituting the value of v one which is 
+m into v zero in general on the nth day what would happen m raised to n into v zero ok so 
+you see that the number of customers in the two restaurants is given by this series you had 
+v zero then m into v zero then m square v zero and so on up to m raised to n vn ok you see how 
+the number of customer is changing 
+now and this is how i represent it as a state transition diagram  right so i had certain 
+numbers on day one and it changed with the trans with the probability p they will stay back 
+with a probability one minus p they will move to the next or the different restaurant and so 
+on right 
+and now this though a very toyish example can you relate it to many things in real life or 
+many things that you will take in decision making right that you are so even if you are 
+playing a game for example and even if you are playing atari games or something you 
+are in a certain state based on some action that will take will move to a different state and 
+so  on  right  so  these  things  happen  in  various  real  world  applications  right  there  is  a 
+certain state for example even in stock market prediction  you are at a certain value of 
+fish stock it might change to a different value right and these values you could just say 
+them as high low or neutral that i am not going into the actual numbers 
+today the stock value is high it does it possibility that it will transition to something low 
+and so on  right  so these kind  of state transition  diagrams  occur in  various real  world 
+examples  now  this  is  a  problem  for  the  two  restaurant  owners  right  why  is  this  a 
+problem for the two restaurant owners they do not know how much food to make but 
+every  day  the  number  of  customers  is  changing  right  but  is  the  number  of  customers 
+actually changing will the system eventually reach a steady state will it is it obvious 
+that it will reach a steady  state or maybe it will  not  even reaches steady but  the way  i 
+describe  it  i  do  not  see  why  it  should  reach  a  steady  state  right  you  have  some  people 
+here they go there come back go there and so on 
+the only thing which i have assumed is that the transition matrix which was the matrix 
+m is constant across all the time steps right so every day it is at the same priorities by 
+which  things  are  changed  right  so  what  is  your  guess  if  i  were  to  ask  you  to  take  a 
+guess ok let us see how many of you think and it is there is no correct answer here at 
+this point so just tell me how many of you think it will reach a steady state how many 
+of you think it will keep changing and why is the sum never equal to one ok so fine so it 
+turns out that they will right and let us see how 
+so we will define some things and some of these are just definitions some of them have 
+accompanying  proofs  which  i  am  not  going  to  do  here  you  can  the  proofs  have  been 
+linked from the slides so you can take a look at them if you are interested 
+so suppose there is a matrix a n cross n matrix which has eigenvalues are lambda one 
+lambda two up to lambda n now what this definition is saying is that assume that there is 
+one eigenvalue which is greater there is no assumption actually the eigenvalue which is 
+greater than all the other eigenvalues is called the dominant eigenvalue and when i am 
+looking at a dominant eigenvalue i am only concerned with the magnitude not the sign 
+so it could be that an eigenvalue is minus ten and all the other eigenvalues are one two three four five 
+so the dominant eigenvalue would be minus ten right and i will just take it as step is that 
+clear the definition of a dominant eigenvalue 
+now  how  many  of  you  know  what  is  the  stochastic  matrix  so  matrix  m  is  called  a 
+stochastic  matrix  if  all  the  entries  are  positive  and  the  sum  of  the  elements  in  each 
+column is equal to one so now this definition is again slightly misstated so there is a row 
+stochastic matrix the column stochastic matrix and also  doubly stochastic matrix  right 
+so what i am talking about here is a column stochastic matrix like our matrix have you 
+seen  such  a  stochastic  matrix  any  time  in  your  life  in  the  last  five  minutes  the  m  matrix 
+right  so  the  m  matrix  is  a  stochastic  matrix  because  the  sum  of  the  columns  was  one 
+right you had p one minus p q one minus q ok or was it some of the rows was one rows was one is 
+it the columns 
+so  this  is  a  stochastic  matrix  just  a  definition  now  i  combine  these  two  definitions 
+which is dominant eigenvalue and stochastic matrix and give  you a theorem  right so 
+the largest dominant or the dominant eigenvalue of a stochastic matrix is equal to one ok 
+so to prove this what do i have to prove so i need to prove two things one that one is an 
+eigenvalue  of  this  matrix  of  any  stochastic  matrix  and  second  all  the  other  eigenvalues 
+are less than one so that is exactly what this proof does here you can take a look at it and 
+just to give you a heads up so last year i use to do this that please see the proof go back 
+and look at the proof people never look at the proofs 
+so i used to ask them in the quiz where i should be sure that people not going to answer 
+right so please when i say go back and look at the proof do that ok so and lastly if a 
+is an n cross n square matrix and you have this series a v zero a square v zero up to an vn 
+then this series will converge to the dominant eigenvector of a what does a statement 
+mean let us not get into the proof right what does it actually mean ok so let us start 
+with very basic stuff right what is the series actually what is each element in this series 
+it is a vector it is a vector everyone gets that every element in the series is a vector 
+now  what  do  i  mean  that  a  series  of  vectors  converges  to  the  dominant  eigen  vector 
+what is convergence mean if i keep finding the next element next element next element 
+of this series and i keep doing this as long as i can i will reach a value n right where n is 
+the nth element in the series which will just be a multiple of the dominant eigen vector is 
+that clear you not seem to be clear everyone gets that 
+so  what  do  you  mean  by  if  you  take  a  series  of  numbers  and  if  i  say  that  the  series 
+converges to zero what does that mean if you keep finding the next element in the series 
+you will hit a point n where you find the nth element of the series and it will be zero (refer 
+time 1320) that ok so we will just i will leave it at that for now now so stochastic 
+matrix dominant eigenvalues the connection between two and the convergence theorem for 
+a series of vectors which is a v zero a square v zero and so on 
+now let ed be the dominant eigen vector of m where m is a dash matrix in our case it is 
+a stochastic matrix so what with the corresponding dominant eigenvalue be 
+student one 
+one  ok  so  given  the  previous  definitions  and  theorems  what  can  you  say  about  the 
+sequence it converges to a dash of ed 
+student 
+a  multiple  of  ed  right  so  there  exists  an  n  such  that  the  a  length  nth  element  of  the 
+series  which  is  given  by  this  is  going  to  be  equal  to  some  multiple  of  the  dominant 
+eigenvector no no k is some multiple no this is not related to eigenvalues yet just wait 
+for the next statement then you will see the difference that this is not the do eigenvalue 
+yet 
+now my question is what happens from here onwards what would be the next element 
+in the series how many of you say some k dash into ed what is the other pause i do not 
+have the other option what is the other option 
+student k into ed 
+k into ed how many of you say k into ed a large number of ok so you see that now just 
+notice the eigenvalue will come up right so at step n plus one you would have m into vn 
+which  is  m  into  k  into  ed  and  this  quantity  is  actually  one  so  the  theorem  says  it  will 
+converge  to  some  multiple  of  k  and  now  if  it  is  a  stochastic  matrix  what  will  happen 
+after that time step it will just remain the same vector 
+so what would happen to the number of customers in the two restaurants it will remain 
+the  same  right  you  get  that  ok  fine  now  this  was  all  for  what  kind  of  matrices 
+stochastic matrices square stochastic matrices 
+but we generally care about any square matrix in fact we should care about any matrix 
+not discriminate but any square matrix will do for now so for a square matrix let p be 
+the time step at which this series approaches a multiple of the dominant eigenvector 
+the  theorem  was  for  any  square  matrix  remember  it  was  not  for  stochastic  square 
+matrices  we  just  use  this  value  that  for  a  stochastic  square  matrix  the  dominant 
+eigenvalue  is  one  which  it  need  which  leads  to  that  neat  result  that  the  num  then  the 
+number of customers just becomes constant but for any square matrix i could write it as 
+this  that  there  exist  some  step  p  at  which  the  element  of  the  p’th  element  of  the  series 
+would just be a multiple of the dominant eigenvector 
+now what would happen at step p plus one is this fine what about step p plus two and in 
+general at p plus k or p plus n everyone gets this so now can you tell me what does this 
+knowing  this  dominant  eigen  value  tell  us  about  this  series  when  will  it  stabilize 
+actually 
+student 
+when lambda is equal to one that is the case we already saw if the dominant eigen value is 
+greater than one what would happen 
+student 
+series will explode the series will explode and if it is less than one what would happen 
+the  series  will  vanish  ok  so  this  is  an  important  result  that  we  will  use  when  we  are 
+discussing exploding and vanishing gradients 
+so we will see that in the case of something one as a recurrent neural networks you end 
+up with  something of this sort and then  i will make some  comments  on that  right  so 
+that is why we will be using this will come probably six seven or maybe more lectures down 
+the line ok but we will be using it at this point so the main result from here is that if the 
+dominant eigenvalue this should be lambda d is greater than one then it will explode less 
+than one it will vanish and equal to one it will stabilize so that is one result one important 
+property  of  eigenvalues  and  eigenvectors  that  well  be  needing  at  a  later  point  in  the 
+course 

@@ -1,0 +1,125 @@
+train error vs test error 
+so we would start the next module where we will talk about training error versus test error 
+and before that we will see this bias variance tradeoff 
+so now what have we done so far in these complex models and the simple models we have 
+trained them using the dash data training data and what are we interested in always a test 
+data right i already know what was the oil amount of oil mined from the training data 
+locations that i was given and i am not interested in predicting those i am less interested in 
+learning those so that if you give me a new location i should be able to do the right 
+prediction 
+so i am always interested in the test data so now consider a new point which is not seen 
+during the test data and there are several such points that you could see now if you use the 
+model f hat x to predict the value of y then the mean square error is given by you get this it 
+is just the expected value of this squared error that i will get so what is the randomness 
+here y expected value because the x that i am going to feed at test time is going to vary for 
+each of these different xs i will get a different error 
+so hence that is a random variable do you get that so please focus on these things right i 
+mean just do not take a formula for granted just see what is it trying to see so whenever 
+you see an expectation over something always question what is a random variable here so 
+what is the random variable here it is the squared error loss why is it random it is because 
+it changed the input x you are going to try it over a multitude of test examples you will take 
+one thousand text examples ten thousand text examples and so on right for each of this you will get a 
+different squared error that is the randomness so you want to see what is the expected 
+value of this or very loosely speaking the average value of this now it turns out that this 
+now just try to remember that this is also some expectation and you had the terms f x and f x 
+hat here this also had some expectation and term f x and f x hat and so on right if you do 
+not remember the exact formula it is ok but you do remember there were some expectations 
+inside and the terms f x and f x hat whether they are so this is just simple you are dealing 
+with a minus b the whole square on the left hand side 
+if you if you open it up rearrange some terms you will get this right so you can show that 
+the mean average or the expected square error on the test data is actually the bias square plus 
+the variance that is a small amount of irreducible error you can go back and work this out 
+and actually the proof is given here on the link ok but i hope you get the intuition you have 
+this a minus b the whole square 
+if you open it up and rearrange the terms you should be able to get this now what does this 
+tell you what happens if the bias is high the squared error is going to be high what 
+happens is if the variance is high it is going to be high so that is why you do not want a 
+very high bias you do not want a very high variance also you want this sweet spot in 
+between where the bias and variance are just about optimal you get that that is why there is 
+a tradeoff between bias and variance 
+you cannot rely on simple models which have high bias you cannot rely on complex models 
+which have high variance you want something in between 
+now the parameters of f hat x remember that they are trained using the training data which 
+consists of these end points that you have at test time we are interested in evaluating the 
+model on a validation set which was different from the training data this gives rise to the 
+following two quantities one is the training error which you deal with at dash time training 
+time that is the error that you are trying to minimize right but a test time you have a 
+different error which is the test error and that is the error that you care about 
+typically these two errors exhibit a certain trend do you know what the trend is now on 
+the x axis i have model complexity and on the y axis i have error as a model complexity 
+increases what would happen to the training error it will go to almost zero that is exactly 
+what happened from the linear function to the polynomial function this is how it will 
+behave as the model complexity increases as the model complexity increases what would 
+happen to the validation error it will decrease up to a certain point right because you are 
+still not over fitting on the training data your answers are still generalized 
+so you had this degree one polynomial degree twenty-five polynomial if i take in something in 
+between then probably this is where i would have ended up with the training error and that 
+would not have been too bad for the test error you see this ok now you see i will mark two 
+points two regions rather one of this corresponds to high bias the other one corresponds to 
+high variance tell me which one is which do this i cannot understand so let me ask this 
+is this is ok 
+good so you see that there are these two extreme and we want somewhere to be in 
+between ok at least you get the intuition behind this fine ok and you are looking for this 
+sweets spot which is the perfect tradeoff between the bias and the variance right so now 
+everyone gets why there is a tradeoff and how this relates to model complexity and therefore 
+we are looking for the ideal model complexity how do we achieve the ideal model 
+complexity well we cannot really ideal is ideal but we try to do this using dash what is 
+the title of this lecture 
+student regularization 
+regularization i will try to use regularization to achieve this ok so let us formalize this a 
+bit more and remember that this curve is actually because of this equation that you see right 
+high bias you will be in this region i am actually inserting it ok fine ok 
+so the intuitions that we have developed so far is that if there are n training points and m test 
+points then we have a train error which goes over the training points and we have a test 
+error which goes over the m test points ok 
+so i am just taking a total of n plus m points the first n is training the next last m is test 
+now as the model complexity increases what happens to the training error it becomes very 
+optimistic and gives you a very wrong picture of how close the predicted function is to the 
+true function whether it makes you feel that you have done a perfect job this you have 
+actually discovered the true function but that is not correct it is giving you a false picture of 
+that therefore we should always look at the dash error 
+student validation error 
+validation error so now you see that why you always do this train validation and test split 
+test is unseen you try to optimize on the training error ok but you should always tune for the 
+validation error your optimization algorithm is going to take in the training error it is going 
+to be very optimistic it is going to try to drive to zero but you should look at the validation error 
+and try to see that you are not over fitting on the training data everyone gets this intuition 
+so now this is all intuition we will have to concretize this mathematically so that is what 
+we will do now so that d be these training test points that we have we know that this 
+relationship holds we do not know what f is but we know that this relationship holds so 
+what am i trying to say here that we know that there is a true relation between y and x which 
+is given by the function f but i am also willing to admit some noise that may not be a very 
+neat function but a small noise might exist 
+that is the epsilon i ok and i am going to assume that epsilon comes from a normal 
+distribution with zero means so on average the noise is going to be zero but there is a small 
+variance everyone gets this this is a true relation but i am willing to admit some noise in 
+the relation ok fine and of course we do not know f we never know f right now going by 
+our paradigm where we have these five components we use f hat to approximate f f hat will 
+have some dash which will i try to learn from the training data what is this dash parameters 
+right which will try to learn from the training data the training data t is a subset of your total 
+data which is thus those endpoints right and we are interested in knowing this quantity this 
+is what we are actually interested in can we compute this quantity how many of you say 
+yes how many of you say no we cannot why cannot we compute it 
+we do not know f so why cannot you raise your hands if you all can answer in chorus so 
+we do not know what f is then how do we compute this quantity right but what do we 
+actually know so now we are going to see something which is true expectation and 
+something which is empirical estimate expectation how many of you know this what is the 
+difference between the two most of you should but it is not confident about it ok so we do 
+not know what fxi is the true thing but what do we know we are given some training data 
+right 
+we know these yi’s for was training data and we know these yi hats for those training data 
+so this is something that we can estimate yes or no this is given to us so this expectation 
+is going to be an empirical estimate right because we are going to look at some one thousand ten thousand 
+twenty thousand training points and estimate this right it is an empirical estimate how many of you 
+get that now i am just going to rewrite some of this so what i have done is i just defined 
+that yi is equal to fxi plus epsilon i so i have just replaced yi by that ok is that fine now 
+this is of the form a minus b the whole square so i am going to treat it as that and just open 
+up the bracket so i will have a square minus two a b plus b square and now this is a sum or 
+difference of expectation so i can push the expectation inside so this is what i get this is 
+this fine ok 
+now i am just going to rearrange the term so remember this was the quantity that we were 
+actually interested in but this is the quantity that we had a handle over because these were the 
+data points given to us so i will just rearrange the terms and i can write this which was my 
+quantity of interest as this can you estimate everything on lhs on rhs this this what 
+is this variance sigma square we assumed it came from zero sigma square distribution and 
+this can estimate the answer is no for the same reason we do not know what f of x is ok 

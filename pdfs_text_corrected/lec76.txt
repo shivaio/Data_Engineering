@@ -1,0 +1,174 @@
+svd for learning word representations 
+so in this module we will talk about using svd for learning word representations 
+so what does singular value decomposition do yeah these are all possible variants so 
+people have tried various things and one of the ppmi one is the is the most reliable thing 
+that is what is given but you can think of i mean you said one there are ten different 
+things which we can do for the cooccurrence matrix right but this is the most popular 
+and most stable thing to do 
+yeah what is the single value decomposition do can you read it from the slide please it 
+gives the rank k approximation of the matrix so let me start defining a few things so 
+from now on when i refer to the cooccurrence matrix i would mean the xppmi matrix 
+right which was the positive pmi which was replacing all negative pmis by zero and just 
+do not have this nasty variable i will just call it as x 
+so from now on whenever i say x i mean the positive pmi cooccurrence matrix ok 
+so that is what this matrix is ok and we know that svd gives us this reconstruction of 
+the original matrix and fine it gives us the best rank k approximation of the original 
+matrix and it discovers the latent semantics in the corpus everyone remembers this like 
+that is what we were by we were using pc and svd and auto encoders it was able to 
+discover some latent semantics and we will concretize this intuition with the help of our 
+current example but for now i just want you to recall that it helps in discovering the 
+latent semantics 
+now notice that this product and i think i have done this in one of the assignments or 
+something can be written as a sum of the following products so i can write it as sigma one 
+u one v one transpose sigma two u two v two transpose and so on can you tell me what this sum is 
+this is the rank two approximation of the original matrix and i keep taking more terms i get 
+more and more rank approximations of the original matrix ok now and we all know that 
+ok we all hopefully know that what is the dimension of this it is a scalar vector matrix 
+scalar vector matrix 
+studentmatrix 
+ok now of course you will say matrix but what is the dimension of the matrix why is 
+it a matrix it is an outer product of two vectors right this what is the size of this n cross one 
+into n cross one so that sorry one cross n that gives you n cross n matrix everyone gets this 
+otherwise how is it a rank one approximation you have to get the original dimensions right 
+everyone is clear with this is an outer product 
+and it belongs to r m cross n ok and if we truncate the sum at the first term we get the 
+rank one approximation and by svd theorem we know that this is the best rank one 
+approximation 
+now what does this actually mean that this is an approximation what do we mean by 
+that so we will see that on the next slide and similarly in the same way if we truncate it 
+in the second term you get the same best rank two approximation 
+now what do we mean by approximation here actually and i mean to say 
+approximation always in this course at least try to think in terms of compression how 
+many elements are there in the original matrix m cross n that is how many elements 
+you need to describe the matrix completely if you do a rank one approximation how 
+many elements are you using m plus n plus one right so the original matrix has m cross 
+n entries entries and when you do a rank one approximation you have m plus n plus one 
+entry so that that is the approximation right so you are trying to really compress the 
+original data using only these many variables you get that ok 
+and if we do a rank two twice this right so as many rank i mean as deeper as you go in 
+the sum you will have that many elements to do the approximation ok but what is 
+important is that the svd theorem tells us that this is not just any random approximation 
+but this is the best approximation that you could have done that means if you wanted to 
+use only these many elements these are the best elements to use right everyone gets 
+that 
+so as an analogy consider this right suppose you are given eight bits to represent colors ok 
+and this is how you represent very light green light green dark green and very dark 
+green this is what your representation is 
+in this original 8bit representation there is some similarity between the colors but it is 
+still a bit latent but now if i were to ask you to use only four bits to represent these colors 
+what would you do the lowest significant bits if you use the first four no then use only 
+get very light that is not the essence of that color right you need the color to be there so 
+if you compress what would happen is so that is what happens in when you go from 
+two hundred and fifty-six bit colors to higher or lower right the distinctions between the colors go off 
+so all of them would be compressed to green well that is the most important important 
+information in terms of the color right because you need to be able to distinguish 
+between green and red as suppose to very dark and very light that is the more important 
+information that is there right so when you compress it the most important information 
+in that entity should be retained and that is exactly what svd does when it does a 
+compression it retains the most important information in the corresponding entries is 
+that clear is the intuition clear fine 
+so let us actually do this so this is my original cooccurrence matrix x and i just 
+repeat when i say x i mean x ppmi and now i have done svd and i have done a low 
+rank approximation of it i do not know what was the value of k i selected but some 
+value of k it was definitely greater than one or two so now you see a low rank 
+approximation of x what is the first obvious thing that you notice it is dense now it is 
+the longest sparse 
+now can you tell me something about the colored entries what was happening in the 
+original matrix x the word system and machine was never cooccurring because of 
+which their value was zero same for human and user but remember there is some 
+important information in this matrix which also tells you what are the words with user 
+appears with and what are the words with human appears with and that actually gives 
+you intuition that these two words are actually related right same for system and machine 
+system and machine both would appear in the context of words like interface install run 
+and so on so you know they are similar it just happens that these two words never 
+appeared together so this similarity between them was latent or hidden in the original 
+cooccurrence matrix now once i have done the svd what has happened because i have 
+forced it to compress the data it has retained the most important in information and 
+under that information these two words have actually come closer to each other right 
+so you see that now you have a nonzero entry for the similarity between those two 
+word pairs do you get the intuition and can you imagine that this would happen with 
+svd 
+and what is wrong in imagining you can but i guess right that is what is happening with 
+this so you think about pca you think about svd you think about auto encoders all the 
+intuitions that we had build there the same is being applied here right all if you get this 
+ok fine yeah after svd you could have right that is not necessary that it should be 
+positive in the original matrix you do not have negative entries 
+now here is a question right recall that earlier each row of the original matrix x served 
+as the representation of a word ok this was my original x ppmi not the rank 
+approximation now in that case what would x x transpose give me what would the ij 
+th entry of x x transpose be so let us look at this toy example you have this x matrix 
+you have xi and xj now i take x transpose ok 
+now this is xi this is xj just standing now what would be the ij th entry of x x 
+transpose it will just be the dot product between these two right is that fine so this is 
+just the dot product between them and we know that dot product is more or less the same 
+as cosine similarity module over the normalization right you just need to normalize it by 
+the norms of x and xi and xj in this case right 
+so i will just assume that this is a substitute for the cosine similarity ok so every entry 
+at every ij’th cell in x x transpose is the cosine similarity between the representations of 
+the i’th word and the g’th word is that clear to everyone ok fine and in the original 
+case which was the xppmi the cosine similarity between human and user was twenty-one 
+now once we do in svd what is a good choice for the representation of the word i 
+after svd what is the dimension of x hat it is again n cross m because it is a sum of m 
+cross n matrix so that the dimension of x hat is m cross n although it has been 
+constructed using fewer information but the dimension is m cross n right that means 
+what is the size of the representation of every word still high dimensional still the same 
+n or v whatever everyone gets that is there any confusion with that ok 
+now you could say that ok i will just take the i’th row of the reconstructed matrix and 
+use that as the representation because i know that now this representation is better some 
+of those zero entries have changed they have captured the latent semantics between the 
+words so this is definitely better none is denying that that this compression has given us 
+better representation because we are only keeping the most important information 
+now if i do x hat x hat transpose remember x hat is the reconstructed matrix then 
+again by the same argument the ij’th cell actually gives me the cosine similarity between 
+the i th word and the j th word and you can see that now the cosine similarity between 
+human and user has actually increased so this is just for me to convince you that we 
+have learned more meaningful representations so now what do we choose as the 
+representation i have still while computing this cosine similarity i have still used xi 
+which is high dimensional which has the entire vocabulary as the number of columns as 
+a representation right 
+that means 
+it has improved 
+so there are two things coming out of here one is i really like this cosine similarity i see 
+that 
+the representations were computing something 
+meaningful but on the flip side i am still not happy because the representations are still 
+high dimensional so can you construct a wish list for me based on this i would want 
+the same cosine similarity to be present as given by x hat x hat transpose right but i 
+would like to represent it by fewer dimensions that is exactly what my wish list is ok 
+so let us see how do we do that now for no reason i am going to construct a matrix w 
+word equal to u sigma what is u sigma it is the part of the svd right the svd told us it 
+was u sigma v transpose so i am just considering this matrix i am going to call it w 
+for no particular reason ok now let me take x hat x hat transpose i can write it as this 
+is that fine now what is the next step 
+what does this mean i want an answer right this is that aha moment should be there or 
+otherwise there is no point what is how many rows are there in w the same as the 
+number of words in our vocabulary what is the dimension of each row k so now w 
+word has low dimensional representations for the words in the vocabulary but while 
+doing this what have we not sacrificed the cosine similarity the cosine similarity 
+obtained by this is actually the same as this do you get that how many if you see this is 
+very very important that if you have not understood this everything is meaningless 
+so you see how from svd we got a low rank or a low dimensional representation for 
+the words right w word is just to be clear k and k is very very less than v right so 
+now we have representations for words which are much smaller they are no longer v 
+dimensional remember in practice this k would be of the order one hundred two hundred three hundred and 
+remember your vocabulary was of the order fifty k one thousand k and so on right 
+so 
+the huge reduction that you have got and you have still been able to learn 
+meaningful representations which give you better similarity between related words right 
+so conventionally w word which is u sigma and belongs to m cross k so i am sorry 
+for messing this up but i have used m n and v are interchangeably so you would 
+understand it from context that m is v and the other matrix which is v is known as the 
+w context matrix right what is the size of w context n cross k or k cross n right 
+that means it has the representations for all the context words and w word has a 
+representation for all the target words right so we had these words on the rows and the 
+context words on the column so w word has the representations for the rows and w 
+context has the representation for the corpus ok 
+so this what we have seen so far and this is where we learn today is what a nlp was six 
+years back right before the advent of deep learning if you wanted to use word 
+representations this is what you would do you would do con construct a cooccurrence 
+matrix try these tricks of pmi ppmi positive negative zero and all those things those 
+heuristics then do a simple svd retain the most important one hundred two hundred dimensions and 
+treat that as word representations and use it for whatever you want to do 
+now what needs to be seen is what happened with deep learning and how have this way 
+of computing word representations changed over the past few years right so that is 
+what we are going to see in the next lecture right 

@@ -1,0 +1,142 @@
+lecture – three 
+we are in lecture three of cs7015 and today we are going to cover the following modules 
+we  are  going  to  talk  about  sigmoid  neurons  gradient  descent  feedforward  neural 
+networks representation power of feedforward neural networks 
+so let us start so here are some acknowledgments so for one of the modules i have 
+borrowed ideas from the videos of ryan harris on “visualize back propagation“ they are 
+available on youtube you can have a look if you want for module thirty-five i have borrowed 
+ideas from this excellent book which is available online it is the url as mentioned in 
+the footnote 
+and i am sure i would have been influenced in borrowed ideas from other places and i 
+apologize if i am not acknowledge them probably properly if you think there are some 
+other sources from which i have taken ideas and let me know i will put them in the 
+acknowledgments 
+so with that we will start with module thirty-one which is on sigmoid neurons so the story i 
+had is that it is enough about boolean functions 
+now we have done a lot of boolean functions but now we want to move on to arbitrary 
+functions of the form y is equal to f of x where x could belong to rn and y could belong 
+to r so what do i mean by this so let me just explain this with the help of an 
+example so i will again go back to our oil mining example oil drilling example where 
+we are given a particular location say in the ocean and we are interested in finding how 
+much oil could i drill from this place and that is what i would base my decision alright 
+whether i want to actually invest in this location or not 
+and then what we are saying is that this could depend on several factors so we could 
+have x1 x2 x3 up to xn right where this could be the salinity of the water at that 
+location so this could be a real number this could be the density of the water it is 
+average density this could be the pressure on the surface of the ocean bed and so on and 
+so forth 
+so each of these values independently belongs to the set of real numbers so each of 
+this is a real number and we have n of these so together they belong to rn so i can 
+read that i have n such real numbers and i could just put them in a vector and say that i 
+have a input x which belongs to r raised to n 
+so we have this x which we can say belongs to rn and in this particular case we want 
+to predict y we want to take this as an input and predictor y and what is y in this case 
+you want to predict the quantity of oil that we could mine so what does ry belong to 
+again a set of real numbers and it could be some gallons or litres or kill of water so this 
+again belongs to r so these are the kind of functions that we are interested in now 
+we want a function which takes us from i am having this x which belongs to rn right it 
+is a vector of dimension n and takes us to a value belonging to r so you clearly see 
+that this is different from the case when we had n variables each of this was just boolean 
+so these were only zero one inputs now we have real inputs and these are the kind of 
+functions that we are interested in 
+now can we have a network which can represent such functions now what do i mean 
+by represent such functions we already spoke about this when we were doing boolean 
+functions so what do we mean by representing the function we mean that if i am 
+given a lot of training data right so i am given these x1 x2 each of these belongs to rn 
+and i am also given the corresponding labels now i want a network which should be 
+able to give me the same predictions as is are there in my training data 
+so it should be able to take any of these x’s as input and it should give me the same y i 
+corresponding to it and i am saying approximately which means i am with some error 
+rate whether if it is within some to with as long as it is close to the actual value i am fine 
+with it so that is what i mean by a network which can represent such functions is that 
+working definition of representing clear right so that is a very similar to the definition 
+that we were used for boolean functions we had said that we should be exactly be able 
+to get the truth table the network should be able to represent the truth table exactly 
+so that is very similar to the definition that i am using here 
+and then before we do this right before we come up with a network which can do this 
+for arbitrary functions we have to graduate from perceptron’s to something known as 
+sigmoid neurons so please remember this overall context that we dealt with a lot of 
+boolean functions we analyze them carefully and we saw that we could come up with 
+these networks which could represent arbitrary boolean functions 
+and they could represent them exactly as long as we have one hidden layer of course 
+the catch was that that hidden layer could grow exponentially now we want to graduate 
+from boolean to real functions that means you have a real input of n variables and one 
+or more outputs and you should be able to represent this exactly so that is where the 
+transition is where so that is the story that we are looking for 
+so let us start so recall that a perceptron will fire if the weighted sum of it is inputs is 
+greater than the threshold just recall that fine 
+so now i claim that the thresholding logic which is used by a perceptron is actually very 
+harsh now what do i mean by that let us see so let us return to a problem of deciding 
+whether we like or dislike a movie that is the same problem that we have been dealing 
+with and now consider that we base our decisions only on one input which is the critics 
+rating which lies between zero to one and this is what my model looks like it takes the input 
+as the critics rating i have learned some weight for it and my threshold is five what 
+does this mean it means that if for a given movie the rating is fifty-one will it predict like or 
+dislike like so then i should go and watch the movie what about a movie for which the 
+critics rating is forty-nine dislike so now you see what i mean by harsh 
+so both these values are very close to each other but for one i say i like it for the other 
+i say that i would not like it so it is not how we make decisions right you would have 
+probably said something equal for both the movies you would have not given such a 
+drastic decision 
+so why is this happening so you might say oh this is a characteristic of a problem that 
+you   have   picked   up   maybe   that   is   the   critics   rating   which   is   between   zero   to   one   or 
+something but i want to convince you that this is not a characteristic of the problem that 
+i have picked up but this is something to do with the perceptron function itself so this 
+is what the perceptron function looks like so this sum of all the inputs the weighted 
+sum of all the inputs i am calling it by a quantity z and this is what i am going to plot on 
+the this axis so this is my z axis 
+now what does the perceptron say that when this value of z becomes greater than w 
+naught or minus of w naught it will fire and when it is less than minus of w naught it 
+will not fire that is what it says so this is a characteristic of the perceptron function 
+itself it is going to have this 
+sharp decision boundary that whenever your sum crosses this threshold you will say one 
+and whenever your sum does not cross this threshold you will say zero so in this toy 
+example over the movie critics it just happened that this was five and so it was saying 
+yes for fifty-one and it was saying no for forty-nine so this will happen for any problem that you 
+pick up 
+so to counter this we introduce something known as sigmoid neurons and this is just a 
+smoother function or a smoother version of the step function you see that 
+how many if you know what a sigmoid function what is the formula for a sigmoid 
+function quite a few good and here is one such sigmoid function which is called the 
+logistic function so remember that sigmoid is a family of functions these are functions 
+which have this s shaped logistic function which i have shown here is one such function 
+and the other function that we will see in this course is something known as the tanh 
+function so let me just get into a bit more detail with this logistic function 
+i just want you to understand it properly so this quantity here remember we were 
+writing it as w transpose x which was summation i equal to zero to n wi xi remember this 
+so now i am just going to consider this to be one over one plus e raise to minus w transpose 
+x now i am going to ask you some questions and try answering those 
+what happens when w transpose x tends to  infinity what happens to the sigmoid 
+function 
+one and that is exactly what is happening here as this tends to infinity as this keeps 
+growing so remember this axis is z which is the same as w transpose x right this is w 
+transpose x so as it tends to infinity your sigmoid goes to one what happens if w 
+transpose x is minus infinity 
+zero and that is exactly what is happening here and what happens when w transpose x is 
+equal to zero half so this is that value corresponding to half is that clear so that is how 
+a sigmoid function behaves fine 
+now we no longer see a sharp transition it is a very smooth function and the sigmoid 
+function lies between the values produced by the sigmoid function rate what is the range 
+that they lie between 
+zero to one what is another quantity of interest that you know which lies between zero to one 
+probability so that is one advantage of sigmoid functions so now you can interpret the 
+value given by a sigmoid function as a probability so what does it mean in our movie 
+example again so it just tells me in those two cases that with fifty one percent probability i 
+like the movie or with forty-nine percent probability i like the movie so now this is not very 
+drastic or very harsh right i am not saying yes or no i am not committing myself i am 
+just giving you a number which is proportional to how much i like the movie so it can 
+be interpreted as a probability 
+now here’s the overall picture it so this is the difference between the perceptron 
+function and the sigmoid function so notice that here we had this if else condition right 
+which was leading to that sharp boundary 
+now here we do not have that defence condition we just have a function which is a 
+smooth function 
+and here is another picture so this is not smooth not continuous and not differentiable 
+everyone agrees with that it is not smooth here right it is not differentiable here 
+whereas this is smooth continuous and differentiable and the contents that we covered 
+today it will be very important to deal with functions which are smooth continuous and 
+differentiable 
+so for lot of this course calculus is going to be the hero of the course lot of the things 
+that we do will be based on calculus and in calculus always if you have smooth and 
+continuous and differentiable functions they are always good so that is why we want to 
+deal with such functions 

@@ -1,0 +1,285 @@
+output functions and loss functions 
+we go on to the next module where we will be talking about output functions and loss 
+functions 
+the question that we are going to focus on is how to choose the loss function but i will 
+show you that it is tightly coupled with the choice of the output function also remember 
+that we had said that we have a special o function as the output function i have not told 
+you what that o is and now that is what we are going to define 
+now the choice will be loss function actually depends on the problem at hand and that 
+is exactly the question which had come up right that in some cases it is to have sigmoid 
+as  the  output  function  because  your  values  are  between  zero  to  one  but  whatever  there  are 
+cases  where  your  output  is  not  between  zero  to  one  right  so  it  definitely  depends  on  the 
+choice of the on the problem that you are trying to solve so we will illustrate this with 
+the help of two examples and these two examples will cover a broad range of problems that 
+you will encounter or if you are working in machine learning right 
+so the first problem is  again  you are given the input as movie you are using a neural 
+network with l minus one hidden layers and an output layer y hat right so this is sorry 
+this is a true one so you have an output layer and the output layer is going to predict the 
+imdb rating the critics rating and the rotten tomatoes rating 
+is that  fine ok so what  kind  of problem  is  this people have done machine learning 
+this is  a regression problem  and notice that the output values that  you want  to  predict 
+are not bounded it by zero and one they are still bounded by one to ten but in general you could 
+imagine that there could be problems  so there  are no bounds at  all right  it could  be a 
+very large number is that clear now here yi belongs to r three 
+so remember in all these cases we were assuming that we just want to predict one value 
+but nothing stops you from predicting multiple values at the same time so your output 
+is  now  three  dimensional  you  are  taking  an  n  dimensional  input  and  trying  to  predict  three 
+values from it ok  fine the loss function should capture how much yi had deviates from 
+yi ok so this is a valid or maybe we corrected on this  way ok so this is the formula 
+which was supposed to be in there right so you take you have predicted three values and 
+you  know  the  true  three  values  you  just  take  the  difference  between  these  right  is  that 
+clear the first element of the predicted value minus first value of the actual value and 
+so on for all the three values that you want to predict 
+now you have a loss function but what should be the output function in this case can 
+it be the logistic function yes no it will be bounded between zero to one and you know that 
+your output cannot be bounded between zero to one ok so in such cases then what is a good 
+output function to use one option is to scale it so i will keep that aside why do that 
+it is unnatural and you are actually clamping it and then trying to scale it right so can 
+you do something more natural in that just use a sum which is linear function right so 
+what we could do is you could have o as a linear function 
+so  what  that  means  is  again  remember  that  this  is  a  of  l  ok  and  i  know  all  the 
+computations that have happened so far a linear transformation nonlinear linear non 
+linear and then again linear so i have computed a of l from that i want to compute the 
+final output right so i could just have it as a linear function of the input which is a of l 
+in this case 
+does it make sense how many of you feel it makes sense ok why because now it is 
+no  longer  bounded  right  you  could  this  linear  transformation  your  weights  could  be 
+adjusted in any way to get a value whatever you wanted whether you wanted between one 
+to  ten or one to  one hundred or one to one thousand these weights  could  be adjusted to do that right so at 
+least  you  are  not  bounding  it  and  it  is  free  to  learn  what  is  the  range  from  the  data  it 
+should be able to run but how should you adjust these w's 
+so that you get the desired range now tell me why would it not happen that  you learn 
+w's you start predicting values like one thousand ten thousand and so on in this particular case where 
+your  input  is  bounded  by  one  to  ten  sorry  your  output  is  bounded  between  one  to  ten why 
+would it happen i this is my argument and you prove me wrong right i would say that 
+if  you have chosen  a linear transformation  which is  not  bounded  i then network  could 
+learn weights which start producing a rating of ten thousand twenty thousand and so on because it is not 
+bounded 
+but you know that that is wrong because the ratings can only be between one to ten so why 
+would that not  happen  because  you  are minimizing this loss function right so if  you 
+start predicting values like ten thousand when your actual rating was nine then you have a ten thousand 
+minus ninety whole squared loss that is a very high loss so it will start moving you away 
+from that configuration right so the training is always guided by the objective function 
+so if your training happens well it will try to prevent this 
+now suppose let us take a simple thing rate that you are given a our same ball example 
+for probability so you are given an urn which has balls of three colors say black white and 
+yellow 
+and you have to put the balls in that so you know that the true probability distribution 
+is  actually  thirty-five  twenty-five  and  four  for  red  black  and  white  ok  this  is  the  true  probability 
+distribution  you  have  put  say  thousands  of  balls  in  urn  now  what  you  do  is  you  just 
+allow me to peep into the urn or you allow me to take some samples from there you tell 
+me  take  these  one hundred  samples  and  you  ask  me  tell  me  what  this  probability  is  right  so 
+this is the true probability that you know is true right because you know it because you 
+have estimated 
+now you just give me a small sample from there and ask me to estimate it and based on 
+that  i  actually  estimate  this  ok  so  there  was  a  true  probably  distribution  and  an 
+estimated  probably  distribution  now  i  want  to  find  out  how  wrong  i  went  right 
+afterwards  you tell  me the answer  you tell  me that  this is  what  the true was and this is 
+what you predicted 
+now  i  want  a  way  of  computing  how  wrong  i  was  right  so  how  do  i  do  that  you 
+already know this and these are two vectors what can i do you could just do the this is 
+valid  anything  wrong  with  this  in  principle  no  you  could  just  treat  these  as  any  two 
+vectors you have a true value you have a predicted value you just take the squared error 
+difference  between  them  right  but  you  know  this  is  a  probability  distribution  right 
+you should be able to do something better than this you know this is a special quantity 
+this  is  not  just  any  number  that  you  are  predicting  you  are  trying  to  predict  a 
+distribution  so  you  should  be  able  to  do  something  better  than  that  right  so  that  is 
+what we want to see how to do something better than this that is what our quest is 
+now  again  why  we  are  at  this  right  i  also  want  to  make  a  because  this  is  something 
+people do not immediately understand so i just want to make a case for something else 
+so i will just do that ok now suppose there is this ipl ok and there are four teams in the 
+semifinal let us call them a b c and d ok now i was not in town after the semifinal 
+so  i just know the results  up to  semifinal  and then the  finals  also  happen and one of 
+these teams wins let us call it the b team right the b team wins can you express this in 
+terms of probability can you express this in terms of distribution what do you mean 
+my zero and one b has won 
+so it is a certain event because it has one now so what is going to be the distribution zero one 
+zero  zero  right  so  this  event  happens  with  one hundred  percent  probability  ok  now  the  same  case 
+can you ok so now let us do the same thing that is as i said i was not in town right and 
+you asked me tell me which team would win that is i know these four teams have qualified 
+in the semifinals and i know who the players are and so on 
+and with my limited knowledge of cricket i will predict something right so say i predict 
+this ok can you again tell me how wrong i was you know what the true label is and 
+you know what i predicted you can tell me how wrong i was ok so the case which i 
+am trying to make is that even if the event is certain you can still write it as a probability 
+distribution where all the mass is allocated to the correct output can you relate this to a 
+classification  problem  when  you  see  training  data  you  have  already  observed  it 
+suppose there were four classes possible 
+apple orange mango and banana if you have seen it is apple and if you ask you what 
+is  the  distribution  what  will  you  tell  me  zero  one  zero  zero  you  will  express  it  as  this  one  hot 
+vector where all the probability mass is concentrated on the guy which is correct right 
+so even certain events which happen with certainty you can write them as a distribution 
+rate where all the masses are located on the true label so that is how all classification 
+problems when you are dealing with multiple class classification problems it is often the 
+case that you will write it as this 
+that  your  true  label  is  given  to  you  in  this  format  there  were  four  possible  events  four 
+possible classes or k cost possible classes out of which only one is correct and then you 
+make a prediction and you want to now find out how different was your prediction from 
+the true label you are trying to get the set of how this relates to a classification problem 
+and this is that is why this is of interest to us ok 
+so this so we will see this soon now the next thing that we need is how many of you 
+know what is entropy forget about cross just entropy ok that is why i have left two slides 
+intentionally blank ok so so now let us see where i go with entropy ok how many of 
+you  know  what  is  expectation  please  fine  so  again  the  same  thing  now  i  knew  that 
+this was the distribution which  i think  i am  into  gambling am  not  i am  into gambling 
+and i try to bet on these teams 
+and i bet some amount on each of these can you tell me what is the expected reward 
+that i will get so what am i saying wait suppose this is the case that if team a wins i 
+get  10k  rupees  or  my  net  profit  is  10k  rupees  if  team  b  wins  my  net  profit  is  20k 
+rupees and c and d so on right you get the setup for every even there is an associated 
+value with it this is the value of event  a winning b winning c winning d winning 
+so the net profit in each of these case so what is my expected net profit no give me a 
+formula  sigma  overall  events  right  how  many  events  do  i  have  here  four  right  so 
+rather  i  should  say  i  equal  to  abcd  right  probability  of  i  multiplied  by  the  value 
+associated  with  that  event  so  this  is  how  you  compute  expectation  ok  everyone  gets 
+this 
+so now suppose say am doing  this  right there  are suppose four symbols  i  do not  know 
+what  i  am  teaching  ok  so  and  i  am  trying  to  communicate  this  from  a  source  to  a 
+destination ok and now suppose these are the four symbols that i give and if these one of 
+these symbols is say with probability one and if i transmit it what is the information that 
+this guy gets so this is assumed that a is that sun is going to rise today if i tell you this 
+when you are sleeping in the night what will you tell me  so basically are not gaining 
+any information well it is a certain event you know this is going to happen right 
+now  one  of  these  events  suppose  i  am  going  to  say  that  this  there  is  going  to  be  a 
+cyclone tomorrow morning what is the probability of a cyclone happening in chennai 
+almost one but still it is a very rare event so if i tell you something which is very rare 
+that  message  has  a  very  high  information  content  right  so  if  event  which  has  a  very 
+high probability has a very low information content and an event which has a very low 
+probability  has  a  very  high  information  content  right  so  you  can  measure  the 
+information content of an event 
+so so the point is that what you can have is that the information content of an event you 
+can write it as how many of you get this how many of you have seen this before all of 
+you have seen this right so this is the value associated with an event ok now can you 
+tell me what is the expected information content for every event now i have given you 
+the  value  associated  with  that  even  so  what  is  the  expected  information  content 
+summation  p  of  i  into  information  content  of  i  and  this  like  and  this  is  of  course  log 
+right so it would be so what is this called this is called the entropy 
+now what is cross entropy how many distributions are you dealing with here one which 
+is the p distribution which tells you how likely these messages were and based on that 
+you  are  trying  to  calculate  the  entropy  of  this  situation  right  so  now  what  is  cross 
+entropy  you  have  a  true  distribution  say  you  have  a  predicted  distribution  ok  this  is 
+what  you  predicted  so  that  means  according  to  your  predictions  the  information 
+content of every event is going to be log of qi because that is what you predicted right 
+but what are the actual properties which with these which these events are going to occur 
+pi’s right so then the expectation has to be computed over pi’s right 
+so then what  you  will have is  summation pi  log  qi  so this is  what  you estimated the 
+information content to be but the actual events are going to happen with this probability 
+right so this is your value associated with the event and this is the actual probability of 
+the event  right so this quantity is known as the cross entropy is it clear and this is a 
+way of measuring when would this be in when would this be minimized when both are 
+same  that  means  if  your  prediction  is  very  close  to  your  true  distribution  this  quantity 
+will be low minimized actually 
+so  that  is  what  we  wanted  actually  you  wanted  to  predict  some  distributions  in  all  of 
+these cases and you wanted a measure which tells you that this prediction was good and 
+what is the definition of good it is as close to the correct value so cross entropy gives 
+you a measure of telling how close a predicted distribution is to a true distribution 
+so now instead of using the squared error which was actually pi minus qi right so pi 
+was  my  true  distribution  and  qi  was  my  predicted  distribution  i  can  use  cross  entropy 
+which is given by this model and it does the same thing it gives me a principled way of 
+measuring how close my predicted distribution is to my true distribution do you get this 
+so now so this was for whatever we have done so far right till this point this was for 
+regression right now i wanted to enter into classification for which i have built this set 
+up  of  how  to  take  the  difference  between  two  distributions  so  now  let  us  consider  this 
+problem where we have this situation and which is a classification situation that you are 
+given  four  possible  classes  out  of  which  one  is  the correct  class  and  this  is  the  true  data 
+given  to  you  this  is  the  true  distribution  all  the  probability  mass  is  focused  on  one  of 
+these classes 
+now we want  to  given an image classify this into one of k classes if  you could  again 
+use a squared error loss but since we are dealing with probability distributions here we 
+want to use something special so before we get to what the special is going to be what 
+do  i  first  need  to  tell  you  in  the  earlier  case  my  output  was  not  bounded  was  it  also 
+dependent was there any condition on if the imdb rating is something the critics rating 
+should be something else or the  rotten tomatoes rating should be something else no 
+now in this case is there a tightly coupled behavior between the outputs why because 
+they should sum  to  one we are trying to  predict  a probability distribution so the sum 
+should one right so i need an output function which ensures this you get this setup 
+now  we  should  ensure  that  y  hat  is  also  a  probability  distribution  whatever  we  are 
+predicting is  also  a distribution so now can  i use a sigmoid function  yes it will give 
+me values between zero to one and probabilities are between zero to one but the sum would not be 
+y so sigmoid is ruled out 
+so  what  we  use  is  something  known  as  the  softmax  function  how  many  if  you  have 
+seen  this  before  please  everyone  raise  your  hands  otherwise  you  will  get  zero  on  the 
+assignment fine so what does this what does this function actually do let us look at 
+this function right so here you had a l which was say a l one a l two a l three right suppose 
+we had three classes ok so from here i actually want to go to hl or rather i going to want 
+to go to y hat right which is going to consider y hat one y hat two y hat three right it is going 
+to give me probability of each of the three classes 
+let us assume there are only three classes right so now what this function does is how is it 
+going  to  predict  y  one  hat  suppose  these  values  were  ten  minus  twenty  and  thirty  so  what  is 
+going to be y one hat is going to be e raised to ten divided by e raised to ten plus e raised to 
+minus twenty plus  e raised to  thirty so now  you see how the output is  comp  computed from 
+each of these values right so why did we do this e raised to stuff why could not i have 
+just  taken  ten  plus  minus  twenty  plus  thirty  divided  by  the  sum  because  we  have  negative 
+values 
+so once we take the exponent even the negative values become positive right so that 
+is  why  we need the softmax function  i hope  all of  you wrote this in  your assignment 
+they  did  ok  so  you  get  this  we  have  a  different  output  function  now  and  this  output 
+function  does  it  make  sense  it  gives  us  a  probability  distribution  now  the  summation 
+would be one and each of these values would be between zero to one that is exactly what we 
+wanted 
+and  now  that  we  have  ensured  that  y  and  y  hat  both  our  distributions  what  is  the 
+objective function that we are going to use cross entropy how many of you convinced 
+it  is  cross  entropy  we  have  two  distributions  now  we  saw  that  a  principled  way  of 
+computing the difference between two distributions is the cross entropy so we will use the 
+cross entropy 
+now  can  you  tell  me  something  about  this  sum  there  is  something  special  about  this 
+sum what are these three true values and these are the predicted values what is so special 
+about this sum how many terms are there in this summation k as many as the number 
+of classes in this case four how many of those terms will go to zero all but one right except 
+for the correct class everything else will go to zero so this just boils down to the following 
+loss  function  that  if  l  is  the  true  class  right  for  that  class  yc  is  going  to  be  one  it  is 
+going to be zero for everything else that is exactly what this vector tells you only that term 
+will remain so were actually trying to minimize this quantity 
+let  us  see  so  for  classification  problems  this  is  your  objective  function  you  either 
+minimize the negative log of  y hat  l  or  you can say  you  are maximizing this thing ok 
+now what is this quantity  y  hat l no it is a predicted probability of the correct event 
+right  so this is  a probably no  wait this is  an important  question so  you have  y  hat  l 
+here and this is a function of i mean this optimization problem is with respect to theta is 
+this a well formed objective function does y hat l actually depend on theta yes it does 
+so theta because why i tell is a function of all these things everything here and then a 
+log on top of that right so it is actually a function of all your parameters so this is a 
+properly  set  objective  function  we  are  trying  to  minimize  or  maximize  with  respect  to 
+theta  ok  and  you  told  me  that  y  hat  l  is  actually  the  probability  of  the  predicted 
+probability  of  the  correct  class  ok  hence  this  quantity  is  also  known  as  the  ml  class 
+pattern recognition class log dash of the data 
+student all 
+all good and fill in the blanks 
+so it is a priority of the x belonging to the l th class and then hence y hat l because it is 
+the  probability  it  is  the  likelihood  of  it  is  called  as  the  log  likelihood  of  the  data  log 
+likelihood 
+so  what  have  we  done  so  far  we  started  with  a  feed  forward  neural  network  we 
+defined the hidden layers and the input layers and the weights and the biases we kept a 
+provision for the output layer to be something special right then we went to two classic 
+problems  one  is  regression  and  the  other  is  classification  in  regression  we  wanted  to 
+predict values of all sorts of ranges 
+so we decided to use a linear layer there so that there is no bound on the values that 
+you can predict and your objective function should take care of where the bound lies it 
+should not allow values which are way off from the true values right and that is why 
+we  use  the  squared  error  function  there  the  other  problem  that  we  looked  at  was 
+classification where we saw that the label actually can be treated as a distribution where 
+all the mass is focused on the true label and zero everywhere 
+and  our  job  is  then  again  to  predict  our  distribution  so  we  are  given  the  true 
+distribution and we predict another distribution so the output again we want something 
+special in this case which is a distribution so to ensure that use a spatial function which 
+is  called  the  who  said  sigmoid  softmax  function  fine  and  then  we  got  a  prediction 
+which  is  a  probability  distribution  and  then  how  did  we  find  what  was  the  objective 
+function  what  is  the  difference  between  the  true  and  the  predicted  the  cross  entropy 
+right  so  we  use  cross  entropy  as  the  objective  function  and  then  with  some 
+simplification we realize that it boils down to maximize the log of the probability of the 
+true class or other log of the predicted probability of the true class 
+so  now  let  us  look  at  the  summary  so  if  your  outputs  are  real  values  what  is  your 
+output  activation  going  to  be  linear  what  is  the  loss  function  going  to  be  squared 
+error  if  your  output  is  a  distribution  what  is  the  output  function  going  to  be  softmax 
+what is this loss function squared error cross entropy right now this grid light actually 
+takes care of a wide range of problems that you will see right think of any examples that 
+have  been  giving  you  so  far  movie  prediction  or  sentiment  prediction  or  image 
+classification or anything all of that you can fit into this frame of it 
+and so if you know these two loss functions how to deal with them then you can deal with 
+a large class of problems that you are going to deal and for the rest of this lecture which 
+will  happen  tomorrow  we  are  going  to  focus  on  this  at  this  particular  output  function 
+and this particular loss function how do we compute i have a loss function what i am 
+going to compute now the gradient with respect to all the parameters 
+so  this  is  what  we  are  going  to  focus  on  right  so  we  have  seen  the  loss  function  in 
+detail  we  have  seen  that  the  loss  function  is  tightly  coupled  with  the  output  function 
+now we are all set but given this loss function how do we start computing gradients of 
+this loss function 

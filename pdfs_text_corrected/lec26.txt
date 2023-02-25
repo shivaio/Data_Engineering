@@ -1,0 +1,161 @@
+backpropagation 
+this lecture is on backpropagation and feed forward neural networks so we introduced 
+a  feed  forward  neural  networks  we  saw  the  input  layer  hidden  layer  and  the  output 
+layers and we saw that the output layer actually the output function depends on the task 
+at  hand  and  we  considered  two  main  tasks  one  was  classification  the  other  was  a 
+regression 
+for regression it made sense to use a linear layer at the output because we did not want 
+the outputs to be bounded they  could  be any  range and for the classification problem 
+we  realized  that  we  want  a  special  kind  of  output  because  we  are  looking  for  a 
+probability distribution over the output and for that we use the softmax function and in 
+both  cases  we  used  a  different  kind  of  a  loss  for  the  regression  problem  the  squared 
+error loss made sense because we predict some values and we want to see how far we 
+are from those values 
+but for the other case the classification we realize that it is a distribution so maybe we 
+could  use  something  which  allows  us  to  capture  the  difference  between  the  true 
+distribution and the predicted distribution 
+and therefore we had this figure emerging which was depending on the output whether 
+it  is  real  values  or  probabilities  you  will  have  different  types  of  output  activation 
+functions and different types of losses 
+and  of  these  combinations  today  we  are  going  to  focus  on  softmax  and  cross  entropy 
+and  our  aim  is  to  actually  find  these  gradients  remember  there  are  many  of  those  we 
+have seen this large matrix which had many such partial derivatives and we want to find 
+that entire matrix i hopefully do it in a way that it is not a repetitive we could compute a 
+large number of partial derivatives at one go 
+so  before  we  look  at  the  mathematical  details  we  just  get  an  intuition  for 
+backpropagation 
+and then we will get into the gory details of how to actually compute these gradients and 
+partial derivatives so this is the portion that we are in we are intended to ask these two 
+questions and this is where we are 
+so now this is what our network looks like this is clearly much more complex than that 
+single neuron that we had and which had only two weights w and b that was very easy to 
+compute the gradients there now imagine that i want to compute the gradient of the loss 
+function and let us assume it is a classification problem then what is the loss function 
+minus log of y hat 
+so this is the loss function and we want to compute the derivative of this with respect to 
+one  of  these  weights  in  the  network  and  am  deliberately  taking  something  which  is 
+much  farther  away  from  the  loss  but  why  do  you  say  why  do  i  say  it  is  much  farther 
+away it is right at the input layer right and the loss is somewhere at the output layer 
+so we want to compute this gradient 
+now to learn sorry you want to learn this way to learn this weight we know that we can 
+use gradient descent we are all convinced that this gradient descent algorithm which i 
+have  shown  here  as  long  as  we  put  all  these  variables  or  all  these  parameters  that  we 
+have into theta 
+we can just run the gradient descent algorithm and compute them the only thing that we 
+will need is this partial derivative with respect to all the weights in the network and in 
+particular with respect to this weight that i am interested at 
+now  so  we  will  now  see  how  to  calculate  this  we  will  first  this  is  only  to  get  the 
+intuition so we will first think of a very simple network which is a very deep but the 
+thin network it has many layers but it is a very thin network here you see what i mean 
+by  a  thin  network  ok  now  this  is  what  i  am  interested  in  can  you  tell  me  how  to 
+compute this this looks like a chain so it is justified the user chain rule of derivatives 
+so what would the chain rule look like 
+you want to compute the derivative of this with respect to this and you have done this 
+in high school right so you have functions of the form of sine of cos of tan of e raised 
+to  sine  of  x  and  this  is  exactly  how  this  chain  is  right  you  have  some  function  of  x 
+followed by another function of x another function of x function of x function of x and 
+so on you just keep making a composite function of the input we actually wrote down 
+that function if you remember it was just one function applied after the other function 
+or a very composite function so you just need to apply the same idea here so we take 
+we go step by step so i am almost accounting for every shade of color here 
+so dl theta by d y hat then dy hat by d a l eleven there is only one neuron here then this 
+with respect to the sorry h twenty-one then h twenty-one with respect to a twenty-one a twenty-one with respect to h eleven h 
+eleven with respect to  a eleven and then a eleven with respect to w eleven 
+so i just traversed down the chain in the reverse order this is how the chain rule works 
+right  anyone  has  a  problem  with  this  it  is  straight  forward  right  and  now  what  i 
+have done is for convenience i have just compressed the chain you see the red part and 
+the green part  i have just compressed this weight so that and this  is  again  something 
+that you have done in high school if you have this you could just write the chain as the 
+first and the last it so this is what you can do and i also compress this other chain ok 
+and am going to use these kinds of compressions later on 
+so what am trying to impress on you is that if i want to go from here to here right that 
+is what my intention is if somehow i have already travels from here to here then i  can 
+just reuse that computation that is the idea which i am trying to impress on it i do not 
+need  to  follow  the  entire  chain  every  time  i  can  do  these  partial  computations  up  to  a 
+point have  you seen this something similar idea somewhere else dynamic program is 
+something like that so you have just computed up to a certain point and then it is reuse 
+the value for further down the chain 
+so that is what we are going to do and same for all the weights right for each weight 
+the chain size would be different depending on where it lies in the network right for the 
+weights  which are very  close to  the output layer the chain  would  be very  small  makes 
+sense ok so this is the intuition and we will see the intuition a bit more 
+so  let  us  now  understand  this  in  the  terms  of  the  wide  complex  network  that  we  are 
+using 
+so  what  actually  is  happening  is  that  we  are  at  a  certain  stage  that  means  we  have 
+some  values  of  w's  and  b’s  ok  at  the  initial  stage  we  just  have  these  w  knots  and  b 
+knots but let us assume that we have done some training and we are at a certain level 
+we are at wt at time step t and bt at time step t right for all the weights inverse now we 
+feed it a training example we do this entire compute computation what do we get at the 
+end we get y hat which is a function of this x that we have fed it but we also know this 
+true y we know the true value we know y hat 
+so we can compute the loss function so we compute the loss and to our surprise we see 
+that  the  loss  is  not  zero  we  are  getting  a  non  zero  loss  that  means  the  network  has  not  yet 
+learnt properly right the weights and biases are still not in the right configuration that we 
+want them to be in right so now what do we do we go on this path of investigation 
+we want to find at who in this network is messing up things there is someone who is 
+causing this problem because of which i am not getting the desired output and we are 
+on  our  quest  is  to  now  find  out  who  this  guy  is  who  is  responsible  for  this  so  what 
+would you do where would you start the output layer 
+because  the  output  layer  is  the  guy  who  give  you  the  output  right  so  go  and  talk  to 
+him and we say that hey what is wrong with you why are you not producing the desired 
+output  right now what is  the output layer  going to  tell  you  in very  civil language  i 
+will  say  i  cannot  do  anything  boss  i  mean  i  was  just  given  some  weights  and  inputs 
+from the previous layer and those weights and inputs were messed up 
+so there is nothing which i can do go and talk to them so who will it directors do it 
+will say that i am just as good as wl hl minus one and bl because these are the guys that i 
+completely depend on if these guys were ok then i would have been fine so we then 
+go and talk to these guys that what is wrong with you 
+so now they say ok fine wn and bl take the responsibility they are the nice guys they 
+say we are the weights we are supposed to make a we are the ones who are responsible 
+for the adjustments in the network so we have failed to do our job properly and i think 
+we should get  adjusted right  but  then hl will resist  it will say it is  not my  fault why 
+will it resist because it against again depends on the previous activation layer 
+so till then point as to what the w's and b’s in the previous layer right and you see 
+how the investigation is now proceeding where will we reach well keep going down the 
+network we are talking to everyone in the network we are talking to every dark green 
+guy every light green guy every dark blue guy every light blue guy we are also talking 
+to all these weights and biases and in the end what do we figure out the responsibility 
+lies with all the weights and all the biases they are the ones who are responsible for this 
+now but now we find out that this is also one of those weights which is responsible and 
+this is also one of these weights that is responsible but it was have been very difficult 
+for  us  to  talk  to  them  directly  so  then  what  are  we  going  to  do  instead  of  talking  to 
+them directly which is this we will talk to them through the chain rule so we will talk 
+to the output layer that is exactly how what we did maybe went to the first guy that we 
+knew  that  guy  pointed  out  to  the  previous  hidden  layer  that  guy  pointed  us  to  the 
+previous hidden layer and then finally we get to the weights right 
+so this talking to is fine but where do derivatives figure out in this why are why is the 
+language  derivatives  why  are  we  not  talking  in  english  or  hindi  or  something  else 
+what does the derivative tell us so talking about gradient descent like what we saw in 
+gradient  descent  but  in  general  what  does  the  derivative  tell  us  if  i  change  this  a  bit 
+how much does my loss change right 
+so that is how much this guy is responsible for the loss because if this is very sensitive 
+even adjusting a bit of this i could drastically reduce the loss right so that is what the 
+derivative  tells  us  that  tells  us  how  sensitive  is  the  loss  function  to  the  weight  or  any 
+quantity with this with respect to which am taking the derivative right that is why the 
+language is of derivatives right is that clear is the intuition fine to everyone 
+so now will convert this intuition into actual math and try to figure out how to compute 
+every  guy  along  the  way  right  and  we  will  use  this  idea  that  we  have  made  some 
+partial computations and then well use it for the rest of the chain so we have made this 
+much at some point we will reach where we have made this much and then you could 
+use it for the rest  of the chain  in fact we will start right  from  here  well start  with  this 
+guy and then keep expanding the chain 
+so  the  rest  of  the  story  is  going  to  be  about  computing  three  quantities  can  you  tell  me 
+which  are  these  three  quantities  gradients  with  respect  to  the  output  units  gradients  with 
+respect to the hidden units and then gradients with respect to the parameters so these 
+are the three things that we need to do if we do this we have everything in the chain and we 
+are done and the other thing that we need to do is we cannot sit down and compute this 
+for every element right we want to have it in a generic fashion where instead of talking 
+about w one one one w one one two and so on 
+we should at least  be able  to  talk about w one w two and so on so that means we have 
+only three matrices and three biases right  at  least  at  that  level  so we have to  do a collective 
+computation  instead  of  just  computing  for  every  guy  so  instead  of  looking  at  scalars 
+which  is  what  we  are  doing  when  we  are  doing  gradient  descent  for  w  naught  and  v 
+naught we were just computing the update rule for w and b we want to now do it for 
+vectors and matrices 
+so that is that is the transition that is going to happen and our focus is going to be on 
+what cross entropy and softmax why is that important because that is the loss function 
+so that is the quantity that am going to take the derivative if i change the loss function 
+all the gradients are going to change are all the gradients going to change only the first 
+guy will change in  the change all this should remains still same right modulus some 
+conditions but largely it should remain the same right unless you change something in 
+between 
