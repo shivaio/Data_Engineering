@@ -52,6 +52,8 @@
 
 1. Run build_manifest.py --audio_dir < preprocessed audio wavs > --transcript_dir < preprocessed txt files> --output_dir < directory for train_manifest.json file >.
 
+## Dependencies
+Present in requirements.txt file
 
 ## Final comments
 
