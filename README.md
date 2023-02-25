@@ -46,7 +46,8 @@
 
 ## Comments
 
-1. Their are some text segments which are not spoken by speaker say course name, prof. name, refer slide time etc are present , they are also removed using text_preprocessing.py
+1. Their are some text segments which are not spoken by speaker say course name, prof. name, refer slide time etc are present , they are also removed using text_preprocessing.py(see code, it contains comments)
+2. And the numbers in lines are converted to words.
 
 ## Making manifest file
 
