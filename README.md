@@ -58,7 +58,7 @@
 1. Preprocessed audio wavs in audio_wav_music_removed, all are not uploaded beacause of size contrainst.
 2. Preprocessed corrected txt in pdfs_text_corrected.
 3. Final manifest file is train_manifest.json
-4. Literally i was struggling a way to preprocess audio, but i have done something, it is really hectic here doing this assignment (but enjoyed alot) with doing, attending classes for 6 courses in this semester.i was not able to complete visualization part, i am working on it.
+4. Literally i was struggling a way to preprocess audio,and i have never done web scrapping before this,so it also consumed alot of  time to figure it out, but i have done something, it is really hectic here doing this assignment (but enjoyed alot) with doing,attending classes for 6 courses in this semester.i was not able to complete visualization part, i am working on it.
 
 
 
