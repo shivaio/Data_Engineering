@@ -14,7 +14,8 @@ def parse_url_to_download(args):
     output_dir_video = args.output_dir_video
     output_dir_trans = args.output_dir_trans
     url = args.url
-
+    
+    # chrome driver should be downloaded, path should have local
     chrome_driver_path = "./chrome_driver/chromedriver"
     driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
