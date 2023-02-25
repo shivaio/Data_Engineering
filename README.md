@@ -1,8 +1,8 @@
 # Data_Engineering
 
 ## For Downloading videos and transcripts
-1. Run web_scraping_nptel.py --url  < url >  --output_dir_video  < Directory path for storing videos > --output_dir_trans < Directory path for storing Transcripts >
-2. Run web_scraping_nptel.py --help to see options
+1. Run python web_scraping_nptel.py --url  < url >  --output_dir_video  < Directory path for storing videos > --output_dir_trans < Directory path for storing Transcripts >
+2. Run python web_scraping_nptel.py --help to see options
 
 # Comments:
 1. Paths can be relative or absolute
@@ -14,8 +14,8 @@
 
 ## For mp4 to wav
 
-1. Run parallel_mp4_to_wav.sh --input_dir < Directory containing all mp4 videos > --output_dir < Output Directory for storing all audio wavs> --number_processes < number >
-2. Run parallel_mp4_to_wav --help to see options
+1. Run bash parallel_mp4_to_wav.sh --input_dir < Directory containing all mp4 videos > --output_dir < Output Directory for storing all audio wavs> --number_processes < number >
+2. Run bash parallel_mp4_to_wav.sh --help to see options
 
 ## Comments
 1. Output directory need not to exist, script will make the directory
@@ -24,7 +24,7 @@
 ## For removing music at the end and start
 
 ## Comments
-1. Remove leading and trailing silence using remove_silence.py --input_dir < Directory of audio wavs> --output_dir < output directory >.
+1. Remove leading and trailing silence using python remove_silence.py --input_dir < Directory of audio wavs> --output_dir < output directory >.
 2. For removing music at end first i started with extracting Mel frequency cepstral coefficients(MFCC) features by dividing audio wav into 20ms window and stride of 10ms,then i tried to agglomerative clustering until i get 2 classes one for music and one for speech.( code is audio_preprocessing_own.py)
 3. audio_preprocessing_own.py works only removing audio at end(  audio_preprocessing_own.py --input_dir < > --output_dir < >
 4. But i realized is that it works only when their is music at end, but their are many NPTEL videos which doesnot have music at end, they have music only at start of video.
@@ -34,14 +34,14 @@
 8. And Interestingly music used also in the video is different for different for different production units.(say IIsc production team used a music for the video which is different from music of IIT Madras production unit.)
 9. Then i read this research paper INA’S MIREX 2018 MUSIC AND SPEECH DETECTION SYSTEM which is CNN based approach, i have used that code(available as package) and did some post processing which gives very good results and it can seperate music present at the start and the end.
 10. audio_preprocessing_fn.py will remove music present at start and the end.
-11. audio_preprocessing_fn.py --input_dir < audio wavs directory > --output_dir < output directory >.
+11. Run python audio_preprocessing_fn.py --input_dir < audio wavs directory > --output_dir < output directory >.
 12. For audio_preprocessing_own.py and audio_preprocessing_fn.py paths can absolute or relative if relative say ./audio_wavs  add extra / at the end say ./audio_wavs/
 
 ## For Text Preprocessing
 
-1. Run pdf_scrapper.py --input_dir < Directory of all pdfs > --output_dir < Output Directory  >.
-2. Run pdf_scrapper.py --help to see options.
-3. Run text_preprocessing.py --input_dir < Directory with txts files> --output_dir <Output Directory >.
+1. Run python pdf_scrapper.py --input_dir < Directory of all pdfs > --output_dir < Output Directory  >.
+2. Run python pdf_scrapper.py --help to see options.
+3. Run python text_preprocessing.py --input_dir < Directory with txts files> --output_dir <Output Directory >.
 4. For pdf_scrapper.py and text_preprocessing.py paths can absolute or relative if relative say ./pdfs_txt  add extra / at the end say ./pdfs_txt/
 
 ## Comments
@@ -50,7 +50,7 @@
 
 ## Making manifest file
 
-1. Run build_manifest.py --audio_dir < preprocessed audio wavs > --transcript_dir < preprocessed txt files> --output_dir < directory for train_manifest.json file >.
+1. Run python build_manifest.py --audio_dir < preprocessed audio wavs > --transcript_dir < preprocessed txt files> --output_dir < directory for train_manifest.json file >.
 
 ## Dependencies
 Present in requirements.txt file
